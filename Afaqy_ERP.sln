@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afaqy_Store", "Afaqy_Store\Afaqy_Store.csproj", "{1A717713-F419-4471-BBBC-5AC59F254635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afaqy_Store.DataLayer", "Afaqy_Store.DataLayer\Afaqy_Store.DataLayer.csproj", "{441745E5-0377-4700-BA21-AD210D62236A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericApiController", "GenericApiController\GenericApiController.csproj", "{ADEAD450-6FBF-4451-BB77-899CC44B9F4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A717713-F419-4471-BBBC-5AC59F254635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A717713-F419-4471-BBBC-5AC59F254635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A717713-F419-4471-BBBC-5AC59F254635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A717713-F419-4471-BBBC-5AC59F254635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{441745E5-0377-4700-BA21-AD210D62236A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{441745E5-0377-4700-BA21-AD210D62236A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{441745E5-0377-4700-BA21-AD210D62236A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{441745E5-0377-4700-BA21-AD210D62236A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADEAD450-6FBF-4451-BB77-899CC44B9F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADEAD450-6FBF-4451-BB77-899CC44B9F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADEAD450-6FBF-4451-BB77-899CC44B9F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADEAD450-6FBF-4451-BB77-899CC44B9F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

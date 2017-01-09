@@ -1,0 +1,78 @@
+﻿@model Afaqy_Store.Models.SIMCardViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">SIM Card Details</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SerialNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GSM)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GSM)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateUser.FullName_En)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifyUser.FullName_En)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ModifyDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyDate)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="cancel()">Ok</button>
+    </div>
+}
