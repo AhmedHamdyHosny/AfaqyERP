@@ -833,6 +833,10 @@
       <Project>{adead450-6fbf-4451-bb77-899cc44b9f4f}</Project>
       <Name>GenericApiController</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{2b41fe2d-ac78-4ad9-84ae-57ff337281f4}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -60,10 +60,35 @@ namespace Afaqy_Store.Models
             task.Wait();
             return task.Result;
         }
+
+        public virtual List<TModel> Update(UpdateItemFormat<TModel> newItems)
+        {
+            string url = ApiServerUrl + ControllerRoute + "put";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(newItems), System.Text.Encoding.UTF8, "application/json") };
+            var task = request.Execute<List<TModel>>();
+            task.Wait();
+            return task.Result;
+        }
         public virtual bool Delete(int id)
         {
             string url = ApiServerUrl + ControllerRoute + id;
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Delete);
+            var task = request.Execute<String>();
+            task.Wait();
+            if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public virtual bool Delete(int[] ids)
+        {
+            string url = ApiServerUrl + ControllerRoute +"delete";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(ids), System.Text.Encoding.UTF8, "application/json") };
             var task = request.Execute<String>();
             task.Wait();
             if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
@@ -82,7 +107,7 @@ namespace Afaqy_Store.Models
             string url = ApiServerUrl + ControllerRoute + "import/file";
             var formData = new MultipartFormDataContent();
             formData.Add(new StreamContent(file.InputStream), file.FileName, file.FileName);
-            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = formData };
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = formData};
             var task = request.ExcecuteImport(file);
             task.Wait();
             if (task.Result.ToString().Contains("Success"))

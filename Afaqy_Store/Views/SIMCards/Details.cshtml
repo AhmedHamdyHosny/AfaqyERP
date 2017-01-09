@@ -1,13 +1,13 @@
 ﻿@model Afaqy_Store.Models.SIMCardViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Resources.Store.SIMCardDetails;
     Layout = null;
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">SIM Card Details</h2>
+    <h2 class="modal-title">@Resources.Store.SIMCardDetails</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -15,31 +15,28 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.SIMCardStatus.SIMCardStatusName_en)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.SerialNumber)
+               @Resources.Store.SIMCardSerialNumber
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.SerialNumber)
             </dd>
-
             <dt>
-                @Html.DisplayNameFor(model => model.GSM)
+               @Resources.Store.SIMCardGSM
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.GSM)
             </dd>
-
             <dt>
-                @Html.DisplayNameFor(model => model.CreateUser.FullName_En)
+                @Resources.Store.SIMCardStatusNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+            </dd>
+            <dt>
+                @Resources.Resource.CreateUserFullNameEn 
             </dt>
 
             <dd>
@@ -47,7 +44,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.CreateDate)
+                @Resources.Resource.CreateDateTime 
             </dt>
 
             <dd>
@@ -55,7 +52,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ModifyUser.FullName_En)
+                @Resources.Resource.ModifyUserFullNameEn
             </dt>
 
             <dd>
@@ -63,7 +60,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ModifyDate)
+                @Resources.Resource.ModifyDateTime 
             </dt>
 
             <dd>
@@ -73,6 +70,6 @@
         </dl>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" type="button" ng-click="cancel()">Ok</button>
+        <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.BUttonOk</button>
     </div>
 }

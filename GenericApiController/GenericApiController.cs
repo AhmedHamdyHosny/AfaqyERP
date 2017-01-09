@@ -146,6 +146,67 @@ namespace GenericApiController
                 return Get();
             }
         }
+        // POST api/controller/put
+        public virtual IHttpActionResult put(List<UpdateItemFormat<T>> newItems)
+        {
+            GetAuthorization();
+            if (!IsAuthorize(Actions.Put))
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+
+            
+            foreach (var newItem in newItems)
+            {
+                var oldItem = repo.Repo.GetByID(newItem.id, filter: DataConstrains);
+                if (oldItem != null)
+                {
+                    repo.Repo.Detach(oldItem);
+                    repo.Repo.Update(newItem.newValue);
+                    
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+                }
+            }
+
+            repo.Save();
+            return Content(HttpStatusCode.OK, newItems.Select(x=>x.newValue));
+
+
+
+        }
+        // Post api/controller/delete
+        [HttpPost]
+        public virtual IHttpActionResult Delete(object[] ids)
+        {
+            GetAuthorization();
+            if (!IsAuthorize(Actions.Delete))
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            
+            foreach (var id in ids)
+            {
+                var item = repo.Repo.GetByID(id, filter: DataConstrains);
+                if (item != null)
+                {
+                    repo.Repo.Detach(item);
+                    repo.Repo.Delete(id);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+                }
+            }
+
+            repo.Save();
+            return Content(HttpStatusCode.OK, "Success");
+
+
+
+        }
         //POST api/controller/import
         [HttpPost]
         public virtual IHttpActionResult Import(List<T> entities)

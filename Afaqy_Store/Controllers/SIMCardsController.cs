@@ -84,7 +84,7 @@ namespace Afaqy_Store.Controllers
                 model.CreateDate = DateTime.Now;
 
                 new SIMCardModel<SIMCard>().Insert(model);
-                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, MessageContent = "1 item has been added" };
+                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
                 return RedirectToAction("Index");
             }
 
@@ -131,7 +131,7 @@ namespace Afaqy_Store.Controllers
                 EditItem.ModifyDate = DateTime.Now;
 
                 new SIMCardModel<SIMCard>().Update(EditItem, EditItem.SIMCardId);
-                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, MessageContent = "1 item has been updated" };
+                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Edit };
                 return RedirectToAction("Index");
             }
             var SIMCardStatus = new SIMCardStatusModel<SIMCardStatus>().Get();
@@ -163,12 +163,13 @@ namespace Afaqy_Store.Controllers
         //[ValidateAntiForgeryToken]
         public bool DeleteConfirmed(int[] ids)
         {
-            foreach (var id in ids)
-            {
-                new SIMCardModel<SIMCard>().Delete(id);
-            }
+            //foreach (var id in ids)
+            //{
+            //    new SIMCardModel<SIMCard>().Delete(id);
+            //}
 
-            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, MessageContent = ids.Count() + " Items has been deleted" };
+            new SIMCardModel<SIMCard>().Delete(ids);
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Delete };
             return true;
         }
 
@@ -182,11 +183,11 @@ namespace Afaqy_Store.Controllers
                 var result = new SIMCardModel<SIMCard>().Import(file);
                if(result)
                 {
-                    TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success , MessageContent = "Import Data has been added" };
+                    TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success , Transaction = Transactions.Import };
                     return RedirectToAction("Index");
                 }
 
-                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, MessageContent = "Import has failed" };
+                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Error, Transaction = Transactions.Import };
                 return RedirectToAction("Index");
             }
             catch (AggregateException ex)

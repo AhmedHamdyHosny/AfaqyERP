@@ -1,4 +1,5 @@
-var InitiateMySimpleDataTable = function() {
+
+var InitiateMySimpleDataTable = function () {
     return {
         init: function() {
             //Datatable Initiating

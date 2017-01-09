@@ -6,17 +6,25 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
             animation: true,
             templateUrl: "/SIMCards/Create",
             controller: 'SIMCardCreateCtrl',
+            scope: $scope,
             backdrop: false,
         });
+
+        modalInstance.result.then(null, function () {});
     }
+
+    
 
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: "/SIMCards/edit/"+id,
             controller: 'SIMCardEditCtrl',
+            scope: $scope,
             backdrop: false,
         });
+
+        modalInstance.result.then(null, function () { });
     }
 
 
@@ -25,8 +33,11 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
             animation: true,
             templateUrl: "/SIMCards/details/" + id,
             controller: 'SIMCardDetailsCtrl',
+            scope: $scope,
             backdrop: false,
         });
+
+        modalInstance.result.then(null, function () { });
     }
 
 }]);
@@ -35,6 +46,7 @@ app.controller('SIMCardCreateCtrl', ['$scope', '$uibModalInstance', function ($s
     $scope.cancel = function () {
         //it dismiss the modal
         $uibModalInstance.dismiss('cancel');
+        //$uibModalInstance.close();
     };
 }]);
 
@@ -50,5 +62,7 @@ app.controller('SIMCardDetailsCtrl', ['$scope', '$uibModalInstance', function ($
     $scope.cancel = function () {
         //it dismiss the modal
         $uibModalInstance.dismiss('cancel');
+
+        
     };
 }]);

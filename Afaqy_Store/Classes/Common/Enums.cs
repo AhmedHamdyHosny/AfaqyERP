@@ -63,5 +63,14 @@ namespace Classes.Common
             Warning=3,
             info=4
         }
+
+        public enum Transactions
+        {
+            Create=1,
+            Edit=2,
+            Delete=3,
+            Import=4,
+            Export=5
+        }
     }
 }
