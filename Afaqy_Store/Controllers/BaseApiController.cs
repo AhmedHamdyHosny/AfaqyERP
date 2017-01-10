@@ -8,7 +8,7 @@ namespace Afaqy_Store.Controllers
 {
     public class BaseApiController<T> : GenericApiController.GenericApiController<T> where T : class
     {
-        public BaseApiController() : base(new AfaqyStoreDBEntities())
+        public BaseApiController() : base(new AfaqyStoreEntities())
         {
 
         }

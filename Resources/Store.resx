@@ -150,8 +150,8 @@
   <data name="DeviceCreateDate" xml:space="preserve">
     <value>Create Date</value>
   </data>
-  <data name="DeviceIMI" xml:space="preserve">
-    <value>IMI</value>
+  <data name="DeviceIMEI" xml:space="preserve">
+    <value>IMEI</value>
   </data>
   <data name="DeviceModelTypeName" xml:space="preserve">
     <value>Model Type</value>
@@ -167,5 +167,14 @@
   </data>
   <data name="DeviceTitle" xml:space="preserve">
     <value>Device</value>
+  </data>
+  <data name="DeviceModelType" xml:space="preserve">
+    <value>Model Type</value>
+  </data>
+  <data name="DeviceStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Firmware" xml:space="preserve">
+    <value>Firmware</value>
   </data>
 </root>

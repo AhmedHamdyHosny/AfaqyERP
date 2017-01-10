@@ -275,7 +275,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SIMCardsController.cs" />
+    <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\TestSIMCardController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -815,7 +815,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\SIMCards\Create.cshtml" />
-    <Content Include="Views\SIMCards\Delete.cshtml" />
     <Content Include="Views\SIMCards\Details.cshtml" />
     <Content Include="Views\SIMCards\Edit.cshtml" />
     <Content Include="Views\SIMCards\Index.cshtml" />

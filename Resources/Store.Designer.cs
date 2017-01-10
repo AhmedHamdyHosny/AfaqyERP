@@ -70,11 +70,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IMI.
+        ///   Looks up a localized string similar to IMEI.
         /// </summary>
-        public static string DeviceIMI {
+        public static string DeviceIMEI {
             get {
-                return ResourceManager.GetString("DeviceIMI", resourceCulture);
+                return ResourceManager.GetString("DeviceIMEI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model Type.
+        /// </summary>
+        public static string DeviceModelType {
+            get {
+                return ResourceManager.GetString("DeviceModelType", resourceCulture);
             }
         }
         
@@ -108,6 +117,15 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
+        public static string DeviceStatus {
+            get {
+                return ResourceManager.GetString("DeviceStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
         public static string DeviceStatusNameEn {
             get {
                 return ResourceManager.GetString("DeviceStatusNameEn", resourceCulture);
@@ -120,6 +138,15 @@ namespace Resources {
         public static string DeviceTitle {
             get {
                 return ResourceManager.GetString("DeviceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware.
+        /// </summary>
+        public static string Firmware {
+            get {
+                return ResourceManager.GetString("Firmware", resourceCulture);
             }
         }
         

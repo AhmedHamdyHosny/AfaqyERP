@@ -14,7 +14,6 @@
       width: 500px;
       height: 400px;
     }*/
-
         .my-custom-menu {
             position: absolute;
         }
@@ -121,11 +120,7 @@
                         </ul>
                     </div>
                 </div>
-
-                <div id="grid" ui-grid="gridOptions" external-scopes="clickHandler" ui-grid-exporter ui-grid-selection class="grid"></div>
-
-
-                
+                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
             </div>
         </div>
     </div>
@@ -133,13 +128,16 @@
 
 @section scripts{
 
-    <script src="~/Content/js/angular/angular.min.js"></script>
+    <script src="~/Content/js/Utilities/Utility.js"></script>
+
+    @*<script src="~/Content/js/angular/angular.min.js"></script>*@
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="~/Content/js/angular/angular-touch.min.js"></script>
     <script src="~/Content/js/angular/angular-animate.min.js"></script>
     <script src="~/Content/js/angular/csv.js"></script>
     <script src="~/Content/js/angular/pdfmake.js"></script>
     <script src="~/Content/js/angular/vfs_fonts.js"></script>
-
     <script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
     <script src="~/Content/js/angular/ui-grid.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
@@ -147,11 +145,12 @@
     <script>
 
         $(document).ready(function () {
-            //showAlert();
+            showAlert();
         });
 
         var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
-        app.controller('DeviceCtrl', ['$scope', '$uibModal', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, $http, $interval, $q, uiGridConstants) {
+        app.controller('DeviceCtrl', ['$scope', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $http, $interval, $q, uiGridConstants) {
+
             var fakeI18n = function (title) {
                 var deferred = $q.defer();
                 $interval(function () {
@@ -167,23 +166,21 @@
                 gridMenuTitleFilter: fakeI18n,
                 columnDefs: [
                     { field: 'SerialNumber', name: '@Resources.Store.DeviceSerialNumber' },
-                    { field: 'IMI', name: '@Resources.Store.DeviceIMI' },
-                    { field: 'ModelType.ModelTypeName', name: 'Module Type' },
-                    { field: 'DeviceStatus.DeviceStatus_en', name: 'Status' },
-                    { field: 'Frameware', name: 'Frameware' },
+                    { field: 'IMEI', name: '@Resources.Store.DeviceIMEI' },
+                    { field: 'DeviceModelType.ModelTypeName', name: '@Resources.Store.DeviceModelType' },
+                    { field: 'DeviceStatus.DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
+                    { field: 'Firmware', name: '@Resources.Store.Firmware' },
                     {
-                        name: ' ', cellTemplate: '<a ng-click="getExternalScopes().onClick(row.entity.SerialNumber)" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</a>' +
-                                                  '<a ng-click="details()" class="btn btn-xs"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</a>'
+                        name: ' '
                     }
-                ],
+                ]
+                ,
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
-
                     // interval of zero just to allow the directive to have initialized
                     //$interval(function () {
                     //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
                     //}, 0, 1);
-
                     gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
                         $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
                     });
@@ -191,18 +188,14 @@
             };
 
             $scope.gridOptions.data = '@Html.Raw(JsonConvert.SerializeObject(this.Model))'
+            $scope.create = function () {
+
+            }
 
             $scope.ToggoleGridFilter = function ($event) {
                 $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
             }
-
-            $scope.clickHandler = {
-                onClick: function (value) {
-                    alert('Name: ' + value);
-                }
-            };
-
         }]);
 
         function showImportDilogFile() {
@@ -221,7 +214,6 @@
                 $('#bodyData input:checked').each(function () {
                     selected.push($(this).attr('value'));
                 });
-                alert(selected);
                 var url = '@Url.Action("Delete")';
                 $.ajax({
                     url: url

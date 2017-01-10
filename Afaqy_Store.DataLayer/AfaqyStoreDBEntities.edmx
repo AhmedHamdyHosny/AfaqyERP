@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Afaqy_Store.DataLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+          </Key>
+          <Property Name="DeviceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="20" />
+          <Property Name="IMEI" Type="varchar" MaxLength="20" />
+          <Property Name="ModelTypeId" Type="int" Nullable="false" />
+          <Property Name="DeviceStatusId" Type="int" Nullable="false" />
+          <Property Name="Firmware" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DeviceModelType">
+          <Key>
+            <PropertyRef Name="ModelTypeId" />
+          </Key>
+          <Property Name="ModelTypeId" Type="int" Nullable="false" />
+          <Property Name="ModelTypeName" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeviceSIM">
+          <Key>
+            <PropertyRef Name="DeviceSIMId" />
+          </Key>
+          <Property Name="DeviceSIMId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="SIMCardId" Type="int" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DeviceStatus">
+          <Key>
+            <PropertyRef Name="DeviceStatusId" />
+          </Key>
+          <Property Name="DeviceStatusId" Type="int" Nullable="false" />
+          <Property Name="DeviceStatus_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceStatus_ar" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DeviceStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIMCard">
+          <Key>
+            <PropertyRef Name="SIMCardId" />
+          </Key>
+          <Property Name="SIMCardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GSM" Type="nvarchar" MaxLength="20" />
+          <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SIMCardStatus">
+          <Key>
+            <PropertyRef Name="SIMCardStatusId" />
+          </Key>
+          <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
+          <Property Name="SIMCardStatusName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SIMCardStatusName_ar" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SIMCardStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SIMCardId" Type="int" Nullable="false" />
+          <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="AllowAccess" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
+          <Property Name="UserTypeName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_Device_DeviceStatus">
+          <End Role="DeviceStatus" Type="Self.DeviceStatus" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceStatus">
+              <PropertyRef Name="DeviceStatusId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="DeviceStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_ModelType">
+          <End Role="DeviceModelType" Type="Self.DeviceModelType" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceModelType">
+              <PropertyRef Name="ModelTypeId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="ModelTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSIM_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceSIM" Type="Self.DeviceSIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceSIM">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSIM_SIMCard">
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="1" />
+          <End Role="DeviceSIM" Type="Self.DeviceSIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCard">
+              <PropertyRef Name="SIMCardId" />
+            </Principal>
+            <Dependent Role="DeviceSIM">
+              <PropertyRef Name="SIMCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceStatusHistory_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceStatusHistory">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceStatusHistory_DeviceStatus">
+          <End Role="DeviceStatus" Type="Self.DeviceStatus" Multiplicity="1" />
+          <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceStatus">
+              <PropertyRef Name="DeviceStatusId" />
+            </Principal>
+            <Dependent Role="DeviceStatusHistory">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCard_SIMCardStatus">
+          <End Role="SIMCardStatus" Type="Self.SIMCardStatus" Multiplicity="1" />
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCardStatus">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Principal>
+            <Dependent Role="SIMCard">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCardStatusHistory_SIMCard">
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="1" />
+          <End Role="SIMCardStatusHistory" Type="Self.SIMCardStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCard">
+              <PropertyRef Name="SIMCardId" />
+            </Principal>
+            <Dependent Role="SIMCardStatusHistory">
+              <PropertyRef Name="SIMCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCardStatusHistory_SIMCardStatus">
+          <End Role="SIMCardStatus" Type="Self.SIMCardStatus" Multiplicity="1" />
+          <End Role="SIMCardStatusHistory" Type="Self.SIMCardStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCardStatus">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Principal>
+            <Dependent Role="SIMCardStatusHistory">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Afaqy_StoreDataLayerStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIMCardStatus" EntityType="Self.SIMCardStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIMCardStatusHistory" EntityType="Self.SIMCardStatusHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Device_DeviceStatus" Association="Self.FK_Device_DeviceStatus">
+            <End Role="DeviceStatus" EntitySet="DeviceStatus" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_ModelType" Association="Self.FK_Device_ModelType">
+            <End Role="DeviceModelType" EntitySet="DeviceModelType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSIM_Device" Association="Self.FK_DeviceSIM_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceSIM" EntitySet="DeviceSIM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSIM_SIMCard" Association="Self.FK_DeviceSIM_SIMCard">
+            <End Role="SIMCard" EntitySet="SIMCard" />
+            <End Role="DeviceSIM" EntitySet="DeviceSIM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceStatusHistory_Device" Association="Self.FK_DeviceStatusHistory_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceStatusHistory_DeviceStatus" Association="Self.FK_DeviceStatusHistory_DeviceStatus">
+            <End Role="DeviceStatus" EntitySet="DeviceStatus" />
+            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCard_SIMCardStatus" Association="Self.FK_SIMCard_SIMCardStatus">
+            <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
+            <End Role="SIMCard" EntitySet="SIMCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCardStatusHistory_SIMCard" Association="Self.FK_SIMCardStatusHistory_SIMCard">
+            <End Role="SIMCard" EntitySet="SIMCard" />
+            <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCardStatusHistory_SIMCardStatus" Association="Self.FK_SIMCardStatusHistory_SIMCardStatus">
+            <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
+            <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Afaqy_Store.DataLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_Country" FromRole="Country" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+          </Key>
+          <Property Name="DeviceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
+          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DeviceStatus" Relationship="Self.FK_Device_DeviceStatus" FromRole="Device" ToRole="DeviceStatus" />
+          <NavigationProperty Name="DeviceModelType" Relationship="Self.FK_Device_ModelType" FromRole="Device" ToRole="DeviceModelType" />
+          <NavigationProperty Name="DeviceSIM" Relationship="Self.FK_DeviceSIM_Device" FromRole="Device" ToRole="DeviceSIM" />
+          <NavigationProperty Name="DeviceStatusHistory" Relationship="Self.FK_DeviceStatusHistory_Device" FromRole="Device" ToRole="DeviceStatusHistory" />
+        </EntityType>
+        <EntityType Name="DeviceModelType">
+          <Key>
+            <PropertyRef Name="ModelTypeId" />
+          </Key>
+          <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ModelTypeName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_Device_ModelType" FromRole="DeviceModelType" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="DeviceSIM">
+          <Key>
+            <PropertyRef Name="DeviceSIMId" />
+          </Key>
+          <Property Name="DeviceSIMId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="SIMCardId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_DeviceSIM_Device" FromRole="DeviceSIM" ToRole="Device" />
+          <NavigationProperty Name="SIMCard" Relationship="Self.FK_DeviceSIM_SIMCard" FromRole="DeviceSIM" ToRole="SIMCard" />
+        </EntityType>
+        <EntityType Name="DeviceStatus">
+          <Key>
+            <PropertyRef Name="DeviceStatusId" />
+          </Key>
+          <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceStatus_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeviceStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_Device_DeviceStatus" FromRole="DeviceStatus" ToRole="Device" />
+          <NavigationProperty Name="DeviceStatusHistory" Relationship="Self.FK_DeviceStatusHistory_DeviceStatus" FromRole="DeviceStatus" ToRole="DeviceStatusHistory" />
+        </EntityType>
+        <EntityType Name="DeviceStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="Self.FK_DeviceStatusHistory_Device" FromRole="DeviceStatusHistory" ToRole="Device" />
+          <NavigationProperty Name="DeviceStatus" Relationship="Self.FK_DeviceStatusHistory_DeviceStatus" FromRole="DeviceStatusHistory" ToRole="DeviceStatus" />
+        </EntityType>
+        <EntityType Name="SIMCard">
+          <Key>
+            <PropertyRef Name="SIMCardId" />
+          </Key>
+          <Property Name="SIMCardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DeviceSIM" Relationship="Self.FK_DeviceSIM_SIMCard" FromRole="SIMCard" ToRole="DeviceSIM" />
+          <NavigationProperty Name="SIMCardStatus" Relationship="Self.FK_SIMCard_SIMCardStatus" FromRole="SIMCard" ToRole="SIMCardStatus" />
+          <NavigationProperty Name="SIMCardStatusHistory" Relationship="Self.FK_SIMCardStatusHistory_SIMCard" FromRole="SIMCard" ToRole="SIMCardStatusHistory" />
+        </EntityType>
+        <EntityType Name="SIMCardStatus">
+          <Key>
+            <PropertyRef Name="SIMCardStatusId" />
+          </Key>
+          <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
+          <Property Name="SIMCardStatusName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SIMCardStatusName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SIMCard" Relationship="Self.FK_SIMCard_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCard" />
+          <NavigationProperty Name="SIMCardStatusHistory" Relationship="Self.FK_SIMCardStatusHistory_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCardStatusHistory" />
+        </EntityType>
+        <EntityType Name="SIMCardStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SIMCardId" Type="Int32" Nullable="false" />
+          <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SIMCard" Relationship="Self.FK_SIMCardStatusHistory_SIMCard" FromRole="SIMCardStatusHistory" ToRole="SIMCard" />
+          <NavigationProperty Name="SIMCardStatus" Relationship="Self.FK_SIMCardStatusHistory_SIMCardStatus" FromRole="SIMCardStatusHistory" ToRole="SIMCardStatus" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="AllowAccess" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_User_Country" FromRole="User" ToRole="Country" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserType" FromRole="User" ToRole="UserType" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_UserType" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_DeviceStatus">
+          <End Role="DeviceStatus" Type="Self.DeviceStatus" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceStatus">
+              <PropertyRef Name="DeviceStatusId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="DeviceStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Device_ModelType">
+          <End Role="DeviceModelType" Type="Self.DeviceModelType" Multiplicity="1" />
+          <End Role="Device" Type="Self.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceModelType">
+              <PropertyRef Name="ModelTypeId" />
+            </Principal>
+            <Dependent Role="Device">
+              <PropertyRef Name="ModelTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSIM_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceSIM" Type="Self.DeviceSIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceSIM">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceStatusHistory_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceStatusHistory">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceSIM_SIMCard">
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="1" />
+          <End Role="DeviceSIM" Type="Self.DeviceSIM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCard">
+              <PropertyRef Name="SIMCardId" />
+            </Principal>
+            <Dependent Role="DeviceSIM">
+              <PropertyRef Name="SIMCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceStatusHistory_DeviceStatus">
+          <End Role="DeviceStatus" Type="Self.DeviceStatus" Multiplicity="1" />
+          <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeviceStatus">
+              <PropertyRef Name="DeviceStatusId" />
+            </Principal>
+            <Dependent Role="DeviceStatusHistory">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCard_SIMCardStatus">
+          <End Role="SIMCardStatus" Type="Self.SIMCardStatus" Multiplicity="1" />
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCardStatus">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Principal>
+            <Dependent Role="SIMCard">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCardStatusHistory_SIMCard">
+          <End Role="SIMCard" Type="Self.SIMCard" Multiplicity="1" />
+          <End Role="SIMCardStatusHistory" Type="Self.SIMCardStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCard">
+              <PropertyRef Name="SIMCardId" />
+            </Principal>
+            <Dependent Role="SIMCardStatusHistory">
+              <PropertyRef Name="SIMCardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCardStatusHistory_SIMCardStatus">
+          <End Role="SIMCardStatus" Type="Self.SIMCardStatus" Multiplicity="1" />
+          <End Role="SIMCardStatusHistory" Type="Self.SIMCardStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIMCardStatus">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Principal>
+            <Dependent Role="SIMCardStatusHistory">
+              <PropertyRef Name="SIMCardStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_UserType">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AfaqyStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Country" EntityType="Self.Country" />
+          <EntitySet Name="Device" EntityType="Self.Device" />
+          <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" />
+          <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" />
+          <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" />
+          <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" />
+          <EntitySet Name="SIMCard" EntityType="Self.SIMCard" />
+          <EntitySet Name="SIMCardStatus" EntityType="Self.SIMCardStatus" />
+          <EntitySet Name="SIMCardStatusHistory" EntityType="Self.SIMCardStatusHistory" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" />
+          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_DeviceStatus" Association="Self.FK_Device_DeviceStatus">
+            <End Role="DeviceStatus" EntitySet="DeviceStatus" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Device_ModelType" Association="Self.FK_Device_ModelType">
+            <End Role="DeviceModelType" EntitySet="DeviceModelType" />
+            <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSIM_Device" Association="Self.FK_DeviceSIM_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceSIM" EntitySet="DeviceSIM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceStatusHistory_Device" Association="Self.FK_DeviceStatusHistory_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceSIM_SIMCard" Association="Self.FK_DeviceSIM_SIMCard">
+            <End Role="SIMCard" EntitySet="SIMCard" />
+            <End Role="DeviceSIM" EntitySet="DeviceSIM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceStatusHistory_DeviceStatus" Association="Self.FK_DeviceStatusHistory_DeviceStatus">
+            <End Role="DeviceStatus" EntitySet="DeviceStatus" />
+            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCard_SIMCardStatus" Association="Self.FK_SIMCard_SIMCardStatus">
+            <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
+            <End Role="SIMCard" EntitySet="SIMCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCardStatusHistory_SIMCard" Association="Self.FK_SIMCardStatusHistory_SIMCard">
+            <End Role="SIMCard" EntitySet="SIMCard" />
+            <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCardStatusHistory_SIMCardStatus" Association="Self.FK_SIMCardStatusHistory_SIMCardStatus">
+            <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
+            <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Afaqy_StoreDataLayerStoreContainer" CdmEntityContainer="AfaqyStoreEntities">
+          <EntitySetMapping Name="Country">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Device">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="ModelTypeId" ColumnName="ModelTypeId" />
+                <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
+                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceModelType">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceModelType">
+              <MappingFragment StoreEntitySet="DeviceModelType">
+                <ScalarProperty Name="ModelTypeId" ColumnName="ModelTypeId" />
+                <ScalarProperty Name="ModelTypeName" ColumnName="ModelTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceSIM">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceSIM">
+              <MappingFragment StoreEntitySet="DeviceSIM">
+                <ScalarProperty Name="DeviceSIMId" ColumnName="DeviceSIMId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceStatus">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceStatus">
+              <MappingFragment StoreEntitySet="DeviceStatus">
+                <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
+                <ScalarProperty Name="DeviceStatus_en" ColumnName="DeviceStatus_en" />
+                <ScalarProperty Name="DeviceStatus_ar" ColumnName="DeviceStatus_ar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceStatusHistory">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceStatusHistory">
+              <MappingFragment StoreEntitySet="DeviceStatusHistory">
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIMCard">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCard">
+              <MappingFragment StoreEntitySet="SIMCard">
+                <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="GSM" ColumnName="GSM" />
+                <ScalarProperty Name="SIMCardStatusId" ColumnName="SIMCardStatusId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIMCardStatus">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardStatus">
+              <MappingFragment StoreEntitySet="SIMCardStatus">
+                <ScalarProperty Name="SIMCardStatusId" ColumnName="SIMCardStatusId" />
+                <ScalarProperty Name="SIMCardStatusName_en" ColumnName="SIMCardStatusName_en" />
+                <ScalarProperty Name="SIMCardStatusName_ar" ColumnName="SIMCardStatusName_ar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIMCardStatusHistory">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardStatusHistory">
+              <MappingFragment StoreEntitySet="SIMCardStatusHistory">
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+                <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
+                <ScalarProperty Name="SIMCardStatusId" ColumnName="SIMCardStatusId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName_en" ColumnName="FirstName_en" />
+                <ScalarProperty Name="FirstName_ar" ColumnName="FirstName_ar" />
+                <ScalarProperty Name="LastName_en" ColumnName="LastName_en" />
+                <ScalarProperty Name="LastName_ar" ColumnName="LastName_ar" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserType">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

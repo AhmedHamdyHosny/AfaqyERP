@@ -4,7 +4,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.create = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCards/Create",
+            templateUrl: "/SIMCard/Create",
             controller: 'SIMCardCreateCtrl',
             scope: $scope,
             backdrop: false,
@@ -18,7 +18,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCards/edit/"+id,
+            templateUrl: "/SIMCard/edit/"+id,
             controller: 'SIMCardEditCtrl',
             scope: $scope,
             backdrop: false,
@@ -31,7 +31,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.details = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCards/details/" + id,
+            templateUrl: "/SIMCard/details/" + id,
             controller: 'SIMCardDetailsCtrl',
             scope: $scope,
             backdrop: false,

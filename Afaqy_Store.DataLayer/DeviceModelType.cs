@@ -12,18 +12,18 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class UserType
+    public partial class DeviceModelType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserType()
+        public DeviceModelType()
         {
-            this.User = new HashSet<User>();
+            this.Device = new HashSet<Device>();
         }
     
-        public int UserTypeId { get; set; }
-        public string UserTypeName { get; set; }
+        public int ModelTypeId { get; set; }
+        public string ModelTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Device> Device { get; set; }
     }
 }

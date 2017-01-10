@@ -69,7 +69,7 @@
                 }
                 
                 <div class="table-toolbar">
-                    @using (Html.BeginForm("Import", "SIMCards", FormMethod.Post, new { enctype = "multipart/form-data", id = "importForm", style = "display:none;" }))
+                    @using (Html.BeginForm("Import", "SIMCard", FormMethod.Post, new { enctype = "multipart/form-data", id = "importForm", style = "display:none;" }))
                     {
                         <input type="file" id="upload" name="file" class="upload" onchange="fileChange(this)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                         <button type="submit" id="btnImportExcel"></button>
