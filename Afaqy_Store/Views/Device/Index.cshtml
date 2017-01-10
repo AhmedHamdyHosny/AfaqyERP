@@ -1,0 +1,241 @@
+﻿@model IEnumerable<Afaqy_Store.DataLayer.Device>
+@using Newtonsoft.Json
+@using BeyondThemes.Bootstrap;
+@using Classes.Utilities;
+@using Classes.Common;
+
+@{
+    ViewBag.Title = Resources.Store.DeviceTitle;
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<style>
+        /*.grid {
+      width: 500px;
+      height: 400px;
+    }*/
+
+        .my-custom-menu {
+            position: absolute;
+        }
+
+            .my-custom-menu .ui-grid-menu {
+                padding: 0px;
+            }
+
+            .my-custom-menu .ui-grid-menu-inner {
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+        .ui-grid-menu-button {
+            height: 31px;
+        }
+</style>
+
+<br />
+<div class="row" ng-controller="DeviceCtrl">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@Resources.Store.Devices</span>
+                <div class="widget-buttons">
+                    <a href="javascript:void(0);" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                @{
+                    //check for alert messages
+                    if (ViewBag.AlertMessage != null)
+                    {
+                        var alertMessage = (AlertMessage)ViewBag.AlertMessage;
+                        switch (alertMessage.MessageType)
+                        {
+                            case Enums.AlertMessageType.Success:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id="alert"}).Style(AlertColor.Success).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-check"></i>
+                                    <strong>@Resources.Resource.AlertSuccess</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Error:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Error).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>@Resources.Resource.AlertError</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Warning:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Warning).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-warning"></i>
+                                    <strong>@Resources.Resource.AlertWarning</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.info:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Info).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-info"></i>
+                                    <strong>@Resources.Resource.AlertInfo</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                
+                <div class="table-toolbar">
+                    @using (Html.BeginForm("Import", "Device", FormMethod.Post, new { enctype = "multipart/form-data", id = "importForm", style = "display:none;" }))
+                    {
+                        <input type="file" id="upload" name="file" class="upload" onchange="fileChange(this)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                        <button type="submit" id="btnImportExcel"></button>
+                    }
+                    <a  ng-click="create()" class="btn purple" id="addBtn"> 
+                        <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                    </a>
+                    <a  href="javascript:DeleteItems();" class="btn btn-danger">
+                        <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);" onclick="showImportDilogFile()" >@Resources.Resource.Import</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="grid" ui-grid="gridOptions" external-scopes="clickHandler" ui-grid-exporter ui-grid-selection class="grid"></div>
+
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Content/js/angular/angular.min.js"></script>
+    <script src="~/Content/js/angular/angular-touch.min.js"></script>
+    <script src="~/Content/js/angular/angular-animate.min.js"></script>
+    <script src="~/Content/js/angular/csv.js"></script>
+    <script src="~/Content/js/angular/pdfmake.js"></script>
+    <script src="~/Content/js/angular/vfs_fonts.js"></script>
+
+    <script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
+    <script src="~/Content/js/angular/ui-grid.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
+
+    <script>
+
+        $(document).ready(function () {
+            //showAlert();
+        });
+
+        var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
+        app.controller('DeviceCtrl', ['$scope', '$uibModal', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, $http, $interval, $q, uiGridConstants) {
+            var fakeI18n = function (title) {
+                var deferred = $q.defer();
+                $interval(function () {
+                    deferred.resolve('col: ' + title);
+                }, 1000, 1);
+                return deferred.promise;
+            };
+
+            $scope.gridOptions = {
+                enableFiltering: true,
+                exporterMenuCsv: true,
+                enableGridMenu: true,
+                gridMenuTitleFilter: fakeI18n,
+                columnDefs: [
+                    { field: 'SerialNumber', name: '@Resources.Store.DeviceSerialNumber' },
+                    { field: 'IMI', name: '@Resources.Store.DeviceIMI' },
+                    { field: 'ModelType.ModelTypeName', name: 'Module Type' },
+                    { field: 'DeviceStatus.DeviceStatus_en', name: 'Status' },
+                    { field: 'Frameware', name: 'Frameware' },
+                    {
+                        name: ' ', cellTemplate: '<a ng-click="getExternalScopes().onClick(row.entity.SerialNumber)" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</a>' +
+                                                  '<a ng-click="details()" class="btn btn-xs"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</a>'
+                    }
+                ],
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+
+                    // interval of zero just to allow the directive to have initialized
+                    //$interval(function () {
+                    //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
+                    //}, 0, 1);
+
+                    gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                        $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                    });
+                }
+            };
+
+            $scope.gridOptions.data = '@Html.Raw(JsonConvert.SerializeObject(this.Model))'
+
+            $scope.ToggoleGridFilter = function ($event) {
+                $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
+                $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+            }
+
+            $scope.clickHandler = {
+                onClick: function (value) {
+                    alert('Name: ' + value);
+                }
+            };
+
+        }]);
+
+        function showImportDilogFile() {
+            $('#upload').click();
+        }
+        function fileChange(obj) {
+            var fileName = $(obj).val();
+            $('#btnImportExcel').click();
+        }
+
+
+        function DeleteItems() {
+
+            DeleteConfirm(function () {
+                var selected = [];
+                $('#bodyData input:checked').each(function () {
+                    selected.push($(this).attr('value'));
+                });
+                alert(selected);
+                var url = '@Url.Action("Delete")';
+                $.ajax({
+                    url: url
+                    , type: 'POST'
+                    , data: { ids: selected }
+                    , success: function (data) {
+                        if (data) {
+                            location.reload();
+                        }
+                    }
+                    , error: function () { }
+                });
+            })
+        }
+
+    </script>
+}

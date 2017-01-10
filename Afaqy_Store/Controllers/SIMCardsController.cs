@@ -108,7 +108,7 @@ namespace Afaqy_Store.Controllers
 
             var SIMCardStatus = new SIMCardStatusModel<SIMCardStatus>().Get();
             
-            var model = new EditSIMCardModel()
+            var model = new SIMCardEditModel()
             {
                 EditItem = SimCard,
                 Status = SIMCardStatus.Select(x=> new SelectListItem() { Selected = SimCard.SIMCardStatusId == x.SIMCardStatusId , Text = x.SIMCardStatusName_en , Value = x.SIMCardStatusId.ToString()})
@@ -135,29 +135,14 @@ namespace Afaqy_Store.Controllers
                 return RedirectToAction("Index");
             }
             var SIMCardStatus = new SIMCardStatusModel<SIMCardStatus>().Get();
-            var model = new EditSIMCardModel()
+            var model = new SIMCardEditModel()
             {
                 EditItem = new SIMCardModel<SIMCard>().Get(EditItem.SIMCardId) ,
                 Status = SIMCardStatus.Select(x => new SelectListItem() { Selected = EditItem.SIMCardStatusId == x.SIMCardStatusId, Text = x.SIMCardStatusName_en, Value = x.SIMCardStatusId.ToString() })
             };
             return View(model);
         }
-
-        // GET: SIMCards/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    SIMCard sIMCard = db.SIMCard.Find(id);
-        //    if (sIMCard == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(sIMCard);
-        //}
-
+        
         // POST: SIMCards/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
@@ -223,13 +208,6 @@ namespace Afaqy_Store.Controllers
 
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        
     }
 }

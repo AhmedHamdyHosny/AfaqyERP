@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 
-namespace Afaqy_Store.Models
+namespace Models
 {
     public abstract class GenericModel<TModel> where TModel : class
     {
@@ -27,7 +27,7 @@ namespace Afaqy_Store.Models
             return task.Result;
         }
 
-        public virtual TModel Get(int id)
+        public virtual TModel Get(object id)
         {
             string url = ApiServerUrl + ControllerRoute + id;
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Get);
@@ -69,7 +69,7 @@ namespace Afaqy_Store.Models
             task.Wait();
             return task.Result;
         }
-        public virtual bool Delete(int id)
+        public virtual bool Delete(object id)
         {
             string url = ApiServerUrl + ControllerRoute + id;
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Delete);
@@ -85,7 +85,7 @@ namespace Afaqy_Store.Models
             }
         }
 
-        public virtual bool Delete(int[] ids)
+        public virtual bool Delete(object[] ids)
         {
             string url = ApiServerUrl + ControllerRoute +"delete";
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(ids), System.Text.Encoding.UTF8, "application/json") };

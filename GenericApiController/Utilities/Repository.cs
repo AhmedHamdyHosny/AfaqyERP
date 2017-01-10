@@ -197,8 +197,11 @@ namespace GenericApiController.Utilities
                 : query.Select(selector).ToListAsync());
         }
 
+        
+
         public virtual TEntity GetByID(object id, Expression<Func<TEntity, bool>> filter = null)
         {
+           
             var item = DbSet.Find(id);
             if (filter != null && item != null)
             {

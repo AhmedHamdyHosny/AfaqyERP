@@ -74,7 +74,81 @@ var InitiateMySimpleDataTable = function () {
 
 }();
 
+var InitiateDeviceDataTable = function () {
+    return {
+        init: function () {
+            //Datatable Initiating
+            var oTable = $('#mySimpleDataTable').dataTable({
+                "aLengthMenu": [
+                    [5, 15, 20, 100, -1],
+                    [5, 15, 20, 100, "All"]
+                ],
+                "iDisplayLength": 5,
+                "sPaginationType": "bootstrap",
+                "sDom": "Tflt<'row DTTTFooter'<'col-sm-6'i><'col-sm-6'p>>",
+                "oTableTools": {
+                    //"aButtons": null
+                    "aButtons": [
+                        "copy",
+                        "print",
+                        {
+                            "sExtends": "collection",
+                            "sButtonText": "Save <i class=\"fa fa-angle-down\"></i>",
+                            "aButtons": ["csv", "xls", "pdf"]
+                        }
+                    ],
+                    "sSwfPath": "Content/swf/copy_csv_xls_pdf.swf"
+                },
+                "language": {
+                    "search": "",
+                    "sLengthMenu": "_MENU_",
+                    "oPaginate": {
+                        "sPrevious": "Prev",
+                        "sNext": "Next"
+                    }
+                },
+                "aoColumns": [
+                    {
+                        "bSortable": false,
+                        "width": '45px'
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    {
+                        "bSortable": false
+                    }
+                ],
 
+                "aaSorting": []
+            });
+
+            //Check All Functionality
+            $('#mySimpleDataTable thead th input[type=checkbox]').change(function () {
+                var set = $("#mySimpleDataTable tbody tr input[type=checkbox]");
+                var checked = $(this).is(":checked");
+                $(set).each(function () {
+                    if (checked) {
+                        $(this).prop("checked", true);
+                        $(this).parents('tr').addClass("active");
+                    } else {
+                        $(this).prop("checked", false);
+                        $(this).parents('tr').removeClass("active");
+                    }
+                });
+
+            });
+            $('#mySimpleDataTable tbody tr input[type=checkbox]').change(function () {
+                $(this).parents('tr').toggleClass("active");
+            });
+
+        }
+
+    };
+
+}();
 
 
 var InitiateSimpleDataTable = function () {

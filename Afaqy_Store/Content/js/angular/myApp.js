@@ -66,3 +66,50 @@ app.controller('SIMCardDetailsCtrl', ['$scope', '$uibModalInstance', function ($
         
     };
 }]);
+
+
+
+//----------------------- Device ---------------------------------
+
+app.controller('DeviceCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
+
+    $scope.create = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "/Device/Create",
+            controller: 'DeviceCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+
+
+    $scope.edit = function (id) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "/Device/edit/" + id,
+            controller: 'DeviceEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+
+    $scope.details = function (id) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: "/Device/details/" + id,
+            controller: 'DeviceDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+}]);

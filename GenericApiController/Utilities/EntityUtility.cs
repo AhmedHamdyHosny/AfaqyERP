@@ -237,11 +237,7 @@ namespace GenericApiController.Utilities
             }
             return null;
         }
-
         
-
-
-
         public static Expression<Func<TEntity, bool>> GetFilter(List<FilterItems> filters)
         {
             Expression<Func<TEntity, bool>> filterExpr = null;
@@ -276,6 +272,25 @@ namespace GenericApiController.Utilities
             }
             return filterExpr;
 
+        }
+
+        public static object GetId(object id, DbContext context)
+        {
+            IEnumerable<string> keyNames = GetPKColumns(context);
+            PropertyInfo propertyInfo = null;
+            if (keyNames != null && keyNames.Count() == 1)
+            {
+                Type type = typeof(TEntity);
+                propertyInfo = type.GetProperties().Where(x => x.Name.Equals(keyNames.ElementAt(0), StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+
+            }
+            else
+            {
+                throw new Exception("Model not has primary key or has more than one primary key");
+            }
+
+            var TEntityId = ChangeType(id, propertyInfo.PropertyType);
+            return TEntityId;
         }
 
         //public static Expression<Func<TEntity, TKey>> GetSelectorx<TKey>(string property)

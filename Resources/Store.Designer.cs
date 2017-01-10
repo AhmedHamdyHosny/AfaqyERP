@@ -61,6 +61,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Date.
+        /// </summary>
+        public static string DeviceCreateDate {
+            get {
+                return ResourceManager.GetString("DeviceCreateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IMI.
+        /// </summary>
+        public static string DeviceIMI {
+            get {
+                return ResourceManager.GetString("DeviceIMI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model Type.
+        /// </summary>
+        public static string DeviceModelTypeName {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        public static string Devices {
+            get {
+                return ResourceManager.GetString("Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number.
+        /// </summary>
+        public static string DeviceSerialNumber {
+            get {
+                return ResourceManager.GetString("DeviceSerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string DeviceStatusNameEn {
+            get {
+                return ResourceManager.GetString("DeviceStatusNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        public static string DeviceTitle {
+            get {
+                return ResourceManager.GetString("DeviceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create SIM Card.
         /// </summary>
         public static string SIMCardCreate {

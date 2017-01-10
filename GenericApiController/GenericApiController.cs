@@ -47,14 +47,15 @@ namespace GenericApiController
             return Content(HttpStatusCode.OK, result);
         }
         // GET api/controller/5
-        public virtual IHttpActionResult Get(int id)
+        public virtual IHttpActionResult Get(object id)
         {
             GetAuthorization();
             if (!IsAuthorize(Actions.GetById))
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-            var result = repo.Repo.GetByID(id, filter: DataConstrains);
+            var TEntityId = Repository<T>.GetId(id, repo.Repo._context);
+            var result = repo.Repo.GetByID(TEntityId, filter: DataConstrains);
             return Content(HttpStatusCode.OK, result);
         }
         //POST api/controller
@@ -72,15 +73,15 @@ namespace GenericApiController
             return Content(HttpStatusCode.OK, result);
         }
         // PUT api/controller/5
-        public virtual IHttpActionResult Put(int id, [FromBody]T value)
+        public virtual IHttpActionResult Put(object id, [FromBody]T value)
         {
             GetAuthorization();
             if (!IsAuthorize(Actions.Put))
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-            
-            var item = repo.Repo.GetByID(id,filter:DataConstrains);
+            var TEntityId = Repository<T>.GetId(id, repo.Repo._context);
+            var item = repo.Repo.GetByID(TEntityId, filter:DataConstrains);
             if (item != null)
             {
                 repo.Repo.Detach(item);
@@ -96,18 +97,19 @@ namespace GenericApiController
             
         }
         // DELETE api/controller/5
-        public virtual IHttpActionResult Delete(int id)
+        public virtual IHttpActionResult Delete(object id)
         {
             GetAuthorization();
             if (!IsAuthorize(Actions.Delete))
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-            var item = repo.Repo.GetByID(id, filter: DataConstrains);
+            var TEntityId = Repository<T>.GetId(id, repo.Repo._context);
+            var item = repo.Repo.GetByID(TEntityId, filter: DataConstrains);
             if (item != null)
             {
                 repo.Repo.Detach(item);
-                repo.Repo.Delete(id);
+                repo.Repo.Delete(TEntityId);
                 repo.Save();
                 return Content(HttpStatusCode.OK, "Success");
             }
@@ -189,11 +191,13 @@ namespace GenericApiController
             
             foreach (var id in ids)
             {
-                var item = repo.Repo.GetByID(id, filter: DataConstrains);
+                var TEntityId = Repository<T>.GetId(id, repo.Repo._context);
+                
+                var item = repo.Repo.GetByID(TEntityId, filter: DataConstrains);
                 if (item != null)
                 {
                     repo.Repo.Detach(item);
-                    repo.Repo.Delete(id);
+                    repo.Repo.Delete(TEntityId);
                 }
                 else
                 {

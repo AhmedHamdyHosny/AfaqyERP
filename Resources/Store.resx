@@ -147,4 +147,25 @@
   <data name="SIMCardTitle" xml:space="preserve">
     <value>SIM Card</value>
   </data>
+  <data name="DeviceCreateDate" xml:space="preserve">
+    <value>Create Date</value>
+  </data>
+  <data name="DeviceIMI" xml:space="preserve">
+    <value>IMI</value>
+  </data>
+  <data name="DeviceModelTypeName" xml:space="preserve">
+    <value>Model Type</value>
+  </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DeviceSerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="DeviceStatusNameEn" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DeviceTitle" xml:space="preserve">
+    <value>Device</value>
+  </data>
 </root>

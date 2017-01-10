@@ -1,5 +1,6 @@
 ﻿using Afaqy_Store.DataLayer;
 using Classes.Utilities;
+using Models;
 using GenericApiController.Utilities;
 using System;
 using System.Collections.Generic;

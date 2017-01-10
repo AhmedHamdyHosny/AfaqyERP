@@ -14,14 +14,7 @@ namespace GenericApiController.Utilities
         public static object GetPropertyValue(object entity, string propertyName)
         {
             Type type = entity.GetType();
-            foreach (var item in type.GetProperties())
-            {
-
-            }
-            foreach (var item in type.GetFields())
-            {
-
-            }
+            
             PropertyInfo propertyInfo = type.GetProperties().Where(x => x.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
             if (propertyInfo != null)
             {

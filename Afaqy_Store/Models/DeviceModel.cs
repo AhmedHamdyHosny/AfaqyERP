@@ -1,33 +1,25 @@
 ﻿using Afaqy_Store.DataLayer;
 using Classes.Utilities;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System;
 using Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
-    public class SIMCardModel<TModel> : GenericModel<TModel> where TModel : class
+    public class DeviceModel<TModel> : GenericModel<TModel> where TModel : class
     {
-        const string ApiRoute = "api/ApiSIMCard/";
+        const string ApiRoute = "api/ApiDevice/";
         private static string ApiUrl = SiteConfig.ApiUrl;
 
-        public SIMCardModel() : base(ApiUrl, ApiRoute)
+        public DeviceModel() : base(ApiUrl, ApiRoute)
         {
         }
-
-        //public override TModel Insert(TModel obj)
-        //{
-        //    return base.Insert(obj);
-        //}
-
-        //public override TModel Update(TModel obj, int id)
-        //{
-        //    return base.Update(obj, id);
-        //}
     }
 
-    public class SIMCardViewModel : SIMCard
+    public class DeviceViewModel : Device
     {
 
         private UserViewModel _createUser = null;
@@ -62,36 +54,16 @@ namespace Afaqy_Store.Models
 
         internal void BindCreate_Modify_User()
         {
-            var tempUser =  this.CreateUser;
+            var tempUser = this.CreateUser;
         }
-
-        //[Display(Name = "Status")]
-        //public Enums.Status ItemStatus
-        //{
-        //    get
-        //    {
-        //        if (Status != null)
-        //        {
-        //            return (Enums.Status)Status;
-        //        }
-        //        else
-        //        {
-        //            return Enums.Status.None;
-        //        }
-
-        //    }
-        //    set
-        //    {
-        //        ItemStatus = value;
-        //    }
-        //}
 
 
     }
 
-    public class SIMCardEditModel
+    public class DeviceEditModel
     {
-        public SIMCard EditItem { get; set; }
+        public Device EditItem { get; set; }
+        public IEnumerable<SelectListItem> ModelType { get; set; }
         public IEnumerable<SelectListItem> Status { get; set; }
     }
 }
