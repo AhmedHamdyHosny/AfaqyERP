@@ -324,9 +324,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string BUttonOk {
+        public static string ButtonOk {
             get {
-                return ResourceManager.GetString("BUttonOk", resourceCulture);
+                return ResourceManager.GetString("ButtonOk", resourceCulture);
             }
         }
         

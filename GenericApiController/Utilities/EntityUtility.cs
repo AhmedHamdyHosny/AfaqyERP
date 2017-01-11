@@ -274,24 +274,24 @@ namespace GenericApiController.Utilities
 
         }
 
-        public static object GetId(object id, DbContext context)
-        {
-            IEnumerable<string> keyNames = GetPKColumns(context);
-            PropertyInfo propertyInfo = null;
-            if (keyNames != null && keyNames.Count() == 1)
-            {
-                Type type = typeof(TEntity);
-                propertyInfo = type.GetProperties().Where(x => x.Name.Equals(keyNames.ElementAt(0), StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+        //public static object GetId(object id, DbContext context)
+        //{
+        //    IEnumerable<string> keyNames = GetPKColumns(context);
+        //    PropertyInfo propertyInfo = null;
+        //    if (keyNames != null && keyNames.Count() == 1)
+        //    {
+        //        Type type = typeof(TEntity);
+        //        propertyInfo = type.GetProperties().Where(x => x.Name.Equals(keyNames.ElementAt(0), StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
 
-            }
-            else
-            {
-                throw new Exception("Model not has primary key or has more than one primary key");
-            }
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Model not has primary key or has more than one primary key");
+        //    }
 
-            var TEntityId = ChangeType(id, propertyInfo.PropertyType);
-            return TEntityId;
-        }
+        //    var TEntityId = ChangeType(id, propertyInfo.PropertyType);
+        //    return TEntityId;
+        //}
 
         //public static Expression<Func<TEntity, TKey>> GetSelectorx<TKey>(string property)
         //{

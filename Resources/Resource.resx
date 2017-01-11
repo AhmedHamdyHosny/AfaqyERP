@@ -204,7 +204,7 @@
   <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="BUttonOk" xml:space="preserve">
+  <data name="ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="ButtonSave" xml:space="preserve">

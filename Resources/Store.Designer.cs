@@ -61,11 +61,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Device.
+        /// </summary>
+        public static string DeviceCreate {
+            get {
+                return ResourceManager.GetString("DeviceCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Date.
         /// </summary>
         public static string DeviceCreateDate {
             get {
                 return ResourceManager.GetString("DeviceCreateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Details.
+        /// </summary>
+        public static string DeviceDetails {
+            get {
+                return ResourceManager.GetString("DeviceDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Card.
+        /// </summary>
+        public static string DeviceEdit {
+            get {
+                return ResourceManager.GetString("DeviceEdit", resourceCulture);
             }
         }
         
@@ -93,6 +120,15 @@ namespace Resources {
         public static string DeviceModelTypeName {
             get {
                 return ResourceManager.GetString("DeviceModelTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Device.
+        /// </summary>
+        public static string DeviceNew {
+            get {
+                return ResourceManager.GetString("DeviceNew", resourceCulture);
             }
         }
         

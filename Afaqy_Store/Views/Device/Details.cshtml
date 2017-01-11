@@ -1,13 +1,13 @@
-﻿@model Afaqy_Store.Models.SIMCardViewModel
+﻿@model Afaqy_Store.Models.DeviceViewModel
 
 @{
-    ViewBag.Title = Resources.Store.SIMCardDetails;
+    ViewBag.Title = Resources.Store.DeviceDetails;
     Layout = null;
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Store.SIMCardDetails</h2>
+    <h2 class="modal-title">@Resources.Store.DeviceDetails</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -15,25 +15,38 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
-               @Resources.Store.SIMCardSerialNumber
+               @Resources.Store.DeviceSerialNumber
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.SerialNumber)
             </dd>
             <dt>
-               @Resources.Store.SIMCardGSM
+               @Resources.Store.DeviceIMEI
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.GSM)
+                @Html.DisplayFor(model => model.IMEI)
             </dd>
             <dt>
-                @Resources.Store.SIMCardStatusNameEn
+                @Resources.Store.Firmware
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+                @Html.DisplayFor(model => model.Firmware)
+            </dd>
+            <dt>
+                @Resources.Store.DeviceModelType
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DeviceModelType.ModelTypeName)
+            </dd>
+            <dt>
+                @Resources.Store.DeviceStatus
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DeviceStatus.DeviceStatus_en)
             </dd>
             <dt>
                 @Resources.Resource.CreateUserFullNameEn 

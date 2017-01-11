@@ -199,7 +199,7 @@ namespace GenericApiController.Utilities
 
         
 
-        public virtual TEntity GetByID(object id, Expression<Func<TEntity, bool>> filter = null)
+        public virtual TEntity GetByID(int id, Expression<Func<TEntity, bool>> filter = null)
         {
            
             var item = DbSet.Find(id);
@@ -224,7 +224,7 @@ namespace GenericApiController.Utilities
         }
 
 
-        public virtual void Delete(object id)
+        public virtual void Delete(int id)
         {
             TEntity entityToDelete = DbSet.Find(id);
             Delete(entityToDelete);

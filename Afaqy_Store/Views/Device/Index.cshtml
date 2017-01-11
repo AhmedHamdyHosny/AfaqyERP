@@ -10,26 +10,31 @@
 }
 
 <style>
-        /*.grid {
-      width: 500px;
-      height: 400px;
-    }*/
-        .my-custom-menu {
-            position: absolute;
-        }
+    /*.grid {
+    width: 500px;
+    height: 400px;
+}*/
+.my-custom-menu {
+    position: absolute;
+}
 
-            .my-custom-menu .ui-grid-menu {
-                padding: 0px;
-            }
+.my-custom-menu .ui-grid-menu {
+    padding: 0px;
+}
 
-            .my-custom-menu .ui-grid-menu-inner {
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }
+.my-custom-menu .ui-grid-menu-inner {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 
-        .ui-grid-menu-button {
-            height: 31px;
-        }
+.ui-grid-menu-button {
+height: 31px;
+}
+
+.action-edit{
+    margin-right:5px;
+    margin-left:5px;
+}
 </style>
 
 <br />
@@ -101,7 +106,7 @@
                     <a  ng-click="create()" class="btn purple" id="addBtn"> 
                         <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
                     </a>
-                    <a  href="javascript:DeleteItems();" class="btn btn-danger">
+                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
                         <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
                     </a>
                     <div class="btn-group pull-right">
@@ -120,15 +125,17 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                <div id="grid" ui-grid="gridOptions"  ui-grid-exporter ui-grid-selection class="grid"></div>
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-
+    
+    <script src="~/Content/js/bootbox/bootbox.js"></script>
     <script src="~/Content/js/Utilities/Utility.js"></script>
+    
 
     @*<script src="~/Content/js/angular/angular.min.js"></script>*@
 
@@ -141,6 +148,8 @@
     <script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
     <script src="~/Content/js/angular/ui-grid.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
+    
+    @*<script src="~/Content/js/angular/services.js"></script>*@
 
     <script>
 
@@ -149,7 +158,56 @@
         });
 
         var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
-        app.controller('DeviceCtrl', ['$scope', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $http, $interval, $q, uiGridConstants) {
+        app.service('confirmService', ['$uibModal',
+            function ($uibModal) {
+                var modalDefaults = {
+                    backdrop: true,
+                    keyboard: true,
+                    modalFade: true,
+                    templateUrl: '/Templates/Confirm.html'
+                };
+
+                var modalOptions = {
+                    closeButtonText: 'Close',
+                    actionButtonText: 'OK',
+                    headerText: 'Proceed?',
+                    bodyText: 'Perform this action?'
+                };
+
+                this.showModal = function (customModalDefaults, customModalOptions) {
+                    if (!customModalDefaults) customModalDefaults = {};
+                    customModalDefaults.backdrop = 'static';
+                    return this.show(customModalDefaults, customModalOptions);
+                };
+
+                this.show = function (customModalDefaults, customModalOptions) {
+                    //Create temp objects to work with since we're in a singleton service
+                    var tempModalDefaults = {};
+                    var tempModalOptions = {};
+
+                    //Map angular-ui modal custom defaults to modal defaults defined in service
+                    angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+                    //Map modal.html $scope custom properties to defaults defined in service
+                    angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+                    if (!tempModalDefaults.controller) {
+                        tempModalDefaults.controller = function ($scope, $uibModalInstance) {
+                            $scope.modalOptions = tempModalOptions;
+                            $scope.modalOptions.ok = function (result) {
+                                $uibModalInstance.close(result);
+                            };
+                            $scope.modalOptions.close = function (result) {
+                                $uibModalInstance.dismiss('cancel');
+                            };
+                        }
+                    }
+
+                    return $uibModal.open(tempModalDefaults).result;
+                };
+
+            }]);
+        app.controller('DeviceCtrl', ['$scope', '$uibModal', 'confirmService', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, confirmService, $http, $interval, $q, uiGridConstants) {
 
             var fakeI18n = function (title) {
                 var deferred = $q.defer();
@@ -171,12 +229,27 @@
                     { field: 'DeviceStatus.DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
                     { field: 'Firmware', name: '@Resources.Store.Firmware' },
                     {
-                        name: ' '
+                        name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                            '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                            '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeviceId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                            '</div>',
+                        enableSorting: false, enableFiltering: false
                     }
                 ]
                 ,
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
+                    //$scope.
+                    //gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+                    //    var msg = 'row selected ' + row.isSelected;
+                    //    $log.log(msg);
+                    //});
+
+                    //gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+                    //    var msg = 'rows changed ' + rows.length;
+                    //    $log.log(msg);
+                    //});
+
                     // interval of zero just to allow the directive to have initialized
                     //$interval(function () {
                     //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
@@ -188,14 +261,87 @@
             };
 
             $scope.gridOptions.data = '@Html.Raw(JsonConvert.SerializeObject(this.Model))'
-            $scope.create = function () {
-
-            }
+            $scope.gridOptions.selectedItems = [];
+           
 
             $scope.ToggoleGridFilter = function ($event) {
                 $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
             }
+
+            $scope.create = function () {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: "/device/create",
+                    controller: 'DeviceCreateCtrl',
+                    scope: $scope,
+                    backdrop: false,
+                });
+
+                modalInstance.result.then(null, function () { });
+            }
+
+            $scope.edit = function (id) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: "/Device/edit/" + id,
+                    controller: 'DeviceEditCtrl',
+                    scope: $scope,
+                    backdrop: false,
+                });
+                modalInstance.result.then(null, function () { });
+            }
+
+            $scope.details = function (id) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: "/device/details/" + id,
+                    controller: 'DeviceDetailsCtrl',
+                    scope: $scope,
+                    backdrop: false,
+                });
+
+                modalInstance.result.then(null, function () { });
+            }
+
+            $scope.DeleteItems = function (ev) {
+
+                var modalOptions = {
+                    closeButtonText: 'Cancel',
+                    actionButtonText: 'Ok',
+                    headerText: 'Delete Confirm',
+                    bodyText: 'Are you sure to delete selected item(s)?'
+                };
+
+                confirmService.showModal({}, modalOptions).then(function (result) {
+                    var selectedIds = [];
+                    var selectedItems = $scope.gridApi.selection.getSelectedRows();
+                    for (i = 0; i < selectedItems.length; i++) {
+                        selectedIds.push(selectedItems[i].DeviceId)
+                    }
+
+                    alert(selectedIds);
+                });
+            }
+
+        }]);
+
+        app.controller('DeviceCreateCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+        }]);
+
+        app.controller('DeviceEditCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
+        }]);
+
+        app.controller('DeviceDetailsCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            $scope.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            };
         }]);
 
         function showImportDilogFile() {
@@ -207,27 +353,7 @@
         }
 
 
-        function DeleteItems() {
 
-            DeleteConfirm(function () {
-                var selected = [];
-                $('#bodyData input:checked').each(function () {
-                    selected.push($(this).attr('value'));
-                });
-                var url = '@Url.Action("Delete")';
-                $.ajax({
-                    url: url
-                    , type: 'POST'
-                    , data: { ids: selected }
-                    , success: function (data) {
-                        if (data) {
-                            location.reload();
-                        }
-                    }
-                    , error: function () { }
-                });
-            })
-        }
 
     </script>
 }

@@ -45,7 +45,7 @@ namespace Classes.Common
             DetailsRequestBody.Filters[0].Value = id;
             //create instance of TModel of TViewModel
             dynamic instance = Activator.CreateInstance(typeof(TModel_TViewModel));
-            var items = instance.Get(DetailsRequestBody);
+            var items = (List<TViewModel>)instance.Get(DetailsRequestBody);
             if (items.Count < 1 || items.ElementAt(0) == null)
             {
                 return HttpNotFound();

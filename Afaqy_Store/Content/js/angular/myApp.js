@@ -4,7 +4,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.create = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCard/Create",
+            templateUrl: "/simcard/Create",
             controller: 'SIMCardCreateCtrl',
             scope: $scope,
             backdrop: false,
@@ -18,7 +18,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCard/edit/"+id,
+            templateUrl: "/simcard/edit/"+id,
             controller: 'SIMCardEditCtrl',
             scope: $scope,
             backdrop: false,
@@ -31,7 +31,7 @@ app.controller('SIMCardCtrl', ['$scope', '$uibModal', function ($scope, $uibModa
     $scope.details = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/SIMCard/details/" + id,
+            templateUrl: "/simcard/details/" + id,
             controller: 'SIMCardDetailsCtrl',
             scope: $scope,
             backdrop: false,
@@ -76,7 +76,7 @@ app.controller('DeviceCtrl', ['$scope', '$uibModal', function ($scope, $uibModal
     $scope.create = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/Device/Create",
+            templateUrl: "/device/Create",
             controller: 'DeviceCreateCtrl',
             scope: $scope,
             backdrop: false,
@@ -90,7 +90,7 @@ app.controller('DeviceCtrl', ['$scope', '$uibModal', function ($scope, $uibModal
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/Device/edit/" + id,
+            templateUrl: "/device/edit/" + id,
             controller: 'DeviceEditCtrl',
             scope: $scope,
             backdrop: false,
@@ -103,7 +103,7 @@ app.controller('DeviceCtrl', ['$scope', '$uibModal', function ($scope, $uibModal
     $scope.details = function (id) {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: "/Device/details/" + id,
+            templateUrl: "/device/details/" + id,
             controller: 'DeviceDetailsCtrl',
             scope: $scope,
             backdrop: false,

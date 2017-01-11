@@ -177,4 +177,16 @@
   <data name="Firmware" xml:space="preserve">
     <value>Firmware</value>
   </data>
+  <data name="DeviceEdit" xml:space="preserve">
+    <value>Device Card</value>
+  </data>
+  <data name="DeviceCreate" xml:space="preserve">
+    <value>Create Device</value>
+  </data>
+  <data name="DeviceDetails" xml:space="preserve">
+    <value>Device Details</value>
+  </data>
+  <data name="DeviceNew" xml:space="preserve">
+    <value>New Device</value>
+  </data>
 </root>

@@ -268,6 +268,8 @@
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
+    <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
+    <Compile Include="Controllers\ApiDeviceStatusController.cs" />
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
@@ -284,6 +286,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DeviceModel.cs" />
+    <Compile Include="Models\DeviceModelTypeModel.cs" />
+    <Compile Include="Models\DeviceStatusModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SIMCardModel.cs" />
@@ -397,6 +401,8 @@
     <Content Include="Content\js\angular\csv.js" />
     <Content Include="Content\js\angular\myApp.js" />
     <Content Include="Content\js\angular\pdfmake.js" />
+    <Content Include="Content\js\angular\services.js" />
+    <Content Include="Content\js\angular\ui-bootstrap-2.4.0.js" />
     <Content Include="Content\js\angular\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Content\js\angular\ui-grid.js" />
     <Content Include="Content\js\angular\vfs_fonts.js" />
@@ -799,6 +805,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Templates\Confirm.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -833,9 +840,13 @@
     <Content Include="Views\TestSIMCard\Index.cshtml" />
     <Content Include="Views\TestSIMCard\Create.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
+    <Content Include="Views\Device\Edit.cshtml" />
+    <Content Include="Views\Device\Details.cshtml" />
+    <Content Include="Views\Device\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\Templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

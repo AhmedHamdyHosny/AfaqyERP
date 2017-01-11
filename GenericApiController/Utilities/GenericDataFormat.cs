@@ -61,7 +61,7 @@ namespace GenericApiController.Utilities
 
     public class UpdateItemFormat<T>
     {
-        public object id { get; set; }
+        public int id { get; set; }
         public T newValue { get; set; }
     }
    
