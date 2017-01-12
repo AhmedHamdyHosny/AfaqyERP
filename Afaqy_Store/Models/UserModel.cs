@@ -18,7 +18,7 @@ namespace Afaqy_Store.Models
         {
         }
 
-        internal void Get_Create_Modify_User(int createUserId, int? modifyUserId, ref UserViewModel createUser, ref UserViewModel modifyUser)
+        internal void Get_Create_Modify_User(int createUserId, int? modifyUserId, ref UserViewModel createUser, ref UserViewModel modifyUser )
         {
             var filters = new List<GenericDataFormat.FilterItems>();
             if (createUserId != 0)
@@ -34,9 +34,23 @@ namespace Afaqy_Store.Models
             var users = this.Get(requestBody);
 
             createUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == createUserId);
-            modifyUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == modifyUserId);
-
+            if(modifyUserId != null && modifyUserId != 0 )
+            {
+                modifyUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == modifyUserId);
+            }
         }
+
+        //internal void Get_Create_User(int createUserId,ref UserViewModel createUser)
+        //{
+        //    var filters = new List<GenericDataFormat.FilterItems>();
+        //    if (createUserId != 0)
+        //    {
+        //        filters.Add(new GenericDataFormat.FilterItems() { Property = "UserId", Operation = GenericDataFormat.FilterOperations.Equal, Value = createUserId, LogicalOperation = GenericDataFormat.LogicalOperations.Or });
+        //    }
+        //    var requestBody = new GenericDataFormat() { Filters = filters };
+        //    var users = this.Get(requestBody);
+        //    createUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == createUserId);
+        //}
     }
 
 

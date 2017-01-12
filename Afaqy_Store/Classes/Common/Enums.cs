@@ -72,5 +72,25 @@ namespace Classes.Common
             Import=4,
             Export=5
         }
+
+        
+    }
+
+    public class DBEnums
+    {
+        public enum DeviceStatus
+        {
+            New = 1,
+            In_store = 2,
+            Configured_Updated = 3,
+            Connted_with_SIM_card = 4,
+            Transfered_to_branch = 5,
+            With_technical = 6,
+            Connected_with_server = 7,
+            Disconnected_with_server = 8,
+            In_maintenance = 9,
+            Missing = 10,
+            Damage = 11
+        }
     }
 }

@@ -65,7 +65,7 @@ namespace Classes.Common
                     //create instance of TModel of TViewModel from Reference TypeModel
                     dynamic instance = Activator.CreateInstance(reference.TypeModel);
                     var items = instance.Get();
-                    ViewData[reference.ViewDataName] = new SelectList(items, reference.SelectedValue, reference.DataTextField,reference.SelectedValue);
+                    ViewData[reference.ViewDataName] = new SelectList(items, reference.DataValueField, reference.DataTextField,reference.SelectedValue);
                 }
             }
 

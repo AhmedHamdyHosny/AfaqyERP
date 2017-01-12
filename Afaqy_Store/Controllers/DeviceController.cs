@@ -37,10 +37,22 @@ namespace Afaqy_Store.Controllers
             if (ModelState.IsValid)
             {
                 //for test
-                model.CreateUserId = 1;
+                var userId = 1;
+                model.CreateUserId = userId;
                 model.CreateDate = DateTime.Now;
 
-                new DeviceModel<Device>().Insert(model);
+                //set device status to initial status
+                model.DeviceStatusId = (int)DBEnums.DeviceStatus.New;
+                Device device = new DeviceModel<Device>().Insert(model);
+
+                //insert current status to device status history
+                var deviceStatusHistory = new DeviceStatusHistory();
+                deviceStatusHistory.DeviceId = device.DeviceId;
+                deviceStatusHistory.StatusId = device.DeviceStatusId;
+                deviceStatusHistory.CreateUserId = userId;
+                deviceStatusHistory.CreateDate = DateTime.Now;
+                new DeviceStatusHistoryModel<DeviceStatusHistory>().Insert(deviceStatusHistory);
+
                 TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
                 return RedirectToAction("Index");
             }

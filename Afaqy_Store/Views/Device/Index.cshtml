@@ -239,16 +239,6 @@ height: 31px;
                 ,
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
-                    //$scope.
-                    //gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-                    //    var msg = 'row selected ' + row.isSelected;
-                    //    $log.log(msg);
-                    //});
-
-                    //gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
-                    //    var msg = 'rows changed ' + rows.length;
-                    //    $log.log(msg);
-                    //});
 
                     // interval of zero just to allow the directive to have initialized
                     //$interval(function () {
@@ -262,7 +252,7 @@ height: 31px;
 
             $scope.gridOptions.data = '@Html.Raw(JsonConvert.SerializeObject(this.Model))'
             $scope.gridOptions.selectedItems = [];
-           
+
 
             $scope.ToggoleGridFilter = function ($event) {
                 $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
@@ -315,12 +305,25 @@ height: 31px;
 
                 confirmService.showModal({}, modalOptions).then(function (result) {
                     var selectedIds = [];
+                    //get selected ids from grid
                     var selectedItems = $scope.gridApi.selection.getSelectedRows();
-                    for (i = 0; i < selectedItems.length; i++) {
-                        selectedIds.push(selectedItems[i].DeviceId)
-                    }
+                    selectedItems.forEach(function (item) {
+                        selectedIds.push(item.DeviceId)
+                    });
 
-                    alert(selectedIds);
+                    //call delete confirm method and pass ids
+                    var config = {};
+                    var url = '@Url.Action("Delete")';
+                    var data = { ids: selectedIds };
+                    $http.post(url, data, config).then(
+                        function (resp) {
+                            if (resp) {
+                                location.reload();
+                            }
+                        },
+                        function (resp) {
+                        });
+
                 });
             }
 
