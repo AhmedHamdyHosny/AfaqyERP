@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "TestDesign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<h2>TestDesign</h2>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+<script src="~/Content/js/angular/ui-grid.js"></script>
+<script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
+
+<div ng-app="app">
+    <div ng-controller="MainCtrl">
+        <button ng-click="create()">Add</button>
+    </div>
+</div>
+
+@*Page @(ViewBag.PageCount < ViewBag.PageNumber ? 0 : ViewBag.PageNumber) of @ViewBag.PageCount
+    @Html.PagedListPager(PagingModel, pageIndex => Url.Action("Index", new { page = pageIndex, PostsCount = ViewBag.PostsCount }))*@
+
+<script>
+   
+
+    var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
+    app.controller('MainCtrl', ['$scope', '$uibModal', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, $http, $interval, $q, uiGridConstants) {
+      
+
+        $scope.create = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: '/device/testcreate',
+                controller: 'createController',
+                backdrop: false,
+            });
+        }
+
+
+    }]);
+
+    app.controller('createController', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+        $scope.ok = function () {
+            //it close the modal and sends the result to controller
+            $scope.data = "welcome";
+            $uibModalInstance.close($scope.data);
+        };
+        $scope.cancel = function () {
+            //it dismiss the modal
+            $uibModalInstance.dismiss('cancel');
+        };
+    }]);
+
+
+
+</script>
+
+@*<div class="row" ng-controller="DeviceCtrl">
+    <a ng-click="create();" class="btn purple" id="addBtn">
+        <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+    </a>
+</div>
+
+
+@section scripts{
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+<script src="~/Content/js/angular/angular-touch.min.js"></script>
+<script src="~/Content/js/angular/angular-animate.min.js"></script>
+<script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
+
+<script>
+    var app = angular.module('app', ['ui.bootstrap']);
+    app.controller('DeviceCtrl', ['$scope', '$uibModal', function ($scope, $uibModal) {
+
+        $scope.create = function () {
+            alert('hi');
+            //var modalInstance = $uibModal.open({
+            //animation: true,
+            //templateUrl: "/device/create",
+            //controller: 'DeviceCreateCtrl',
+            //scope: $scope,
+            //backdrop: false,
+            //});
+            //modalInstance.result.then(null, function () { });
+        }
+
+    }]);
+
+    //app.controller('DeviceCreateCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+    //$scope.cancel = function () {
+    //$uibModalInstance.dismiss('cancel');
+    //};
+    //}]);
+
+</script>
+}*@

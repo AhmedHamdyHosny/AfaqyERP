@@ -10058,11 +10058,11 @@ input[type="url"],
 input[type="search"],
 input[type="tel"],
 input[type="color"] {
-  -webkit-border-radius: 0 !important;
+  -webkit-border-radius: 4px !important;
   -webkit-background-clip: padding-box !important;
-  -moz-border-radius: 0 !important;
+  -moz-border-radius: 4px !important;
   -moz-background-clip: padding !important;
-  border-radius: 0 !important;
+  border-radius: 4px !important;
   background-clip: padding-box !important;
   color: #858585;
   background-color: #fbfbfb;

@@ -13,6 +13,7 @@ namespace Afaqy_Store
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //default
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -126,6 +127,9 @@ namespace Afaqy_Store
             jQueryValBundle.Transforms.Add(scriptTransformer);
             jQueryValBundle.Orderer = nullOrderer;
             bundles.Add(jQueryValBundle);
+
+
+            
         }
     }
 }

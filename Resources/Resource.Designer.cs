@@ -358,6 +358,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string DeleteConfirmActionButton {
+            get {
+                return ResourceManager.GetString("DeleteConfirmActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DeleteConfirmCloseButton {
+            get {
+                return ResourceManager.GetString("DeleteConfirmCloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to delete selected item(s)?.
+        /// </summary>
+        public static string DeleteConfirmDialogBody {
+            get {
+                return ResourceManager.GetString("DeleteConfirmDialogBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Confirm.
+        /// </summary>
+        public static string DeleteConfirmDialogHeader {
+            get {
+                return ResourceManager.GetString("DeleteConfirmDialogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Export {

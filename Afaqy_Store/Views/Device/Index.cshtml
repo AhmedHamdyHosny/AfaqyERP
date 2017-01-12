@@ -297,10 +297,10 @@ height: 31px;
             $scope.DeleteItems = function (ev) {
 
                 var modalOptions = {
-                    closeButtonText: 'Cancel',
-                    actionButtonText: 'Ok',
-                    headerText: 'Delete Confirm',
-                    bodyText: 'Are you sure to delete selected item(s)?'
+                    closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
+                    actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
+                    headerText: '@Resources.Resource.DeleteConfirmDialogBody',
+                    bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
                 };
 
                 confirmService.showModal({}, modalOptions).then(function (result) {
