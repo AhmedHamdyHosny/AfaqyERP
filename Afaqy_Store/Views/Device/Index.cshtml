@@ -136,20 +136,24 @@ height: 31px;
     <script src="~/Content/js/bootbox/bootbox.js"></script>
     <script src="~/Content/js/Utilities/Utility.js"></script>
     
-
-    @*<script src="~/Content/js/angular/angular.min.js"></script>*@
-
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="~/Content/js/angular/angular.min.js"></script>
     <script src="~/Content/js/angular/angular-touch.min.js"></script>
     <script src="~/Content/js/angular/angular-animate.min.js"></script>
     <script src="~/Content/js/angular/csv.js"></script>
     <script src="~/Content/js/angular/pdfmake.js"></script>
     <script src="~/Content/js/angular/vfs_fonts.js"></script>
     <script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
-    <script src="~/Content/js/angular/ui-grid.js"></script>
+    <script src="~/Content/js/angular/ui-grid.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
     
-    @*<script src="~/Content/js/angular/services.js"></script>*@
+    <script src="~/Content/js/1.custom-js/services/util.js"></script>
+    
+    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
+
+    <script src="~/Content/js/1.custom-js/app.js"></script>
+    <script src="~/Content/js/1.custom-js/controllers.js"></script>
+    <script src="~/Content/js/1.custom-js/services.js"></script>
+    <script src="~/Content/js/1.custom-js/directives.js"></script>
 
     <script>
 
@@ -157,57 +161,86 @@ height: 31px;
             showAlert();
         });
 
-        var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
-        app.service('confirmService', ['$uibModal',
-            function ($uibModal) {
-                var modalDefaults = {
-                    backdrop: true,
-                    keyboard: true,
-                    modalFade: true,
-                    templateUrl: '/Templates/Confirm.html'
-                };
+        var gridColumnDefs = [
+            { field: 'SerialNumber', name: '@Resources.Store.DeviceSerialNumber' },
+            { field: 'IMEI', name: '@Resources.Store.DeviceIMEI' },
+            { field: 'DeviceModelType.ModelTypeName', name: '@Resources.Store.DeviceModelType' },
+            { field: 'DeviceStatus.DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
+            { field: 'Firmware', name: '@Resources.Store.Firmware'  },
+            {
+                name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeviceId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false
+            }
+        ];
 
-                var modalOptions = {
-                    closeButtonText: 'Close',
-                    actionButtonText: 'OK',
-                    headerText: 'Proceed?',
-                    bodyText: 'Perform this action?'
-                };
+        var deleteModalOptions = {
+            closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
+            actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
+            headerText: '@Resources.Resource.DeleteConfirmDialogHeader',
+            bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
+        };
 
-                this.showModal = function (customModalDefaults, customModalOptions) {
-                    if (!customModalDefaults) customModalDefaults = {};
-                    customModalDefaults.backdrop = 'static';
-                    return this.show(customModalDefaults, customModalOptions);
-                };
+        var createActionUrl = '@Url.Action("Create")';
+        var editActionUrl = '@Url.Action("Edit")';
+        var detailsActionUrl = '@Url.Action("Details")';
+        var deleteActionUrl = '@Url.Action("Delete")';
 
-                this.show = function (customModalDefaults, customModalOptions) {
-                    //Create temp objects to work with since we're in a singleton service
-                    var tempModalDefaults = {};
-                    var tempModalOptions = {};
+        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
 
-                    //Map angular-ui modal custom defaults to modal defaults defined in service
-                    angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+        //var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection', 'ui.bootstrap']);
+        //app.service('confirmService', ['$uibModal',
+        //    function ($uibModal) {
+        //        var modalDefaults = {
+        //            backdrop: true,
+        //            keyboard: true,
+        //            modalFade: true,
+        //            templateUrl: '/Templates/Confirm.html'
+        //        };
 
-                    //Map modal.html $scope custom properties to defaults defined in service
-                    angular.extend(tempModalOptions, modalOptions, customModalOptions);
+        //        var modalOptions = {
+        //            closeButtonText: 'Close',
+        //            actionButtonText: 'OK',
+        //            headerText: 'Proceed?',
+        //            bodyText: 'Perform this action?'
+        //        };
 
-                    if (!tempModalDefaults.controller) {
-                        tempModalDefaults.controller = function ($scope, $uibModalInstance) {
-                            $scope.modalOptions = tempModalOptions;
-                            $scope.modalOptions.ok = function (result) {
-                                $uibModalInstance.close(result);
-                            };
-                            $scope.modalOptions.close = function (result) {
-                                $uibModalInstance.dismiss('cancel');
-                            };
-                        }
-                    }
+        //        this.showModal = function (customModalDefaults, customModalOptions) {
+        //            if (!customModalDefaults) customModalDefaults = {};
+        //            customModalDefaults.backdrop = 'static';
+        //            return this.show(customModalDefaults, customModalOptions);
+        //        };
 
-                    return $uibModal.open(tempModalDefaults).result;
-                };
+        //        this.show = function (customModalDefaults, customModalOptions) {
+        //            //Create temp objects to work with since we're in a singleton service
+        //            var tempModalDefaults = {};
+        //            var tempModalOptions = {};
 
-            }]);
-        app.controller('DeviceCtrl', ['$scope', '$uibModal', 'confirmService', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, confirmService, $http, $interval, $q, uiGridConstants) {
+        //            //Map angular-ui modal custom defaults to modal defaults defined in service
+        //            angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+        //            //Map modal.html $scope custom properties to defaults defined in service
+        //            angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+        //            if (!tempModalDefaults.controller) {
+        //                tempModalDefaults.controller = function ($scope, $uibModalInstance) {
+        //                    $scope.modalOptions = tempModalOptions;
+        //                    $scope.modalOptions.ok = function (result) {
+        //                        $uibModalInstance.close(result);
+        //                    };
+        //                    $scope.modalOptions.close = function (result) {
+        //                        $uibModalInstance.dismiss('cancel');
+        //                    };
+        //                }
+        //            }
+
+        //            return $uibModal.open(tempModalDefaults).result;
+        //        };
+
+        //    }]);
+        @*app.controller('DeviceCtrl', ['$scope', '$uibModal', 'confirmService', '$http', '$interval', '$q', 'uiGridConstants', function ($scope, $uibModal, confirmService, $http, $interval, $q, uiGridConstants) {
 
             var fakeI18n = function (title) {
                 var deferred = $q.defer();
@@ -253,13 +286,13 @@ height: 31px;
             $scope.gridOptions.data = '@Html.Raw(JsonConvert.SerializeObject(this.Model))'
             $scope.gridOptions.selectedItems = [];
 
-
             $scope.ToggoleGridFilter = function ($event) {
                 $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
             }
 
             $scope.create = function () {
+                showLoading();
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: "/device/create",
@@ -272,6 +305,7 @@ height: 31px;
             }
 
             $scope.edit = function (id) {
+                showLoading();
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: "/Device/edit/" + id,
@@ -283,6 +317,7 @@ height: 31px;
             }
 
             $scope.details = function (id) {
+                showLoading();
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: "/device/details/" + id,
@@ -330,22 +365,25 @@ height: 31px;
         }]);
 
         app.controller('DeviceCreateCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            hideLoading();
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
         }]);
 
         app.controller('DeviceEditCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            hideLoading();
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
         }]);
 
         app.controller('DeviceDetailsCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+            hideLoading();
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
-        }]);
+        }]);*@
 
         function showImportDilogFile() {
             $('#upload').click();
@@ -354,9 +392,6 @@ height: 31px;
             var fileName = $(obj).val();
             $('#btnImportExcel').click();
         }
-
-
-
 
     </script>
 }

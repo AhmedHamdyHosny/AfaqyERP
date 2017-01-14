@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = Resources.Store.DeviceEdit;
-    Layout = null;
+    Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
@@ -10,43 +10,35 @@
     <h2 class="modal-title">@Resources.Store.DeviceEdit</h2>
 </div>
 
-
 @using (Html.BeginForm())
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
-        <div class="form-horizontal">
+        <div >
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => Model.EditItem.DeviceId)
             <div class="form-group">
-               @Html.LabelFor(model => Model.EditItem.SerialNumber,Resources.Store.DeviceSerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => Model.EditItem.SerialNumber,Resources.Store.DeviceSerialNumber, htmlAttributes: new { @class = "text-info" })
                 @Html.EditorFor(model => Model.EditItem.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.EditItem.SerialNumber, "", new { @class = "text-danger" })
-                </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.IMEI,Resources.Store.DeviceIMEI, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EditItem.IMEI, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EditItem.IMEI, "", new { @class = "text-danger" })
-                </div>
+                @Html.LabelFor(model => model.EditItem.IMEI,Resources.Store.DeviceIMEI, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.EditItem.IMEI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditItem.IMEI, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.Firmware, Resources.Store.Firmware, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EditItem.Firmware, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EditItem.Firmware, "", new { @class = "text-danger" })
-                </div>
+                @Html.LabelFor(model => model.EditItem.Firmware, Resources.Store.Firmware, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.EditItem.Firmware, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditItem.Firmware, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.EditItem.ModelTypeId, Model.ModelType, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.EditItem.ModelTypeId, "", new { @class = "text-danger" })
-                </div>
+                @Html.LabelFor(model => model.EditItem.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
+                @Html.DropDownListFor(model => model.EditItem.ModelTypeId, Model.ModelType, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EditItem.ModelTypeId, "", new { @class = "text-danger" })
             </div>
             <div>
+                @Html.HiddenFor(model=>model.EditItem.DeviceStatusId)
                 @Html.HiddenFor(model => model.EditItem.CreateUserId)
                 @Html.HiddenFor(model => model.EditItem.CreateDate)
             </div>

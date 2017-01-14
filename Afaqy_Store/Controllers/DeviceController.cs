@@ -104,7 +104,7 @@ namespace Afaqy_Store.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,CreateUserId,CreateDate")] Device EditItem)
+        public ActionResult Edit([Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,DeviceStatusId,CreateUserId,CreateDate")] Device EditItem)
         {
             if (ModelState.IsValid)
             {

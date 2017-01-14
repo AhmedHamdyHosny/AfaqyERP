@@ -323,7 +323,7 @@
     <Content Include="Content\css\bootstrap-rtl.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\css\custom-style\popup.css" />
+    <Content Include="Content\css\1.custom-style\popup.css" />
     <Content Include="Content\css\dataTables.bootstrap.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\demo.min.css" />
@@ -396,10 +396,17 @@
     <Content Include="Content\img\sort_desc_disabled.png" />
     <Content Include="Content\img\temp1.png" />
     <Content Include="Content\img\tree-icons.png" />
+    <Content Include="Content\js\1.custom-js\app.js" />
+    <Content Include="Content\js\1.custom-js\controllers.js" />
+    <Content Include="Content\js\1.custom-js\controllers\store.js" />
+    <Content Include="Content\js\1.custom-js\directives.js" />
+    <Content Include="Content\js\1.custom-js\services.js" />
+    <Content Include="Content\js\1.custom-js\services\util.js" />
     <Content Include="Content\js\angular\angular-animate.js" />
     <Content Include="Content\js\angular\angular-animate.min.js" />
     <Content Include="Content\js\angular\angular-touch.js" />
     <Content Include="Content\js\angular\angular-touch.min.js" />
+    <Content Include="Content\js\angular\angular.js" />
     <Content Include="Content\js\angular\angular.min.js" />
     <Content Include="Content\js\angular\csv.js" />
     <Content Include="Content\js\angular\myApp.js" />
@@ -408,6 +415,7 @@
     <Content Include="Content\js\angular\ui-bootstrap-2.4.0.js" />
     <Content Include="Content\js\angular\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Content\js\angular\ui-grid.js" />
+    <Content Include="Content\js\angular\ui-grid.min.js" />
     <Content Include="Content\js\angular\vfs_fonts.js" />
     <Content Include="Content\js\beyond.js" />
     <Content Include="Content\js\beyond.min.js" />

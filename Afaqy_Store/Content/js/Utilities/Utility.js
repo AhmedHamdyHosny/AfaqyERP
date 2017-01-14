@@ -35,3 +35,17 @@ function showAlert() {
     }
     
 }
+
+function showLoading() {
+    //document.getElementById('loadingContainer').className = 'loading-container loading-active';
+
+    $('.loading-container').removeClass('loading-inactive');
+    $('.loading-container').addClass('loading-active');
+}
+
+function hideLoading() {
+    //document.getElementById('loadingContainer').className = 'loading-container loading-inactive';
+
+    $('.loading-container').removeClass('loading-active');
+    $('.loading-container').addClass('loading-inactive');
+}
