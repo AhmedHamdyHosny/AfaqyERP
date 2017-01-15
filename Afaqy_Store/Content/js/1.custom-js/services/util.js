@@ -1,4 +1,7 @@
-﻿function confirmService($uibModal)
+﻿angular.module('app.services', [])
+.service('confirmService', confirmService)
+
+function confirmService($uibModal)
 {
     var modalDefaults = {
         backdrop: true,

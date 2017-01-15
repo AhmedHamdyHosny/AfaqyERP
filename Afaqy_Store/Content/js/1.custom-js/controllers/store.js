@@ -1,4 +1,14 @@
-﻿function DeviceCtrl($scope, $uibModal, confirmService, $http, $interval, $q, uiGridConstants) {
+﻿angular.module('app.storeControllers', [])
+
+//Device controllers ========
+.controller('DeviceCtrl', DeviceCtrl)
+.controller('DeviceCreateCtrl', DeviceCreateCtrl)
+.controller('DeviceEditCtrl', DeviceEditCtrl)
+.controller('DeviceDetailsCtrl', DeviceDetailsCtrl)
+
+function DeviceCtrl($scope, $uibModal, confirmService, $http, $interval, $q, uiGridConstants) {
+
+    showAlert();
     var fakeI18n = function (title) {
         var deferred = $q.defer();
         $interval(function () {

@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+
+    <script src="~/Content/js/bootbox/bootbox.js"></script>
+    <script src="~/Content/js/Utilities/Utility.js"></script>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 
    
 </head>
@@ -39,7 +44,6 @@
     <!--Basic Scripts-->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-
 
     @RenderSection("scripts", required: false)
 </body>

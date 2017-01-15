@@ -1,7 +1,7 @@
-﻿angular.module('app.controllers', [])
+﻿//angular.module('app.controllers', [])
 
-//Device controllers ========
-.controller('DeviceCtrl', DeviceCtrl)
-.controller('DeviceCreateCtrl', DeviceCreateCtrl)
-.controller('DeviceEditCtrl', DeviceEditCtrl)
-.controller('DeviceDetailsCtrl', DeviceDetailsCtrl)
+////Device controllers ========
+//.controller('DeviceCtrl', DeviceCtrl)
+//.controller('DeviceCreateCtrl', DeviceCreateCtrl)
+//.controller('DeviceEditCtrl', DeviceEditCtrl)
+//.controller('DeviceDetailsCtrl', DeviceDetailsCtrl)

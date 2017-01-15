@@ -210,6 +210,9 @@
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="CreateDateTime" xml:space="preserve">
     <value>Create on</value>
   </data>
@@ -228,17 +231,41 @@
   <data name="DeleteConfirmDialogHeader" xml:space="preserve">
     <value>Delete Confirm</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>Forgot Password?</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
   <data name="ModifyDateTime" xml:space="preserve">
     <value>Modify on</value>
   </data>
   <data name="ModifyUserFullNameEn" xml:space="preserve">
     <value>Modify by </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordNotMatchValidationError" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="SignUpWithEmail" xml:space="preserve">
+    <value>Sign Up With Email</value>
+  </data>
+  <data name="SingIn" xml:space="preserve">
+    <value>SIGN IN</value>
   </data>
   <data name="Tools" xml:space="preserve">
     <value>Tools</value>

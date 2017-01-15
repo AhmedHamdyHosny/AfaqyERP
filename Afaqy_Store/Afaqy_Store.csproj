@@ -163,6 +163,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\T4MVCExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -267,6 +271,7 @@
     <Compile Include="Classes\Utilities\SiteConfig.cs" />
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
     <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
@@ -285,6 +290,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
@@ -397,10 +403,9 @@
     <Content Include="Content\img\temp1.png" />
     <Content Include="Content\img\tree-icons.png" />
     <Content Include="Content\js\1.custom-js\app.js" />
-    <Content Include="Content\js\1.custom-js\controllers.js" />
+    <Content Include="Content\js\1.custom-js\controllers\default.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
-    <Content Include="Content\js\1.custom-js\services.js" />
     <Content Include="Content\js\1.custom-js\services\util.js" />
     <Content Include="Content\js\angular\angular-animate.js" />
     <Content Include="Content\js\angular\angular-animate.min.js" />
@@ -522,7 +527,7 @@
     <Content Include="Content\js\textarea\jquery.autosize.min.js" />
     <Content Include="Content\js\toastr\toastr.js" />
     <Content Include="Content\js\toastr\toastr.min.js" />
-    <Content Include="Content\js\Utilities\Utility.js" />
+    <Content Include="Content\js\1.custom-js\Utilities\Utility.js" />
     <Content Include="Content\js\validation\bootstrapValidator.js" />
     <Content Include="Content\js\validation\bootstrapValidator.min.js" />
     <Content Include="Content\sound\alert.mp3" />
@@ -857,6 +862,8 @@
     <Content Include="Views\Device\TestDesign.cshtml" />
     <Content Include="Views\Device\TestCreate.cshtml" />
     <Content Include="Views\Shared\_Popup.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_Empty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

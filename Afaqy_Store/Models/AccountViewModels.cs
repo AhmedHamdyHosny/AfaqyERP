@@ -40,4 +40,5 @@ namespace Afaqy_Store.Models
 
         public string ProviderKey { get; set; }
     }
+
 }

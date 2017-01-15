@@ -340,6 +340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create on.
         /// </summary>
         public static string CreateDateTime {
@@ -394,6 +403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Export {
@@ -403,11 +421,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forgot Password?.
+        /// </summary>
+        public static string ForgetPassword {
+            get {
+                return ResourceManager.GetString("ForgetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import.
         /// </summary>
         public static string Import {
             get {
                 return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
             }
         }
         
@@ -426,6 +462,51 @@ namespace Resources {
         public static string ModifyUserFullNameEn {
             get {
                 return ResourceManager.GetString("ModifyUserFullNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password and confirmation password do not match..
+        /// </summary>
+        public static string PasswordNotMatchValidationError {
+            get {
+                return ResourceManager.GetString("PasswordNotMatchValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me?.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up With Email.
+        /// </summary>
+        public static string SignUpWithEmail {
+            get {
+                return ResourceManager.GetString("SignUpWithEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIGN IN.
+        /// </summary>
+        public static string SingIn {
+            get {
+                return ResourceManager.GetString("SingIn", resourceCulture);
             }
         }
         
