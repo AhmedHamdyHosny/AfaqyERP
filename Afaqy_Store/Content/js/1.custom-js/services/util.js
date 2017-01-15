@@ -1,5 +1,5 @@
-﻿angular.module('app.services', [])
-.service('confirmService', confirmService)
+﻿//angular.module('app.services', [])
+//.service('confirmService', confirmService)
 
 function confirmService($uibModal)
 {

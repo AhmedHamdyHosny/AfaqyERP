@@ -407,6 +407,8 @@
     <Content Include="Content\js\1.custom-js\controllers\default.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
+    <Content Include="Content\js\1.custom-js\services.js" />
+    <Content Include="Content\js\1.custom-js\services\global.js" />
     <Content Include="Content\js\1.custom-js\services\util.js" />
     <Content Include="Content\js\angular\angular-animate.js" />
     <Content Include="Content\js\angular\angular-animate.min.js" />

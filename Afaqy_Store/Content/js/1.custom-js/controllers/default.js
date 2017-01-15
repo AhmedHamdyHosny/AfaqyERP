@@ -20,8 +20,17 @@ function accountCtrl($scope, $uibModal) {
     }
 }
 
-function loginCtrl($scope, $uibModalInstance) {
+function loginCtrl($scope, $uibModalInstance, global) {
     hideLoading();
+    $scope.login = function () {
+        global.post(loginActionUrl, $scope.user, function (resp) {
+            if (resp.data) {
+                $uibModalInstance.dismiss('cancel');
+                window.location('device')
+            }
+        }, function (resp) {
+        });
+    }
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
