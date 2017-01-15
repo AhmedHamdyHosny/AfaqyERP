@@ -56,6 +56,7 @@ namespace Afaqy_Store.Models
 
     public class UserViewModel : User
     {
+        public const string SessionName = "CurrentUser";
         private string _fullName_en;
         public string FullName_En
         {
@@ -136,6 +137,42 @@ namespace Afaqy_Store.Models
                 fullName = string.IsNullOrWhiteSpace( firstName + " " ) ? lastName : firstName + " "  + lastName; 
             }
             return fullName;
+        }
+
+        public UserViewModel Login()
+        {
+            GenericDataFormat requestBody = new GenericDataFormat();
+            requestBody.Filters = new List<GenericDataFormat.FilterItems>();
+            requestBody.Filters.Add(new GenericDataFormat.FilterItems() { Property = "UserName", Value = this.UserName, Operation = GenericDataFormat.FilterOperations.Equal });
+            UserViewModel user = new UserModel<UserViewModel>().Get(requestBody).SingleOrDefault();
+            if (user != null)
+            {
+                var uPass = SecurityMethods.Hashing(this.UserName, this.Password);
+                if (user.Password == SecurityMethods.Hashing(this.UserName, this.Password))
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
+        public void SaveUserToLocalStorage(bool rememberMe)
+        {
+            System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserName, rememberMe);
+            System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserId.ToString(), rememberMe);
+            HttpContext.Current.Session[UserViewModel.SessionName] = this;
+        }
+
+        public UserViewModel GetUserFromSession()
+        {
+            UserViewModel cUser = null;
+            if (HttpContext.Current.Session[UserViewModel.SessionName] != null)
+            {
+                cUser = (UserViewModel)HttpContext.Current.Session[UserViewModel.SessionName];
+            }
+            return cUser;
+               
         }
     }
 }

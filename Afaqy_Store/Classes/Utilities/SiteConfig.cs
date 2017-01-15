@@ -17,5 +17,13 @@ namespace Classes.Utilities
                 return _ApiUrl;
             }
         }
+
+        public static string SecurityKey
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["SecurityKey"];
+            }
+        }
     }
 }

@@ -5,6 +5,15 @@
     Layout = "~/Views/Shared/_Empty.cshtml"; ;
 }
 
+<style>
+    .login-container .loginbox .loginbox-remember
+    {
+        padding: 5px 40px;
+    }
+
+   
+</style>
+
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
 </div>
@@ -30,16 +39,19 @@
                     @Html.Bootstrap().PasswordFor(t => t.Password).Placeholder(Resources.Resource.Password)
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
+                <div class="loginbox-remember">
+                    @Html.Bootstrap().CheckBoxFor(t => t.RememberMe).HtmlAttributes(new { @class = "checkbox-slider  colored-blue" })
+                </div>
                 <div class="loginbox-forgot">
                     <a href="">@Resources.Resource.ForgetPassword</a>
                 </div>
-                <div class="loginbox-submit">
-                    @Html.Bootstrap().SubmitButton().Text(Resources.Resource.Login).Color(BootstrapColors.Primary).ButtonBlock()
-                </div>
-                <div class="loginbox-signup">
-                    @Html.ActionLink(Resources.Resource.SignUpWithEmail, "Register", "Account")
-                </div>
-            }
+                    <div class="loginbox-submit">
+                        @Html.Bootstrap().SubmitButton().Text(Resources.Resource.Login).Color(BootstrapColors.Primary).ButtonBlock()
+                    </div>
+                    <div class="loginbox-signup">
+                        @Html.ActionLink(Resources.Resource.SignUpWithEmail, "Register", "Account")
+                    </div>
+                    }
         </div>
         @*<div class="logobox">
             </div>*@

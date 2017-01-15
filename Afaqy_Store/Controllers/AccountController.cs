@@ -18,9 +18,14 @@ namespace Afaqy_Store.Controllers
         [HttpPost]
         public ActionResult Login([Bind(Include = "Email,Password,RememberMe")] LoginViewModel model)
         {
-            var p = model.Password;
-            var re = model.RememberMe;
-            return RedirectToAction("Index", "Device");
+            var user = model.Login();
+            if (user != null)
+            {
+                user.SaveUserToLocalStorage(model.RememberMe);
+               
+                return RedirectToAction("Index", "Device");
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Classes.Utilities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -67,6 +68,12 @@ namespace Afaqy_Store.Models
 
         [Display(Name = "RememberMe", ResourceType = typeof(Resources.Resource))]
         public bool RememberMe { get; set; }
+
+        public UserViewModel Login()
+        {
+            UserViewModel user = new UserViewModel() { UserName = this.Email, Password = this.Password };
+            return user.Login();
+        }
     }
 
     public class RegisterViewModel
