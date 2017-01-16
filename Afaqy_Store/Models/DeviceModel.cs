@@ -61,12 +61,16 @@ namespace Afaqy_Store.Models
     }
 
     [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId")]
-    public class DeviceCreateModel : Device
+    public class DeviceCreateBindModel : Device
     {
 
     }
 
-    public class DeviceEditModel
+    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,DeviceStatusId,CreateUserId,CreateDate")]
+    public class DeviceEditBindModel : Device
+    {
+    }
+    public class DeviceEditModel 
     {
         public Device EditItem { get; set; }
         public IEnumerable<SelectListItem> ModelType { get; set; }

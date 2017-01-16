@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BaseController<TDBModel, TViewModel,TCreateModel, TEditModel, TModel_TDBModel, TModel_TViewModel> : GenericContoller<TDBModel, TViewModel, TCreateModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
+    public class BaseController<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel> : GenericContoller<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
     {
     }
 }

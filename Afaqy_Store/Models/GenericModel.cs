@@ -52,7 +52,7 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-        public virtual TModel Update(TModel obj, int id)
+        public virtual TModel Update(TModel obj, object id)
         {
             string url = ApiServerUrl + ControllerRoute + id;
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Put) { RequestBody = new StringContent(JsonConvert.SerializeObject(obj), System.Text.Encoding.UTF8, "application/json") };
