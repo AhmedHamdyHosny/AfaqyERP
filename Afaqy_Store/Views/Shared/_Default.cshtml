@@ -37,6 +37,8 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
     @Scripts.Render("~/bundles/skin")
 
+    <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/grid.css" />
+
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -112,7 +114,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--/Theme Selector Area-->
                                     <li class="dropdown-footer">
-                                        <a href="javascript:void(0);" ng-click="signOut()">
+                                        <a href="@Url.Action("Login", "Account");">
                                             Sign out
                                         </a>
                                     </li>
@@ -215,15 +217,15 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <script src="~/Content/js/bootbox/bootbox.js"></script>
     <script src="~/Content/js/1.custom-js/Utilities/Utility.js"></script>
 
-    <script src="~/Content/js/angular/angular.min.js"></script>
-    <script src="~/Content/js/angular/angular-touch.min.js"></script>
-    <script src="~/Content/js/angular/angular-animate.min.js"></script>
-    <script src="~/Content/js/angular/csv.js"></script>
-    <script src="~/Content/js/angular/pdfmake.js"></script>
-    <script src="~/Content/js/angular/vfs_fonts.js"></script>
-    <script src="~/Content/js/angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
-    <script src="~/Content/js/angular/ui-grid.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/css/angular/ui-grid.css">
+    <script src="~/Content/js/3.angular/angular.min.js"></script>
+    <script src="~/Content/js/3.angular/angular-touch.min.js"></script>
+    <script src="~/Content/js/3.angular/angular-animate.min.js"></script>
+    <script src="~/Content/js/3.angular/csv.js"></script>
+    <script src="~/Content/js/3.angular/pdfmake.js"></script>
+    <script src="~/Content/js/3.angular/vfs_fonts.js"></script>
+    <script src="~/Content/js/3.angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
+    <script src="~/Content/js/3.angular/ui-grid.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/2.angular/ui-grid.css">
 
     <script src="~/Content/js/1.custom-js/services/global.js"></script>
     <script src="~/Content/js/1.custom-js/services/util.js"></script>

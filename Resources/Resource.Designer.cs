@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email or password is incorrect..
+        /// </summary>
+        public static string AlertLoginFailedErrorMessage {
+            get {
+                return ResourceManager.GetString("AlertLoginFailedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         public static string AlertSuccess {

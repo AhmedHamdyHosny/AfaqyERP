@@ -11,13 +11,15 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public class GenericContoller<TDBModel,TViewModel,TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller 
+    public class GenericContoller<TDBModel,TViewModel, TCreateModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller 
     {
         public GenericDataFormat IndexRequestBody;
         public GenericDataFormat DetailsRequestBody;
         public GenericDataFormat ExportRequestBody;
         public List<Reference> References = null;
         public string ExcelFileName = typeof(TDBModel).ToString() + ".xlsx";
+        public List<ActionItemPropertyValue> ActionItemsPropertyValue = null;
+        public List<PostActionExcuteRedirect> PostActionExcuteRedirects = null;
 
         // GET: Controller
         public virtual ActionResult Index()
@@ -55,45 +57,81 @@ namespace Classes.Common
             return View(model);
         }
 
-        // GET: Controller/Create
-        public virtual ActionResult Create()
+        [NonAction]
+        public void InitCreateView()
         {
-            if(References != null && References.Count > 0)
+            if (References != null && References.Count > 0)
             {
                 foreach (var reference in References)
                 {
                     //create instance of TModel of TViewModel from Reference TypeModel
                     dynamic instance = Activator.CreateInstance(reference.TypeModel);
                     var items = instance.Get();
-                    ViewData[reference.ViewDataName] = new SelectList(items, reference.DataValueField, reference.DataTextField,reference.SelectedValue);
+                    ViewData[reference.ViewDataName] = new SelectList(items, reference.DataValueField, reference.DataTextField, reference.SelectedValue);
                 }
             }
+        }
 
+        // GET: Controller/Create
+        public virtual ActionResult Create()
+        {
+            InitCreateView();
             return View();
         }
 
         // POST: Controller/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = CreateBind)] TDBModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //for test
-        //        model.CreateUserId = 1;
-        //        model.CreateDate = DateTime.Now;
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(TCreateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //set pre-insert property values
+                if(ActionItemsPropertyValue != null)
+                {
+                    Type type = typeof(TCreateModel);
+                    var createActionItemsPropertyValue = ActionItemsPropertyValue.Where(act => act.Transaction == Transactions.Create);
+                    foreach (var actItmPropVal in createActionItemsPropertyValue)
+                    {
+                        System.Reflection.PropertyInfo propertyInfo = type.GetProperties().Where(x => x.Name.Equals(actItmPropVal.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+                        if (propertyInfo != null)
+                        {
+                            propertyInfo.SetValue(model,actItmPropVal.Value);
+                        }
+                    }
+                }
 
-        //        new SIMCardModel<SIMCard>().Insert(model);
-        //        TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
-        //        return RedirectToAction("Index");
-        //    }
+                dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
+                var item = instance.Insert(model);
 
-        //    var SIMCardStatus = new SIMCardStatusModel<SIMCardStatus>().Get();
-        //    ViewBag.SIMCardStatusId = new SelectList(SIMCardStatus, "SIMCardStatusId", "SIMCardStatusName_en", model.SIMCardStatusId);
-        //    return View(model);
-        //}
+                //excute after insert action
+                //var deviceStatusHistory = new DeviceStatusHistory();
+                //deviceStatusHistory.DeviceId = device.DeviceId;
+                //deviceStatusHistory.StatusId = device.DeviceStatusId;
+                //deviceStatusHistory.CreateUserId = userId;
+                //deviceStatusHistory.CreateDate = DateTime.Now;
+                //new DeviceStatusHistoryModel<DeviceStatusHistory>().Insert(deviceStatusHistory);
+
+                //set alerts messages
+                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
+
+                //go to after insert action
+                if(PostActionExcuteRedirects != null)
+                {
+                    var postActionRedirect = PostActionExcuteRedirects.SingleOrDefault(x => x.Transaction == Transactions.Create);
+                    if(postActionRedirect != null)
+                    {
+                        return RedirectToAction(postActionRedirect.RedirectToAction); 
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+
+            InitCreateView();
+            return View(model);
+        }
 
         // GET: Controller/Edit/5
         //public ActionResult Edit(object id)
@@ -111,7 +149,7 @@ namespace Classes.Common
         //    {
         //        return HttpNotFound();
         //    }
-            
+
         //    //create instance of TEditModel 
         //    var model = Activator.CreateInstance(typeof(TEditModel));
 
@@ -239,4 +277,22 @@ namespace Classes.Common
         public string DataTextField { get; set; }
         public string SelectedValue { get; set; }
     }
+
+    public class ActionItemPropertyValue
+    {
+        public Transactions Transaction { get; set; }
+        public string PropertyName { get; set; }
+        public object Value { get; set; }
+
+    }
+
+    public class PostActionExcuteRedirect
+    {
+        public Transactions Transaction{ get; set; }
+        public string RedirectToAction { get; set; }
+    }
+
+
+
+
 }

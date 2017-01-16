@@ -183,6 +183,9 @@
   <data name="AlertInfo" xml:space="preserve">
     <value>Info!</value>
   </data>
+  <data name="AlertLoginFailedErrorMessage" xml:space="preserve">
+    <value>Email or password is incorrect.</value>
+  </data>
   <data name="AlertSuccess" xml:space="preserve">
     <value>Success</value>
   </data>

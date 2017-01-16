@@ -7,31 +7,31 @@
 
 
 function accountCtrl($scope, $uibModal) {
-    $scope.signOut = function () {
-        showLoading();
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: loginActionUrl,
-            controller: 'loginCtrl',
-            scope: $scope,
-            backdrop: false,
-        });
-        modalInstance.result.then(null, function () { });
-    }
+    //$scope.signOut = function () {
+    //    showLoading();
+    //    var modalInstance = $uibModal.open({
+    //        animation: true,
+    //        templateUrl: loginActionUrl,
+    //        controller: 'loginCtrl',
+    //        scope: $scope,
+    //        backdrop: false,
+    //    });
+    //    modalInstance.result.then(null, function () { });
+    //}
 }
 
-function loginCtrl($scope, $uibModalInstance, global) {
-    hideLoading();
-    $scope.login = function () {
-        global.post(loginActionUrl, $scope.user, function (resp) {
-            if (resp.data) {
-                $uibModalInstance.dismiss('cancel');
-                window.location('device')
-            }
-        }, function (resp) {
-        });
-    }
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-}
+//function loginCtrl($scope, $uibModalInstance, global) {
+//    hideLoading();
+//    $scope.login = function () {
+//        global.post(loginActionUrl, $scope.user, function (resp) {
+//            if (resp.data) {
+//                $uibModalInstance.dismiss('cancel');
+//                window.location('device')
+//            }
+//        }, function (resp) {
+//        });
+//    }
+//    $scope.cancel = function () {
+//        $uibModalInstance.dismiss('cancel');
+//    };
+//}

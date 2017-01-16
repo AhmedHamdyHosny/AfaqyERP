@@ -16,16 +16,23 @@ namespace Afaqy_Store.Controllers
         }
 
         [HttpPost]
-        public bool Login(LoginViewModel model)
+        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        public ActionResult Login(LoginViewModel model)
         {
-            var user = model.Login();
-            var success = false;
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                success = true;
-                user.SaveUserToLocalStorage(model.RememberMe);
+                var user = model.Login();
+                if (user != null)
+                {
+                    user.SaveUserToLocalStorage(model.RememberMe);
+                    return RedirectToAction("Index", "Device");
+                }
+                else
+                {
+                    ViewBag.Error = Resources.Resource.AlertLoginFailedErrorMessage;
+                }
             }
-            return success;
+            return View();
         }
     }
 }

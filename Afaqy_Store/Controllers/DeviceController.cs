@@ -13,7 +13,7 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceController : BaseController<Device,DeviceViewModel,DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
+    public class DeviceController : BaseController<Device,DeviceViewModel,DeviceCreateModel,DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
     {
         public DeviceController()
         {
@@ -24,53 +24,48 @@ namespace Afaqy_Store.Controllers
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceId,SerialNumber,IMEI,Firmware", References = "DeviceStatus,DeviceModelType" } };
             References = new List<Reference>();
             References.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelTypeViewModel>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName" });
+            ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
+            //for test
+            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = 1 });
+            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateDate", Value = DateTime.Now });
+            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "DeviceStatusId", Value = (int)DBEnums.DeviceStatus.New });
             ExcelFileName = "Devices.xlsx";
         }
-
-        public ActionResult TestDesign()
-        {
-            return View();
-        }
-
-        public ActionResult TestCreate()
-        {
-            return View();
-        }
-
+        
         // POST: Device/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId")] Device model)
-        {
-            if (ModelState.IsValid)
-            {
-                //for test
-                var userId = 1;
-                model.CreateUserId = userId;
-                model.CreateDate = DateTime.Now;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(DeviceCreateModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //for test
+        //        var userId = 1;
+        //        model.CreateUserId = userId;
+        //        model.CreateDate = DateTime.Now;
 
-                //set device status to initial status
-                model.DeviceStatusId = (int)DBEnums.DeviceStatus.New;
-                Device device = new DeviceModel<Device>().Insert(model);
+        //        //set device status to initial status
+        //        model.DeviceStatusId = (int)DBEnums.DeviceStatus.New;
+        //        Device device = new DeviceModel<Device>().Insert(model);
 
-                //insert current status to device status history
-                var deviceStatusHistory = new DeviceStatusHistory();
-                deviceStatusHistory.DeviceId = device.DeviceId;
-                deviceStatusHistory.StatusId = device.DeviceStatusId;
-                deviceStatusHistory.CreateUserId = userId;
-                deviceStatusHistory.CreateDate = DateTime.Now;
-                new DeviceStatusHistoryModel<DeviceStatusHistory>().Insert(deviceStatusHistory);
+        //        //insert current status to device status history
+        //        var deviceStatusHistory = new DeviceStatusHistory();
+        //        deviceStatusHistory.DeviceId = device.DeviceId;
+        //        deviceStatusHistory.StatusId = device.DeviceStatusId;
+        //        deviceStatusHistory.CreateUserId = userId;
+        //        deviceStatusHistory.CreateDate = DateTime.Now;
+        //        new DeviceStatusHistoryModel<DeviceStatusHistory>().Insert(deviceStatusHistory);
 
-                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
-                return RedirectToAction("Index");
-            }
+        //        TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
+        //        return RedirectToAction("Index");
+        //    }
 
-            var ModelTypes = new DeviceModelTypeModel<DeviceModelType>().Get();
-            ViewBag.ModelTypeId = new SelectList(ModelTypes, "ModelTypeId", "ModelTypeName", model.ModelTypeId);
-            return View(model);
-        }
+        //    var ModelTypes = new DeviceModelTypeModel<DeviceModelType>().Get();
+        //    ViewBag.ModelTypeId = new SelectList(ModelTypes, "ModelTypeId", "ModelTypeName", model.ModelTypeId);
+        //    return View(model);
+        //}
 
 
         // GET: Device/Edit/5

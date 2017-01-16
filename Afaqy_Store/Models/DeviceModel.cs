@@ -60,6 +60,12 @@ namespace Afaqy_Store.Models
 
     }
 
+    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId")]
+    public class DeviceCreateModel : Device
+    {
+
+    }
+
     public class DeviceEditModel
     {
         public Device EditItem { get; set; }
