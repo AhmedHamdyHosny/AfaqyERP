@@ -10,7 +10,7 @@
     <h2 class="modal-title">@Resources.Store.DeviceNew</h2>
 </div>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
@@ -47,6 +47,22 @@
         <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
     </div>
 
+}
+
+@section scripts {
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Content/js/1.custom-js/Utilities/Utility.js"></script>
+    <script>
+        $(document).ready(function () {
+            showAlert();
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+                
+            });
+        });
+    </script>
 }
 
 

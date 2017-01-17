@@ -26,6 +26,7 @@ namespace Afaqy_Store.DataLayer
         public string IMEI { get; set; }
         public int ModelTypeId { get; set; }
         public int DeviceStatusId { get; set; }
+        [System.ComponentModel.DataAnnotations.Required]
         public string Firmware { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }

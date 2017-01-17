@@ -23,6 +23,7 @@ namespace Classes.Common
         public List<PostActionExcuteRedirect> PostActionExcuteRedirects = null;
         public string PK_PropertyName { get; set; }
 
+
         // GET: Controller
         public virtual ActionResult Index()
         {
@@ -97,7 +98,11 @@ namespace Classes.Common
                     var createActionItemsPropertyValue = ActionItemsPropertyValue.Where(act => act.Transaction == Transactions.Create);
                     foreach (var actItmPropVal in createActionItemsPropertyValue)
                     {
-                        Utilities.Utility.SetPropertyValue<TCreateBindModel>(ref model, actItmPropVal.PropertyName, actItmPropVal.Value);
+                        System.Reflection.PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(actItmPropVal.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+                        if (propertyInfo != null)
+                        {
+                            propertyInfo.SetValue(model, actItmPropVal.Value);
+                        }
                     }
                 }
 

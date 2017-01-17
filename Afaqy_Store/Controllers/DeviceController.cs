@@ -34,6 +34,17 @@ namespace Afaqy_Store.Controllers
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateDate", Value = DateTime.Now });
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "DeviceStatusId", Value = (int)DBEnums.DeviceStatus.New });
 
+            var deviceStatusHistory = new List<DeviceStatusHistory>();
+            deviceStatusHistory.Add(new DeviceStatusHistory()
+            {
+                StatusId = (int)DBEnums.DeviceStatus.New,
+                //for test
+                CreateUserId = 1,
+                CreateDate = DateTime.Now
+            });
+            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "DeviceStatusHistory", Value = deviceStatusHistory });
+
+
             //for test
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyUserId", Value = 1 });
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyDate", Value = DateTime.Now });
