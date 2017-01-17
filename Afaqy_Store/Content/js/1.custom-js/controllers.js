@@ -5,3 +5,4 @@
 //.controller('DeviceCreateCtrl', DeviceCreateCtrl)
 //.controller('DeviceEditCtrl', DeviceEditCtrl)
 //.controller('DeviceDetailsCtrl', DeviceDetailsCtrl)
+

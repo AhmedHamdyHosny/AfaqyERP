@@ -1,21 +1,20 @@
-﻿@model IEnumerable<Afaqy_Store.DataLayer.Device>
+﻿@model IEnumerable<Afaqy_Store.DataLayer.DeviceStatus>
 @using Newtonsoft.Json
 @using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
 @{
-    ViewBag.Title = Resources.Store.DeviceTitle;
+    ViewBag.Title = Resources.Store.DeviceStatusTitle;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
-
 <br />
-<div class="row" ng-controller="DeviceCtrl">
+<div class="row" ng-controller="DeviceStatusCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-header ">
-                <span class="widget-caption">@Resources.Store.Devices</span>
+                <span class="widget-caption">@Resources.Store.DeviceStatus</span>
                 <div class="widget-buttons">
                     <a href="javascript:void(0);" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -71,73 +70,44 @@
                 }
                 
                 <div class="table-toolbar">
-                    @using (Html.BeginForm("Import", "Device", FormMethod.Post, new { enctype = "multipart/form-data", id = "importForm", style = "display:none;" }))
-                    {
-                        <input type="file" id="upload" name="file" class="upload" onchange="fileChange(this)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-                        <button type="submit" id="btnImportExcel"></button>
-                    }
-                    <a  ng-click="create()" class="btn purple" id="addBtn"> 
-                        <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
-                    </a>
-                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
-                        <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
-                    </a>
                     <div class="btn-group pull-right">
                         <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
                         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
                         <ul class="dropdown-menu dropdown-default">
                             <li>
-                                <a href="javascript:void(0);" onclick="showImportDilogFile()" >@Resources.Resource.Import</a>
-                            </li>
-                            <li>
                                 <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a> 
+                                <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions"  ui-grid-exporter ui-grid-selection class="grid"></div>
+                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-    
     <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
-
     <script>
-       
+
         var gridColumnDefs = [
-            { field: 'SerialNumber', name: '@Resources.Store.DeviceSerialNumber' },
-            { field: 'IMEI', name: '@Resources.Store.DeviceIMEI' },
-            { field: 'DeviceModelType.ModelTypeName', name: '@Resources.Store.DeviceModelType' },
-            { field: 'DeviceStatus.DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
-            { field: 'Firmware', name: '@Resources.Store.Firmware'  },
+            { field: 'DeviceStatus_en', name: '@Resources.Store.DeviceStatusNameEn' },
+            { field: 'DeviceStatus_ar', name: '@Resources.Store.DeviceStatusNameAr' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
-                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeviceId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceStatusId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeviceStatusId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false
             }
         ];
 
-        var deleteModalOptions = {
-            closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
-            actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
-            headerText: '@Resources.Resource.DeleteConfirmDialogHeader',
-            bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
-        };
-
-        var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
-        var deleteActionUrl = '@Url.Action("HideGroup")';
 
         var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
-
     </script>
 }

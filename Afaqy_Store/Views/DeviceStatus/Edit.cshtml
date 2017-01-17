@@ -1,0 +1,39 @@
+﻿@model Afaqy_Store.Models.DeviceStatusEditModel
+
+@{
+    ViewBag.Title = Resources.Store.DeviceStatusEdit;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Store.DeviceStatusEdit</h2>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.EditItem.DeviceStatusId)
+            <div class="form-group">
+               @Html.LabelFor(model => Model.EditItem.DeviceStatus_en,Resources.Store.DeviceStatusNameEn, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.DeviceStatus_en, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.DeviceStatus_en, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.DeviceStatus_ar,Resources.Store.DeviceStatusNameAr, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.EditItem.DeviceStatus_ar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditItem.DeviceStatus_ar, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+

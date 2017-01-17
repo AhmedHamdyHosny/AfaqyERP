@@ -101,6 +101,38 @@ namespace Models
             }
         }
 
+        public virtual bool Hide(object id)
+        {
+            string url = ApiServerUrl + ControllerRoute+"hide/" + id;
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Delete);
+            var task = request.Execute<String>();
+            task.Wait();
+            if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public virtual bool Hide(object[] ids)
+        {
+            string url = ApiServerUrl + ControllerRoute + "hide";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(ids), System.Text.Encoding.UTF8, "application/json") };
+            var task = request.Execute<String>();
+            task.Wait();
+            if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public virtual bool Import(HttpPostedFileBase file)
         {
 

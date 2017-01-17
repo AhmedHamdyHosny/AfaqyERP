@@ -3,10 +3,9 @@
 //Default Master Page controllers ========
 //.controller('defaultCtrl', defaultCtrl)
 .controller('accountCtrl', accountCtrl)
-.controller('loginCtrl', loginCtrl)
 
 
-function accountCtrl($scope, $uibModal) {
+function accountCtrl($scope) {
     //$scope.signOut = function () {
     //    showLoading();
     //    var modalInstance = $uibModal.open({

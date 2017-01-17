@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Afaqy_Store.DataLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Afaqy_Store.DataLayer.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="CountryId" />
@@ -21,18 +21,19 @@
           <Property Name="IMEI" Type="varchar" MaxLength="20" />
           <Property Name="ModelTypeId" Type="int" Nullable="false" />
           <Property Name="DeviceStatusId" Type="int" Nullable="false" />
-          <Property Name="Firmware" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Firmware" Type="varchar" MaxLength="15" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceModelType">
           <Key>
             <PropertyRef Name="ModelTypeId" />
           </Key>
           <Property Name="ModelTypeId" Type="int" Nullable="false" />
-          <Property Name="ModelTypeName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ModelTypeName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceSIM">
           <Key>
@@ -45,6 +46,7 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceStatus">
           <Key>
@@ -76,14 +78,15 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardStatus">
           <Key>
             <PropertyRef Name="SIMCardStatusId" />
           </Key>
           <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
-          <Property Name="SIMCardStatusName_en" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="SIMCardStatusName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="SIMCardStatusName_en" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SIMCardStatusName_ar" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="SIMCardStatusHistory">
           <Key>
@@ -101,7 +104,7 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FirstName_ar" Type="nvarchar" MaxLength="20" />
@@ -112,6 +115,7 @@
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="AllowAccess" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -309,8 +313,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Afaqy_Store.DataLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -331,7 +334,7 @@
           <Property Name="IMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
           <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
-          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
@@ -340,13 +343,14 @@
           <NavigationProperty Name="DeviceModelType" Relationship="Self.FK_Device_ModelType" FromRole="Device" ToRole="DeviceModelType" />
           <NavigationProperty Name="DeviceSIM" Relationship="Self.FK_DeviceSIM_Device" FromRole="Device" ToRole="DeviceSIM" />
           <NavigationProperty Name="DeviceStatusHistory" Relationship="Self.FK_DeviceStatusHistory_Device" FromRole="Device" ToRole="DeviceStatusHistory" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceModelType">
           <Key>
             <PropertyRef Name="ModelTypeId" />
           </Key>
           <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
-          <Property Name="ModelTypeName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ModelTypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Device" Relationship="Self.FK_Device_ModelType" FromRole="DeviceModelType" ToRole="Device" />
         </EntityType>
         <EntityType Name="DeviceSIM">
@@ -362,6 +366,7 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Device" Relationship="Self.FK_DeviceSIM_Device" FromRole="DeviceSIM" ToRole="Device" />
           <NavigationProperty Name="SIMCard" Relationship="Self.FK_DeviceSIM_SIMCard" FromRole="DeviceSIM" ToRole="SIMCard" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceStatus">
           <Key>
@@ -400,14 +405,15 @@
           <NavigationProperty Name="DeviceSIM" Relationship="Self.FK_DeviceSIM_SIMCard" FromRole="SIMCard" ToRole="DeviceSIM" />
           <NavigationProperty Name="SIMCardStatus" Relationship="Self.FK_SIMCard_SIMCardStatus" FromRole="SIMCard" ToRole="SIMCardStatus" />
           <NavigationProperty Name="SIMCardStatusHistory" Relationship="Self.FK_SIMCardStatusHistory_SIMCard" FromRole="SIMCard" ToRole="SIMCardStatusHistory" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardStatus">
           <Key>
             <PropertyRef Name="SIMCardStatusId" />
           </Key>
           <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
-          <Property Name="SIMCardStatusName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SIMCardStatusName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SIMCardStatusName_en" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SIMCardStatusName_ar" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SIMCard" Relationship="Self.FK_SIMCard_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardStatusHistory" Relationship="Self.FK_SIMCardStatusHistory_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCardStatusHistory" />
         </EntityType>
@@ -429,7 +435,7 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -442,6 +448,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Country" Relationship="Self.FK_User_Country" FromRole="User" ToRole="Country" />
           <NavigationProperty Name="UserType" Relationship="Self.FK_User_UserType" FromRole="User" ToRole="UserType" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -657,6 +664,7 @@
           <EntitySetMapping Name="Device">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="IMEI" ColumnName="IMEI" />
@@ -681,6 +689,7 @@
           <EntitySetMapping Name="DeviceSIM">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceSIM">
               <MappingFragment StoreEntitySet="DeviceSIM">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="DeviceSIMId" ColumnName="DeviceSIMId" />
                 <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
                 <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
@@ -714,6 +723,7 @@
           <EntitySetMapping Name="SIMCard">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCard">
               <MappingFragment StoreEntitySet="SIMCard">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="GSM" ColumnName="GSM" />
@@ -749,6 +759,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

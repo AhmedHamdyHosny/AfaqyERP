@@ -32,6 +32,7 @@ function showAlert() {
         $('#alert').slideDown(300);
         setTimeout(function () {
             $('#alert').slideUp(300);
+            $('#alert').html('');
         }, 5000);
     }
 }

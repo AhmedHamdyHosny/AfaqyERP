@@ -51,10 +51,8 @@
 
 @section scripts {
 @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Content/js/1.custom-js/Utilities/Utility.js"></script>
     <script>
         $(document).ready(function () {
-            showAlert();
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {
                     event.preventDefault();

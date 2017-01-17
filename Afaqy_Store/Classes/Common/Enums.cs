@@ -92,5 +92,18 @@ namespace Classes.Common
             Missing = 10,
             Damage = 11
         }
+
+        public enum SIMCardStatus
+        {
+            New = 1,
+            Linked_with_device = 2,
+            Spare_to_technical = 3,
+            Blanked_to_client = 4,
+            Connected_to_server = 5,
+            Disconnected_to_server = 6,
+            Damag = 7,
+            Replacement = 8,
+            Missing = 9
+        }
     }
 }

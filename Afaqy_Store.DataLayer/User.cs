@@ -26,6 +26,7 @@ namespace Afaqy_Store.DataLayer
         public bool Active { get; set; }
         public bool AllowAccess { get; set; }
         public System.DateTime CreateDate { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual UserType UserType { get; set; }

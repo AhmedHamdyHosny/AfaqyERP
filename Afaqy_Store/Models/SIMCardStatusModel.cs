@@ -1,10 +1,11 @@
-﻿using Classes.Utilities;
+﻿using Afaqy_Store.DataLayer;
+using Classes.Utilities;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
@@ -16,5 +17,16 @@ namespace Afaqy_Store.Models
         {
             
         }
+    }
+    
+
+    [Bind(Include = "SIMCardStatusId,SIMCardStatusName_en,SIMCardStatusName_ar")]
+    public class SIMCardStatusEditBindModel : SIMCardStatus
+    {
+    }
+
+    public class SIMCardStatusEditModel
+    {
+        public SIMCardStatus EditItem { get; set; }
     }
 }

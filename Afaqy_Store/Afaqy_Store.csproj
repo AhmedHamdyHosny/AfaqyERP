@@ -283,8 +283,10 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
+    <Compile Include="Controllers\DeviceStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SIMCardController.cs" />
+    <Compile Include="Controllers\SIMCardStatusController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -406,6 +408,7 @@
     <Content Include="Content\js\1.custom-js\app.js" />
     <Content Include="Content\js\1.custom-js\controllers\default.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
+    <Content Include="Content\js\1.custom-js\controllers\temp.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
     <Content Include="Content\js\1.custom-js\services.js" />
     <Content Include="Content\js\1.custom-js\services\global.js" />
@@ -843,10 +846,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\SIMCards\Create.cshtml" />
-    <Content Include="Views\SIMCards\Details.cshtml" />
-    <Content Include="Views\SIMCards\Edit.cshtml" />
-    <Content Include="Views\SIMCards\Index.cshtml" />
+    <Content Include="Views\SIMCard\Create.cshtml" />
+    <Content Include="Views\SIMCard\Details.cshtml" />
+    <Content Include="Views\SIMCard\Edit.cshtml" />
+    <Content Include="Views\SIMCard\Index.cshtml" />
     <Content Include="Views\Shared\_Default.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
@@ -856,7 +859,6 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
-    <Content Include="Views\SIMCards\TestDesign.cshtml" />
     <Content Include="Views\Device\Index.cshtml" />
     <Content Include="Views\Device\Edit.cshtml" />
     <Content Include="Views\Device\Details.cshtml" />
@@ -864,6 +866,12 @@
     <Content Include="Views\Shared\_Popup.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_Empty.cshtml" />
+    <Content Include="Views\SIMCardStatus\Index.cshtml" />
+    <Content Include="Views\SIMCardStatus\Edit.cshtml" />
+    <Content Include="Views\SIMCardStatus\Details.cshtml" />
+    <Content Include="Views\DeviceStatus\Details.cshtml" />
+    <Content Include="Views\DeviceStatus\Edit.cshtml" />
+    <Content Include="Views\DeviceStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

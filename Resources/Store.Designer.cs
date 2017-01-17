@@ -160,11 +160,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device Status Details.
+        /// </summary>
+        public static string DeviceStatusDetails {
+            get {
+                return ResourceManager.GetString("DeviceStatusDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Device Status.
+        /// </summary>
+        public static string DeviceStatusEdit {
+            get {
+                return ResourceManager.GetString("DeviceStatusEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status(Ar).
+        /// </summary>
+        public static string DeviceStatusNameAr {
+            get {
+                return ResourceManager.GetString("DeviceStatusNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string DeviceStatusNameEn {
             get {
                 return ResourceManager.GetString("DeviceStatusNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Status.
+        /// </summary>
+        public static string DeviceStatusTitle {
+            get {
+                return ResourceManager.GetString("DeviceStatusTitle", resourceCulture);
             }
         }
         
@@ -259,11 +295,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatus {
+            get {
+                return ResourceManager.GetString("SIMCardStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status Details.
+        /// </summary>
+        public static string SIMCardStatusDetails {
+            get {
+                return ResourceManager.GetString("SIMCardStatusDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatusEdit {
+            get {
+                return ResourceManager.GetString("SIMCardStatusEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status(Ar).
+        /// </summary>
+        public static string SIMCardStatusNameAr {
+            get {
+                return ResourceManager.GetString("SIMCardStatusNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string SIMCardStatusNameEn {
             get {
                 return ResourceManager.GetString("SIMCardStatusNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatusTitle {
+            get {
+                return ResourceManager.GetString("SIMCardStatusTitle", resourceCulture);
             }
         }
         

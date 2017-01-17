@@ -11,10 +11,9 @@
                         url +'\r\n'+
                         JSON.stringify(data));
 
-            var config = { headers: { 'Content-Type': 'application/json' } };
+            var config = {}; //headers: { 'Content-Type': 'application/json' }
             
             if (json == false) {
-                alert('hi')
                 config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }};
             }
             //show loading page

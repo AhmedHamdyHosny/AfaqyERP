@@ -26,12 +26,12 @@ namespace Afaqy_Store.DataLayer
         public string IMEI { get; set; }
         public int ModelTypeId { get; set; }
         public int DeviceStatusId { get; set; }
-        [System.ComponentModel.DataAnnotations.Required]
         public string Firmware { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual DeviceStatus DeviceStatus { get; set; }
         public virtual DeviceModelType DeviceModelType { get; set; }

@@ -21,9 +21,9 @@ namespace GenericApiController
         public GenericAuthorizRoles<T> AuthorizRole { get; set; }
 
         private Expression<Func<T, bool>> DataConstrains { get; set; }
-
         public string[] UserRoles { get; set; }
-        
+        public string DeletedFlagPropertyName = "IsDeleted";
+
         public GenericApiController(DbContext context)
         {
             repo = new UnitOfWork<T>(context);
@@ -179,7 +179,7 @@ namespace GenericApiController
 
 
         }
-        // Post api/controller/delete
+        // POST api/controller/delete
         [HttpPost]
         public virtual IHttpActionResult Delete(int[] ids)
         {
@@ -188,11 +188,8 @@ namespace GenericApiController
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-            
             foreach (var id in ids)
             {
-                //var TEntityId = Repository<T>.GetId(id, repo.Repo._context);
-                
                 var item = repo.Repo.GetByID(id, filter: DataConstrains);
                 if (item != null)
                 {
@@ -204,13 +201,63 @@ namespace GenericApiController
                     return Content(HttpStatusCode.Unauthorized, "Unauthorized");
                 }
             }
-
             repo.Save();
             return Content(HttpStatusCode.OK, "Success");
-
+        }
+        // DELETE api/controller/hide/5
+        [HttpDelete]
+        public virtual IHttpActionResult Hide(int id)
+        {
+            GetAuthorization();
+            if (!IsAuthorize(Actions.Delete))
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            var item = repo.Repo.GetByID(id, filter: DataConstrains);
+            if (item != null)
+            {
+                repo.Repo.Detach(item);
+                //set deleteded flag property to true
+                Repository<T>.SetPropertyValue(ref item, DeletedFlagPropertyName, true);
+                repo.Repo.Update(item);
+                repo.Save();
+                return Content(HttpStatusCode.OK, "Success");
+            }
+            else
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
 
 
         }
+        // POST api/controller/hide
+        [HttpPost]
+        public virtual IHttpActionResult Hide(int[] ids)
+        {
+            GetAuthorization();
+            if (!IsAuthorize(Actions.Delete))
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            foreach (var id in ids)
+            {
+                var item = repo.Repo.GetByID(id, filter: DataConstrains);
+                if (item != null)
+                {
+                    repo.Repo.Detach(item);
+                    //set deleteded flag property to true
+                    Repository<T>.SetPropertyValue(ref item, DeletedFlagPropertyName, true);
+                    repo.Repo.Update(item);
+                }
+                else
+                {
+                    return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+                }
+            }
+            repo.Save();
+            return Content(HttpStatusCode.OK, "Success");
+        }
+
         //POST api/controller/import
         [HttpPost]
         public virtual IHttpActionResult Import(List<T> entities)

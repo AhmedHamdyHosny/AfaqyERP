@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
@@ -18,9 +19,9 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class DeviceStatusViewModel : DeviceStatus
+    [Bind(Include = "DeviceStatusId,DeviceStatus_en,DeviceStatus_ar")]
+    public class DeviceStatusEditBindModel : DeviceStatus
     {
-
     }
 
     public class DeviceStatusEditModel

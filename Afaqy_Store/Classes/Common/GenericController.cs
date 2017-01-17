@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using static Classes.Common.Enums;
@@ -18,12 +19,11 @@ namespace Classes.Common
         public GenericDataFormat ExportRequestBody;
         public List<Reference> CreateReferences = null;
         public List<Reference> EditReferences = null;
-        public string ExcelFileName = typeof(TDBModel).ToString() + ".xlsx";
+        public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
         public List<ActionItemPropertyValue> ActionItemsPropertyValue = null;
         public List<PostActionExcuteRedirect> PostActionExcuteRedirects = null;
         public string PK_PropertyName { get; set; }
-
-
+        
         // GET: Controller
         public virtual ActionResult Index()
         {
@@ -56,7 +56,7 @@ namespace Classes.Common
                 return HttpNotFound();
             }
             dynamic model = (TViewModel)items.ElementAt(0);
-            model.BindCreate_Modify_User();
+            //model.BindCreate_Modify_User();
             return View(model);
         }
 
@@ -98,7 +98,7 @@ namespace Classes.Common
                     var createActionItemsPropertyValue = ActionItemsPropertyValue.Where(act => act.Transaction == Transactions.Create);
                     foreach (var actItmPropVal in createActionItemsPropertyValue)
                     {
-                        System.Reflection.PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(actItmPropVal.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+                        PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(actItmPropVal.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
                         if (propertyInfo != null)
                         {
                             propertyInfo.SetValue(model, actItmPropVal.Value);
@@ -157,7 +157,7 @@ namespace Classes.Common
                         Value = Utilities.Utility.GetPropertyValue(x, reference.DataValueField).ToString()
                     });
                     //set the value of reference SelectListItem property of EditModel object
-                    System.Reflection.PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(reference.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
+                    PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(reference.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
                     if (propertyInfo != null)
                     {
                         propertyInfo.SetValue(model, refSelectListItems);
@@ -225,42 +225,43 @@ namespace Classes.Common
             return View(model);
         }
 
-        // POST: Controller/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "SIMCardId,SerialNumber,GSM,SIMCardStatusId,CreateUserId,CreateDate")] SIMCard EditItem)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //for test
-        //        EditItem.ModifyUserId = 1;
-        //        EditItem.ModifyDate = DateTime.Now;
-
-        //        new SIMCardModel<SIMCard>().Update(EditItem, EditItem.SIMCardId);
-        //        TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Edit };
-        //        return RedirectToAction("Index");
-        //    }
-        //    var SIMCardStatus = new SIMCardStatusModel<SIMCardStatus>().Get();
-        //    var model = new EditSIMCardModel()
-        //    {
-        //        EditItem = new SIMCardModel<SIMCard>().Get(EditItem.SIMCardId),
-        //        Status = SIMCardStatus.Select(x => new SelectListItem() { Selected = EditItem.SIMCardStatusId == x.SIMCardStatusId, Text = x.SIMCardStatusName_en, Value = x.SIMCardStatusId.ToString() })
-        //    };
-        //    return View(model);
-        //}
-
-        // POST: Controller/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
+        public virtual bool DeleteConfirmed(object id)
+        {
+            //create instance of TModel of TViewModel
+            dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
+            instance.Delete(id);
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Delete };
+            return true;
+        }
+
+        [HttpPost, ActionName("DeleteGroup")]
         public virtual bool DeleteConfirmed(object[] ids)
         {
             //create instance of TModel of TViewModel
             dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
             instance.Delete(ids);
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Delete };
+            return true;
+        }
+
+        [HttpPost, ActionName("Hide")]
+        public virtual bool HideConfirmed(object id)
+        {
+            //create instance of TModel of TViewModel
+            dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
+            instance.Hide(id);
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Delete };
+            return true;
+        }
+
+        [HttpPost, ActionName("HideGroup")]
+        public virtual bool HideConfirmed(object[] ids)
+        {
+            //create instance of TModel of TViewModel
+            dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
+            instance.Hide(ids);
             TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Delete };
             return true;
         }
@@ -303,7 +304,7 @@ namespace Classes.Common
                 //create instance of TModel of TDBModel
                 dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
                 var fileBytes = instance.Export(ExportRequestBody);
-                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, ExcelFileName);
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, ExportFileName);
             }
             catch (AggregateException ex)
             {

@@ -89,9 +89,20 @@ namespace Afaqy_Store.Models
 
     }
 
+    [Bind(Include = "SIMCardId,SerialNumber,GSM")]
+    public class SIMCardCreateBindModel : SIMCard
+    {
+
+    }
+
+    [Bind(Include = "SIMCardId,SerialNumber,GSM,SIMCardStatusId,CreateUserId,CreateDate")]
+    public class SIMCardEditBindModel : SIMCard
+    {
+    }
+
     public class SIMCardEditModel
     {
         public SIMCard EditItem { get; set; }
-        public IEnumerable<SelectListItem> Status { get; set; }
+        //public IEnumerable<SelectListItem> Status { get; set; }
     }
 }

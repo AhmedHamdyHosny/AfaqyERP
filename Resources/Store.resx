@@ -189,4 +189,31 @@
   <data name="DeviceNew" xml:space="preserve">
     <value>New Device</value>
   </data>
+  <data name="SIMCardStatus" xml:space="preserve">
+    <value>SIM Card Status</value>
+  </data>
+  <data name="SIMCardStatusDetails" xml:space="preserve">
+    <value>SIM Card Status Details</value>
+  </data>
+  <data name="SIMCardStatusEdit" xml:space="preserve">
+    <value>Edit SIM Card Status</value>
+  </data>
+  <data name="SIMCardStatusNameAr" xml:space="preserve">
+    <value>Status(Ar)</value>
+  </data>
+  <data name="SIMCardStatusTitle" xml:space="preserve">
+    <value>SIM Card Status</value>
+  </data>
+  <data name="DeviceStatusDetails" xml:space="preserve">
+    <value>Device Status Details</value>
+  </data>
+  <data name="DeviceStatusEdit" xml:space="preserve">
+    <value>Edit Device Status</value>
+  </data>
+  <data name="DeviceStatusNameAr" xml:space="preserve">
+    <value>Status(Ar)</value>
+  </data>
+  <data name="DeviceStatusTitle" xml:space="preserve">
+    <value>Device Status</value>
+  </data>
 </root>

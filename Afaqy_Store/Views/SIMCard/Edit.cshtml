@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = Resources.Store.SIMCardEdit;
-    Layout = null;
+    Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
@@ -15,31 +15,21 @@
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
-        <div class="form-horizontal">
+        <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => Model.EditItem.SIMCardId)
             <div class="form-group">
-               @Html.LabelFor(model => Model.EditItem.SerialNumber,Resources.Store.SIMCardSerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+               @Html.LabelFor(model => Model.EditItem.SerialNumber,Resources.Store.SIMCardSerialNumber, htmlAttributes: new { @class = "text-info" })
                 @Html.EditorFor(model => Model.EditItem.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.EditItem.SerialNumber, "", new { @class = "text-danger" })
-                </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.GSM,Resources.Store.SIMCardGSM, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EditItem.GSM, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EditItem.GSM, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.SIMCardStatusId, Resources.Store.SIMCardStatusNameEn, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.EditItem.SIMCardStatusId, Model.Status, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.EditItem.SIMCardStatusId, "", new { @class = "text-danger" })
-                </div>
+                @Html.LabelFor(model => model.EditItem.GSM,Resources.Store.SIMCardGSM, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.EditItem.GSM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EditItem.GSM, "", new { @class = "text-danger" })
             </div>
             <div>
+                @Html.HiddenFor(model => model.EditItem.SIMCardStatusId)
                 @Html.HiddenFor(model => model.EditItem.CreateUserId)
                 @Html.HiddenFor(model => model.EditItem.CreateDate)
             </div>
