@@ -38,7 +38,7 @@ namespace Afaqy_Store.Controllers
             #region Create
             //Create view Dropdown Lists
             CreateReferences = new List<Reference>();
-            CreateReferences.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelTypeViewModel>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName" });
+            CreateReferences.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelType>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName" });
 
             //on create dependences
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = userId });
@@ -58,7 +58,7 @@ namespace Afaqy_Store.Controllers
             #region Edit
             //edit view Dropdown Lists
             EditReferences = new List<Reference>();
-            EditReferences.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelTypeViewModel>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName", PropertyName = "ModelType" });
+            EditReferences.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelType>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName", PropertyName = "ModelType" });
 
             //on edit dependences
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyUserId", Value = userId });

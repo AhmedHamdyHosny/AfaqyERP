@@ -22,43 +22,20 @@
 .controller('DeviceStatusEditCtrl', DeviceStatusEditCtrl)
 .controller('DeviceStatusDetailsCtrl', DeviceStatusDetailsCtrl)
 
+//DeviceModelType controllers ========
+.controller('DeviceModelTypeCtrl', DeviceModelTypeCtrl)
+.controller('DeviceModelTypeCreateCtrl', DeviceModelTypeCreateCtrl)
+.controller('DeviceModelTypeEditCtrl', DeviceModelTypeEditCtrl)
+.controller('DeviceModelTypeDetailsCtrl', DeviceModelTypeDetailsCtrl)
+
 //Device functions ========
-function DeviceCtrl($scope, $uibModal, confirmService, global, $interval, $q, uiGridConstants) {
-    showAlert();
-    var fakeI18n = function (title) {
-        var deferred = $q.defer();
-        $interval(function () {
-            deferred.resolve('col: ' + title);
-        }, 1000, 1);
-        return deferred.promise;
-    };
+function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
 
-    $scope.gridOptions = {
-        enableFiltering: true,
-        exporterMenuCsv: true,
-        enableGridMenu: true,
-        gridMenuTitleFilter: fakeI18n,
-        columnDefs: gridColumnDefs,
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
+    ctrlService.initCtrl($scope);
 
-            // interval of zero just to allow the directive to have initialized
-            //$interval(function () {
-            //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
-            //}, 0, 1);
-            gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
-                $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
-            });
-        }
-    };
+    gridService.initGrid($scope);
 
-    $scope.gridOptions.data = gridData; //'@Html.Raw(JsonConvert.SerializeObject(this.Model))'
-    $scope.gridOptions.selectedItems = [];
-
-    $scope.ToggoleGridFilter = function ($event) {
-        $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-    }
+    gridService.configureExport($scope);
 
     $scope.create = function () {
         showLoading();
@@ -157,42 +134,13 @@ function DeviceDetailsCtrl($scope, $uibModalInstance) {
 }
 
 //SIMCard functions ========
-function SIMCardCtrl($scope, $uibModal, confirmService, global, $interval, $q, uiGridConstants) {
-    showAlert();
-    var fakeI18n = function (title) {
-        var deferred = $q.defer();
-        $interval(function () {
-            deferred.resolve('col: ' + title);
-        }, 1000, 1);
-        return deferred.promise;
-    };
+function SIMCardCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+    
+    ctrlService.initCtrl($scope);
 
-    $scope.gridOptions = {
-        enableFiltering: true,
-        exporterMenuCsv: true,
-        enableGridMenu: true,
-        gridMenuTitleFilter: fakeI18n,
-        columnDefs: gridColumnDefs,
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
+    gridService.initGrid($scope);
 
-            // interval of zero just to allow the directive to have initialized
-            //$interval(function () {
-            //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
-            //}, 0, 1);
-            gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
-                $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
-            });
-        }
-    };
-
-    $scope.gridOptions.data = gridData; //'@Html.Raw(JsonConvert.SerializeObject(this.Model))'
-    $scope.gridOptions.selectedItems = [];
-
-    $scope.ToggoleGridFilter = function ($event) {
-        $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-    }
+    gridService.configureExport($scope);
 
     $scope.create = function () {
         showLoading();
@@ -282,42 +230,13 @@ function SIMCardDetailsCtrl($scope, $uibModalInstance) {
 
 
 //SIMCardStatus functions ========
-function SIMCardStatusCtrl($scope, $uibModal, $interval, $q, uiGridConstants) {
-    showAlert();
-    var fakeI18n = function (title) {
-        var deferred = $q.defer();
-        $interval(function () {
-            deferred.resolve('col: ' + title);
-        }, 1000, 1);
-        return deferred.promise;
-    };
+function SIMCardStatusCtrl($scope, $uibModal, gridService) {
+    
+    ctrlService.initCtrl($scope);
 
-    $scope.gridOptions = {
-        enableFiltering: true,
-        exporterMenuCsv: true,
-        enableGridMenu: true,
-        gridMenuTitleFilter: fakeI18n,
-        columnDefs: gridColumnDefs,
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
+    gridService.initGrid($scope);
 
-            // interval of zero just to allow the directive to have initialized
-            //$interval(function () {
-            //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
-            //}, 0, 1);
-            gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
-                $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
-            });
-        }
-    };
-
-    $scope.gridOptions.data = gridData; //'@Html.Raw(JsonConvert.SerializeObject(this.Model))'
-    $scope.gridOptions.selectedItems = [];
-
-    $scope.ToggoleGridFilter = function ($event) {
-        $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-    }
+    gridService.configureExport($scope);
 
     $scope.edit = function (id) {
         showLoading();
@@ -361,42 +280,13 @@ function SIMCardStatusDetailsCtrl($scope, $uibModalInstance) {
 }
 
 //DeviceStatus functions ========
-function DeviceStatusCtrl($scope, $uibModal, $interval, $q, uiGridConstants) {
-    showAlert();
-    var fakeI18n = function (title) {
-        var deferred = $q.defer();
-        $interval(function () {
-            deferred.resolve('col: ' + title);
-        }, 1000, 1);
-        return deferred.promise;
-    };
+function DeviceStatusCtrl($scope, $uibModal, gridService, ctrlService) {
+    
+    ctrlService.initCtrl($scope);
 
-    $scope.gridOptions = {
-        enableFiltering: true,
-        exporterMenuCsv: true,
-        enableGridMenu: true,
-        gridMenuTitleFilter: fakeI18n,
-        columnDefs: gridColumnDefs,
-        onRegisterApi: function (gridApi) {
-            $scope.gridApi = gridApi;
+    gridService.initGrid($scope);
 
-            // interval of zero just to allow the directive to have initialized
-            //$interval(function () {
-            //    gridApi.core.addToGridMenu(gridApi.grid, [{ title: 'Dynamic item', order: 100 }]);
-            //}, 0, 1);
-            gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
-                $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
-            });
-        }
-    };
-
-    $scope.gridOptions.data = gridData; //'@Html.Raw(JsonConvert.SerializeObject(this.Model))'
-    $scope.gridOptions.selectedItems = [];
-
-    $scope.ToggoleGridFilter = function ($event) {
-        $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
-        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-    }
+    gridService.configureExport($scope);
 
     $scope.edit = function (id) {
         showLoading();
@@ -433,6 +323,76 @@ function DeviceStatusEditCtrl($scope, $uibModalInstance) {
 }
 
 function DeviceStatusDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//DeviceModelType functions ========
+function DeviceModelTypeCtrl($scope, $uibModal, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'DeviceModelTypeCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'DeviceModelTypeEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'DeviceModelTypeDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+}
+
+function DeviceModelTypeCreateCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function DeviceModelTypeEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function DeviceModelTypeDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

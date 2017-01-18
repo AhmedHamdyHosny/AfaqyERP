@@ -240,6 +240,18 @@
   <data name="Export" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="ExportAllDataCsv" xml:space="preserve">
+    <value>Export all data as csv</value>
+  </data>
+  <data name="ExportAllDataPdf" xml:space="preserve">
+    <value>Export all data as pdf</value>
+  </data>
+  <data name="ExportVisibleDataCsv" xml:space="preserve">
+    <value>Export visible data as csv</value>
+  </data>
+  <data name="ExportVisibleDataPdf" xml:space="preserve">
+    <value>Export visible data as pdf</value>
+  </data>
   <data name="ForgetPassword" xml:space="preserve">
     <value>Forgot Password?</value>
   </data>

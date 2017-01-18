@@ -283,6 +283,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
+    <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SIMCardController.cs" />
@@ -425,7 +426,6 @@
     <Content Include="Content\js\3.angular\csv.js" />
     <Content Include="Content\js\3.angular\myApp.js" />
     <Content Include="Content\js\3.angular\pdfmake.js" />
-    <Content Include="Content\js\3.angular\services.js" />
     <Content Include="Content\js\3.angular\ui-bootstrap-2.4.0.js" />
     <Content Include="Content\js\3.angular\ui-bootstrap-tpls-2.4.0.min.js" />
     <Content Include="Content\js\3.angular\ui-grid.js" />
@@ -872,6 +872,10 @@
     <Content Include="Views\DeviceStatus\Details.cshtml" />
     <Content Include="Views\DeviceStatus\Edit.cshtml" />
     <Content Include="Views\DeviceStatus\Index.cshtml" />
+    <Content Include="Views\DeviceModelType\Details.cshtml" />
+    <Content Include="Views\DeviceModelType\Edit.cshtml" />
+    <Content Include="Views\DeviceModelType\Index.cshtml" />
+    <Content Include="Views\DeviceModelType\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

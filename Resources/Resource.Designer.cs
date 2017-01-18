@@ -430,6 +430,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export all data as csv.
+        /// </summary>
+        public static string ExportAllDataCsv {
+            get {
+                return ResourceManager.GetString("ExportAllDataCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export all data as pdf.
+        /// </summary>
+        public static string ExportAllDataPdf {
+            get {
+                return ResourceManager.GetString("ExportAllDataPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export visible data as csv.
+        /// </summary>
+        public static string ExportVisibleDataCsv {
+            get {
+                return ResourceManager.GetString("ExportVisibleDataCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export visible data as pdf.
+        /// </summary>
+        public static string ExportVisibleDataPdf {
+            get {
+                return ResourceManager.GetString("ExportVisibleDataPdf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot Password?.
         /// </summary>
         public static string ForgetPassword {

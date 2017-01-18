@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
@@ -18,11 +19,16 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class DeviceModelTypeViewModel : DeviceModelType
+    [Bind(Include = "ModelTypeId,ModelTypeName")]
+    public class DeviceModelTypeCreateBindModel : DeviceModelType
     {
-
     }
 
+    [Bind(Include = "ModelTypeId,ModelTypeName")]
+    public class DeviceModelTypeEditBindModel : DeviceModelType
+    {
+    }
+    
     public class DeviceModelTypeEditModel
     {
         public DeviceModelType EditItem { get; set; }

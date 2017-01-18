@@ -115,11 +115,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Device Model Type.
+        /// </summary>
+        public static string DeviceModelTypeCreate {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Model Type Details.
+        /// </summary>
+        public static string DeviceModelTypeDetails {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Device Model Type.
+        /// </summary>
+        public static string DeviceModelTypeEdit {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Model Type Id.
+        /// </summary>
+        public static string DeviceModelTypeId {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Model Type.
         /// </summary>
         public static string DeviceModelTypeName {
             get {
                 return ResourceManager.GetString("DeviceModelTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Device Model Type.
+        /// </summary>
+        public static string DeviceModelTypeNew {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Model Type.
+        /// </summary>
+        public static string DeviceModelTypeTitle {
+            get {
+                return ResourceManager.GetString("DeviceModelTypeTitle", resourceCulture);
             }
         }
         

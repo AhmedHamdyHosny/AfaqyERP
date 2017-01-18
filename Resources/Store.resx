@@ -216,4 +216,22 @@
   <data name="DeviceStatusTitle" xml:space="preserve">
     <value>Device Status</value>
   </data>
+  <data name="DeviceModelTypeDetails" xml:space="preserve">
+    <value>Device Model Type Details</value>
+  </data>
+  <data name="DeviceModelTypeCreate" xml:space="preserve">
+    <value>Create Device Model Type</value>
+  </data>
+  <data name="DeviceModelTypeEdit" xml:space="preserve">
+    <value>Edit Device Model Type</value>
+  </data>
+  <data name="DeviceModelTypeId" xml:space="preserve">
+    <value>Device Model Type Id</value>
+  </data>
+  <data name="DeviceModelTypeNew" xml:space="preserve">
+    <value>New Device Model Type</value>
+  </data>
+  <data name="DeviceModelTypeTitle" xml:space="preserve">
+    <value>Device Model Type</value>
+  </data>
 </root>
