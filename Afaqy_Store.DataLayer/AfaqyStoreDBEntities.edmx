@@ -159,6 +159,7 @@
           </Key>
           <Property Name="SIMCardContractId" Type="int" Nullable="false" />
           <Property Name="SIMCardProviderId" Type="int" Nullable="false" />
+          <Property Name="ContractNo" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="CurrentCost" Type="money" Nullable="false" />
           <Property Name="CurrencyId" Type="int" Nullable="false" />
           <Property Name="ContractDate" Type="date" />
@@ -167,7 +168,7 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardContractRenewal">
           <Key>
@@ -453,6 +454,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SIMCardContract_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="SIMCardContract" Type="Self.SIMCardContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="CurrencyId" />
+            </Principal>
+            <Dependent Role="SIMCardContract">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SIMCardContract_SIMCardProvider">
           <End Role="SIMCardProvider" Type="Self.SIMCardProvider" Multiplicity="1" />
           <End Role="SIMCardContract" Type="Self.SIMCardContract" Multiplicity="*" />
@@ -662,6 +675,10 @@
             <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
             <End Role="SIMCard" EntitySet="SIMCard" />
           </AssociationSet>
+          <AssociationSet Name="FK_SIMCardContract_Currency" Association="Self.FK_SIMCardContract_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="SIMCardContract" EntitySet="SIMCardContract" />
+          </AssociationSet>
           <AssociationSet Name="FK_SIMCardContract_SIMCardProvider" Association="Self.FK_SIMCardContract_SIMCardProvider">
             <End Role="SIMCardProvider" EntitySet="SIMCardProvider" />
             <End Role="SIMCardContract" EntitySet="SIMCardContract" />
@@ -763,6 +780,10 @@
           <AssociationSet Name="FK_SIMCard_Currency" Association="Afaqy_Store.DataLayer.FK_SIMCard_Currency">
             <End Role="Currency" EntitySet="Currency" />
             <End Role="SIMCard" EntitySet="SIMCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIMCardContract_Currency" Association="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="SIMCardContract" EntitySet="SIMCardContract" />
           </AssociationSet>
           <AssociationSet Name="FK_SIMCardContractRenewal_Currency" Association="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency">
             <End Role="Currency" EntitySet="Currency" />
@@ -876,6 +897,7 @@
           <Property Name="CurrencyName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CurrencyName_ar" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Currency" FromRole="Currency" ToRole="SIMCard" />
+          <NavigationProperty Name="SIMCardContract" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency" FromRole="Currency" ToRole="SIMCardContract" />
           <NavigationProperty Name="SIMCardContractRenewal" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency" FromRole="Currency" ToRole="SIMCardContractRenewal" />
         </EntityType>
         <EntityType Name="Department">
@@ -1035,10 +1057,12 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Currency" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency" FromRole="SIMCardContract" ToRole="Currency" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardContract" FromRole="SIMCardContract" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardProvider" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_SIMCardProvider" FromRole="SIMCardContract" ToRole="SIMCardProvider" />
           <NavigationProperty Name="SIMCardContractRenewal" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_SIMCardContract" FromRole="SIMCardContract" ToRole="SIMCardContractRenewal" />
+          <Property Name="ContractNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SIMCardContractRenewal">
           <Key>
@@ -1239,6 +1263,18 @@
               <PropertyRef Name="CurrencyId" />
             </Principal>
             <Dependent Role="SIMCard">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIMCardContract_Currency">
+          <End Type="Afaqy_Store.DataLayer.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.SIMCardContract" Role="SIMCardContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="CurrencyId" />
+            </Principal>
+            <Dependent Role="SIMCardContract">
               <PropertyRef Name="CurrencyId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1628,7 +1664,8 @@
           <EntitySetMapping Name="SIMCardContract">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardContract">
               <MappingFragment StoreEntitySet="SIMCardContract">
-                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

@@ -18,6 +18,7 @@ namespace Afaqy_Store.DataLayer
         public Currency()
         {
             this.SIMCard = new HashSet<SIMCard>();
+            this.SIMCardContract = new HashSet<SIMCardContract>();
             this.SIMCardContractRenewal = new HashSet<SIMCardContractRenewal>();
         }
     
@@ -27,6 +28,8 @@ namespace Afaqy_Store.DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCard> SIMCard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SIMCardContract> SIMCardContract { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCardContractRenewal> SIMCardContractRenewal { get; set; }
     }

@@ -1,13 +1,13 @@
-﻿@model Afaqy_Store.Models.DeviceViewModel
+﻿@model Afaqy_Store.Models.SIMCardContractViewModel
 
 @{
-    ViewBag.Title = Resources.Store.DeviceDetails;
+    ViewBag.Title = Resources.Adminstration.SIMCardContractDetails;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Store.DeviceDetails</h2>
+    <h2 class="modal-title">@Resources.Adminstration.SIMCardContractDetails</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -15,38 +15,52 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
-                @Resources.Store.DeviceSerialNumber
+               @Resources.Adminstration.SIMCardContractId
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SerialNumber)
+                @Html.DisplayFor(model => model.SIMCardContractId)
             </dd>
             <dt>
-                @Resources.Store.DeviceIMEI
+               @Resources.Adminstration.SIMCardProvider
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SIMCardProvider.ProviderName_en)
+            </dd>
+            <dt>
+                @Resources.Adminstration.SIMCardContractNo
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.IMEI)
+                @Html.DisplayFor(model => model.ContractNo)
             </dd>
             <dt>
-                @Resources.Store.Firmware
+                @Resources.Adminstration.CurrentCost
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Firmware)
+                @Html.DisplayFor(model => model.CurrentCost)
             </dd>
             <dt>
-                @Resources.Store.DeviceModelType
+                @Resources.Resource.Currency
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.DeviceModelType.ModelTypeName)
+                @Html.DisplayFor(model => model.Currency.CurrencyName_en)
             </dd>
             <dt>
-                @Resources.Store.DeviceStatus
+                @Resources.Adminstration.ContractDate
             </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.DeviceStatus.DeviceStatus_en)
+                @Html.DisplayFor(model => model.ContractDate)
+            </dd>
+            <dt>
+                @Resources.Adminstration.ExpiryDate
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ExpiryDate)
             </dd>
             <dt>
                 @Resources.Resource.CreateUserFullNameEn
@@ -79,7 +93,6 @@
             <dd>
                 @Html.DisplayFor(model => model.ModifyDate)
             </dd>
-
         </dl>
     </div>
     <div class="modal-footer">

@@ -275,10 +275,12 @@
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiBranchController.cs" />
     <Compile Include="Controllers\ApiCountryController.cs" />
+    <Compile Include="Controllers\ApiCurrencyController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
     <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusHistoryController.cs" />
+    <Compile Include="Controllers\ApiSIMCardContractController.cs" />
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
@@ -290,6 +292,7 @@
     <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SIMCardContractController.cs" />
     <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
@@ -302,12 +305,14 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
     <Compile Include="Models\DeviceStatusModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SIMCardContractModel.cs" />
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
@@ -892,6 +897,10 @@
     <Content Include="Views\SIMCardProvider\Edit.cshtml" />
     <Content Include="Views\SIMCardProvider\Details.cshtml" />
     <Content Include="Views\SIMCardProvider\Create.cshtml" />
+    <Content Include="Views\SIMCardContract\Create.cshtml" />
+    <Content Include="Views\SIMCardContract\Details.cshtml" />
+    <Content Include="Views\SIMCardContract\Edit.cshtml" />
+    <Content Include="Views\SIMCardContract\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

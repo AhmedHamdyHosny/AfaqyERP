@@ -31,8 +31,10 @@ namespace Afaqy_Store.DataLayer
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool Active { get; set; }
+        public bool IsDeleted { get; set; }
+        public string ContractNo { get; set; }
     
+        public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCard> SIMCard { get; set; }
         public virtual SIMCardProvider SIMCardProvider { get; set; }

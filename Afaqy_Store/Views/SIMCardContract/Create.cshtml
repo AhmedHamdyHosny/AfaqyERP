@@ -1,0 +1,79 @@
+﻿@model Afaqy_Store.DataLayer.SIMCardContract
+
+@{
+    ViewBag.Title = Resources.Adminstration.SIMCardContractCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Adminstration.SIMCardContractNew</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div >
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SIMCardContractId, Resources.Adminstration.SIMCardContractId, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.SIMCardContractId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SIMCardContractId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.SIMCardProviderId, Resources.Adminstration.SIMCardProvider, htmlAttributes: new { @class = "text-info" })
+                @Html.DropDownList("SIMCardProviderId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SIMCardProviderId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContractNo, Resources.Adminstration.SIMCardContractNo, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.ContractNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContractNo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentCost, Resources.Adminstration.CurrentCost, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.CurrentCost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CurrentCost, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrencyId, Resources.Resource.Currency, htmlAttributes: new { @class = "text-info" })
+                @Html.DropDownList("CurrencyId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurrencyId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ContractDate, Resources.Adminstration.ContractDate, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.ContractDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContractDate, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExpiryDate, Resources.Adminstration.ExpiryDate, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    </div>
+
+}
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

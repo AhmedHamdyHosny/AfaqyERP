@@ -12,6 +12,14 @@
 .controller('SIMCardProviderEditCtrl', SIMCardProviderEditCtrl)
 .controller('SIMCardProviderDetailsCtrl', SIMCardProviderDetailsCtrl)
 
+//SIMCardProvider controllers ========
+.controller('SIMCardContractCtrl', SIMCardContractCtrl)
+.controller('SIMCardContractCreateCtrl', SIMCardContractCreateCtrl)
+.controller('SIMCardContractEditCtrl', SIMCardContractEditCtrl)
+.controller('SIMCardContractDetailsCtrl', SIMCardContractDetailsCtrl)
+
+
+
 
 //Branch functions ========
 function BranchCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
@@ -164,7 +172,7 @@ function SIMCardProviderCtrl($scope, $uibModal, confirmService, global, gridServ
     //        //get selected ids from grid
     //        var selectedItems = $scope.gridApi.selection.getSelectedRows();
     //        selectedItems.forEach(function (item) {
-    //            selectedIds.push(item.BranchId)
+    //            selectedIds.push(item.ProviderId)
     //        });
     //        //call delete confirm method and pass ids
     //        var url = deleteActionUrl;
@@ -196,6 +204,98 @@ function SIMCardProviderEditCtrl($scope, $uibModalInstance) {
 }
 
 function SIMCardProviderDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+
+//SIMCardContract functions ========
+function SIMCardContractCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'SIMCardContractCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'SIMCardContractEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'SIMCardContractDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.SIMCardContractId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
+    }
+
+}
+
+function SIMCardContractCreateCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function SIMCardContractEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function SIMCardContractDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

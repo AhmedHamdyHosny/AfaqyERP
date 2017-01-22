@@ -142,11 +142,110 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract Date.
+        /// </summary>
+        public static string ContractDate {
+            get {
+                return ResourceManager.GetString("ContractDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cost.
+        /// </summary>
+        public static string CurrentCost {
+            get {
+                return ResourceManager.GetString("CurrentCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiry Date.
+        /// </summary>
+        public static string ExpiryDate {
+            get {
+                return ResourceManager.GetString("ExpiryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Contract.
+        /// </summary>
+        public static string SIMCardContract {
+            get {
+                return ResourceManager.GetString("SIMCardContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create SIM Card Contract.
+        /// </summary>
+        public static string SIMCardContractCreate {
+            get {
+                return ResourceManager.GetString("SIMCardContractCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Contract Details.
+        /// </summary>
+        public static string SIMCardContractDetails {
+            get {
+                return ResourceManager.GetString("SIMCardContractDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit SIM Card Contract.
+        /// </summary>
+        public static string SIMCardContractEdit {
+            get {
+                return ResourceManager.GetString("SIMCardContractEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract Code.
+        /// </summary>
+        public static string SIMCardContractId {
+            get {
+                return ResourceManager.GetString("SIMCardContractId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New SIM Card Contract.
+        /// </summary>
+        public static string SIMCardContractNew {
+            get {
+                return ResourceManager.GetString("SIMCardContractNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract No.
+        /// </summary>
+        public static string SIMCardContractNo {
+            get {
+                return ResourceManager.GetString("SIMCardContractNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider.
+        /// </summary>
+        public static string SIMCardContractProvider {
+            get {
+                return ResourceManager.GetString("SIMCardContractProvider", resourceCulture);
             }
         }
         

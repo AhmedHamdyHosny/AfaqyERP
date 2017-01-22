@@ -237,6 +237,9 @@
   <data name="CreateUserFullNameEn" xml:space="preserve">
     <value>Create by</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
   <data name="DeactivateConfirmActionButton" xml:space="preserve">
     <value>Ok</value>
   </data>

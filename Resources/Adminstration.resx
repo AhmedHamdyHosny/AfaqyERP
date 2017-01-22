@@ -171,4 +171,37 @@
   <data name="SIMCardProviderNew" xml:space="preserve">
     <value>New Provider</value>
   </data>
+  <data name="ContractDate" xml:space="preserve">
+    <value>Contract Date</value>
+  </data>
+  <data name="CurrentCost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="ExpiryDate" xml:space="preserve">
+    <value>Expiry Date</value>
+  </data>
+  <data name="SIMCardContract" xml:space="preserve">
+    <value>SIM Card Contract</value>
+  </data>
+  <data name="SIMCardContractCreate" xml:space="preserve">
+    <value>Create SIM Card Contract</value>
+  </data>
+  <data name="SIMCardContractDetails" xml:space="preserve">
+    <value>SIM Card Contract Details</value>
+  </data>
+  <data name="SIMCardContractEdit" xml:space="preserve">
+    <value>Edit SIM Card Contract</value>
+  </data>
+  <data name="SIMCardContractId" xml:space="preserve">
+    <value>Contract Code</value>
+  </data>
+  <data name="SIMCardContractNew" xml:space="preserve">
+    <value>New SIM Card Contract</value>
+  </data>
+  <data name="SIMCardContractNo" xml:space="preserve">
+    <value>Contract No</value>
+  </data>
+  <data name="SIMCardContractProvider" xml:space="preserve">
+    <value>Provider</value>
+  </data>
 </root>
