@@ -340,6 +340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De-active.
+        /// </summary>
+        public static string ButtonDeactive {
+            get {
+                return ResourceManager.GetString("ButtonDeactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string ButtonDelete {
@@ -444,15 +453,6 @@ namespace Resources {
         public static string DeactivateConfirmDialogHeader {
             get {
                 return ResourceManager.GetString("DeactivateConfirmDialogHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De-active.
-        /// </summary>
-        public static string Deactive {
-            get {
-                return ResourceManager.GetString("Deactive", resourceCulture);
             }
         }
         

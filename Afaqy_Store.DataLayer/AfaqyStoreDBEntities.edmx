@@ -35,6 +35,14 @@
           <Property Name="CurrencyName_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CurrencyName_ar" Type="nvarchar" MaxLength="5" Nullable="false" />
         </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="DepartmentName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DepartmentName_ar" Type="nvarchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Device">
           <Key>
             <PropertyRef Name="DeviceId" />
@@ -92,6 +100,31 @@
           <Property Name="BranchId" Type="int" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FirstName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="ResidencyNumber" Type="varchar" MaxLength="10" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="Salary" Type="money" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="ManagerId" Type="int" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="JoinDate" Type="date" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -156,7 +189,7 @@
           <Key>
             <PropertyRef Name="ProviderId" />
           </Key>
-          <Property Name="ProviderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
           <Property Name="ProviderName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ProviderName_ar" Type="nvarchar" MaxLength="20" />
         </EntityType>
@@ -321,6 +354,54 @@
             </Principal>
             <Dependent Role="DeviceStatusHistory">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Branch">
+          <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -496,11 +577,13 @@
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIMCardContract" EntityType="Self.SIMCardContract" Schema="dbo" store:Type="Tables" />
@@ -546,6 +629,22 @@
           <AssociationSet Name="FK_DeviceStatusHistory_DeviceStatus" Association="Self.FK_DeviceStatusHistory_DeviceStatus">
             <End Role="DeviceStatus" EntitySet="DeviceStatus" />
             <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Branch" Association="Self.FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Country" Association="Self.FK_Employee_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_SIMCard_Branch" Association="Self.FK_SIMCard_Branch">
             <End Role="Branch" EntitySet="Branch" />
@@ -612,11 +711,13 @@
           <EntitySet Name="Branch" EntityType="Afaqy_Store.DataLayer.Branch" />
           <EntitySet Name="Country" EntityType="Afaqy_Store.DataLayer.Country" />
           <EntitySet Name="Currency" EntityType="Afaqy_Store.DataLayer.Currency" />
+          <EntitySet Name="Department" EntityType="Afaqy_Store.DataLayer.Department" />
           <EntitySet Name="Device" EntityType="Afaqy_Store.DataLayer.Device" />
           <EntitySet Name="DeviceModelType" EntityType="Afaqy_Store.DataLayer.DeviceModelType" />
           <EntitySet Name="DeviceSIM" EntityType="Afaqy_Store.DataLayer.DeviceSIM" />
           <EntitySet Name="DeviceStatus" EntityType="Afaqy_Store.DataLayer.DeviceStatus" />
           <EntitySet Name="DeviceStatusHistory" EntityType="Afaqy_Store.DataLayer.DeviceStatusHistory" />
+          <EntitySet Name="Employee" EntityType="Afaqy_Store.DataLayer.Employee" />
           <EntitySet Name="Role" EntityType="Afaqy_Store.DataLayer.Role" />
           <EntitySet Name="SIMCard" EntityType="Afaqy_Store.DataLayer.SIMCard" />
           <EntitySet Name="SIMCardContract" EntityType="Afaqy_Store.DataLayer.SIMCardContract" />
@@ -627,6 +728,10 @@
           <EntitySet Name="User" EntityType="Afaqy_Store.DataLayer.User" />
           <EntitySet Name="UserRole" EntityType="Afaqy_Store.DataLayer.UserRole" />
           <EntitySet Name="UserType" EntityType="Afaqy_Store.DataLayer.UserType" />
+          <AssociationSet Name="FK_Branch_Country" Association="Afaqy_Store.DataLayer.FK_Branch_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
           <AssociationSet Name="FK_Device_Branch" Association="Afaqy_Store.DataLayer.FK_Device_Branch">
             <End Role="Branch" EntitySet="Branch" />
             <End Role="Device" EntitySet="Device" />
@@ -635,6 +740,10 @@
             <End Role="Branch" EntitySet="Branch" />
             <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_Branch" Association="Afaqy_Store.DataLayer.FK_Employee_Branch">
+            <End Role="Branch" EntitySet="Branch" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_SIMCard_Branch" Association="Afaqy_Store.DataLayer.FK_SIMCard_Branch">
             <End Role="Branch" EntitySet="Branch" />
             <End Role="SIMCard" EntitySet="SIMCard" />
@@ -642,6 +751,10 @@
           <AssociationSet Name="FK_SIMCardStatusHistory_Branch" Association="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_Branch">
             <End Role="Branch" EntitySet="Branch" />
             <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Country" Association="Afaqy_Store.DataLayer.FK_Employee_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Country" Association="Afaqy_Store.DataLayer.FK_User_Country">
             <End Role="Country" EntitySet="Country" />
@@ -654,6 +767,10 @@
           <AssociationSet Name="FK_SIMCardContractRenewal_Currency" Association="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency">
             <End Role="Currency" EntitySet="Currency" />
             <End Role="SIMCardContractRenewal" EntitySet="SIMCardContractRenewal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Department" Association="Afaqy_Store.DataLayer.FK_Employee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_Device_DeviceStatus" Association="Afaqy_Store.DataLayer.FK_Device_DeviceStatus">
             <End Role="DeviceStatus" EntitySet="DeviceStatus" />
@@ -678,6 +795,10 @@
           <AssociationSet Name="FK_DeviceStatusHistory_DeviceStatus" Association="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_DeviceStatus">
             <End Role="DeviceStatus" EntitySet="DeviceStatus" />
             <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Afaqy_Store.DataLayer.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="Afaqy_Store.DataLayer.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
@@ -715,10 +836,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
-          <AssociationSet Name="FK_Branch_Country" Association="Afaqy_Store.DataLayer.FK_Branch_Country">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="Branch" EntitySet="Branch" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -730,14 +847,15 @@
           <Property Name="CountryId" Type="Int32" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_Branch" FromRole="Branch" ToRole="Device" />
-          <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="Branch" ToRole="DeviceStatusHistory" />
-          <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Branch" FromRole="Branch" ToRole="SIMCard" />
-          <NavigationProperty Name="SIMCardStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_Branch" FromRole="Branch" ToRole="SIMCardStatusHistory" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Branch" ToRole="Country" />
+          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_Branch" FromRole="Branch" ToRole="Device" />
+          <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="Branch" ToRole="DeviceStatusHistory" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Branch" FromRole="Branch" ToRole="Employee" />
+          <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Branch" FromRole="Branch" ToRole="SIMCard" />
+          <NavigationProperty Name="SIMCardStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_Branch" FromRole="Branch" ToRole="SIMCardStatusHistory" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -746,8 +864,9 @@
           <Property Name="CountryId" Type="Int32" Nullable="false" />
           <Property Name="CountryName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CountryName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="Country" ToRole="User" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Country" ToRole="Branch" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Country" ToRole="Employee" />
+          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="Country" ToRole="User" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -758,6 +877,15 @@
           <Property Name="CurrencyName_ar" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Currency" FromRole="Currency" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardContractRenewal" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency" FromRole="Currency" ToRole="SIMCardContractRenewal" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Device">
           <Key>
@@ -829,6 +957,35 @@
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="DeviceStatusHistory" ToRole="Branch" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Device" FromRole="DeviceStatusHistory" ToRole="Device" />
           <NavigationProperty Name="DeviceStatus" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_DeviceStatus" FromRole="DeviceStatusHistory" ToRole="DeviceStatus" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ResidencyNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="ManagerId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="JoinDate" Type="DateTime" Precision="0" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Employee_Branch" FromRole="Employee" ToRole="Branch" />
+          <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Employee" ToRole="Country" />
+          <NavigationProperty Name="Department" Relationship="Afaqy_Store.DataLayer.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_Employee_User" FromRole="Employee" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -905,7 +1062,7 @@
           <Key>
             <PropertyRef Name="ProviderId" />
           </Key>
-          <Property Name="ProviderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
           <Property Name="ProviderName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ProviderName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SIMCardContract" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_SIMCardProvider" FromRole="SIMCardProvider" ToRole="SIMCardContract" />
@@ -953,6 +1110,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="User" ToRole="Country" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="UserType" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="UserRole" Relationship="Afaqy_Store.DataLayer.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
         </EntityType>
@@ -977,6 +1135,18 @@
           <Property Name="UserTypeName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="UserType" ToRole="User" />
         </EntityType>
+        <Association Name="FK_Branch_Country">
+          <End Type="Afaqy_Store.DataLayer.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Branch" Role="Branch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Branch">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Device_Branch">
           <End Type="Afaqy_Store.DataLayer.Branch" Role="Branch" Multiplicity="0..1" />
           <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="*" />
@@ -997,6 +1167,18 @@
               <PropertyRef Name="BranchId" />
             </Principal>
             <Dependent Role="DeviceStatusHistory">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Branch">
+          <End Type="Afaqy_Store.DataLayer.Branch" Role="Branch" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="BranchId" />
+            </Principal>
+            <Dependent Role="Employee">
               <PropertyRef Name="BranchId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1022,6 +1204,18 @@
             </Principal>
             <Dependent Role="SIMCardStatusHistory">
               <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Country">
+          <End Type="Afaqy_Store.DataLayer.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1058,6 +1252,18 @@
             </Principal>
             <Dependent Role="SIMCardContractRenewal">
               <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Department">
+          <End Type="Afaqy_Store.DataLayer.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="DepartmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1130,6 +1336,18 @@
             </Principal>
             <Dependent Role="DeviceStatusHistory">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1241,18 +1459,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Branch_Country">
-          <End Type="Afaqy_Store.DataLayer.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="Afaqy_Store.DataLayer.Branch" Role="Branch" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="Branch">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1289,6 +1495,15 @@
                 <ScalarProperty Name="CurrencyName_ar" ColumnName="CurrencyName_ar" />
                 <ScalarProperty Name="CurrencyName_en" ColumnName="CurrencyName_en" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="DepartmentName_ar" ColumnName="DepartmentName_ar" />
+                <ScalarProperty Name="DepartmentName_en" ColumnName="DepartmentName_en" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1352,6 +1567,32 @@
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
                 <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="ResidencyNumber" ColumnName="ResidencyNumber" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LastName_ar" ColumnName="LastName_ar" />
+                <ScalarProperty Name="LastName_en" ColumnName="LastName_en" />
+                <ScalarProperty Name="FirstName_ar" ColumnName="FirstName_ar" />
+                <ScalarProperty Name="FirstName_en" ColumnName="FirstName_en" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

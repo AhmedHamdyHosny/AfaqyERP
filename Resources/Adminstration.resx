@@ -147,4 +147,28 @@
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>
+  <data name="SIMCardProvider" xml:space="preserve">
+    <value>SIM Card Provider</value>
+  </data>
+  <data name="SIMCardProviderCreate" xml:space="preserve">
+    <value>Create Provider</value>
+  </data>
+  <data name="SIMCardProviderDetails" xml:space="preserve">
+    <value>Provider Details</value>
+  </data>
+  <data name="SIMCardProviderEdit" xml:space="preserve">
+    <value>Edit Provider</value>
+  </data>
+  <data name="SIMCardProviderId" xml:space="preserve">
+    <value>Provider Code</value>
+  </data>
+  <data name="SIMCardProviderNameAr" xml:space="preserve">
+    <value>Provider Name(Ar)</value>
+  </data>
+  <data name="SIMCardProviderNameEn" xml:space="preserve">
+    <value>Provider Name</value>
+  </data>
+  <data name="SIMCardProviderNew" xml:space="preserve">
+    <value>New Provider</value>
+  </data>
 </root>

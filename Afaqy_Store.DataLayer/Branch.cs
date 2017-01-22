@@ -19,6 +19,7 @@ namespace Afaqy_Store.DataLayer
         {
             this.Device = new HashSet<Device>();
             this.DeviceStatusHistory = new HashSet<DeviceStatusHistory>();
+            this.Employee = new HashSet<Employee>();
             this.SIMCard = new HashSet<SIMCard>();
             this.SIMCardStatusHistory = new HashSet<SIMCardStatusHistory>();
         }
@@ -33,14 +34,16 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public Nullable<bool> Active { get; set; }
     
+        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Device> Device { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceStatusHistory> DeviceStatusHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCard> SIMCard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
-        public virtual Country Country { get; set; }
     }
 }

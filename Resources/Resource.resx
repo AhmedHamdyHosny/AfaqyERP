@@ -210,6 +210,9 @@
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="ButtonDeactive" xml:space="preserve">
+    <value>De-active</value>
+  </data>
   <data name="ButtonDelete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -245,9 +248,6 @@
   </data>
   <data name="DeactivateConfirmDialogHeader" xml:space="preserve">
     <value>Deactivate Confirm</value>
-  </data>
-  <data name="Deactive" xml:space="preserve">
-    <value>De-active</value>
   </data>
   <data name="DeleteConfirmActionButton" xml:space="preserve">
     <value>Ok</value>

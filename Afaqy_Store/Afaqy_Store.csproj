@@ -280,6 +280,7 @@
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusHistoryController.cs" />
     <Compile Include="Controllers\ApiSIMCardController.cs" />
+    <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Controllers\DeviceStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SIMCardController.cs" />
+    <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -307,6 +309,7 @@
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\SIMCardModel.cs" />
+    <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -885,6 +888,10 @@
     <Content Include="Views\Branch\Index.cshtml" />
     <Content Include="Views\Branch\Details.cshtml" />
     <Content Include="Views\Branch\Edit.cshtml" />
+    <Content Include="Views\SIMCardProvider\Index.cshtml" />
+    <Content Include="Views\SIMCardProvider\Edit.cshtml" />
+    <Content Include="Views\SIMCardProvider\Details.cshtml" />
+    <Content Include="Views\SIMCardProvider\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

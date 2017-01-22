@@ -1,0 +1,38 @@
+﻿@model Afaqy_Store.Models.SIMCardProviderEditModel
+
+@{
+    ViewBag.Title = Resources.Adminstration.SIMCardProviderEdit;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Adminstration.SIMCardProviderEdit</h2>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.EditItem.ProviderId)
+            <div class="form-group">
+               @Html.LabelFor(model => Model.EditItem.ProviderName_en,Resources.Adminstration.SIMCardProviderNameEn, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.ProviderName_en, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.ProviderName_en, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.EditItem.ProviderName_ar, Resources.Adminstration.SIMCardProviderNameAr, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.ProviderName_ar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.ProviderName_ar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+

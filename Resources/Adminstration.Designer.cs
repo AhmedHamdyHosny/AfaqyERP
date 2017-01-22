@@ -149,5 +149,77 @@ namespace Resources {
                 return ResourceManager.GetString("Country", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Provider.
+        /// </summary>
+        public static string SIMCardProvider {
+            get {
+                return ResourceManager.GetString("SIMCardProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Provider.
+        /// </summary>
+        public static string SIMCardProviderCreate {
+            get {
+                return ResourceManager.GetString("SIMCardProviderCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider Details.
+        /// </summary>
+        public static string SIMCardProviderDetails {
+            get {
+                return ResourceManager.GetString("SIMCardProviderDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Provider.
+        /// </summary>
+        public static string SIMCardProviderEdit {
+            get {
+                return ResourceManager.GetString("SIMCardProviderEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider Code.
+        /// </summary>
+        public static string SIMCardProviderId {
+            get {
+                return ResourceManager.GetString("SIMCardProviderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider Name(Ar).
+        /// </summary>
+        public static string SIMCardProviderNameAr {
+            get {
+                return ResourceManager.GetString("SIMCardProviderNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider Name.
+        /// </summary>
+        public static string SIMCardProviderNameEn {
+            get {
+                return ResourceManager.GetString("SIMCardProviderNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Provider.
+        /// </summary>
+        public static string SIMCardProviderNew {
+            get {
+                return ResourceManager.GetString("SIMCardProviderNew", resourceCulture);
+            }
+        }
     }
 }
