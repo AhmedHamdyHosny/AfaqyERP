@@ -12,17 +12,21 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceStatusHistory
+    public partial class SIMCardContractRenewal
     {
-        public int HistoryId { get; set; }
-        public int DeviceId { get; set; }
-        public int StatusId { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public int ContractRenewalId { get; set; }
+        public int ContractId { get; set; }
+        public System.DateTime RenewalDate { get; set; }
+        public System.DateTime ExpiryDate { get; set; }
+        public decimal ItemCost { get; set; }
+        public int CurrencyId { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public bool Active { get; set; }
     
-        public virtual Branch Branch { get; set; }
-        public virtual Device Device { get; set; }
-        public virtual DeviceStatus DeviceStatus { get; set; }
+        public virtual Currency Currency { get; set; }
+        public virtual SIMCardContract SIMCardContract { get; set; }
     }
 }

@@ -277,6 +277,25 @@ namespace Classes.Utilities
                             break;
                     }
                     break;
+                case Transactions.Deactive:
+                    switch (this.MessageType)
+                    {
+                        case AlertMessageType.Success:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertDeactiveSuccessMessage;
+                            break;
+                        case AlertMessageType.Error:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertDeactiveErrorMessage;
+                            break;
+                        case AlertMessageType.Warning:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertDeactiveWarningMessage;
+                            break;
+                        case AlertMessageType.info:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertDeactiveInfoMessage;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 default:
                     break;
             }

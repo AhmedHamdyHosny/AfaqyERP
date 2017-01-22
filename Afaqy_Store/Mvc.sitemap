@@ -3,8 +3,38 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-  <mvcSiteMapNode title="Home" controller="Home" action="Index">
-    <mvcSiteMapNode title="About" controller="Home" action="About"/>
+  <mvcSiteMapNode title="Dashboard" controller="Home" action="Index" imageUrl="glyphicon glyphicon-home" description="dashboard">
+  
+    <!--<mvcSiteMapNode title="Elements" controller="Home" action="UIElements" imageUrl="fa fa-desktop" description="elements">
+      <mvcSiteMapNode title="Basic Elements" controller="Home" action="Elements" description="Basics"/>
+      <mvcSiteMapNode title="Icons" controller="Home" action="Icons" description="Icons">
+        <mvcSiteMapNode title="FontAwesome" controller="Home" action="FontAwesome" description="Iconic Fonts" imageUrl="fa fa-rocket"/>
+        <mvcSiteMapNode title="Glyph Icons" controller="Home" action="GlyphIcons" description="Sharp and clean symbols" imageUrl="glyphicon glyphicon-stats"/>
+        <mvcSiteMapNode title="Typicons" controller="Home" action="Typicons" description="Iconic Fonts" imageUrl="typcn typcn-location-outline"/>
+        <mvcSiteMapNode title="Weather Icons" controller="Home" action="WeatherIcons" description="Beautiful forcasting icons" imageUrl="wi wi-meteor"/>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Tabs and Accordions" controller="Home" action="Tabs" description="Tabs and Accordions"/>
+      <mvcSiteMapNode title="Alerts and Tooltips" controller="Home" action="Alerts" description="Notifications"/>
+      <mvcSiteMapNode title="Modals and Wells" controller="Home" action="Modals" description="excellent containers"/>
+      <mvcSiteMapNode title="Buttons" controller="Home" action="Buttons" description=""/>
+      <mvcSiteMapNode title="Nestable List" controller="Home" action="NestableList" description="dragable list items"/>
+      <mvcSiteMapNode title="TreeView" controller="Home" action="TreeView" description="Fuel UX's tree"/>
+    </mvcSiteMapNode>-->
+    
+    <mvcSiteMapNode title="Store" controller="Store" action="UIStore" description="Store">
+      <mvcSiteMapNode title="Device" controller="Device" action="Index" description="device"/>
+      <mvcSiteMapNode title="SIM Card" controller="SIMCard" action="Index" description="Sim card"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Adminstration" controller="Adminstration" action="UIAdminstration" description="Admin">
+      <mvcSiteMapNode title="Store" controller="AdminStore" action="UIAdminStore" description="Store">
+        <mvcSiteMapNode title="Device Model Type" controller="DeviceModelType" action="Index" description="model type"/>
+        <mvcSiteMapNode title="Device Status" controller="DeviceStatus" action="Index" description="status"/>
+        <mvcSiteMapNode title="SIM Card Status" controller="SIMCardStatus" action="Index" description="status" />
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Branch" controller="Branch" action="Index" description="branch"/>
+    </mvcSiteMapNode>
+
   </mvcSiteMapNode>
 
 </mvcSiteMap>

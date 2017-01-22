@@ -27,12 +27,14 @@ namespace Afaqy_Store.DataLayer
         public int ModelTypeId { get; set; }
         public int DeviceStatusId { get; set; }
         public string Firmware { get; set; }
+        public Nullable<int> BranchId { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public bool IsDeleted { get; set; }
     
+        public virtual Branch Branch { get; set; }
         public virtual DeviceStatus DeviceStatus { get; set; }
         public virtual DeviceModelType DeviceModelType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

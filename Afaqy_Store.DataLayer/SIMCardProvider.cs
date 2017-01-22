@@ -12,20 +12,19 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceModelType
+    public partial class SIMCardProvider
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceModelType()
+        public SIMCardProvider()
         {
-            this.Device = new HashSet<Device>();
+            this.SIMCardContract = new HashSet<SIMCardContract>();
         }
     
-        public int ModelTypeId { get; set; }
-        public string ModelTypeName { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
+        public int ProviderId { get; set; }
+        public string ProviderName_en { get; set; }
+        public string ProviderName_ar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
+        public virtual ICollection<SIMCardContract> SIMCardContract { get; set; }
     }
 }

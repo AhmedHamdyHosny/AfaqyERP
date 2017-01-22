@@ -66,7 +66,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AfaqyStoreDBEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Branch.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Country.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Currency.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Device.cs">
@@ -85,7 +91,19 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="SIMCard.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SIMCardContract.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SIMCardContractRenewal.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SIMCardProvider.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SIMCardStatus.cs">
@@ -95,6 +113,9 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserType.cs">

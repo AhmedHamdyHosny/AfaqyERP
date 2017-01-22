@@ -12,37 +12,31 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class SIMCard
+    public partial class SIMCardContract
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SIMCard()
+        public SIMCardContract()
         {
-            this.DeviceSIM = new HashSet<DeviceSIM>();
-            this.SIMCardStatusHistory = new HashSet<SIMCardStatusHistory>();
+            this.SIMCard = new HashSet<SIMCard>();
+            this.SIMCardContractRenewal = new HashSet<SIMCardContractRenewal>();
         }
     
-        public int SIMCardId { get; set; }
-        public string SerialNumber { get; set; }
-        public string GSM { get; set; }
-        public int SIMCardStatusId { get; set; }
-        public Nullable<int> ContractId { get; set; }
-        public Nullable<System.DateTime> PurchaseDate { get; set; }
-        public Nullable<decimal> Cost { get; set; }
-        public Nullable<int> CurrencyId { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public int SIMCardContractId { get; set; }
+        public int SIMCardProviderId { get; set; }
+        public decimal CurrentCost { get; set; }
+        public int CurrencyId { get; set; }
+        public Nullable<System.DateTime> ContractDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool Active { get; set; }
     
-        public virtual Branch Branch { get; set; }
-        public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }
-        public virtual SIMCardContract SIMCardContract { get; set; }
-        public virtual SIMCardStatus SIMCardStatus { get; set; }
+        public virtual ICollection<SIMCard> SIMCard { get; set; }
+        public virtual SIMCardProvider SIMCardProvider { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
+        public virtual ICollection<SIMCardContractRenewal> SIMCardContractRenewal { get; set; }
     }
 }

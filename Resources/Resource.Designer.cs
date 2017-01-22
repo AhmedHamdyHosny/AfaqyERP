@@ -97,6 +97,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to item(s) failed to be deactive, please check your data and try again.
+        /// </summary>
+        public static string AlertDeactiveErrorMessage {
+            get {
+                return ResourceManager.GetString("AlertDeactiveErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) has been deactivated.
+        /// </summary>
+        public static string AlertDeactiveInfoMessage {
+            get {
+                return ResourceManager.GetString("AlertDeactiveInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) has been deatctivated.
+        /// </summary>
+        public static string AlertDeactiveSuccessMessage {
+            get {
+                return ResourceManager.GetString("AlertDeactiveSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) will be deactive.
+        /// </summary>
+        public static string AlertDeactiveWarningMessage {
+            get {
+                return ResourceManager.GetString("AlertDeactiveWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to item(s) failed to be delete, please check your data and try again.
         /// </summary>
         public static string AlertDeleteErrorMessage {
@@ -372,6 +408,51 @@ namespace Resources {
         public static string CreateUserFullNameEn {
             get {
                 return ResourceManager.GetString("CreateUserFullNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string DeactivateConfirmActionButton {
+            get {
+                return ResourceManager.GetString("DeactivateConfirmActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DeactivateConfirmCloseButton {
+            get {
+                return ResourceManager.GetString("DeactivateConfirmCloseButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to deactivate selected item(s)?.
+        /// </summary>
+        public static string DeactivateConfirmDialogBody {
+            get {
+                return ResourceManager.GetString("DeactivateConfirmDialogBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deactivate Confirm.
+        /// </summary>
+        public static string DeactivateConfirmDialogHeader {
+            get {
+                return ResourceManager.GetString("DeactivateConfirmDialogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De-active.
+        /// </summary>
+        public static string Deactive {
+            get {
+                return ResourceManager.GetString("Deactive", resourceCulture);
             }
         }
         

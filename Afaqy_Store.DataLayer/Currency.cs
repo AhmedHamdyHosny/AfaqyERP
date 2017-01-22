@@ -12,20 +12,22 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceModelType
+    public partial class Currency
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceModelType()
+        public Currency()
         {
-            this.Device = new HashSet<Device>();
+            this.SIMCard = new HashSet<SIMCard>();
+            this.SIMCardContractRenewal = new HashSet<SIMCardContractRenewal>();
         }
     
-        public int ModelTypeId { get; set; }
-        public string ModelTypeName { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
-        public Nullable<System.DateTime> CreateDate { get; set; }
+        public int CurrencyId { get; set; }
+        public string CurrencyName_en { get; set; }
+        public string CurrencyName_ar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
+        public virtual ICollection<SIMCard> SIMCard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SIMCardContractRenewal> SIMCardContractRenewal { get; set; }
     }
 }

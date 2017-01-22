@@ -70,7 +70,8 @@ namespace Classes.Common
             Edit=2,
             Delete=3,
             Import=4,
-            Export=5
+            Export=5,
+            Deactive = 6,
         }
 
         

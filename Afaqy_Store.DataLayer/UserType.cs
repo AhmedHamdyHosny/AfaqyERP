@@ -21,7 +21,8 @@ namespace Afaqy_Store.DataLayer
         }
     
         public int UserTypeId { get; set; }
-        public string UserTypeName { get; set; }
+        public string UserTypeName_en { get; set; }
+        public string UserTypeName_ar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }

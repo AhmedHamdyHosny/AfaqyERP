@@ -17,10 +17,12 @@ namespace Afaqy_Store.DataLayer
         public int HistoryId { get; set; }
         public int SIMCardId { get; set; }
         public int SIMCardStatusId { get; set; }
+        public Nullable<int> BranchId { get; set; }
         public string Note { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
     
+        public virtual Branch Branch { get; set; }
         public virtual SIMCard SIMCard { get; set; }
         public virtual SIMCardStatus SIMCardStatus { get; set; }
     }

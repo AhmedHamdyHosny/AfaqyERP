@@ -12,17 +12,15 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceStatusHistory
+    public partial class UserRole
     {
-        public int HistoryId { get; set; }
-        public int DeviceId { get; set; }
-        public int StatusId { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public int UserRoleId { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
         public int CreateUserId { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public int CreateDate { get; set; }
     
-        public virtual Branch Branch { get; set; }
-        public virtual Device Device { get; set; }
-        public virtual DeviceStatus DeviceStatus { get; set; }
+        public virtual Role Role { get; set; }
+        public virtual User User { get; set; }
     }
 }

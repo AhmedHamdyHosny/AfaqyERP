@@ -25,16 +25,23 @@ namespace Afaqy_Store.DataLayer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Branch> Branch { get; set; }
         public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<DeviceModelType> DeviceModelType { get; set; }
         public virtual DbSet<DeviceSIM> DeviceSIM { get; set; }
         public virtual DbSet<DeviceStatus> DeviceStatus { get; set; }
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<SIMCard> SIMCard { get; set; }
+        public virtual DbSet<SIMCardContract> SIMCardContract { get; set; }
+        public virtual DbSet<SIMCardContractRenewal> SIMCardContractRenewal { get; set; }
+        public virtual DbSet<SIMCardProvider> SIMCardProvider { get; set; }
         public virtual DbSet<SIMCardStatus> SIMCardStatus { get; set; }
         public virtual DbSet<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
     }
 }

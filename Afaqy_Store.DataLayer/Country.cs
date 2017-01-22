@@ -18,12 +18,16 @@ namespace Afaqy_Store.DataLayer
         public Country()
         {
             this.User = new HashSet<User>();
+            this.Branch = new HashSet<Branch>();
         }
     
         public int CountryId { get; set; }
-        public string CountryName { get; set; }
+        public string CountryName_en { get; set; }
+        public string CountryName_ar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Branch> Branch { get; set; }
     }
 }

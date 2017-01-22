@@ -129,6 +129,18 @@
   <data name="AlertAddWarningMessage" xml:space="preserve">
     <value>item(s) will be add</value>
   </data>
+  <data name="AlertDeactiveErrorMessage" xml:space="preserve">
+    <value>item(s) failed to be deactive, please check your data and try again</value>
+  </data>
+  <data name="AlertDeactiveInfoMessage" xml:space="preserve">
+    <value>item(s) has been deactivated</value>
+  </data>
+  <data name="AlertDeactiveSuccessMessage" xml:space="preserve">
+    <value>item(s) has been deatctivated</value>
+  </data>
+  <data name="AlertDeactiveWarningMessage" xml:space="preserve">
+    <value>item(s) will be deactive</value>
+  </data>
   <data name="AlertDeleteErrorMessage" xml:space="preserve">
     <value>item(s) failed to be delete, please check your data and try again</value>
   </data>
@@ -221,6 +233,21 @@
   </data>
   <data name="CreateUserFullNameEn" xml:space="preserve">
     <value>Create by</value>
+  </data>
+  <data name="DeactivateConfirmActionButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="DeactivateConfirmCloseButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DeactivateConfirmDialogBody" xml:space="preserve">
+    <value>Are you sure to deactivate selected item(s)?</value>
+  </data>
+  <data name="DeactivateConfirmDialogHeader" xml:space="preserve">
+    <value>Deactivate Confirm</value>
+  </data>
+  <data name="Deactive" xml:space="preserve">
+    <value>De-active</value>
   </data>
   <data name="DeleteConfirmActionButton" xml:space="preserve">
     <value>Ok</value>

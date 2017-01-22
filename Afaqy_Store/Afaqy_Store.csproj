@@ -273,6 +273,8 @@
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
+    <Compile Include="Controllers\ApiBranchController.cs" />
+    <Compile Include="Controllers\ApiCountryController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
     <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
@@ -282,6 +284,7 @@
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
@@ -295,6 +298,8 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BranchModel.cs" />
+    <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
@@ -407,6 +412,7 @@
     <Content Include="Content\img\temp1.png" />
     <Content Include="Content\img\tree-icons.png" />
     <Content Include="Content\js\1.custom-js\app.js" />
+    <Content Include="Content\js\1.custom-js\controllers\admin.js" />
     <Content Include="Content\js\1.custom-js\controllers\default.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\controllers\temp.js" />
@@ -876,6 +882,9 @@
     <Content Include="Views\DeviceModelType\Edit.cshtml" />
     <Content Include="Views\DeviceModelType\Index.cshtml" />
     <Content Include="Views\DeviceModelType\Create.cshtml" />
+    <Content Include="Views\Branch\Index.cshtml" />
+    <Content Include="Views\Branch\Details.cshtml" />
+    <Content Include="Views\Branch\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

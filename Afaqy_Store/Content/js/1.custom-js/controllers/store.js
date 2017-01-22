@@ -28,6 +28,10 @@
 .controller('DeviceModelTypeEditCtrl', DeviceModelTypeEditCtrl)
 .controller('DeviceModelTypeDetailsCtrl', DeviceModelTypeDetailsCtrl)
 
+//Branch controllers ========
+//.controller('MyCtrl', function ($scope) { alert('hi'); })
+
+
 //Device functions ========
 function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
 
@@ -89,7 +93,6 @@ function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrl
             });
 
             //call delete confirm method and pass ids
-            //var config = {};
             var url = deleteActionUrl; 
             var data = { ids: selectedIds };
             global.post(url, data, function (resp) {
@@ -99,15 +102,6 @@ function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrl
             }, function (resp) { });
 
             hideLoading();
-            //$http.post(url, data, config).then(
-            //    function (resp) {
-            //        if (resp) {
-            //            location.reload();
-            //        }
-            //    },
-            //    function (resp) {
-            //    });
-
         });
     }
 }
@@ -230,7 +224,7 @@ function SIMCardDetailsCtrl($scope, $uibModalInstance) {
 
 
 //SIMCardStatus functions ========
-function SIMCardStatusCtrl($scope, $uibModal, gridService) {
+function SIMCardStatusCtrl($scope, $uibModal, gridService,ctrlService) {
     
     ctrlService.initCtrl($scope);
 

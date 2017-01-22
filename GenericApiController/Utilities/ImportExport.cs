@@ -81,6 +81,10 @@ namespace GenericApiController.Utilities
             //loop on rows and skip first row that contain only column header
             for (int i = 1; i < rows.Count(); i++)
             {
+                if(i> 5000)
+                {
+
+                }
                 // create new instance of T type
                 TEntity entity = (TEntity)Activator.CreateInstance(typeof(TEntity));
                 //get data row

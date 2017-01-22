@@ -1,0 +1,48 @@
+﻿@model Afaqy_Store.Models.BranchEditModel
+
+@{
+    ViewBag.Title = Resources.Adminstration.BranchEdit;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Adminstration.BranchEdit</h2>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.EditItem.BranchId)
+            <div class="form-group">
+               @Html.LabelFor(model => Model.EditItem.BranchName_en,Resources.Adminstration.BranchNameEn, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.BranchName_en, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.BranchName_en, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.EditItem.BranchName_ar, Resources.Adminstration.BranchNameAr, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.BranchName_ar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.BranchName_ar, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.CountryId, Resources.Adminstration.Country, htmlAttributes: new { @class = "text-info" })
+                @Html.DropDownListFor(model => model.EditItem.CountryId, Model.Country, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EditItem.CountryId, "", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.HiddenFor(model => model.EditItem.CreateUserId)
+                @Html.HiddenFor(model => model.EditItem.CreateDate)
+                @Html.HiddenFor(model => model.EditItem.Active)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
