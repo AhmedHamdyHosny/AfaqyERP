@@ -5,33 +5,97 @@
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
+@*@section styles {*@
+<style>
+    .counterDiv {
+        display: inline-block;
+    }
+
+    .counterBody {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+</style>
+@*}*@
+
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
     <h2 class="modal-title">@Resources.Store.SIMCardNew</h2>
 </div>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+@using (Html.BeginForm("CreateGroup", null, FormMethod.Post, new { id = "form" }))
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
-        <div >
+        <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.SerialNumber, Resources.Store.SIMCardSerialNumber, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group counterDiv">
+                    <div class="col-lg-6 col-sm-6 col-xs-6 counterBody">
+                        @Html.Label("", Resources.Resource.ItemsCount, htmlAttributes: new { @class = "text-info" })
+                        <div class="spinbox spinbox-horizontal spinbox-right">
+                            <div class="spinbox-buttons	btn-group">
+                                <button type="button" class="btn spinbox-down blueberry" disabled="true">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn spinbox-up purple">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="spinbox-input form-control form mb-2 mr-sm-2 mb-sm-0" value="1" min="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.Label("GSMPrefix", Resources.Store.GSMPrefix, htmlAttributes: new { @class = "text-info" })
+                    @Html.TextBox("GSMPrefix", "058", null, htmlAttributes: new { @id = "GSMPrefix", @class = "form-control" })
+                </div>
             </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.ContractId, Resources.Store.ContractId, htmlAttributes: new { @class = "text-info" })
+                    @Html.DropDownList("ContractId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.PurchaseDate, Resources.Store.SIMCardPurchaseDate, htmlAttributes: new { @class = "text-info" })
+                    <span class="input-icon icon-right">
+                        <input name="PurchaseDate" class="form-control date-picker" id="PurchaseDate" type="text" data-date-format="dd-mm-yyyy">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    @*@Html.TextBoxFor(model => model.PurchaseDate, null, htmlAttributes: new {  @class = "form-control" })*@
+                </div>
+            </div>
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th><label class="text-info">@Resources.Store.SIMCardSerialNumber</label></th>
+                        <th><label class="text-info">@Resources.Store.SIMCardGSM</label></th>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                    <tr id="itemRow_1">
+                        <td><input name="items[0].SerialNumber" class="form-control" /></td>
+                        <td><input name="items[0].GSM" class="form-control" /></td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.GSM,Resources.Store.SIMCardGSM, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => model.GSM, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GSM, "", new { @class = "text-danger" })
-            </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.SerialNumber, Resources.Store.SIMCardSerialNumber, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GSM,Resources.Store.SIMCardGSM, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.GSM, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GSM, "", new { @class = "text-danger" })
+                </div>*@
         </div>
     </div>
     <div class="modal-footer">
         <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
-        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
     </div>
 
 }
@@ -39,8 +103,70 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Bootstrap Date Picker-->
+    <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
+    <!--Fuelux Spinbox-->
+    <script src="~/Content/js/fuelux/spinbox/fuelux.spinbox.min.js"></script>
+
     <script>
         $(document).ready(function () {
+
+            var itemsCount = 1;
+            var itemRow = $('#itemRow_1');
+
+            //--Bootstrap Date Picker--
+            $('.date-picker').datepicker();
+            //--Fuelux Spinbox--
+            $('.spinbox').spinbox();
+
+            $('.spinbox-input').change(function () {
+                counterValueChanged();
+            });
+
+            $('.spinbox-up').click(function () {
+                counterValueChanged();
+            });
+
+            $('.spinbox-down').click(function () {
+                counterValueChanged();
+            });
+
+            $('#GSMPrefix').change(function () {
+                //change all GSM prefix
+            });
+
+            function counterValueChanged() {
+                if ($('.spinbox-input').val() <= 1) {
+                    $('.spinbox-input').val(1);
+                    $('.spinbox-down').prop('disabled', true);
+                } else {
+                    $('.spinbox-down').prop('disabled', false);
+                }
+
+                //change items rows
+                var targetNo = Number($('.spinbox-input').val());
+                if (itemsCount < targetNo) {
+                    for (var i = itemsCount + 1; i <= targetNo; i++) {
+                        var rowHtml = itemRow.clone().attr('id', 'itemRow_' + i)[0].outerHTML
+                        var $row = $(rowHtml);
+                        $row.children('td').each(function () {
+                            $(this).html($(this).html().replace('[0]', '[' + String(i - 1) + ']'));
+                        });
+                        $('#items').append($row);
+                        itemsCount++;
+
+                    }
+                } else if (itemsCount > targetNo) {
+                    for (var i = itemsCount; i > targetNo; i--) {
+                        $('#items tr:last-child').last().remove();
+                        itemsCount--;
+                    }
+                }
+
+            }
+
+
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {
                     event.preventDefault();

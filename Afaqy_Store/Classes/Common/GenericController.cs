@@ -136,6 +136,19 @@ namespace Classes.Common
             return View(model);
         }
 
+        // POST: Controller/CreateGroup
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("CreateGroup")]
+        public virtual ActionResult Create(TCreateBindModel[] items, FormCollection fc = null)
+        {
+            //set alerts messages
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = items.Length, Transaction = Transactions.Create };
+            return RedirectToAction("Index");
+        }
+
         [NonAction]
         public TEditModel InitEditView(TDBModel item)
         {

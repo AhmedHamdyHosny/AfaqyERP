@@ -19,8 +19,10 @@ namespace Afaqy_Store.Controllers
             PK_PropertyName = "SIMCardId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var user = new UserViewModel().GetUserFromSession();
-            var userId = user.UserId;
+            //for test
+            var userId = 1;
+            //var user = new UserViewModel().GetUserFromSession();
+            //var userId = user.UserId;
 
             #region Index
             filters = new List<GenericDataFormat.FilterItems>();
@@ -36,6 +38,8 @@ namespace Afaqy_Store.Controllers
 
             #region Create
             //Create view Dropdown Lists
+            CreateReferences = new List<Reference>();
+            CreateReferences.Add(new Reference() { TypeModel = typeof(SIMCardContractModel<SIMCardContract>), ViewDataName = "ContractId", DataValueField = "SIMCardContractId", DataTextField = "ContractNo", SelectColumns = "SIMCardContractId,ContractNo" });
 
             //on create dependences
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = userId });
@@ -68,8 +72,45 @@ namespace Afaqy_Store.Controllers
             #endregion
             
         }
-        
 
+        [HttpPost]
+        public override ActionResult Create(SIMCardCreateBindModel[] items , FormCollection fc)
+        {
+            //for test
+            var userId = 1;
+            var branchId = 1;
+
+            var purchaseDate = DateTime.Parse(fc["PurchaseDate"]);
+            var contractId = fc["ContractId"];
+            var simCardContract = new SIMCardContractModel<SIMCardContract>().Get(contractId);
+            var cost = simCardContract.CurrentCost;
+            var currencyId = simCardContract.CurrencyId;
+            
+
+            foreach (var item in items)
+            {
+                item.SIMCardStatusId = (int)DBEnums.SIMCardStatus.New;
+                item.BranchId = branchId;
+                item.ContractId = int.Parse(contractId);
+                item.Cost = cost;
+                item.CurrencyId = currencyId;
+                item.PurchaseDate = purchaseDate;
+                item.CreateUserId = userId;
+                item.CreateDate = DateTime.Now;
+                item.SIMCardStatusHistory = new List<SIMCardStatusHistory>();
+                item.SIMCardStatusHistory.Add(new SIMCardStatusHistory()
+                {
+                    SIMCardStatusId = (int)DBEnums.SIMCardStatus.New,
+                    BranchId = branchId,
+                    CreateUserId = userId,
+                    CreateDate = DateTime.Now
+                });
+            }
+
+            new SIMCardModel<SIMCard>().Import(items);
+
+            return base.Create(items, fc);
+        }
 
     }
 }

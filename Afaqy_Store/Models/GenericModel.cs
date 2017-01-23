@@ -133,6 +133,25 @@ namespace Models
             }
         }
 
+        public virtual bool Import(TModel[] objs)
+        {
+
+            string url = ApiServerUrl + ControllerRoute + "import";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(objs), System.Text.Encoding.UTF8, "application/json") };
+            var task = request.Execute<string>();
+            task.Wait();
+            if (task.Result.ToString().Contains("Success"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
+
         public virtual bool Import(HttpPostedFileBase file)
         {
 

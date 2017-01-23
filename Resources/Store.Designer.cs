@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract No.
+        /// </summary>
+        public static string ContractId {
+            get {
+                return ResourceManager.GetString("ContractId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Device.
         /// </summary>
         public static string DeviceCreate {
@@ -277,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GSM Prefix.
+        /// </summary>
+        public static string GSMPrefix {
+            get {
+                return ResourceManager.GetString("GSMPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create SIM Card.
         /// </summary>
         public static string SIMCardCreate {
@@ -327,6 +345,15 @@ namespace Resources {
         public static string SIMCardNew {
             get {
                 return ResourceManager.GetString("SIMCardNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purchase Date.
+        /// </summary>
+        public static string SIMCardPurchaseDate {
+            get {
+                return ResourceManager.GetString("SIMCardPurchaseDate", resourceCulture);
             }
         }
         

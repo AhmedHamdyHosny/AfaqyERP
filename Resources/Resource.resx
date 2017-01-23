@@ -288,6 +288,9 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="ItemsCount" xml:space="preserve">
+    <value>Count</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

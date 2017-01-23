@@ -234,4 +234,13 @@
   <data name="DeviceModelTypeTitle" xml:space="preserve">
     <value>Device Model Type</value>
   </data>
+  <data name="ContractId" xml:space="preserve">
+    <value>Contract No</value>
+  </data>
+  <data name="GSMPrefix" xml:space="preserve">
+    <value>GSM Prefix</value>
+  </data>
+  <data name="SIMCardPurchaseDate" xml:space="preserve">
+    <value>Purchase Date</value>
+  </data>
 </root>
