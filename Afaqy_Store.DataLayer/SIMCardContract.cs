@@ -23,6 +23,7 @@ namespace Afaqy_Store.DataLayer
     
         public int SIMCardContractId { get; set; }
         public int SIMCardProviderId { get; set; }
+        public string ContractNo { get; set; }
         public decimal CurrentCost { get; set; }
         public int CurrencyId { get; set; }
         public Nullable<System.DateTime> ContractDate { get; set; }
@@ -32,7 +33,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public bool IsDeleted { get; set; }
-        public string ContractNo { get; set; }
     
         public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,5 +1,5 @@
 ﻿@model Afaqy_Store.Models.DeviceEditModel
-
+@using Classes.Helper;
 @{
     ViewBag.Title = Resources.Store.DeviceEdit;
     Layout = "~/Views/Shared/_Popup.cshtml";
@@ -36,7 +36,8 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EditItem.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
-                @Html.DropDownListFor(model => model.EditItem.ModelTypeId, Model.ModelType, htmlAttributes: new { @class = "form-control" })
+                @Html.CustomDropdownListFor(m => m.EditItem.ModelTypeId, Model.ModelType, null, Resources.Resource.SelectItem , htmlAttributes : new { @class = "form-control" ,@name = "ModelTypeId",@id = "ModelTypeId"}) 
+                @*@Html.DropDownListFor(model => model.EditItem.ModelTypeId, Model.ModelType, htmlAttributes: new { @class = "form-control" })*@ @*name = "ModelTypeId", id = "ModelTypeId"*@
                 @Html.ValidationMessageFor(model => model.EditItem.ModelTypeId, "", new { @class = "text-danger" })
             </div>
             <div>
@@ -52,3 +53,23 @@
     </div>
 }
 
+
+
+
+@section scripts {
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //--Jquery Select2--
+            $("#ModelTypeId").select2();
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+
+            });
+        });
+    </script>
+}

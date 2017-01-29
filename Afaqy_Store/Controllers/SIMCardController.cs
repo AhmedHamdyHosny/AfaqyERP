@@ -15,14 +15,11 @@ namespace Afaqy_Store.Controllers
     {
         public SIMCardController()
         {
-            
+
             PK_PropertyName = "SIMCardId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            //for test
-            var userId = 1;
-            //var user = new UserViewModel().GetUserFromSession();
-            //var userId = user.UserId;
+            var userId = User.UserId;
 
             #region Index
             filters = new List<GenericDataFormat.FilterItems>();
@@ -39,7 +36,9 @@ namespace Afaqy_Store.Controllers
             #region Create
             //Create view Dropdown Lists
             CreateReferences = new List<Reference>();
-            CreateReferences.Add(new Reference() { TypeModel = typeof(SIMCardContractModel<SIMCardContract>), ViewDataName = "ContractId", DataValueField = "SIMCardContractId", DataTextField = "ContractNo", SelectColumns = "SIMCardContractId,ContractNo" });
+            List<GenericDataFormat.FilterItems> contractRefernceFilters = new List<GenericDataFormat.FilterItems>();
+            contractRefernceFilters.Add(new GenericDataFormat.FilterItems() { Property = "IsDeleted", Value = false, Operation = GenericDataFormat.FilterOperations.Equal });
+            CreateReferences.Add(new Reference() { TypeModel = typeof(SIMCardContractModel<SIMCardContract>),Filters = contractRefernceFilters, ViewDataName = "ContractId", DataValueField = "SIMCardContractId", DataTextField = "ContractNo", SelectColumns = "SIMCardContractId,ContractNo" });
 
             //on create dependences
             ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = userId });

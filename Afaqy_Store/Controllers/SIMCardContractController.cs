@@ -18,8 +18,7 @@ namespace Afaqy_Store.Controllers
             PK_PropertyName = "SIMCardContractId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var user = new UserViewModel().GetUserFromSession();
-            var userId = user.UserId;
+            var userId = User.UserId;
 
             #region Index
             filters = new List<GenericDataFormat.FilterItems>();

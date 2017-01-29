@@ -1,11 +1,10 @@
 ﻿@model Afaqy_Store.DataLayer.SIMCard
-
+@using Classes.Helper;
 @{
     ViewBag.Title = Resources.Store.SIMCardCreate;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
-@*@section styles {*@
 <style>
     .counterDiv {
         display: inline-block;
@@ -16,7 +15,6 @@
         padding-right: 0px;
     }
 </style>
-@*}*@
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
@@ -54,7 +52,8 @@
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.ContractId, Resources.Store.ContractId, htmlAttributes: new { @class = "text-info" })
-                    @Html.DropDownList("ContractId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.CustomDropdownListFor(model => model.ContractId, (IEnumerable<CustomSelectListItem>)ViewData["ContractId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "ContractId", @id = "ContractId" }) 
+                    @*@Html.DropDownList("ContractId", null, htmlAttributes: new { @class = "form-control" })*@
                     @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
@@ -63,7 +62,7 @@
                         <input name="PurchaseDate" class="form-control date-picker" id="PurchaseDate" type="text" data-date-format="dd-mm-yyyy">
                         <i class="fa fa-calendar"></i>
                     </span>
-                    @*@Html.TextBoxFor(model => model.PurchaseDate, null, htmlAttributes: new {  @class = "form-control" })*@
+                    
                 </div>
             </div>
             <table class="table table-bordered table-responsive">
@@ -80,17 +79,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.SerialNumber, Resources.Store.SIMCardSerialNumber, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.GSM,Resources.Store.SIMCardGSM, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.GSM, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.GSM, "", new { @class = "text-danger" })
-                </div>*@
         </div>
     </div>
     <div class="modal-footer">
@@ -104,6 +92,8 @@
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
     <!--Bootstrap Date Picker-->
     <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
     <!--Fuelux Spinbox-->
@@ -111,6 +101,9 @@
 
     <script>
         $(document).ready(function () {
+
+            //--Jquery Select2--
+            $("#ContractId").select2();
 
             var itemsCount = 1;
             var itemRow = $('#itemRow_1');

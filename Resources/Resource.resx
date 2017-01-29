@@ -204,6 +204,9 @@
   <data name="AlertWarning" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
   <data name="ButtonAdd" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
+  </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>---- Select ----</value>
   </data>
   <data name="SignUpWithEmail" xml:space="preserve">
     <value>Sign Up With Email</value>

@@ -12,7 +12,7 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public class GenericContoller<TDBModel,TViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller 
+    public partial class GenericContoller<TDBModel,TViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller 
     {
         public GenericDataFormat IndexRequestBody;
         public GenericDataFormat DetailsRequestBody;
@@ -69,8 +69,12 @@ namespace Classes.Common
                 {
                     //create instance of TModel of TViewModel from Reference TypeModel
                     dynamic instance = Activator.CreateInstance(reference.TypeModel);
-                    var items = instance.Get();
-                    ViewData[reference.ViewDataName] = new SelectList(items, reference.DataValueField, reference.DataTextField, reference.SelectedValue);
+                    var refSorts = new List<GenericDataFormat.SortItems>();
+                    refSorts.Add(new GenericDataFormat.SortItems() { Property = reference.DataTextField });
+                    GenericDataFormat requestBody = new GenericDataFormat() { Filters = reference.Filters, Includes = new GenericDataFormat.IncludeItems() { Properties = reference.SelectColumns },Sorts = refSorts };
+                    var items = requestBody != null ? instance.Get(requestBody) : instance.Get();
+                    var refSelectLst = new SelectList(items, reference.DataValueField, reference.DataTextField, reference.SelectedValue);
+                    ViewData[reference.ViewDataName] = refSelectLst.Select(x => new Helper.CustomSelectListItem(x));
                 }
             }
         }
@@ -105,17 +109,8 @@ namespace Classes.Common
                         }
                     }
                 }
-
                 dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
                 var item = instance.Insert(model);
-
-                //excute after insert action
-                //var deviceStatusHistory = new DeviceStatusHistory();
-                //deviceStatusHistory.DeviceId = device.DeviceId;
-                //deviceStatusHistory.StatusId = device.DeviceStatusId;
-                //deviceStatusHistory.CreateUserId = userId;
-                //deviceStatusHistory.CreateDate = DateTime.Now;
-                //new DeviceStatusHistoryModel<DeviceStatusHistory>().Insert(deviceStatusHistory);
 
                 //set alerts messages
                 TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };
@@ -163,12 +158,18 @@ namespace Classes.Common
                     //get list of reference items that can be linked with model item
                     IEnumerable<dynamic> refItems = ReferenceInstance.Get();
                     //get list of reference items as SelectListItem type
-                    var refSelectListItems = refItems.Select(x => new SelectListItem()
+                    var refSelectListItems = refItems.Select(x => new Helper.CustomSelectListItem()
                     {
-                        Selected = (object)Utilities.Utility.GetPropertyValue(item, reference.DataValueField) == (object)Utilities.Utility.GetPropertyValue(x, reference.DataValueField),
+                        Selected = (int)Utilities.Utility.GetPropertyValue(item, reference.DataValueField) == (int)Utilities.Utility.GetPropertyValue(x, reference.DataValueField),
                         Text = Utilities.Utility.GetPropertyValue(x, reference.DataTextField).ToString(),
                         Value = Utilities.Utility.GetPropertyValue(x, reference.DataValueField).ToString()
                     });
+                    //var refSelectListItems = refItems.Select(x => new Helper.CustomSelectListItem()
+                    //{
+                    //    Selected = (object)Utilities.Utility.GetPropertyValue(item, reference.DataValueField) == (object)Utilities.Utility.GetPropertyValue(x, reference.DataValueField),
+                    //    Text = Utilities.Utility.GetPropertyValue(x, reference.DataTextField).ToString(),
+                    //    Value = Utilities.Utility.GetPropertyValue(x, reference.DataValueField).ToString()
+                    //});
                     //set the value of reference SelectListItem property of EditModel object
                     PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(reference.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
                     if (propertyInfo != null)
@@ -339,6 +340,7 @@ namespace Classes.Common
         public string DataTextField { get; set; }
         public string SelectedValue { get; set; }
         public string PropertyName { get; set; }
+        public List<GenericDataFormat.FilterItems> Filters { get; set; }
     }
 
     public class ActionItemPropertyValue
@@ -353,6 +355,111 @@ namespace Classes.Common
     {
         public Transactions Transaction{ get; set; }
         public string RedirectToAction { get; set; }
+    }
+
+    public partial class GenericContoller<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
+    {
+        public delegate void DelegateInitCreateView();
+        public virtual void FuncPreInitCreateView()
+        {
+
+        }
+        public virtual void FuncPostInitCreateView()
+        {
+
+        }
+
+        public delegate void DelegateCreate(TCreateBindModel model);
+        public virtual void FuncPreCreate(TCreateBindModel model)
+        {
+
+        }
+        public virtual void FuncPostCreate(TCreateBindModel model)
+        {
+
+        }
+
+        public delegate void DelegateInitEditView(TDBModel EditItem);
+        public virtual void FuncPreInitEditView(TDBModel EditItem)
+        {
+
+        }
+        public virtual void FuncPostInitEditView(TDBModel EditItem)
+        {
+
+        }
+
+        public delegate void DelegateEdit(TEditBindModel EditItem);
+        public virtual void FuncPreEdit(TEditBindModel EditItem)
+        {
+
+        }
+        public virtual void FuncPostEdit(TEditBindModel EditItem)
+        {
+
+        }
+
+        public delegate void DelegateDelete(object id);
+        public virtual void FuncPreDelete(object id)
+        {
+
+        }
+        public virtual void FuncPostDelete(object id)
+        {
+
+        }
+
+        public delegate void DelegateDeleteGroup(object[] id);
+        public virtual void FuncPreDelete(object[] id)
+        {
+
+        }
+        public virtual void FuncPostDelete(object[] id)
+        {
+
+        }
+
+        public delegate void DelegateDeactivate(object id);
+        public virtual void FuncPreDeactivate(object id)
+        {
+
+        }
+        public virtual void FuncPostDeactivate(object id)
+        {
+
+        }
+
+        public delegate void DelegateDeactivateGroup(object[] id);
+        public virtual void FuncPreDeactivate(object[] id)
+        {
+
+        }
+        public virtual void FuncPostDeactivate(object[] id)
+        {
+
+        }
+
+        public delegate void DelegateImport(HttpPostedFileBase file);
+        public virtual void FuncPreImport(HttpPostedFileBase file)
+        {
+
+        }
+        public virtual void FuncPostImport(dynamic result)
+        {
+
+        }
+
+        public delegate void DelegateExport(GenericDataFormat ExportRequestBody);
+        public virtual void FuncPreExport(GenericDataFormat ExportRequestBody)
+        {
+
+        }
+        public virtual void FuncPostExport(GenericDataFormat ExportRequestBody)
+        {
+
+        }
+
+        
     }
 
 

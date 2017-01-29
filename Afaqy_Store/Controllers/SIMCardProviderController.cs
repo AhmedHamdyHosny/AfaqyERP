@@ -21,8 +21,7 @@ namespace Afaqy_Store.Controllers
             PK_PropertyName = "ProviderId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var user = new UserViewModel().GetUserFromSession();
-            var userId = user.UserId;
+            var userId = User.UserId;
 
             #region Index
             

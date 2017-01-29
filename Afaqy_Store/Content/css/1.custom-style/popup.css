@@ -72,3 +72,8 @@ button, input, select, textarea {
 .dl-horizontal dt{
     margin-bottom: 5px;
 }
+
+.select2-container
+{
+    display:inherit !important;
+}

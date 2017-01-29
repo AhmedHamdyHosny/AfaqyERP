@@ -20,8 +20,7 @@ namespace Afaqy_Store.Controllers
             PK_PropertyName = "DeviceId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var user = new UserViewModel().GetUserFromSession();
-            var userId = user.UserId;
+            var userId = User.UserId;
 
             #region Index
             filters = new List<GenericDataFormat.FilterItems>();
@@ -72,10 +71,13 @@ namespace Afaqy_Store.Controllers
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsDeleted", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceId,SerialNumber,IMEI,Firmware", References = "DeviceStatus,DeviceModelType" } };
             #endregion
+
+
             
         }
 
-        
+
+       
 
     }
 }

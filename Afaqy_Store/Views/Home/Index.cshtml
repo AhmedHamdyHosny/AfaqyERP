@@ -1,4 +1,30 @@
-﻿@{
+﻿@model Afaqy_Store.Models.DeviceEditModel
+@using Classes.Helper;
+@{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Default.cshtml";
+    var lst = Model.ModelType.Select(x=> new CustomSelectListItem() { Selected = x.Selected, Value = x.Value, Text = x.Text});
+}
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.EditItem.ModelTypeId);
+@Html.CustomDropdownListFor(m => m.EditItem.ModelTypeId, lst, null, "---- Select ----",
+        new { name = "ModelTypeId", id = "ModelTypeId" })
+@Html.ValidationMessageFor(m => m.EditItem.ModelTypeId, null, new { @class = "ValidationErrors" })
+    <button type="submit">Save</button>
+}
+
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
+
+<script>
+    //--Jquery Select2--
+    $("#ModelTypeId").select2();
+
+</script>
 }

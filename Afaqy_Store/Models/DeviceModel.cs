@@ -73,7 +73,6 @@ namespace Afaqy_Store.Models
     public class DeviceEditModel 
     {
         public Device EditItem { get; set; }
-        public IEnumerable<SelectListItem> ModelType { get; set; }
-        //public IEnumerable<SelectListItem> Status { get; set; }
+        public IEnumerable<Classes.Helper.CustomSelectListItem> ModelType { get; set; }
     }
 }

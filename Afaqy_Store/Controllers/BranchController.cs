@@ -18,13 +18,10 @@ namespace Afaqy_Store.Controllers
             PK_PropertyName = "BranchId";
             List<GenericDataFormat.FilterItems> filters = null;
             ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var user = new UserViewModel().GetUserFromSession();
-            var userId = user.UserId;
+            var userId = User.UserId;
 
             #region Index
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "Active", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            IndexRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
+            IndexRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
             #endregion
 
             #region Details
@@ -34,23 +31,7 @@ namespace Afaqy_Store.Controllers
             #endregion
 
             #region Create
-            //Create view Dropdown Lists
-            //CreateReferences = new List<Reference>();
-            //CreateReferences.Add(new Reference() { TypeModel = typeof(DeviceModelTypeModel<DeviceModelType>), ViewDataName = "ModelTypeId", DataValueField = "ModelTypeId", DataTextField = "ModelTypeName", SelectColumns = "ModelTypeId,ModelTypeName" });
-
-            ////on create dependences
-            //ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = userId });
-            //ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateDate", Value = DateTime.Now });
-            //ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "DeviceStatusId", Value = (int)DBEnums.DeviceStatus.New });
-
-            //var deviceStatusHistory = new List<DeviceStatusHistory>();
-            //deviceStatusHistory.Add(new DeviceStatusHistory()
-            //{
-            //    StatusId = (int)DBEnums.DeviceStatus.New,
-            //    CreateUserId = userId,
-            //    CreateDate = DateTime.Now
-            //});
-            //ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "DeviceStatusHistory", Value = deviceStatusHistory });
+            
             #endregion
 
             #region Edit

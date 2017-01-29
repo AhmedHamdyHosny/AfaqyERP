@@ -1,4 +1,5 @@
 ﻿@model Afaqy_Store.DataLayer.Device
+@using Classes.Helper;
 
 @{
     ViewBag.Title = Resources.Store.DeviceCreate;
@@ -37,7 +38,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
-                @Html.DropDownList("ModelTypeId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.CustomDropdownListFor(model => model.ModelTypeId, (IEnumerable<CustomSelectListItem>)ViewData["ModelTypeId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "ModelTypeId", @id = "ModelTypeId" }) 
                 @Html.ValidationMessageFor(model => model.ModelTypeId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,9 +51,13 @@
 }
 
 @section scripts {
-@Scripts.Render("~/bundles/jqueryval")
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
     <script>
         $(document).ready(function () {
+            //--Jquery Select2--
+            $("#ModelTypeId").select2();
+
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {
                     event.preventDefault();

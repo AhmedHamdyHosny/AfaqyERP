@@ -322,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Block.
+        /// </summary>
+        public static string Block {
+            get {
+                return ResourceManager.GetString("Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string ButtonAdd {
@@ -633,6 +642,15 @@ namespace Resources {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ---- Select ----.
+        /// </summary>
+        public static string SelectItem {
+            get {
+                return ResourceManager.GetString("SelectItem", resourceCulture);
             }
         }
         

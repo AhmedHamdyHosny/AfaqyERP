@@ -1,4 +1,5 @@
-﻿using Classes.Common;
+﻿using Afaqy_Store.Models;
+using Classes.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,9 @@ namespace Afaqy_Store.Controllers
 {
     public class BaseController<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel> : GenericContoller<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
     {
+        //public UserViewModel User = new UserViewModel().GetUserFromSession();
+
+        //for test
+        public UserViewModel User = new UserModel<UserViewModel>().Get(1);
     }
 }

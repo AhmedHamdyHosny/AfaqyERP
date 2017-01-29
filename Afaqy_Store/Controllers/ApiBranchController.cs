@@ -12,7 +12,30 @@ namespace Afaqy_Store.Controllers
     {
         public ApiBranchController()
         {
-            DeletedFlagPropertyName = "Active";
+        }
+
+        [NonAction]
+        public override IHttpActionResult Delete(int id)
+        {
+            return null;
+        }
+
+        [NonAction]
+        public override IHttpActionResult Delete(int[] ids)
+        {
+            return null;
+        }
+
+        [NonAction]
+        public override IHttpActionResult Hide(int id)
+        {
+            return null;
+        }
+
+        [NonAction]
+        public override IHttpActionResult Hide(int[] ids)
+        {
+            return null;
         }
     }
 }

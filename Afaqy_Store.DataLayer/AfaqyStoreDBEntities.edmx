@@ -17,7 +17,7 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="Active" Type="bit" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -870,7 +870,7 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Branch" ToRole="Country" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_Branch" FromRole="Branch" ToRole="Device" />
           <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="Branch" ToRole="DeviceStatusHistory" />
@@ -1049,6 +1049,7 @@
           </Key>
           <Property Name="SIMCardContractId" Type="Int32" Nullable="false" />
           <Property Name="SIMCardProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ContractNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CurrentCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CurrencyId" Type="Int32" Nullable="false" />
           <Property Name="ContractDate" Type="DateTime" Precision="0" />
@@ -1062,7 +1063,6 @@
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardContract" FromRole="SIMCardContract" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardProvider" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_SIMCardProvider" FromRole="SIMCardContract" ToRole="SIMCardProvider" />
           <NavigationProperty Name="SIMCardContractRenewal" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_SIMCardContract" FromRole="SIMCardContract" ToRole="SIMCardContractRenewal" />
-          <Property Name="ContractNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="SIMCardContractRenewal">
           <Key>
@@ -1504,7 +1504,7 @@
           <EntitySetMapping Name="Branch">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Branch">
               <MappingFragment StoreEntitySet="Branch">
-                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -1664,7 +1664,6 @@
           <EntitySetMapping Name="SIMCardContract">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardContract">
               <MappingFragment StoreEntitySet="SIMCardContract">
-                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
@@ -1674,6 +1673,7 @@
                 <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="CurrentCost" ColumnName="CurrentCost" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
                 <ScalarProperty Name="SIMCardProviderId" ColumnName="SIMCardProviderId" />
                 <ScalarProperty Name="SIMCardContractId" ColumnName="SIMCardContractId" />
               </MappingFragment>

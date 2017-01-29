@@ -49,6 +49,22 @@ namespace Afaqy_Store.Models
                 _modifyUser = value;
             }
         }
+
+        public string ContractDate_Format
+        {
+            get
+            {
+
+                return this.ContractDate != null ?  ((DateTime)this.ContractDate).ToString(Classes.Common.Constant.DateFormat) : "";
+            }
+        }
+        public string ExpiryDate_Format
+        {
+            get
+            {
+                return this.ExpiryDate != null ? ((DateTime)this.ExpiryDate).ToString(Classes.Common.Constant.DateFormat) : "";
+            }
+        }
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;

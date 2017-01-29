@@ -64,8 +64,8 @@ namespace Afaqy_Store.Models
     {
     }
 
-    [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId,CreateUserId,CreateDate")]
-    public class BranchEditBindModel : DeviceModelType
+    [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId,IsBlock,CreateUserId,CreateDate")]
+    public class BranchEditBindModel : Branch
     {
     }
 
