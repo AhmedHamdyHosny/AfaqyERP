@@ -61,6 +61,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to item(s) failed to be active, please check your data and try again.
+        /// </summary>
+        public static string AlertActiveErrorMessage {
+            get {
+                return ResourceManager.GetString("AlertActiveErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) has been activated.
+        /// </summary>
+        public static string AlertActiveInfoMessage {
+            get {
+                return ResourceManager.GetString("AlertActiveInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) has been activated.
+        /// </summary>
+        public static string AlertActiveSuccessMessage {
+            get {
+                return ResourceManager.GetString("AlertActiveSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s) will be active.
+        /// </summary>
+        public static string AlertActiveWarningMessage {
+            get {
+                return ResourceManager.GetString("AlertActiveWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to item(s) failed to be added, please check your data and try again.
         /// </summary>
         public static string AlertAddErrorMessage {
@@ -579,6 +615,15 @@ namespace Resources {
         public static string Import {
             get {
                 return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block.
+        /// </summary>
+        public static string IsBlock {
+            get {
+                return ResourceManager.GetString("IsBlock", resourceCulture);
             }
         }
         

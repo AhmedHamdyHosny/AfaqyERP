@@ -13,11 +13,37 @@
           <Property Name="BranchName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="BranchName_ar" Type="nvarchar" MaxLength="20" />
           <Property Name="CountryId" Type="int" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="BrandName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BrandServerPort">
+          <Key>
+            <PropertyRef Name="BrandPortId" />
+          </Key>
+          <Property Name="BrandPortId" Type="int" Nullable="false" />
+          <Property Name="ServerIP" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="PortNumber" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -26,6 +52,11 @@
           <Property Name="CountryId" Type="int" Nullable="false" />
           <Property Name="CountryName_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CountryName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -34,6 +65,11 @@
           <Property Name="CurrencyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CurrencyName_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CurrencyName_ar" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -42,6 +78,11 @@
           <Property Name="DepartmentId" Type="int" Nullable="false" />
           <Property Name="DepartmentName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="DepartmentName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Device">
           <Key>
@@ -54,11 +95,11 @@
           <Property Name="DeviceStatusId" Type="int" Nullable="false" />
           <Property Name="Firmware" Type="varchar" MaxLength="15" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceModelType">
           <Key>
@@ -66,8 +107,11 @@
           </Key>
           <Property Name="ModelTypeId" Type="int" Nullable="false" />
           <Property Name="ModelTypeName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="CreateUserId" Type="int" />
-          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DeviceSIM">
           <Key>
@@ -76,11 +120,11 @@
           <Property Name="DeviceSIMId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeviceId" Type="int" Nullable="false" />
           <Property Name="SIMCardId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DeviceStatus">
           <Key>
@@ -89,6 +133,11 @@
           <Property Name="DeviceStatusId" Type="int" Nullable="false" />
           <Property Name="DeviceStatus_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DeviceStatus_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DeviceStatusHistory">
           <Key>
@@ -120,7 +169,7 @@
           <Property Name="BranchId" Type="int" />
           <Property Name="JoinDate" Type="date" />
           <Property Name="UserId" Type="int" />
-          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
@@ -133,6 +182,11 @@
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RoleName_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="SIMCard">
           <Key>
@@ -140,6 +194,7 @@
           </Key>
           <Property Name="SIMCardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SerialNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CompanySerialNumber" Type="varchar" MaxLength="20" />
           <Property Name="GSM" Type="nvarchar" MaxLength="20" />
           <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
           <Property Name="ContractId" Type="int" />
@@ -147,11 +202,11 @@
           <Property Name="Cost" Type="money" />
           <Property Name="CurrencyId" Type="int" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardContract">
           <Key>
@@ -164,11 +219,11 @@
           <Property Name="CurrencyId" Type="int" Nullable="false" />
           <Property Name="ContractDate" Type="date" />
           <Property Name="ExpiryDate" Type="date" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardContractRenewal">
           <Key>
@@ -180,11 +235,11 @@
           <Property Name="ExpiryDate" Type="date" Nullable="false" />
           <Property Name="ItemCost" Type="money" Nullable="false" />
           <Property Name="CurrencyId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
-          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SIMCardProvider">
           <Key>
@@ -193,6 +248,11 @@
           <Property Name="ProviderId" Type="int" Nullable="false" />
           <Property Name="ProviderName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ProviderName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="SIMCardStatus">
           <Key>
@@ -201,6 +261,11 @@
           <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
           <Property Name="SIMCardStatusName_en" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="SIMCardStatusName_ar" Type="nvarchar" MaxLength="30" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="SIMCardStatusHistory">
           <Key>
@@ -213,6 +278,43 @@
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemServerIP">
+          <Key>
+            <PropertyRef Name="ServerIP" />
+          </Key>
+          <Property Name="ServerIP" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SystemId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TechniqueCompany">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TechniqueSystem">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="int" Nullable="false" />
+          <Property Name="SystemName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -229,8 +331,11 @@
           <Property Name="UserTypeId" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="AllowAccess" Type="bit" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -239,8 +344,11 @@
           <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="int" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -249,6 +357,11 @@
           <Property Name="UserTypeId" Type="int" Nullable="false" />
           <Property Name="UserTypeName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="UserTypeName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Branch_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
@@ -259,6 +372,30 @@
             </Principal>
             <Dependent Role="Branch">
               <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrandServerPort_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="BrandServerPort" Type="Self.BrandServerPort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="BrandServerPort">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrandServerPort_SystemServerIP">
+          <End Role="SystemServerIP" Type="Self.SystemServerIP" Multiplicity="1" />
+          <End Role="BrandServerPort" Type="Self.BrandServerPort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="ServerIP" />
+            </Principal>
+            <Dependent Role="BrandServerPort">
+              <PropertyRef Name="ServerIP" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,6 +675,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SystemServerIP_TechniqueSystem">
+          <End Role="TechniqueSystem" Type="Self.TechniqueSystem" Multiplicity="1" />
+          <End Role="SystemServerIP" Type="Self.SystemServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="SystemServerIP">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechniqueSystem_TechniqueCompany">
+          <End Role="TechniqueCompany" Type="Self.TechniqueCompany" Multiplicity="1" />
+          <End Role="TechniqueSystem" Type="Self.TechniqueSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueCompany">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="TechniqueSystem">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -587,29 +748,42 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Afaqy_StoreDataLayerStoreContainer">
-          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCardContract" EntityType="Self.SIMCardContract" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCardContractRenewal" EntityType="Self.SIMCardContractRenewal" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCardProvider" EntityType="Self.SIMCardProvider" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCardStatus" EntityType="Self.SIMCardStatus" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIMCardStatusHistory" EntityType="Self.SIMCardStatusHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="BrandServerPort" EntityType="Self.BrandServerPort" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCardContract" EntityType="Self.SIMCardContract" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCardContractRenewal" EntityType="Self.SIMCardContractRenewal" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCardProvider" EntityType="Self.SIMCardProvider" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCardStatus" EntityType="Self.SIMCardStatus" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SIMCardStatusHistory" EntityType="Self.SIMCardStatusHistory" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="SystemServerIP" EntityType="Self.SystemServerIP" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="TechniqueCompany" EntityType="Self.TechniqueCompany" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="TechniqueSystem" EntityType="Self.TechniqueSystem" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="afqy" store:Type="Tables" />
           <AssociationSet Name="FK_Branch_Country" Association="Self.FK_Branch_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Branch" EntitySet="Branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrandServerPort_Brand" Association="Self.FK_BrandServerPort_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="BrandServerPort" EntitySet="BrandServerPort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrandServerPort_SystemServerIP" Association="Self.FK_BrandServerPort_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="BrandServerPort" EntitySet="BrandServerPort" />
           </AssociationSet>
           <AssociationSet Name="FK_Device_Branch" Association="Self.FK_Device_Branch">
             <End Role="Branch" EntitySet="Branch" />
@@ -703,6 +877,14 @@
             <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
             <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
           </AssociationSet>
+          <AssociationSet Name="FK_SystemServerIP_TechniqueSystem" Association="Self.FK_SystemServerIP_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechniqueSystem_TechniqueCompany" Association="Self.FK_TechniqueSystem_TechniqueCompany">
+            <End Role="TechniqueCompany" EntitySet="TechniqueCompany" />
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="User" EntitySet="User" />
@@ -726,6 +908,8 @@
       <Schema Namespace="Afaqy_Store.DataLayer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AfaqyStoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Branch" EntityType="Afaqy_Store.DataLayer.Branch" />
+          <EntitySet Name="Brand" EntityType="Afaqy_Store.DataLayer.Brand" />
+          <EntitySet Name="BrandServerPort" EntityType="Afaqy_Store.DataLayer.BrandServerPort" />
           <EntitySet Name="Country" EntityType="Afaqy_Store.DataLayer.Country" />
           <EntitySet Name="Currency" EntityType="Afaqy_Store.DataLayer.Currency" />
           <EntitySet Name="Department" EntityType="Afaqy_Store.DataLayer.Department" />
@@ -742,6 +926,9 @@
           <EntitySet Name="SIMCardProvider" EntityType="Afaqy_Store.DataLayer.SIMCardProvider" />
           <EntitySet Name="SIMCardStatus" EntityType="Afaqy_Store.DataLayer.SIMCardStatus" />
           <EntitySet Name="SIMCardStatusHistory" EntityType="Afaqy_Store.DataLayer.SIMCardStatusHistory" />
+          <EntitySet Name="SystemServerIP" EntityType="Afaqy_Store.DataLayer.SystemServerIP" />
+          <EntitySet Name="TechniqueCompany" EntityType="Afaqy_Store.DataLayer.TechniqueCompany" />
+          <EntitySet Name="TechniqueSystem" EntityType="Afaqy_Store.DataLayer.TechniqueSystem" />
           <EntitySet Name="User" EntityType="Afaqy_Store.DataLayer.User" />
           <EntitySet Name="UserRole" EntityType="Afaqy_Store.DataLayer.UserRole" />
           <EntitySet Name="UserType" EntityType="Afaqy_Store.DataLayer.UserType" />
@@ -768,6 +955,14 @@
           <AssociationSet Name="FK_SIMCardStatusHistory_Branch" Association="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_Branch">
             <End Role="Branch" EntitySet="Branch" />
             <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrandServerPort_Brand" Association="Afaqy_Store.DataLayer.FK_BrandServerPort_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="BrandServerPort" EntitySet="BrandServerPort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BrandServerPort_SystemServerIP" Association="Afaqy_Store.DataLayer.FK_BrandServerPort_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="BrandServerPort" EntitySet="BrandServerPort" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Country" Association="Afaqy_Store.DataLayer.FK_Employee_Country">
             <End Role="Country" EntitySet="Country" />
@@ -849,6 +1044,14 @@
             <End Role="SIMCardStatus" EntitySet="SIMCardStatus" />
             <End Role="SIMCardStatusHistory" EntitySet="SIMCardStatusHistory" />
           </AssociationSet>
+          <AssociationSet Name="FK_SystemServerIP_TechniqueSystem" Association="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TechniqueSystem_TechniqueCompany" Association="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany">
+            <End Role="TechniqueCompany" EntitySet="TechniqueCompany" />
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_UserType" Association="Afaqy_Store.DataLayer.FK_User_UserType">
             <End Role="UserType" EntitySet="UserType" />
             <End Role="User" EntitySet="User" />
@@ -866,17 +1069,46 @@
           <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="BranchName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CountryId" Type="Int32" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Branch" ToRole="Country" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_Branch" FromRole="Branch" ToRole="Device" />
           <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="Branch" ToRole="DeviceStatusHistory" />
           <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Branch" FromRole="Branch" ToRole="Employee" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Branch" FromRole="Branch" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_Branch" FromRole="Branch" ToRole="SIMCardStatusHistory" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="BrandName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BrandServerPort" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_Brand" FromRole="Brand" ToRole="BrandServerPort" />
+        </EntityType>
+        <EntityType Name="BrandServerPort">
+          <Key>
+            <PropertyRef Name="BrandPortId" />
+          </Key>
+          <Property Name="BrandPortId" Type="Int32" Nullable="false" />
+          <Property Name="ServerIP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="PortNumber" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Brand" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_Brand" FromRole="BrandServerPort" ToRole="Brand" />
+          <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_SystemServerIP" FromRole="BrandServerPort" ToRole="SystemServerIP" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -885,6 +1117,11 @@
           <Property Name="CountryId" Type="Int32" Nullable="false" />
           <Property Name="CountryName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CountryName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Country" ToRole="Branch" />
           <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Country" ToRole="Employee" />
           <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="Country" ToRole="User" />
@@ -896,6 +1133,11 @@
           <Property Name="CurrencyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CurrencyName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CurrencyName_ar" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Currency" FromRole="Currency" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardContract" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency" FromRole="Currency" ToRole="SIMCardContract" />
           <NavigationProperty Name="SIMCardContractRenewal" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency" FromRole="Currency" ToRole="SIMCardContractRenewal" />
@@ -907,6 +1149,11 @@
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Device">
@@ -920,11 +1167,11 @@
           <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
           <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Device_Branch" FromRole="Device" ToRole="Branch" />
           <NavigationProperty Name="DeviceStatus" Relationship="Afaqy_Store.DataLayer.FK_Device_DeviceStatus" FromRole="Device" ToRole="DeviceStatus" />
           <NavigationProperty Name="DeviceModelType" Relationship="Afaqy_Store.DataLayer.FK_Device_ModelType" FromRole="Device" ToRole="DeviceModelType" />
@@ -937,8 +1184,11 @@
           </Key>
           <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
           <Property Name="ModelTypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUserId" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_ModelType" FromRole="DeviceModelType" ToRole="Device" />
         </EntityType>
         <EntityType Name="DeviceSIM">
@@ -948,11 +1198,11 @@
           <Property Name="DeviceSIMId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeviceId" Type="Int32" Nullable="false" />
           <Property Name="SIMCardId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_Device" FromRole="DeviceSIM" ToRole="Device" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_SIMCard" FromRole="DeviceSIM" ToRole="SIMCard" />
         </EntityType>
@@ -963,6 +1213,11 @@
           <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
           <Property Name="DeviceStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeviceStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_Device_DeviceStatus" FromRole="DeviceStatus" ToRole="Device" />
           <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_DeviceStatus" FromRole="DeviceStatus" ToRole="DeviceStatusHistory" />
         </EntityType>
@@ -999,7 +1254,7 @@
           <Property Name="BranchId" Type="Int32" />
           <Property Name="JoinDate" Type="DateTime" Precision="0" />
           <Property Name="UserId" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
@@ -1016,6 +1271,11 @@
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RoleName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserRole" Relationship="Afaqy_Store.DataLayer.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="SIMCard">
@@ -1024,6 +1284,7 @@
           </Key>
           <Property Name="SIMCardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SerialNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CompanySerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="GSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
           <Property Name="ContractId" Type="Int32" />
@@ -1031,11 +1292,11 @@
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CurrencyId" Type="Int32" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Branch" FromRole="SIMCard" ToRole="Branch" />
           <NavigationProperty Name="Currency" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_Currency" FromRole="SIMCard" ToRole="Currency" />
           <NavigationProperty Name="DeviceSIM" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_SIMCard" FromRole="SIMCard" ToRole="DeviceSIM" />
@@ -1054,11 +1315,11 @@
           <Property Name="CurrencyId" Type="Int32" Nullable="false" />
           <Property Name="ContractDate" Type="DateTime" Precision="0" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Currency" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency" FromRole="SIMCardContract" ToRole="Currency" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardContract" FromRole="SIMCardContract" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardProvider" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_SIMCardProvider" FromRole="SIMCardContract" ToRole="SIMCardProvider" />
@@ -1074,11 +1335,11 @@
           <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ItemCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Currency" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency" FromRole="SIMCardContractRenewal" ToRole="Currency" />
           <NavigationProperty Name="SIMCardContract" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_SIMCardContract" FromRole="SIMCardContractRenewal" ToRole="SIMCardContract" />
         </EntityType>
@@ -1089,6 +1350,11 @@
           <Property Name="ProviderId" Type="Int32" Nullable="false" />
           <Property Name="ProviderName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ProviderName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SIMCardContract" Relationship="Afaqy_Store.DataLayer.FK_SIMCardContract_SIMCardProvider" FromRole="SIMCardProvider" ToRole="SIMCardContract" />
         </EntityType>
         <EntityType Name="SIMCardStatus">
@@ -1098,6 +1364,11 @@
           <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
           <Property Name="SIMCardStatusName_en" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="SIMCardStatusName_ar" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_SIMCardStatus" FromRole="SIMCardStatus" ToRole="SIMCardStatusHistory" />
         </EntityType>
@@ -1116,6 +1387,48 @@
           <NavigationProperty Name="SIMCard" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_SIMCard" FromRole="SIMCardStatusHistory" ToRole="SIMCard" />
           <NavigationProperty Name="SIMCardStatus" Relationship="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_SIMCardStatus" FromRole="SIMCardStatusHistory" ToRole="SIMCardStatus" />
         </EntityType>
+        <EntityType Name="SystemServerIP">
+          <Key>
+            <PropertyRef Name="ServerIP" />
+          </Key>
+          <Property Name="ServerIP" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SystemId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BrandServerPort" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_SystemServerIP" FromRole="SystemServerIP" ToRole="BrandServerPort" />
+          <NavigationProperty Name="TechniqueSystem" Relationship="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" FromRole="SystemServerIP" ToRole="TechniqueSystem" />
+        </EntityType>
+        <EntityType Name="TechniqueCompany">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TechniqueSystem" Relationship="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" FromRole="TechniqueCompany" ToRole="TechniqueSystem" />
+        </EntityType>
+        <EntityType Name="TechniqueSystem">
+          <Key>
+            <PropertyRef Name="SystemId" />
+          </Key>
+          <Property Name="SystemId" Type="Int32" Nullable="false" />
+          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" FromRole="TechniqueSystem" ToRole="SystemServerIP" />
+          <NavigationProperty Name="TechniqueCompany" Relationship="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" FromRole="TechniqueSystem" ToRole="TechniqueCompany" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -1131,8 +1444,11 @@
           <Property Name="UserTypeId" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="AllowAccess" Type="Boolean" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="User" ToRole="Country" />
           <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_User" FromRole="User" ToRole="Employee" />
           <NavigationProperty Name="UserType" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="User" ToRole="UserType" />
@@ -1145,8 +1461,11 @@
           <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="Int32" Nullable="false" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Role" Relationship="Afaqy_Store.DataLayer.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
         </EntityType>
@@ -1157,6 +1476,11 @@
           <Property Name="UserTypeId" Type="Int32" Nullable="false" />
           <Property Name="UserTypeName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="UserTypeName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="UserType" ToRole="User" />
         </EntityType>
         <Association Name="FK_Branch_Country">
@@ -1228,6 +1552,30 @@
             </Principal>
             <Dependent Role="SIMCardStatusHistory">
               <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrandServerPort_Brand">
+          <End Type="Afaqy_Store.DataLayer.Brand" Role="Brand" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.BrandServerPort" Role="BrandServerPort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="BrandId" />
+            </Principal>
+            <Dependent Role="BrandServerPort">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BrandServerPort_SystemServerIP">
+          <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.BrandServerPort" Role="BrandServerPort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="ServerIP" />
+            </Principal>
+            <Dependent Role="BrandServerPort">
+              <PropertyRef Name="ServerIP" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1471,6 +1819,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SystemServerIP_TechniqueSystem">
+          <End Type="Afaqy_Store.DataLayer.TechniqueSystem" Role="TechniqueSystem" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="SystemServerIP">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TechniqueSystem_TechniqueCompany">
+          <End Type="Afaqy_Store.DataLayer.TechniqueCompany" Role="TechniqueCompany" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.TechniqueSystem" Role="TechniqueSystem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueCompany">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="TechniqueSystem">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_UserType">
           <End Type="Afaqy_Store.DataLayer.UserType" Role="UserType" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="*" />
@@ -1504,11 +1876,11 @@
           <EntitySetMapping Name="Branch">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Branch">
               <MappingFragment StoreEntitySet="Branch">
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="BranchName_ar" ColumnName="BranchName_ar" />
                 <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
@@ -1516,9 +1888,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Brand">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BrandServerPort">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.BrandServerPort">
+              <MappingFragment StoreEntitySet="BrandServerPort">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="PortNumber" ColumnName="PortNumber" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="BrandPortId" ColumnName="BrandPortId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Country">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Country">
               <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="CountryName_ar" ColumnName="CountryName_ar" />
                 <ScalarProperty Name="CountryName_en" ColumnName="CountryName_en" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
@@ -1528,6 +1933,11 @@
           <EntitySetMapping Name="Currency">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Currency">
               <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="CurrencyName_ar" ColumnName="CurrencyName_ar" />
                 <ScalarProperty Name="CurrencyName_en" ColumnName="CurrencyName_en" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
@@ -1537,6 +1947,11 @@
           <EntitySetMapping Name="Department">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="DepartmentName_ar" ColumnName="DepartmentName_ar" />
                 <ScalarProperty Name="DepartmentName_en" ColumnName="DepartmentName_en" />
                 <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
@@ -1546,11 +1961,11 @@
           <EntitySetMapping Name="Device">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Device">
               <MappingFragment StoreEntitySet="Device">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="Firmware" ColumnName="Firmware" />
                 <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
@@ -1564,8 +1979,11 @@
           <EntitySetMapping Name="DeviceModelType">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceModelType">
               <MappingFragment StoreEntitySet="DeviceModelType">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="ModelTypeName" ColumnName="ModelTypeName" />
                 <ScalarProperty Name="ModelTypeId" ColumnName="ModelTypeId" />
               </MappingFragment>
@@ -1574,11 +1992,11 @@
           <EntitySetMapping Name="DeviceSIM">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceSIM">
               <MappingFragment StoreEntitySet="DeviceSIM">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
                 <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
                 <ScalarProperty Name="DeviceSIMId" ColumnName="DeviceSIMId" />
@@ -1588,6 +2006,11 @@
           <EntitySetMapping Name="DeviceStatus">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceStatus">
               <MappingFragment StoreEntitySet="DeviceStatus">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="DeviceStatus_ar" ColumnName="DeviceStatus_ar" />
                 <ScalarProperty Name="DeviceStatus_en" ColumnName="DeviceStatus_en" />
                 <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
@@ -1613,7 +2036,7 @@
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
@@ -1635,6 +2058,11 @@
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="RoleName_ar" ColumnName="RoleName_ar" />
                 <ScalarProperty Name="RoleName_en" ColumnName="RoleName_en" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
@@ -1644,11 +2072,11 @@
           <EntitySetMapping Name="SIMCard">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCard">
               <MappingFragment StoreEntitySet="SIMCard">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
@@ -1656,6 +2084,7 @@
                 <ScalarProperty Name="ContractId" ColumnName="ContractId" />
                 <ScalarProperty Name="SIMCardStatusId" ColumnName="SIMCardStatusId" />
                 <ScalarProperty Name="GSM" ColumnName="GSM" />
+                <ScalarProperty Name="CompanySerialNumber" ColumnName="CompanySerialNumber" />
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
                 <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
               </MappingFragment>
@@ -1664,11 +2093,11 @@
           <EntitySetMapping Name="SIMCardContract">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardContract">
               <MappingFragment StoreEntitySet="SIMCardContract">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
                 <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
@@ -1682,11 +2111,11 @@
           <EntitySetMapping Name="SIMCardContractRenewal">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardContractRenewal">
               <MappingFragment StoreEntitySet="SIMCardContractRenewal">
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="ItemCost" ColumnName="ItemCost" />
                 <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
@@ -1699,6 +2128,11 @@
           <EntitySetMapping Name="SIMCardProvider">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardProvider">
               <MappingFragment StoreEntitySet="SIMCardProvider">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="ProviderName_ar" ColumnName="ProviderName_ar" />
                 <ScalarProperty Name="ProviderName_en" ColumnName="ProviderName_en" />
                 <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
@@ -1708,6 +2142,11 @@
           <EntitySetMapping Name="SIMCardStatus">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardStatus">
               <MappingFragment StoreEntitySet="SIMCardStatus">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="SIMCardStatusName_ar" ColumnName="SIMCardStatusName_ar" />
                 <ScalarProperty Name="SIMCardStatusName_en" ColumnName="SIMCardStatusName_en" />
                 <ScalarProperty Name="SIMCardStatusId" ColumnName="SIMCardStatusId" />
@@ -1727,11 +2166,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SystemServerIP">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SystemServerIP">
+              <MappingFragment StoreEntitySet="SystemServerIP">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechniqueCompany">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TechniqueCompany">
+              <MappingFragment StoreEntitySet="TechniqueCompany">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TechniqueSystem">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TechniqueSystem">
+              <MappingFragment StoreEntitySet="TechniqueSystem">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
@@ -1749,8 +2231,11 @@
           <EntitySetMapping Name="UserRole">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserRole">
               <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
@@ -1760,6 +2245,11 @@
           <EntitySetMapping Name="UserType">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserType">
               <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="UserTypeName_ar" ColumnName="UserTypeName_ar" />
                 <ScalarProperty Name="UserTypeName_en" ColumnName="UserTypeName_en" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />

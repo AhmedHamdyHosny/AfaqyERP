@@ -204,4 +204,28 @@
   <data name="SIMCardContractProvider" xml:space="preserve">
     <value>Provider</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="SystemName" xml:space="preserve">
+    <value>System Name</value>
+  </data>
+  <data name="TechniqueCompanyName" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="TechniqueSystem" xml:space="preserve">
+    <value>Technique System</value>
+  </data>
+  <data name="TechniqueSystemCreate" xml:space="preserve">
+    <value>Create Technique System</value>
+  </data>
+  <data name="TechniqueSystemDetails" xml:space="preserve">
+    <value>Technique Details</value>
+  </data>
+  <data name="TechniqueSystemEdit" xml:space="preserve">
+    <value>Edit Technique System</value>
+  </data>
+  <data name="TechniqueSystemNew" xml:space="preserve">
+    <value>New Technique System</value>
+  </data>
 </root>

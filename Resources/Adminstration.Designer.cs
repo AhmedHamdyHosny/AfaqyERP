@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract Date.
         /// </summary>
         public static string ContractDate {
@@ -318,6 +327,69 @@ namespace Resources {
         public static string SIMCardProviderNew {
             get {
                 return ResourceManager.GetString("SIMCardProviderNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Name.
+        /// </summary>
+        public static string SystemName {
+            get {
+                return ResourceManager.GetString("SystemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string TechniqueCompanyName {
+            get {
+                return ResourceManager.GetString("TechniqueCompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technique System.
+        /// </summary>
+        public static string TechniqueSystem {
+            get {
+                return ResourceManager.GetString("TechniqueSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Technique System.
+        /// </summary>
+        public static string TechniqueSystemCreate {
+            get {
+                return ResourceManager.GetString("TechniqueSystemCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technique Details.
+        /// </summary>
+        public static string TechniqueSystemDetails {
+            get {
+                return ResourceManager.GetString("TechniqueSystemDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Technique System.
+        /// </summary>
+        public static string TechniqueSystemEdit {
+            get {
+                return ResourceManager.GetString("TechniqueSystemEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Technique System.
+        /// </summary>
+        public static string TechniqueSystemNew {
+            get {
+                return ResourceManager.GetString("TechniqueSystemNew", resourceCulture);
             }
         }
     }

@@ -15,35 +15,17 @@ namespace Afaqy_Store.Controllers
         SIMCardProviderEditModel,
         SIMCardProviderModel<SIMCardProvider>,SIMCardProviderModel<SIMCardProviderViewModel>>
     {
-        
-        public SIMCardProviderController()
+        public override void FuncPreDetailsView(object id, ref List<SIMCardProviderViewModel> items)
         {
-            PK_PropertyName = "ProviderId";
-            List<GenericDataFormat.FilterItems> filters = null;
-            ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var userId = User.UserId;
-
-            #region Index
-            
-            #endregion
-
-            #region Details
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "ProviderId", Operation = GenericDataFormat.FilterOperations.Equal });
-            DetailsRequestBody = new GenericDataFormat() { Filters = filters};
-            #endregion
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "ProviderId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
+            var requestBody = new GenericDataFormat() { Filters = filters };
+            items = new SIMCardProviderModel<SIMCardProviderViewModel>().Get(requestBody);
+        }
 
-            #region Create
-            
-            #endregion
-
-            #region Edit
-           
-            #endregion
-
-            #region Export
+        public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
+        {
             ExportFileName = "SIMCardProviders.xlsx";
-            #endregion
         }
     }
 }

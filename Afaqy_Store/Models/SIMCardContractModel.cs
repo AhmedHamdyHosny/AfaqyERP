@@ -78,7 +78,7 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "SIMCardContractId,SIMCardProviderId,ContractNo,CurrentCost,CurrencyId,ContractDate,ExpiryDate,CreateUserId,CreateDate,IsDeleted")]
+    [Bind(Include = "SIMCardContractId,SIMCardProviderId,ContractNo,CurrentCost,CurrencyId,ContractDate,ExpiryDate,CreateUserId,CreateDate,IsBlock")]
     public class SIMCardContractEditBindModel : SIMCardContract
     {
     }

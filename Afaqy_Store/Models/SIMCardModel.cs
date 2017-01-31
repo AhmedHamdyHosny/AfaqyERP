@@ -103,6 +103,6 @@ namespace Afaqy_Store.Models
     public class SIMCardEditModel
     {
         public SIMCard EditItem { get; set; }
-        //public IEnumerable<SelectListItem> Status { get; set; }
+        public IEnumerable<SelectListItem> Contract { get; set; }
     }
 }

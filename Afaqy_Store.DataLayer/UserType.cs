@@ -23,6 +23,11 @@ namespace Afaqy_Store.DataLayer
         public int UserTypeId { get; set; }
         public string UserTypeName_en { get; set; }
         public string UserTypeName_ar { get; set; }
+        public bool IsBlock { get; set; }
+        public int CreateUserId { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }

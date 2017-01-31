@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlertActiveErrorMessage" xml:space="preserve">
+    <value>item(s) failed to be active, please check your data and try again</value>
+  </data>
+  <data name="AlertActiveInfoMessage" xml:space="preserve">
+    <value>item(s) has been activated</value>
+  </data>
+  <data name="AlertActiveSuccessMessage" xml:space="preserve">
+    <value>item(s) has been activated</value>
+  </data>
+  <data name="AlertActiveWarningMessage" xml:space="preserve">
+    <value>item(s) will be active</value>
+  </data>
   <data name="AlertAddErrorMessage" xml:space="preserve">
     <value>item(s) failed to be added, please check your data and try again</value>
   </data>
@@ -290,6 +302,9 @@
   </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
+  </data>
+  <data name="IsBlock" xml:space="preserve">
+    <value>Block</value>
   </data>
   <data name="ItemsCount" xml:space="preserve">
     <value>Count</value>

@@ -1,5 +1,6 @@
 ﻿using Afaqy_Store.DataLayer;
 using Classes.Utilities;
+using GenericApiController.Utilities;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,10 @@ namespace Afaqy_Store.Models
     {
         const string ApiRoute = "api/ApiDeviceModelType/";
         private static string ApiUrl = SiteConfig.ApiUrl;
-
         public DeviceModelTypeModel() : base(ApiUrl, ApiRoute)
         {
         }
+        
     }
 
     [Bind(Include = "ModelTypeId,ModelTypeName")]

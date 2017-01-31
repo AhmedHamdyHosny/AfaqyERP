@@ -28,11 +28,11 @@ namespace Afaqy_Store.DataLayer
         public int DeviceStatusId { get; set; }
         public string Firmware { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool IsDeleted { get; set; }
     
         public virtual Branch Branch { get; set; }
         public virtual DeviceStatus DeviceStatus { get; set; }

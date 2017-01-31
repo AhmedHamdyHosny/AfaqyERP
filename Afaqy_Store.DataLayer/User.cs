@@ -32,8 +32,11 @@ namespace Afaqy_Store.DataLayer
         public int UserTypeId { get; set; }
         public bool Active { get; set; }
         public bool AllowAccess { get; set; }
+        public bool IsBlock { get; set; }
+        public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public bool IsDeleted { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

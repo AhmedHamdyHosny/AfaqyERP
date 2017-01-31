@@ -28,11 +28,11 @@ namespace Afaqy_Store.DataLayer
         public int CurrencyId { get; set; }
         public Nullable<System.DateTime> ContractDate { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool IsDeleted { get; set; }
     
         public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

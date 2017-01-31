@@ -22,7 +22,7 @@ namespace GenericApiController
 
         private Expression<Func<T, bool>> DataConstrains { get; set; }
         public string[] UserRoles { get; set; }
-        public string DeletedFlagPropertyName = "IsDeleted";
+        public string DeletedFlagPropertyName = "IsBlock";
 
         public GenericApiController(DbContext context)
         {
@@ -204,9 +204,9 @@ namespace GenericApiController
             repo.Save();
             return Content(HttpStatusCode.OK, "Success");
         }
-        // DELETE api/controller/hide/5
+        // DELETE api/controller/deactive/5
         [HttpDelete]
-        public virtual IHttpActionResult Hide(int id)
+        public virtual IHttpActionResult Deactive(int id)
         {
             GetAuthorization();
             if (!IsAuthorize(Actions.Delete))
@@ -230,9 +230,9 @@ namespace GenericApiController
 
 
         }
-        // POST api/controller/hide
+        // POST api/controller/deactive
         [HttpPost]
-        public virtual IHttpActionResult Hide(int[] ids)
+        public virtual IHttpActionResult Deactive(int[] ids)
         {
             GetAuthorization();
             if (!IsAuthorize(Actions.Delete))

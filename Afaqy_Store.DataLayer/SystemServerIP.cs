@@ -12,18 +12,16 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceStatus
+    public partial class SystemServerIP
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceStatus()
+        public SystemServerIP()
         {
-            this.Device = new HashSet<Device>();
-            this.DeviceStatusHistory = new HashSet<DeviceStatusHistory>();
+            this.BrandServerPort = new HashSet<BrandServerPort>();
         }
     
-        public int DeviceStatusId { get; set; }
-        public string DeviceStatus_en { get; set; }
-        public string DeviceStatus_ar { get; set; }
+        public string ServerIP { get; set; }
+        public int SystemId { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -31,8 +29,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceStatusHistory> DeviceStatusHistory { get; set; }
+        public virtual ICollection<BrandServerPort> BrandServerPort { get; set; }
+        public virtual TechniqueSystem TechniqueSystem { get; set; }
     }
 }

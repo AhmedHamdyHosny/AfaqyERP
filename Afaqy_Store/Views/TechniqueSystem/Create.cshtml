@@ -1,0 +1,59 @@
+﻿@model Afaqy_Store.DataLayer.TechniqueSystem
+@using Classes.Helper;
+
+@{
+    ViewBag.Title = Resources.Adminstration.TechniqueSystemCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Adminstration.TechniqueSystemNew</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div >
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SystemName, Resources.Adminstration.SystemName, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.SystemName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SystemName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyId, Resources.Adminstration.Company, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(model => model.CompanyId, (IEnumerable<CustomSelectListItem>)ViewBag.CompanyId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CompanyId", @id = "CompanyId" })
+                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    </div>
+
+}
+
+
+@section scripts {
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //--Jquery Select2--
+            $("#CompanyId").select2();
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

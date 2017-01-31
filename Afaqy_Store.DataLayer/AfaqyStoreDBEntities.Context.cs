@@ -26,6 +26,8 @@ namespace Afaqy_Store.DataLayer
         }
     
         public virtual DbSet<Branch> Branch { get; set; }
+        public virtual DbSet<Brand> Brand { get; set; }
+        public virtual DbSet<BrandServerPort> BrandServerPort { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<Department> Department { get; set; }
@@ -42,6 +44,9 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SIMCardProvider> SIMCardProvider { get; set; }
         public virtual DbSet<SIMCardStatus> SIMCardStatus { get; set; }
         public virtual DbSet<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
+        public virtual DbSet<SystemServerIP> SystemServerIP { get; set; }
+        public virtual DbSet<TechniqueCompany> TechniqueCompany { get; set; }
+        public virtual DbSet<TechniqueSystem> TechniqueSystem { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }

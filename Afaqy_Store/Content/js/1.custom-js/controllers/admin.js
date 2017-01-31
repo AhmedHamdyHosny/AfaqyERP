@@ -12,11 +12,23 @@
 .controller('SIMCardProviderEditCtrl', SIMCardProviderEditCtrl)
 .controller('SIMCardProviderDetailsCtrl', SIMCardProviderDetailsCtrl)
 
-//SIMCardProvider controllers ========
+//SIMCardContract controllers ========
 .controller('SIMCardContractCtrl', SIMCardContractCtrl)
 .controller('SIMCardContractCreateCtrl', SIMCardContractCreateCtrl)
 .controller('SIMCardContractEditCtrl', SIMCardContractEditCtrl)
 .controller('SIMCardContractDetailsCtrl', SIMCardContractDetailsCtrl)
+
+//TechniqueCompany controllers ========
+.controller('TechniqueCompanyCtrl', TechniqueCompanyCtrl)
+.controller('TechniqueCompanyCreateCtrl', TechniqueCompanyCreateCtrl)
+.controller('TechniqueCompanyEditCtrl', TechniqueCompanyEditCtrl)
+.controller('TechniqueCompanyDetailsCtrl', TechniqueCompanyDetailsCtrl)
+
+//TechniqueSystem
+.controller('TechniqueSystemCtrl', TechniqueSystemCtrl)
+.controller('TechniqueSystemCreateCtrl', TechniqueSystemCreateCtrl)
+.controller('TechniqueSystemEditCtrl', TechniqueSystemEditCtrl)
+.controller('TechniqueSystemDetailsCtrl', TechniqueSystemDetailsCtrl)
 
 
 
@@ -296,6 +308,145 @@ function SIMCardContractEditCtrl($scope, $uibModalInstance) {
 }
 
 function SIMCardContractDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//TechniqueCompany functions ========
+function TechniqueCompanyCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'TechniqueCompanyCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'TechniqueCompanyEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'TechniqueCompanyDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+}
+
+function TechniqueCompanyCreateCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function TechniqueCompanyEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function TechniqueCompanyDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//TechniqueSystem functions ========
+function TechniqueSystemCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'TechniqueSystemCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'TechniqueSystemEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'TechniqueSystemDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+
+}
+
+function TechniqueSystemCreateCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function TechniqueSystemEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function TechniqueSystemDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

@@ -29,7 +29,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> BranchId { get; set; }
         public Nullable<System.DateTime> JoinDate { get; set; }
         public Nullable<int> UserId { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

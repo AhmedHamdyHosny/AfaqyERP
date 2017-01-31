@@ -17,11 +17,11 @@ namespace Afaqy_Store.DataLayer
         public int DeviceSIMId { get; set; }
         public int DeviceId { get; set; }
         public int SIMCardId { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool IsDeleted { get; set; }
     
         public virtual Device Device { get; set; }
         public virtual SIMCard SIMCard { get; set; }

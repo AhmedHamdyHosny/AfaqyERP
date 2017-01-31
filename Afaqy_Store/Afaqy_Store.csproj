@@ -286,6 +286,7 @@
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
+    <Compile Include="Controllers\ApiTechniqueSystemController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
+    <Compile Include="Controllers\TechniqueSystemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -319,6 +321,7 @@
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
+    <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -907,6 +910,10 @@
     <Content Include="Views\SIMCardContract\Edit.cshtml" />
     <Content Include="Views\SIMCardContract\Index.cshtml" />
     <Content Include="Views\Common\Partial_DropDownList.cshtml" />
+    <Content Include="Views\TechniqueSystem\Index.cshtml" />
+    <Content Include="Views\TechniqueSystem\Create.cshtml" />
+    <Content Include="Views\TechniqueSystem\Details.cshtml" />
+    <Content Include="Views\TechniqueSystem\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

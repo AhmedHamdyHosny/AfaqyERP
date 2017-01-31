@@ -23,6 +23,7 @@ namespace Afaqy_Store.DataLayer
     
         public int SIMCardId { get; set; }
         public string SerialNumber { get; set; }
+        public string CompanySerialNumber { get; set; }
         public string GSM { get; set; }
         public int SIMCardStatusId { get; set; }
         public Nullable<int> ContractId { get; set; }
@@ -30,11 +31,11 @@ namespace Afaqy_Store.DataLayer
         public Nullable<decimal> Cost { get; set; }
         public Nullable<int> CurrencyId { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool IsDeleted { get; set; }
     
         public virtual Branch Branch { get; set; }
         public virtual Currency Currency { get; set; }

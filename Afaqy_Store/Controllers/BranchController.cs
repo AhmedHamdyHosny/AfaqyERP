@@ -13,53 +13,66 @@ namespace Afaqy_Store.Controllers
 {
     public class BranchController : BaseController<Branch,BranchViewModel,BranchCreateBindModel,BranchEditBindModel,BranchEditModel,BranchModel<Branch>,BranchModel<BranchViewModel>>
     {
-        public BranchController()
+        public override bool DeactiveGroupConfirmed(object[] ids)
         {
-            PK_PropertyName = "BranchId";
-            List<GenericDataFormat.FilterItems> filters = null;
-            ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var userId = User.UserId;
+            var instance = new BranchModel<Branch>();
+            instance.Deactive(ids);
+            TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Deactive };
+            return true;
+        }
 
-            #region Index
-            IndexRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
-            #endregion
-
-            #region Details
+        public override void FuncPreIndexView(ref List<BranchViewModel> model)
+        {
+            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
+            model = new BranchModel<BranchViewModel>().Get(requestBody);
+        }
+        public override void FuncPreDetailsView(object id, ref List<BranchViewModel> items)
+        {
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal });
-            DetailsRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
-            #endregion
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
+            items = new BranchModel<BranchViewModel>().Get(requestBody);
+        }
+        public override void FuncPreInitCreateView()
+        {
+            //prepare dropdown list for item references
+            List<Country> lst = new CountryModel<Country>().GetAsDDLst("CountryId,CountryName_en", "CountryName_en");
+            ViewBag.ModelTypeId = lst.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CountryName_en, Value = x.CountryId.ToString() });
+        }
+        public override void FuncPreCreate(ref BranchCreateBindModel model)
+        {
+            model.CreateUserId = User.UserId;
+            model.CreateDate = DateTime.Now;
+        }
+        public override void FuncPreInitEditView(object id, ref Branch EditItem, ref BranchEditModel model)
+        {
+            if (EditItem == null)
+            {
+                //get the item by id
+                EditItem = new BranchModel<Branch>().Get(id);
+            }
 
-            #region Create
-            
-            #endregion
-
-            #region Edit
-            //edit view Dropdown Lists
-            EditReferences = new List<Reference>();
-            EditReferences.Add(new Reference() { TypeModel = typeof(CountryModel<Country>), ViewDataName = "CountryId", DataValueField = "CountryId", DataTextField = "CountryName_en", SelectColumns = "CountryId,CountryName_en,CountryName_ar", PropertyName = "Country" });
-
-            //on edit dependences
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyUserId", Value = userId });
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyDate", Value = DateTime.Now });
-            #endregion
-
-            #region Export
+            if (EditItem != null)
+            {
+                model = new BranchEditModel();
+                model.EditItem = EditItem;
+                var selectedItem = EditItem;
+                List<Country> lst = new CountryModel<Country>().GetAsDDLst("CountryId,CountryName_en", "CountryName_en");
+                model.Country = lst.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CountryName_en, Value = x.CountryId.ToString(), Selected = (selectedItem.CountryId == x.CountryId) });
+            }
+        }
+        public override void FuncPreEdit(ref object id, ref BranchEditBindModel EditItem)
+        {
+            EditItem.ModifyUserId = User.UserId;
+            EditItem.ModifyDate = DateTime.Now;
+        }
+        public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
+        {
             ExportFileName = "Branches.xlsx";
             //filters
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "Active", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "BranchId,BranchName_en,BranchName_ar", References = "Coutry" } };
-            #endregion
-
-        }
-
-        public override bool HideConfirmed(object[] ids)
-        {
-            var instance = new BranchModel<Branch>();
-            instance.Hide(ids);
-            TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Deactive };
-            return true;
         }
     }
 }

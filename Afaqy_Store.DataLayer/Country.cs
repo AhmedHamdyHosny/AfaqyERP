@@ -25,6 +25,11 @@ namespace Afaqy_Store.DataLayer
         public int CountryId { get; set; }
         public string CountryName_en { get; set; }
         public string CountryName_ar { get; set; }
+        public bool IsBlock { get; set; }
+        public int CreateUserId { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Branch> Branch { get; set; }

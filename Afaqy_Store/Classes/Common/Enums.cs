@@ -72,6 +72,7 @@ namespace Classes.Common
             Import=4,
             Export=5,
             Deactive = 6,
+            Active = 7
         }
 
         

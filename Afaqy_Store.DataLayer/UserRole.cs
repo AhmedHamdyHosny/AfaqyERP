@@ -17,8 +17,11 @@ namespace Afaqy_Store.DataLayer
         public int UserRoleId { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public int CreateDate { get; set; }
+        public Nullable<int> ModifyUserId { get; set; }
+        public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual User User { get; set; }

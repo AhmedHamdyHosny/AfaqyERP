@@ -101,9 +101,9 @@ namespace Models
             }
         }
 
-        public virtual bool Hide(object id)
+        public virtual bool Deactive(object id)
         {
-            string url = ApiServerUrl + ControllerRoute+"hide/" + id;
+            string url = ApiServerUrl + ControllerRoute+"deactive/" + id;
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Delete);
             var task = request.Execute<String>();
             task.Wait();
@@ -117,9 +117,9 @@ namespace Models
             }
         }
 
-        public virtual bool Hide(object[] ids)
+        public virtual bool Deactive(object[] ids)
         {
-            string url = ApiServerUrl + ControllerRoute + "hide";
+            string url = ApiServerUrl + ControllerRoute + "deactive";
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(ids), System.Text.Encoding.UTF8, "application/json") };
             var task = request.Execute<String>();
             task.Wait();
@@ -183,6 +183,17 @@ namespace Models
             return task.Result;
             
             
+        }
+
+        public virtual List<TModel> GetAsDDLst(string includeProperties, string sortByProperty, List<GenericDataFormat.FilterItems> filters = null, GenericDataFormat.SortType sortType = GenericDataFormat.SortType.Asc)
+        {
+            var sorts = new List<GenericDataFormat.SortItems>();
+            sorts.Add(new GenericDataFormat.SortItems() { Property = sortByProperty, SortType = sortType});
+            //create request body parameters
+            GenericDataFormat requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = includeProperties }, Sorts = sorts };
+            requestBody.Filters = filters;
+            var lst = this.Get(requestBody);
+            return lst;
         }
     }
 }

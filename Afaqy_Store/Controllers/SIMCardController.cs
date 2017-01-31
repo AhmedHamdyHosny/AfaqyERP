@@ -13,65 +13,6 @@ namespace Afaqy_Store.Controllers
 {
     public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
     {
-        public SIMCardController()
-        {
-
-            PK_PropertyName = "SIMCardId";
-            List<GenericDataFormat.FilterItems> filters = null;
-            ActionItemsPropertyValue = new List<ActionItemPropertyValue>();
-            var userId = User.UserId;
-
-            #region Index
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsDeleted", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            IndexRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" } };
-            #endregion
-
-            #region Details
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "SIMCardId", Operation = GenericDataFormat.FilterOperations.Equal });
-            DetailsRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" } };
-            #endregion
-
-            #region Create
-            //Create view Dropdown Lists
-            CreateReferences = new List<Reference>();
-            List<GenericDataFormat.FilterItems> contractRefernceFilters = new List<GenericDataFormat.FilterItems>();
-            contractRefernceFilters.Add(new GenericDataFormat.FilterItems() { Property = "IsDeleted", Value = false, Operation = GenericDataFormat.FilterOperations.Equal });
-            CreateReferences.Add(new Reference() { TypeModel = typeof(SIMCardContractModel<SIMCardContract>),Filters = contractRefernceFilters, ViewDataName = "ContractId", DataValueField = "SIMCardContractId", DataTextField = "ContractNo", SelectColumns = "SIMCardContractId,ContractNo" });
-
-            //on create dependences
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateUserId", Value = userId });
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "CreateDate", Value = DateTime.Now });
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "SIMCardStatusId", Value = (int)DBEnums.SIMCardStatus.New });
-            var simCardStatusHistory = new List<SIMCardStatusHistory>();
-            simCardStatusHistory.Add(new SIMCardStatusHistory()
-            {
-                SIMCardStatusId = (int)DBEnums.SIMCardStatus.New,
-                CreateUserId = userId,
-                CreateDate = DateTime.Now
-            });
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Create, PropertyName = "SIMCardStatusHistory", Value = simCardStatusHistory });
-            #endregion
-
-            #region Edit
-            //edit view Dropdown Lists
-
-            //on edit dependences
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyUserId", Value = userId });
-            ActionItemsPropertyValue.Add(new ActionItemPropertyValue() { Transaction = Transactions.Edit, PropertyName = "ModifyDate", Value = DateTime.Now });
-            #endregion
-
-            #region Export
-            ExportFileName = "SIMCards.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsDeleted", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "SIMCardId,SerialNumber,GSM,SIMCardStatus.SIMCardStatusName_en", References = "SIMCardStatus" } };
-            #endregion
-            
-        }
-
         [HttpPost]
         public override ActionResult Create(SIMCardCreateBindModel[] items , FormCollection fc)
         {
@@ -85,7 +26,6 @@ namespace Afaqy_Store.Controllers
             var cost = simCardContract.CurrentCost;
             var currencyId = simCardContract.CurrencyId;
             
-
             foreach (var item in items)
             {
                 item.SIMCardStatusId = (int)DBEnums.SIMCardStatus.New;
@@ -105,11 +45,59 @@ namespace Afaqy_Store.Controllers
                     CreateDate = DateTime.Now
                 });
             }
-
             new SIMCardModel<SIMCard>().Import(items);
-
             return base.Create(items, fc);
         }
-
+        public override void FuncPreIndexView(ref List<SIMCardViewModel> model)
+        {
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" } };
+            model = new SIMCardModel<SIMCardViewModel>().Get(requestBody);
+        }
+        public override void FuncPreDetailsView(object id, ref List<SIMCardViewModel> items)
+        {
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "SIMCardId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" } };
+            items = new SIMCardModel<SIMCardViewModel>().Get(requestBody);
+        }
+        public override void FuncPreInitCreateView()
+        {
+            //prepare dropdown list for item references
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            List<SIMCardContract> simCardContracts = new SIMCardContractModel<SIMCardContract>().GetAsDDLst("SIMCardContractId,ContractNo", "ContractNo",filters);
+            ViewBag.ContractId = simCardContracts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.ContractNo, Value = x.SIMCardContractId.ToString() });
+        }
+        public override void FuncPreInitEditView(object id, ref SIMCard EditItem, ref SIMCardEditModel model)
+        {
+            if (EditItem == null)
+            {
+                //get the item by id
+                EditItem = new SIMCardModel<SIMCard>().Get(id);
+            }
+            if (EditItem != null)
+            {
+                model = new SIMCardEditModel();
+                model.EditItem = EditItem;
+                var selectedItem = EditItem;
+                List<SIMCardContract> simCardContracts = new SIMCardContractModel<SIMCardContract>().GetAsDDLst("SIMCardContractId,ContractNo", "ContractNo", filters);
+                model.Contract = simCardContracts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.ContractNo, Value = x.SIMCardContractId.ToString(), Selected = (selectedItem.ContractId == x.SIMCardContractId) });
+            }
+        }
+        public override void FuncPreEdit(ref object id, ref SIMCardEditBindModel EditItem)
+        {
+            EditItem.CreateUserId = User.UserId;
+            EditItem.ModifyDate = DateTime.Now;
+        }
+        public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
+        {
+            ExportFileName = "SIMCards.xlsx";
+            //filters
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            ExportRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "SIMCardId,SerialNumber,GSM,SIMCardStatus.SIMCardStatusName_en", References = "SIMCardStatus" } };
+        }
     }
 }

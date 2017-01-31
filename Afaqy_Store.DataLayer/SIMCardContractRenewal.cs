@@ -20,11 +20,11 @@ namespace Afaqy_Store.DataLayer
         public System.DateTime ExpiryDate { get; set; }
         public decimal ItemCost { get; set; }
         public int CurrencyId { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-        public bool Active { get; set; }
     
         public virtual Currency Currency { get; set; }
         public virtual SIMCardContract SIMCardContract { get; set; }

@@ -12,23 +12,19 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeviceModelType
+    public partial class BrandServerPort
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceModelType()
-        {
-            this.Device = new HashSet<Device>();
-        }
-    
-        public int ModelTypeId { get; set; }
-        public string ModelTypeName { get; set; }
+        public int BrandPortId { get; set; }
+        public string ServerIP { get; set; }
+        public int BrandId { get; set; }
+        public string PortNumber { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual SystemServerIP SystemServerIP { get; set; }
     }
 }

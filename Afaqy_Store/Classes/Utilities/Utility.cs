@@ -296,11 +296,29 @@ namespace Classes.Utilities
                             break;
                     }
                     break;
+                case Transactions.Active:
+                    switch (this.MessageType)
+                    {
+                        case AlertMessageType.Success:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertActiveSuccessMessage;
+                            break;
+                        case AlertMessageType.Error:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertActiveErrorMessage;
+                            break;
+                        case AlertMessageType.Warning:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertActiveWarningMessage;
+                            break;
+                        case AlertMessageType.info:
+                            message = this.TransactionCount + " " + Resources.Resource.AlertActiveInfoMessage;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 default:
                     break;
             }
             return message;
         }
     }
-
 }

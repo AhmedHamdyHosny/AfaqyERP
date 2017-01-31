@@ -27,13 +27,13 @@ namespace Afaqy_Store.Controllers
         }
 
         [NonAction]
-        public override IHttpActionResult Hide(int id)
+        public override IHttpActionResult Deactive(int id)
         {
             return null;
         }
 
         [NonAction]
-        public override IHttpActionResult Hide(int[] ids)
+        public override IHttpActionResult Deactive(int[] ids)
         {
             return null;
         }
