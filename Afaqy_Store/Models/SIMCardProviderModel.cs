@@ -22,7 +22,13 @@ namespace Afaqy_Store.Models
     public class SIMCardProviderViewModel : SIMCardProvider
     {
 
-        
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
 
     }
 

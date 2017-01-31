@@ -12,20 +12,10 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel,TViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller 
+    public partial class GenericContoller<TDBModel,TViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller
     {
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
-        //public string PK_PropertyName { get; set; }
-
-        //public GenericDataFormat IndexRequestBody;
-        //public GenericDataFormat DetailsRequestBody;
-        //public GenericDataFormat ExportRequestBody;
-        //public List<Reference> CreateReferences = null;
-        //public List<Reference> EditReferences = null;
-        //public List<ActionItemPropertyValue> ActionItemsPropertyValue = null;
-        //public List<PostActionExcuteRedirect> PostActionExcuteRedirects = null;
-
 
         // GET: Controller
         public virtual ActionResult Index()
@@ -60,25 +50,7 @@ namespace Classes.Common
             DelegatePostDetailsView delegatePostExecute = new DelegatePostDetailsView(FuncPostDetailsView);
             return delegatePostExecute(ref model);
         }
-        //[NonAction]
-        //public void InitCreateView()
-        //{
-        //    if (CreateReferences != null && CreateReferences.Count > 0)
-        //    {
-        //        foreach (var reference in CreateReferences)
-        //        {
-        //            //create instance of TModel of TViewModel from Reference TypeModel
-        //            dynamic instance = Activator.CreateInstance(reference.TypeModel);
-        //            var refSorts = new List<GenericDataFormat.SortItems>();
-        //            refSorts.Add(new GenericDataFormat.SortItems() { Property = reference.DataTextField });
-        //            GenericDataFormat requestBody = new GenericDataFormat() { Filters = reference.Filters, Includes = new GenericDataFormat.IncludeItems() { Properties = reference.SelectColumns },Sorts = refSorts };
-        //            var items = requestBody != null ? instance.Get(requestBody) : instance.Get();
-        //            var refSelectLst = new SelectList(items, reference.DataValueField, reference.DataTextField, reference.SelectedValue);
-        //            ViewData[reference.ViewDataName] = refSelectLst.Select(x => new Helper.CustomSelectListItem(x));
-        //        }
-        //    }
-        //}
-        // GET: Controller/Create
+        
         public virtual ActionResult Create()
         {
             DelegatePreInitCreateView delegatePreExecute = new DelegatePreInitCreateView(FuncPreInitCreateView);
@@ -127,45 +99,7 @@ namespace Classes.Common
             DelegatePostCreateGroup delegatePostExecute = new DelegatePostCreateGroup(FuncPostCreate);
             return delegatePostExecute(items, fc);
         }
-        //[NonAction]
-        //public TEditModel InitEditView(TDBModel item)
-        //{
-        //    //create instance of TEditModel 
-        //    var model = Activator.CreateInstance(typeof(TEditModel));
-        //    if (EditReferences != null && EditReferences.Count > 0)
-        //    {
-        //        foreach (var reference in EditReferences)
-        //        {
-        //            //create instance of TModel of TViewModel from Reference TypeModel
-        //            dynamic ReferenceInstance = Activator.CreateInstance(reference.TypeModel);
-        //            //get list of reference items that can be linked with model item
-        //            IEnumerable<dynamic> refItems = ReferenceInstance.Get();
-        //            //get list of reference items as SelectListItem type
-        //            var refSelectListItems = refItems.Select(x => new Helper.CustomSelectListItem()
-        //            {
-        //                Selected = (int)Utilities.Utility.GetPropertyValue(item, reference.DataValueField) == (int)Utilities.Utility.GetPropertyValue(x, reference.DataValueField),
-        //                Text = Utilities.Utility.GetPropertyValue(x, reference.DataTextField).ToString(),
-        //                Value = Utilities.Utility.GetPropertyValue(x, reference.DataValueField).ToString()
-        //            });
-        //            //var refSelectListItems = refItems.Select(x => new Helper.CustomSelectListItem()
-        //            //{
-        //            //    Selected = (object)Utilities.Utility.GetPropertyValue(item, reference.DataValueField) == (object)Utilities.Utility.GetPropertyValue(x, reference.DataValueField),
-        //            //    Text = Utilities.Utility.GetPropertyValue(x, reference.DataTextField).ToString(),
-        //            //    Value = Utilities.Utility.GetPropertyValue(x, reference.DataValueField).ToString()
-        //            //});
-        //            //set the value of reference SelectListItem property of EditModel object
-        //            PropertyInfo propertyInfo = model.GetType().GetProperties().Where(x => x.Name.Equals(reference.PropertyName, StringComparison.OrdinalIgnoreCase)).SingleOrDefault();
-        //            if (propertyInfo != null)
-        //            {
-        //                propertyInfo.SetValue(model, refSelectListItems);
-        //            }
-        //        }
-        //    }
-        //    //set the value of EditItem property EditModel object 
-        //    Utilities.Utility.SetPropertyValue(ref model, "EditItem", item);
-        //    return (TEditModel)model;
-        //}
-        //GET: Controller/Edit/5
+        
         public virtual ActionResult Edit(object id)
         {
             if (id == null)
@@ -173,7 +107,7 @@ namespace Classes.Common
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //create instance of TDBModel
-            var EditItem = (TDBModel)Activator.CreateInstance(typeof(TDBModel));
+            var EditItem = default(TDBModel); //(TDBModel)Activator.CreateInstance(typeof(TDBModel));
             //create instance of TEditModel 
             var model = (TEditModel)Activator.CreateInstance(typeof(TEditModel));
 
@@ -197,31 +131,6 @@ namespace Classes.Common
             object id = null;
             if (ModelState.IsValid)
             {
-                //set pre-edit property values
-                //if (ActionItemsPropertyValue != null)
-                //{
-                //    Type type = typeof(TEditBindModel);
-                //    var editActionItemsPropertyValue = ActionItemsPropertyValue.Where(act => act.Transaction == Transactions.Edit);
-                //    foreach (var actItmPropVal in editActionItemsPropertyValue)
-                //    {
-                //        Utilities.Utility.SetPropertyValue<TEditBindModel>(ref EditItem, actItmPropVal.PropertyName, actItmPropVal.Value);
-                //    }
-                //}
-                //dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
-                //var id = Utilities.Utility.GetPropertyValue(EditItem, PK_PropertyName);
-                //var item = instance.Update(EditItem, id);
-                //TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Edit };
-                ////go to after edit action
-                //if (PostActionExcuteRedirects != null)
-                //{
-                //    var postActionRedirect = PostActionExcuteRedirects.SingleOrDefault(x => x.Transaction == Transactions.Create);
-                //    if (postActionRedirect != null)
-                //    {
-                //        return RedirectToAction(postActionRedirect.RedirectToAction);
-                //    }
-                //}
-                //return RedirectToAction("Index");
-                
                 DelegatePreEdit delegatePreExecute = new DelegatePreEdit(FuncPreEdit);
                 delegatePreExecute(ref id, ref EditItem);
                 
@@ -234,11 +143,6 @@ namespace Classes.Common
 
 
             }
-            //TDBModel editInstance = (TDBModel) Activator.CreateInstance(typeof(TDBModel));
-            //Utilities.Utility.CopyObject<TDBModel>( EditItem,ref editInstance);
-            //var model = InitEditView(editInstance);
-            //return View(model);
-
             TDBModel editInstance = (TDBModel)Activator.CreateInstance(typeof(TDBModel));
             Utilities.Utility.CopyObject<TDBModel>(EditItem, ref editInstance);
             //create instance of TEditModel 

@@ -61,6 +61,7 @@ namespace Afaqy_Store.Controllers
         }
         public override void FuncPreEdit(ref object id, ref SIMCardContractEditBindModel EditItem)
         {
+            id = EditItem.SIMCardContractId;
             EditItem.CreateUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }

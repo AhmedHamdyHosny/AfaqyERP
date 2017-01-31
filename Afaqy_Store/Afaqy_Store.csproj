@@ -286,6 +286,7 @@
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
+    <Compile Include="Controllers\ApiTechniqueCompanyController.cs" />
     <Compile Include="Controllers\ApiTechniqueSystemController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
+    <Compile Include="Controllers\TechniqueCompanyController.cs" />
     <Compile Include="Controllers\TechniqueSystemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -321,6 +323,7 @@
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
+    <Compile Include="Models\TechniqueCompanyModel.cs" />
     <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -914,6 +917,10 @@
     <Content Include="Views\TechniqueSystem\Create.cshtml" />
     <Content Include="Views\TechniqueSystem\Details.cshtml" />
     <Content Include="Views\TechniqueSystem\Edit.cshtml" />
+    <Content Include="Views\TechniqueCompany\Create.cshtml" />
+    <Content Include="Views\TechniqueCompany\Details.cshtml" />
+    <Content Include="Views\TechniqueCompany\Edit.cshtml" />
+    <Content Include="Views\TechniqueCompany\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

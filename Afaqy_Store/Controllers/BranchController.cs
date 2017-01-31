@@ -63,6 +63,7 @@ namespace Afaqy_Store.Controllers
         }
         public override void FuncPreEdit(ref object id, ref BranchEditBindModel EditItem)
         {
+            id = EditItem.BranchId;
             EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }

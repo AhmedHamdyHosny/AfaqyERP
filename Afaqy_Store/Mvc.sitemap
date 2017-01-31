@@ -35,8 +35,9 @@
       <mvcSiteMapNode title="Branch" controller="Branch" action="Index" description="branch"/>
       <mvcSiteMapNode title="SIM Cards Providers" controller="SIMCardProvider" action="Index" description="Sim card provider"/>
       <mvcSiteMapNode title="SIM Cards Contract" controller="SIMCardContract" action="Index" description="Sim card contract"/>
+      <mvcSiteMapNode title="Technique Company" controller="TechniqueCompany" action="Index" description="Technique company"/>
+      <mvcSiteMapNode title="Technique System" controller="TechniqueSystem" action="Index" description="Technique system"/>
     </mvcSiteMapNode>
-
   </mvcSiteMapNode>
 
 </mvcSiteMap>

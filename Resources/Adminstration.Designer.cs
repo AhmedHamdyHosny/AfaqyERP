@@ -340,11 +340,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Technique Company.
+        /// </summary>
+        public static string TechniqueCompany {
+            get {
+                return ResourceManager.GetString("TechniqueCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Technique Company.
+        /// </summary>
+        public static string TechniqueCompanyCreate {
+            get {
+                return ResourceManager.GetString("TechniqueCompanyCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technique Company Details.
+        /// </summary>
+        public static string TechniqueCompanyDetails {
+            get {
+                return ResourceManager.GetString("TechniqueCompanyDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Technique Company.
+        /// </summary>
+        public static string TechniqueCompanyEdit {
+            get {
+                return ResourceManager.GetString("TechniqueCompanyEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         public static string TechniqueCompanyName {
             get {
                 return ResourceManager.GetString("TechniqueCompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Technique Company.
+        /// </summary>
+        public static string TechniqueCompanyNew {
+            get {
+                return ResourceManager.GetString("TechniqueCompanyNew", resourceCulture);
             }
         }
         

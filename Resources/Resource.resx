@@ -297,6 +297,9 @@
   <data name="ExportVisibleDataPdf" xml:space="preserve">
     <value>Export visible data as pdf</value>
   </data>
+  <data name="False" xml:space="preserve">
+    <value>False</value>
+  </data>
   <data name="ForgetPassword" xml:space="preserve">
     <value>Forgot Password?</value>
   </data>
@@ -338,5 +341,8 @@
   </data>
   <data name="Tools" xml:space="preserve">
     <value>Tools</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>True</value>
   </data>
 </root>

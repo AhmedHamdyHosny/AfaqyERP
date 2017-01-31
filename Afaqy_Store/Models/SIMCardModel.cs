@@ -15,16 +15,6 @@ namespace Afaqy_Store.Models
         public SIMCardModel() : base(ApiUrl, ApiRoute)
         {
         }
-
-        //public override TModel Insert(TModel obj)
-        //{
-        //    return base.Insert(obj);
-        //}
-
-        //public override TModel Update(TModel obj, int id)
-        //{
-        //    return base.Update(obj, id);
-        //}
     }
 
     public class SIMCardViewModel : SIMCard
@@ -47,7 +37,6 @@ namespace Afaqy_Store.Models
                 _createUser = value;
             }
         }
-
         public UserViewModel ModifyUser
         {
             get
@@ -59,7 +48,13 @@ namespace Afaqy_Store.Models
                 _modifyUser = value;
             }
         }
-
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
         internal void BindCreate_Modify_User()
         {
             var tempUser =  this.CreateUser;

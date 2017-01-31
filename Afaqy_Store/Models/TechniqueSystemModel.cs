@@ -49,6 +49,13 @@ namespace Afaqy_Store.Models
                 _modifyUser = value;
             }
         }
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;

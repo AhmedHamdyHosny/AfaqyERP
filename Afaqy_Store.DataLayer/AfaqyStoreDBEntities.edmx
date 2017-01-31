@@ -23,8 +23,9 @@
           <Key>
             <PropertyRef Name="BrandId" />
           </Key>
-          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="BrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BrandName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProtocolName" Type="varchar" MaxLength="50" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -35,7 +36,7 @@
           <Key>
             <PropertyRef Name="BrandPortId" />
           </Key>
-          <Property Name="BrandPortId" Type="int" Nullable="false" />
+          <Property Name="BrandPortId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ServerIP" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="BrandId" Type="int" Nullable="false" />
           <Property Name="PortNumber" Type="varchar" MaxLength="4" Nullable="false" />
@@ -295,7 +296,7 @@
           <Key>
             <PropertyRef Name="CompanyId" />
           </Key>
-          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
@@ -307,7 +308,7 @@
           <Key>
             <PropertyRef Name="SystemId" />
           </Key>
-          <Property Name="SystemId" Type="int" Nullable="false" />
+          <Property Name="SystemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SystemName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CompanyId" Type="int" Nullable="false" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
@@ -1093,6 +1094,7 @@
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BrandServerPort" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_Brand" FromRole="Brand" ToRole="BrandServerPort" />
+          <Property Name="ProtocolName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="BrandServerPort">
           <Key>
@@ -1891,6 +1893,7 @@
           <EntitySetMapping Name="Brand">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Brand">
               <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="ProtocolName" ColumnName="ProtocolName" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
                 <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />

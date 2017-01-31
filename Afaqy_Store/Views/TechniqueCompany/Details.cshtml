@@ -1,13 +1,13 @@
-﻿@model Afaqy_Store.Models.TechniqueSystemViewModel
+﻿@model Afaqy_Store.Models.TechniqueCompanyViewModel
 
 @{
-    ViewBag.Title = Resources.Adminstration.TechniqueSystemDetails;
+    ViewBag.Title = Resources.Adminstration.TechniqueCompanyDetails;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Adminstration.TechniqueSystemDetails</h2>
+    <h2 class="modal-title">@Resources.Adminstration.TechniqueCompanyDetails</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -15,20 +15,13 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
-               @Resources.Adminstration.SystemName
+               @Resources.Adminstration.TechniqueCompanyName
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SystemName)
+                @Html.DisplayFor(model => model.CompanyName)
             </dd>
-            <dt>
-                @Resources.Adminstration.Company
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TechniqueCompany.CompanyName)
-            </dd>
-
+            
             <dt>
                 @Resources.Resource.IsBlock
             </dt>

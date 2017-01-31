@@ -13,7 +13,8 @@ namespace Afaqy_Store.Controllers
     {
         public override void FuncPreIndexView(ref List<TechniqueSystemViewModel> model)
         {
-            model = new TechniqueSystemModel<TechniqueSystemViewModel>().Get();
+            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "TechniqueCompany" } };
+            model = new TechniqueSystemModel<TechniqueSystemViewModel>().Get(requestBody);
         }
         public override void FuncPreDetailsView(object id, ref List<TechniqueSystemViewModel> items)
         {
@@ -25,7 +26,7 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
-            List<TechniqueCompany> techniqueCompanies = new TechniqueSystemModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName");
+            List<TechniqueCompany> techniqueCompanies = new TechniqueCompanyModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName");
             ViewBag.CompanyId = techniqueCompanies.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CompanyName, Value = x.CompanyId.ToString() });
         }
         public override void FuncPreCreate(ref TechniqueSystemCreateBindModel model)
@@ -45,12 +46,13 @@ namespace Afaqy_Store.Controllers
                 model = new TechniqueSystemEditModel();
                 model.EditItem = EditItem;
                 var selectedItem = EditItem;
-                List<TechniqueCompany> techniqueCompanies = new TechniqueSystemModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName");
+                List<TechniqueCompany> techniqueCompanies = new TechniqueCompanyModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName");
                 model.TechniqueCompany = techniqueCompanies.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CompanyName, Value = x.CompanyId.ToString(), Selected = (selectedItem.CompanyId == x.CompanyId) });
             }
         }
         public override void FuncPreEdit(ref object id, ref TechniqueSystemEditBindModel EditItem)
         {
+            id = EditItem.SystemId;
             EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }

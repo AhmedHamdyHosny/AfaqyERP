@@ -1,4 +1,5 @@
 ﻿using Afaqy_Store.DataLayer;
+using Classes.Helper;
 using Classes.Utilities;
 using Models;
 using System;
@@ -39,7 +40,6 @@ namespace Afaqy_Store.Models
                 _createUser = value;
             }
         }
-
         public UserViewModel ModifyUser
         {
             get
@@ -51,7 +51,13 @@ namespace Afaqy_Store.Models
                 _modifyUser = value;
             }
         }
-
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;
@@ -73,6 +79,6 @@ namespace Afaqy_Store.Models
     public class DeviceEditModel 
     {
         public Device EditItem { get; set; }
-        public IEnumerable<Classes.Helper.CustomSelectListItem> ModelType { get; set; }
+        public IEnumerable<CustomSelectListItem> ModelType { get; set; }
     }
 }

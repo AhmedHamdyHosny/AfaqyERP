@@ -1,4 +1,5 @@
 ﻿using Afaqy_Store.DataLayer;
+using Classes.Helper;
 using Classes.Utilities;
 using Models;
 using System;
@@ -9,18 +10,17 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
-    public class BranchModel<TModel> : GenericModel<TModel> where TModel : class
+    public class TechniqueCompanyModel<TModel> : GenericModel<TModel> where TModel : class
     {
-        const string ApiRoute = "api/ApiBranch/";
+        const string ApiRoute = "api/ApiTechniqueCompany/";
         private static string ApiUrl = SiteConfig.ApiUrl;
-        public BranchModel() : base(ApiUrl, ApiRoute)
+        public TechniqueCompanyModel() : base(ApiUrl, ApiRoute)
         {
         }
     }
 
-    public class BranchViewModel : Branch
+    public class TechniqueCompanyViewModel : TechniqueCompany
     {
-
         private UserViewModel _createUser = null;
         private UserViewModel _modifyUser = null;
         public UserViewModel CreateUser
@@ -53,30 +53,30 @@ namespace Afaqy_Store.Models
         {
             get
             {
-                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+                return this.IsBlock ?  Resources.Resource.True : Resources.Resource.False;
             }
         }
+
+
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;
         }
+    }
 
+    [Bind(Include = "CompanyId,CompanyName")]
+    public class TechniqueCompanyCreateBindModel : TechniqueCompany
+    {
 
     }
 
-    [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId")]
-    public class BranchCreateBindModel : Branch
+    [Bind(Include = "CompanyId,CompanyName,IsBlock,CreateUserId,CreateDate")]
+    public class TechniqueCompanyEditBindModel : TechniqueCompany
     {
     }
-
-    [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId,IsBlock,CreateUserId,CreateDate")]
-    public class BranchEditBindModel : Branch
+    public class TechniqueCompanyEditModel
     {
-    }
-
-    public class BranchEditModel
-    {
-        public Branch EditItem { get; set; }
-        public IEnumerable<SelectListItem> Country { get; set; }
+        public TechniqueCompany EditItem { get; set; }
+        public IEnumerable<CustomSelectListItem> ModelType { get; set; }
     }
 }

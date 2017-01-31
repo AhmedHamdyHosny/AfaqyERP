@@ -228,4 +228,19 @@
   <data name="TechniqueSystemNew" xml:space="preserve">
     <value>New Technique System</value>
   </data>
+  <data name="TechniqueCompany" xml:space="preserve">
+    <value>Technique Company</value>
+  </data>
+  <data name="TechniqueCompanyCreate" xml:space="preserve">
+    <value>Create Technique Company</value>
+  </data>
+  <data name="TechniqueCompanyDetails" xml:space="preserve">
+    <value>Technique Company Details</value>
+  </data>
+  <data name="TechniqueCompanyEdit" xml:space="preserve">
+    <value>Edit Technique Company</value>
+  </data>
+  <data name="TechniqueCompanyNew" xml:space="preserve">
+    <value>New Technique Company</value>
+  </data>
 </root>

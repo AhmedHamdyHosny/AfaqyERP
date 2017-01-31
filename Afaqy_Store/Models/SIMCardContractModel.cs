@@ -49,7 +49,13 @@ namespace Afaqy_Store.Models
                 _modifyUser = value;
             }
         }
-
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
         public string ContractDate_Format
         {
             get
