@@ -276,6 +276,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiBranchController.cs" />
+    <Compile Include="Controllers\ApiBrandController.cs" />
     <Compile Include="Controllers\ApiCountryController.cs" />
     <Compile Include="Controllers\ApiCurrencyController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
@@ -286,12 +287,16 @@
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
+    <Compile Include="Controllers\ApiSystemServerIPController.cs" />
     <Compile Include="Controllers\ApiTechniqueCompanyController.cs" />
     <Compile Include="Controllers\ApiTechniqueSystemController.cs" />
     <Compile Include="Controllers\ApiUserController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
+    <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\ApiBrandServerPortController.cs" />
+    <Compile Include="Controllers\BrandServerPortController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DeviceModelTypeController.cs" />
@@ -301,6 +306,7 @@
     <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
+    <Compile Include="Controllers\SystemServerIPController.cs" />
     <Compile Include="Controllers\TechniqueCompanyController.cs" />
     <Compile Include="Controllers\TechniqueSystemController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -311,6 +317,8 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BranchModel.cs" />
+    <Compile Include="Models\BrandModel.cs" />
+    <Compile Include="Models\BrandServerPortModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
@@ -323,6 +331,7 @@
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
+    <Compile Include="Models\SystemServerIPModel.cs" />
     <Compile Include="Models\TechniqueCompanyModel.cs" />
     <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -431,6 +440,7 @@
     <Content Include="Content\js\1.custom-js\app.js" />
     <Content Include="Content\js\1.custom-js\controllers\admin.js" />
     <Content Include="Content\js\1.custom-js\controllers\default.js" />
+    <Content Include="Content\js\1.custom-js\controllers\server.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\controllers\temp.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
@@ -921,6 +931,18 @@
     <Content Include="Views\TechniqueCompany\Details.cshtml" />
     <Content Include="Views\TechniqueCompany\Edit.cshtml" />
     <Content Include="Views\TechniqueCompany\Index.cshtml" />
+    <Content Include="Views\Brand\Create.cshtml" />
+    <Content Include="Views\Brand\Details.cshtml" />
+    <Content Include="Views\Brand\Edit.cshtml" />
+    <Content Include="Views\Brand\Index.cshtml" />
+    <Content Include="Views\SystemServerIP\Create.cshtml" />
+    <Content Include="Views\SystemServerIP\Details.cshtml" />
+    <Content Include="Views\SystemServerIP\Edit.cshtml" />
+    <Content Include="Views\SystemServerIP\Index.cshtml" />
+    <Content Include="Views\BrandServerPort\Create.cshtml" />
+    <Content Include="Views\BrandServerPort\Details.cshtml" />
+    <Content Include="Views\BrandServerPort\Edit.cshtml" />
+    <Content Include="Views\BrandServerPort\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

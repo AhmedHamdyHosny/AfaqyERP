@@ -20,6 +20,7 @@ namespace Afaqy_Store.DataLayer
             this.BrandServerPort = new HashSet<BrandServerPort>();
         }
     
+        public int SystemServerId { get; set; }
         public string ServerIP { get; set; }
         public int SystemId { get; set; }
         public bool IsBlock { get; set; }

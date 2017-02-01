@@ -15,7 +15,7 @@ namespace Afaqy_Store.DataLayer
     public partial class BrandServerPort
     {
         public int BrandPortId { get; set; }
-        public string ServerIP { get; set; }
+        public int SystemServerId { get; set; }
         public int BrandId { get; set; }
         public string PortNumber { get; set; }
         public bool IsBlock { get; set; }

@@ -38,6 +38,11 @@
       <mvcSiteMapNode title="Technique Company" controller="TechniqueCompany" action="Index" description="Technique company"/>
       <mvcSiteMapNode title="Technique System" controller="TechniqueSystem" action="Index" description="Technique system"/>
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="Server Management" controller="ServerManagement" action="UIServerManagement" description="Server management">
+      <mvcSiteMapNode title="Brand" controller="Brand" action="Index" description="brand"/>
+      <mvcSiteMapNode title="Server IP" controller="SystemServerIP" action="Index" description="Server ip"/>
+      <mvcSiteMapNode title="Brand Server Port" controller="BrandServerPort" action="Index" description="Brand server port"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
 
 </mvcSiteMap>

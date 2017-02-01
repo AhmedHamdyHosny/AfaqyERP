@@ -1,0 +1,68 @@
+﻿@model Afaqy_Store.Models.BrandServerPortEditModel
+@using Classes.Helper;
+@using BeyondThemes.Bootstrap;
+
+@{
+    ViewBag.Title = Resources.ServerManagement.BrandServerPortEdit;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.ServerManagement.BrandServerPortEdit</h2>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.EditItem.BrandPortId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.BrandId, Resources.ServerManagement.Brand, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(m => m.EditItem.BrandId, Model.Brand, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "BrandId", @id = "BrandId" })
+                @Html.ValidationMessageFor(model => model.EditItem.BrandId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.SystemServerId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(m => m.EditItem.SystemServerId, Model.SystemServerIP, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "SystemServerId", @id = "SystemServerId" })
+                @Html.ValidationMessageFor(model => model.EditItem.SystemServerId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.EditItem.PortNumber, Resources.ServerManagement.PortNumber, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => Model.EditItem.PortNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => Model.EditItem.PortNumber, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
+            </div>
+            <div>
+                @Html.HiddenFor(model => model.EditItem.CreateUserId)
+                @Html.HiddenFor(model => model.EditItem.CreateDate)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+@section scripts {
+<script src="~/Content/js/select2/select2.js"></script>
+<script>
+    $(document).ready(function () {
+        //--Jquery Select2--
+        $("#BrandId").select2();
+        $("#SystemServerId").select2();
+        $('#form').submit(function (event) {
+            if (!$(this).valid()) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+}
+

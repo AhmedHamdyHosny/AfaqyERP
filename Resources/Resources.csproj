@@ -51,6 +51,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ServerManagement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServerManagement.resx</DependentUpon>
+    </Compile>
     <Compile Include="Store.ar-SA.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,6 +75,10 @@
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerManagement.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ServerManagement.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Store.ar-SA.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

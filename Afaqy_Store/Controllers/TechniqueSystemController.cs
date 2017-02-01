@@ -26,7 +26,9 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
-            List<TechniqueCompany> techniqueCompanies = new TechniqueCompanyModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName");
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false});
+            List<TechniqueCompany> techniqueCompanies = new TechniqueCompanyModel<TechniqueCompany>().GetAsDDLst("CompanyId,CompanyName", "CompanyName",filters);
             ViewBag.CompanyId = techniqueCompanies.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CompanyName, Value = x.CompanyId.ToString() });
         }
         public override void FuncPreCreate(ref TechniqueSystemCreateBindModel model)
