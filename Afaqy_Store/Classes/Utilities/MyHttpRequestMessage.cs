@@ -29,6 +29,7 @@ namespace Classes.Utilities
 
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = TimeSpan.FromMinutes(60);
                 HttpResponseMessage response = client.SendAsync(RequestMessage).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,7 +64,7 @@ namespace Classes.Utilities
             }
             return null;
         }
-
+        
         public async Task<string> ExcecuteImport(System.Web.HttpPostedFileBase file)
         {
             SetRequestBody();
@@ -71,6 +72,7 @@ namespace Classes.Utilities
 
             using (HttpClient client = new HttpClient())
             {
+                client.Timeout = TimeSpan.FromMinutes(60);
                 HttpResponseMessage response = client.SendAsync(RequestMessage).Result;
                 if (response.IsSuccessStatusCode)
                 {

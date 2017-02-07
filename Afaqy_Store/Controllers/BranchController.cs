@@ -11,7 +11,7 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BranchController : BaseController<Branch,BranchViewModel,BranchCreateBindModel,BranchEditBindModel,BranchEditModel,BranchModel<Branch>,BranchModel<BranchViewModel>>
+    public class BranchController : BaseController<Branch,BranchViewModel, BranchViewModel, BranchViewModel, BranchCreateBindModel,BranchEditBindModel,BranchEditModel,BranchModel<Branch>,BranchModel<BranchViewModel>>
     {
         public override bool DeactiveGroupConfirmed(object[] ids)
         {

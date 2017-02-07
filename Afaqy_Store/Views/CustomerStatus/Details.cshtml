@@ -1,0 +1,73 @@
+﻿@model Afaqy_Store.Models.CustomerStatusViewModel
+
+@{
+    ViewBag.Title = Resources.Adminstration.CustomerStatusDetails;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Adminstration.CustomerStatusDetails</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+               @Resources.Adminstration.CustomerStatusEn
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerStatus_en)
+            </dd>
+            <dt>
+               @Resources.Adminstration.CustomerStatusAr
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerStatus_ar)
+            </dd>
+            <dt>
+                @Resources.Resource.IsBlock
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Block)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyDate)
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
+    </div>
+}

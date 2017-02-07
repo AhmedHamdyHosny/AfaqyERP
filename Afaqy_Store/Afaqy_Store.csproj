@@ -60,6 +60,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\LinqKit.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +108,10 @@
     <Reference Include="MvcSiteMapProvider.WebActivator, Version=4.6.22.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.22\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Remotion.Data.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -279,14 +291,21 @@
     <Compile Include="Controllers\ApiBrandController.cs" />
     <Compile Include="Controllers\ApiCountryController.cs" />
     <Compile Include="Controllers\ApiCurrencyController.cs" />
+    <Compile Include="Controllers\ApiCustomerController.cs" />
+    <Compile Include="Controllers\ApiCustomerServerIPController.cs" />
+    <Compile Include="Controllers\ApiCustomerServerUserController.cs" />
+    <Compile Include="Controllers\ApiCustomerStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
     <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusHistoryController.cs" />
+    <Compile Include="Controllers\ApiServerRoleController.cs" />
+    <Compile Include="Controllers\ApiSeverUserRoleController.cs" />
     <Compile Include="Controllers\ApiSIMCardContractController.cs" />
     <Compile Include="Controllers\ApiSIMCardController.cs" />
     <Compile Include="Controllers\ApiSIMCardProviderController.cs" />
     <Compile Include="Controllers\ApiSIMCardStatusController.cs" />
+    <Compile Include="Controllers\ApiSIMCardStatusHistoryController.cs" />
     <Compile Include="Controllers\ApiSystemServerIPController.cs" />
     <Compile Include="Controllers\ApiTechniqueCompanyController.cs" />
     <Compile Include="Controllers\ApiTechniqueSystemController.cs" />
@@ -298,6 +317,7 @@
     <Compile Include="Controllers\ApiBrandServerPortController.cs" />
     <Compile Include="Controllers\BrandServerPortController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CustomerStatusController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
@@ -321,12 +341,18 @@
     <Compile Include="Models\BrandServerPortModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\CustomerServerIPModel.cs" />
+    <Compile Include="Models\CustomerServerUserModel.cs" />
+    <Compile Include="Models\CustomerStatusModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
     <Compile Include="Models\DeviceStatusModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ServerRoleModel.cs" />
+    <Compile Include="Models\ServerUserRoleModel.cs" />
     <Compile Include="Models\SIMCardContractModel.cs" />
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
@@ -866,7 +892,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Templates\Confirm.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -943,6 +971,10 @@
     <Content Include="Views\BrandServerPort\Details.cshtml" />
     <Content Include="Views\BrandServerPort\Edit.cshtml" />
     <Content Include="Views\BrandServerPort\Index.cshtml" />
+    <Content Include="Views\CustomerStatus\Create.cshtml" />
+    <Content Include="Views\CustomerStatus\Details.cshtml" />
+    <Content Include="Views\CustomerStatus\Edit.cshtml" />
+    <Content Include="Views\CustomerStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

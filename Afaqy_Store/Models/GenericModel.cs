@@ -135,7 +135,6 @@ namespace Models
 
         public virtual bool Import(TModel[] objs)
         {
-
             string url = ApiServerUrl + ControllerRoute + "import";
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(objs), System.Text.Encoding.UTF8, "application/json") };
             var task = request.Execute<string>();
@@ -154,7 +153,6 @@ namespace Models
 
         public virtual bool Import(HttpPostedFileBase file)
         {
-
             string url = ApiServerUrl + ControllerRoute + "import/file";
             var formData = new MultipartFormDataContent();
             formData.Add(new StreamContent(file.InputStream), file.FileName, file.FileName);

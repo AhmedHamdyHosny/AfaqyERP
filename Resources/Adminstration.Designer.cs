@@ -178,6 +178,78 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Status.
+        /// </summary>
+        public static string CustomerStatus {
+            get {
+                return ResourceManager.GetString("CustomerStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Status (Ar).
+        /// </summary>
+        public static string CustomerStatusAr {
+            get {
+                return ResourceManager.GetString("CustomerStatusAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Customer Status.
+        /// </summary>
+        public static string CustomerStatusCreate {
+            get {
+                return ResourceManager.GetString("CustomerStatusCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Status Details.
+        /// </summary>
+        public static string CustomerStatusDetails {
+            get {
+                return ResourceManager.GetString("CustomerStatusDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Customer Status.
+        /// </summary>
+        public static string CustomerStatusEdit {
+            get {
+                return ResourceManager.GetString("CustomerStatusEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Status.
+        /// </summary>
+        public static string CustomerStatusEn {
+            get {
+                return ResourceManager.GetString("CustomerStatusEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Customer Status.
+        /// </summary>
+        public static string CustomerStatusNew {
+            get {
+                return ResourceManager.GetString("CustomerStatusNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Status.
+        /// </summary>
+        public static string CustomerStatusTitle {
+            get {
+                return ResourceManager.GetString("CustomerStatusTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expiry Date.
         /// </summary>
         public static string ExpiryDate {

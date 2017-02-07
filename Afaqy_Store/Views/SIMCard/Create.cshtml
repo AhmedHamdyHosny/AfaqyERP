@@ -1,7 +1,7 @@
 ﻿@model Afaqy_Store.DataLayer.SIMCard
 @using Classes.Helper;
 @{
-    ViewBag.Title = Resources.Store.SIMCardCreate;
+    ViewBag.Title = Resources.ServerManagement.SIMCardCreate;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
@@ -18,7 +18,7 @@
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Store.SIMCardNew</h2>
+    <h2 class="modal-title">@Resources.ServerManagement.SIMCardNew</h2>
 </div>
 
 @using (Html.BeginForm("CreateGroup", null, FormMethod.Post, new { id = "form" }))
@@ -45,19 +45,19 @@
                     </div>
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.Label("GSMPrefix", Resources.Store.GSMPrefix, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label("GSMPrefix", Resources.ServerManagement.GSMPrefix, htmlAttributes: new { @class = "text-info" })
                     @Html.TextBox("GSMPrefix", "058", null, htmlAttributes: new { @id = "GSMPrefix", @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.ContractId, Resources.Store.ContractId, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.ContractId, Resources.ServerManagement.ContractId, htmlAttributes: new { @class = "text-info" })
                     @Html.CustomDropdownListFor(model => model.ContractId, (IEnumerable<CustomSelectListItem>)ViewData["ContractId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "ContractId", @id = "ContractId" }) 
                     @*@Html.DropDownList("ContractId", null, htmlAttributes: new { @class = "form-control" })*@
                     @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.PurchaseDate, Resources.Store.SIMCardPurchaseDate, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.PurchaseDate, Resources.ServerManagement.SIMCardPurchaseDate, htmlAttributes: new { @class = "text-info" })
                     <span class="input-icon icon-right">
                         <input name="PurchaseDate" class="form-control date-picker" id="PurchaseDate" type="text" data-date-format="dd-mm-yyyy">
                         <i class="fa fa-calendar"></i>
@@ -68,12 +68,14 @@
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr>
-                        <th><label class="text-info">@Resources.Store.SIMCardSerialNumber</label></th>
-                        <th><label class="text-info">@Resources.Store.SIMCardGSM</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardCompanySerialNumber</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardSerialNumber</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardGSM</label></th>
                     </tr>
                 </thead>
                 <tbody id="items">
                     <tr id="itemRow_1">
+                        <td><input name="items[0].CompanySerialNumber" class="form-control" /></td>
                         <td><input name="items[0].SerialNumber" class="form-control" /></td>
                         <td><input name="items[0].GSM" class="form-control" /></td>
                     </tr>

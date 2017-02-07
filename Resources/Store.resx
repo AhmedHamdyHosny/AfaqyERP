@@ -117,36 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SIMCardCreate" xml:space="preserve">
-    <value>Create SIM Card</value>
-  </data>
-  <data name="SIMCardCreateDate" xml:space="preserve">
-    <value>Create Date</value>
-  </data>
-  <data name="SIMCardDetails" xml:space="preserve">
-    <value>SIM Card Details</value>
-  </data>
-  <data name="SIMCardEdit" xml:space="preserve">
-    <value>Edit SIM Card</value>
-  </data>
-  <data name="SIMCardGSM" xml:space="preserve">
-    <value>GSM</value>
-  </data>
-  <data name="SIMCardNew" xml:space="preserve">
-    <value>New SIM Card</value>
-  </data>
-  <data name="SIMCards" xml:space="preserve">
-    <value>SIM Cards</value>
-  </data>
-  <data name="SIMCardSerialNumber" xml:space="preserve">
-    <value>Serial Number</value>
-  </data>
-  <data name="SIMCardStatusNameEn" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="SIMCardTitle" xml:space="preserve">
-    <value>SIM Card</value>
-  </data>
   <data name="DeviceCreateDate" xml:space="preserve">
     <value>Create Date</value>
   </data>
@@ -189,21 +159,6 @@
   <data name="DeviceNew" xml:space="preserve">
     <value>New Device</value>
   </data>
-  <data name="SIMCardStatus" xml:space="preserve">
-    <value>SIM Card Status</value>
-  </data>
-  <data name="SIMCardStatusDetails" xml:space="preserve">
-    <value>SIM Card Status Details</value>
-  </data>
-  <data name="SIMCardStatusEdit" xml:space="preserve">
-    <value>Edit SIM Card Status</value>
-  </data>
-  <data name="SIMCardStatusNameAr" xml:space="preserve">
-    <value>Status(Ar)</value>
-  </data>
-  <data name="SIMCardStatusTitle" xml:space="preserve">
-    <value>SIM Card Status</value>
-  </data>
   <data name="DeviceStatusDetails" xml:space="preserve">
     <value>Device Status Details</value>
   </data>
@@ -233,14 +188,5 @@
   </data>
   <data name="DeviceModelTypeTitle" xml:space="preserve">
     <value>Device Model Type</value>
-  </data>
-  <data name="ContractId" xml:space="preserve">
-    <value>Contract No</value>
-  </data>
-  <data name="GSMPrefix" xml:space="preserve">
-    <value>GSM Prefix</value>
-  </data>
-  <data name="SIMCardPurchaseDate" xml:space="preserve">
-    <value>Purchase Date</value>
   </data>
 </root>

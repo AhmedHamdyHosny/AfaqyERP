@@ -50,5 +50,12 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerServerIP> CustomerServerIP { get; set; }
+        public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
+        public virtual DbSet<CustomerStatus> CustomerStatus { get; set; }
+        public virtual DbSet<DeviceServer> DeviceServer { get; set; }
+        public virtual DbSet<ServerRole> ServerRole { get; set; }
+        public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
     }
 }

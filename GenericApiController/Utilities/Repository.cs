@@ -82,10 +82,7 @@ namespace GenericApiController.Utilities
                 query = query.AsExpandable().Where(filter);
             }
 
-            
-            
-            query = orderBy != null ?
-                orderBy(query) : query;
+            query = orderBy != null ? orderBy(query) : query;
 
             if (thenByOrders != null )
             {
@@ -109,12 +106,9 @@ namespace GenericApiController.Utilities
             {
                 return query.SelectProperties(includeProperties).ToList<object>();
             }
-            
+
             return query;
         }
-        
-
-
         public virtual dynamic GetReferenceForImport(
             IEnumerable<string> includeProperties = null,
             dynamic filter = null)
@@ -126,47 +120,6 @@ namespace GenericApiController.Utilities
             }
             return result;
         }
-
-
-        //public virtual IQueryable<TEntity> GetByPaging(
-        //    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
-        //    Expression<Func<TEntity, bool>> filter = null,
-        //    string includeProperties = "",int pageNumber= 0,int pageItemsQuantity = 0  )
-        //{
-        //    IQueryable<TEntity> query = DbSet;
-
-        //    if (filter != null)
-        //    {
-        //        query = query.AsExpandable().Where(filter);
-        //    }
-
-        //    int skpItmsCount = (pageNumber - 1) * pageItemsQuantity;
-
-        //    //List<Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>> thenByOrders = null,
-        //    //query = orderBy(query);
-        //    //if (thenByOrders != null && thenByOrders.Count > 0)
-        //    //{
-        //    //    var Oquery = query as IOrderedQueryable<TEntity>;
-        //    //    foreach (var thenBy in thenByOrders )
-        //    //    {
-        //    //        Oquery = Oquery.ThenBy(thenBy);
-        //    //    }
-        //    //}
-
-        //    query = pageItemsQuantity > 0 ? orderBy(query).Skip(skpItmsCount).Take(pageItemsQuantity) 
-        //            : orderBy(query).Skip(skpItmsCount);
-
-        //    // applies the eager-loading expressions after parsing the comma-delimited list
-        //    foreach (var includeProperty in includeProperties.Split
-        //        (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-        //    {
-        //        query = query.Include(includeProperty);
-        //    }
-
-        //    return query;
-
-        //}
-
         public virtual async Task<ICollection<TResult>> GetAsync<TResult>(
             Expression<Func<TEntity, TResult>> selector,
             Expression<Func<TEntity, bool>> filter = null,
@@ -191,14 +144,10 @@ namespace GenericApiController.Utilities
 
             // applies the eager-loading expressions after parsing the comma-delimited list
 
-
             return await (orderBy != null
                 ? orderBy(query).Select(selector).ToListAsync()
                 : query.Select(selector).ToListAsync());
         }
-
-        
-
         public virtual TEntity GetByID(int id, Expression<Func<TEntity, bool>> filter = null)
         {
            
@@ -212,24 +161,122 @@ namespace GenericApiController.Utilities
            
             return item;
         }
-
         public virtual async Task<TEntity> GetByAsync(object id)
         {
             return await DbSet.FindAsync(id);
         }
-
         public virtual TEntity Insert(TEntity entity)
         {
             return DbSet.Add(entity);
         }
+        public virtual IEnumerable<TEntity> Insert(IEnumerable<TEntity> entities)
+        {
+            return DbSet.AddRange(entities);
+        }
+        public virtual IEnumerable<TEntity> InserBulk(IEnumerable<TEntity> entities)
+        {
+            List<TEntity> result = null;
+            try
+            {
+                _context.BulkInsert<TEntity>(entities);
+                //DbSet.AddRange(entities);
+                //_context.BulkSaveChanges(false);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+           
+            /*
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+            {
+                DbContext context = null;
+                result = new List<TEntity>();
+                try
+                {
+                    
+                    //context = new DbContext("name=AfaqyStoreEntities");
+                    var entityCnxStringBuilder = 
+                        new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
 
+                    context = new DbContext(entityCnxStringBuilder.ConnectionString);
+                    context.Configuration.LazyLoadingEnabled = false;
+                    context.Configuration.ProxyCreationEnabled = false;
+                    context.Configuration.AutoDetectChangesEnabled = false;
+                    //context.Database.Connection.Open();
+                    const int bulkCount = 100;
+                    int index = 0;
+                    int count = index * bulkCount;
+                    while (count < entities.Count())
+                    {
+                        var bulkEntities = entities.Skip(count).Take(bulkCount);
+                        //insert to context 
+                        //result.AddRange(context.Set<TEntity>().AddRange(bulkEntities));
+                        context.Set<TEntity>().AddRange(bulkEntities);
+                        context.SaveChanges();
+                        context.Dispose();
+                        entityCnxStringBuilder =
+                        new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
+                        context = new DbContext(entityCnxStringBuilder.ConnectionString);
+                        context.Configuration.LazyLoadingEnabled = false;
+                        context.Configuration.ProxyCreationEnabled = false;
+                        context.Configuration.AutoDetectChangesEnabled = false;
 
+                        ++index;
+                        count = index * bulkCount;
+                    }
+                    
+                    //foreach (var entity in entities)
+                    //{
+                    //    ++count;
+                    //    context = AddToContext(context, entity,ref result, count, 100, true);
+                    //}
+
+                    context.SaveChanges();
+                }
+                finally
+                {
+                    if (context != null)
+                        context.Dispose();
+                }
+
+                scope.Complete();
+            }
+            */
+            return result;
+        }
+        //private DbContext AddToContext(DbContext context,TEntity entity,ref List<TEntity> result, int count, int commitCount, bool recreateContext)
+        //{
+        //    try
+        //    {
+        //        result.Add(context.Set<TEntity>().Add(entity));
+        //        if (count % commitCount == 0)
+        //        {
+        //            context.SaveChanges();
+        //            if (recreateContext)
+        //            {
+        //                context.Dispose();
+        //                var entityCnxStringBuilder =
+        //                new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
+        //                context = new DbContext(entityCnxStringBuilder.ConnectionString);
+        //                context.Configuration.LazyLoadingEnabled = false;
+        //                context.Configuration.ProxyCreationEnabled = false;
+        //                context.Configuration.AutoDetectChangesEnabled = false;
+        //            }
+        //        }
+        //        return context;
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw ex;
+        //    }
+        //}
         public virtual void Delete(int id)
         {
             TEntity entityToDelete = DbSet.Find(id);
             Delete(entityToDelete);
         }
-
         public virtual void Delete(TEntity entityToDelete)
         {
             if (_context.Entry(entityToDelete).State == EntityState.Detached)
@@ -238,7 +285,6 @@ namespace GenericApiController.Utilities
             }
             DbSet.Remove(entityToDelete);
         }
-
         public virtual void Detach(TEntity entityToUpdate)
         {
             _context.Entry(entityToUpdate).State = EntityState.Detached;
@@ -248,8 +294,6 @@ namespace GenericApiController.Utilities
             DbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
-
-
         public virtual void Update(TEntity entityToUpdate, List<string> excluded)
         {
             DbSet.Attach(entityToUpdate);
@@ -264,7 +308,6 @@ namespace GenericApiController.Utilities
                 }
             }
         }
-
         public virtual void DeleteRange(IQueryable<TEntity> entitiesToDelete)
         {
             foreach (var entity in entitiesToDelete)
@@ -276,7 +319,6 @@ namespace GenericApiController.Utilities
             }
             DbSet.RemoveRange(entitiesToDelete.AsEnumerable());
         }
-
         public virtual IQueryable<TEntity> GetWithRawSql(string query, params object[] parameters)
         {
             return DbSet.SqlQuery(query, parameters) as IQueryable<TEntity>; //DbSet.SqlQuery to connect directly to the database

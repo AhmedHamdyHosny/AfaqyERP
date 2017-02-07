@@ -13,7 +13,7 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceController : BaseController<Device,DeviceViewModel, DeviceCreateBindModel, DeviceEditBindModel, DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
+    public class DeviceController : BaseController<Device,DeviceViewModel, DeviceViewModel, DeviceViewModel, DeviceCreateBindModel, DeviceEditBindModel, DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
     {
         public override void FuncPreIndexView(ref List<DeviceViewModel> model)
         {

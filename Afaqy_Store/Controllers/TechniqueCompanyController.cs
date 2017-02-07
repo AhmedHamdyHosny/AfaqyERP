@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class TechniqueCompanyController : BaseController<TechniqueCompany, TechniqueCompanyViewModel, TechniqueCompanyCreateBindModel, TechniqueCompanyEditBindModel, TechniqueCompanyEditModel, TechniqueCompanyModel<TechniqueCompany>, TechniqueCompanyModel<TechniqueCompanyViewModel>>
+    public class TechniqueCompanyController : BaseController<TechniqueCompany, TechniqueCompanyViewModel, TechniqueCompanyViewModel, TechniqueCompanyViewModel, TechniqueCompanyCreateBindModel, TechniqueCompanyEditBindModel, TechniqueCompanyEditModel, TechniqueCompanyModel<TechniqueCompany>, TechniqueCompanyModel<TechniqueCompanyViewModel>>
     {
         public override void FuncPreIndexView(ref List<TechniqueCompanyViewModel> model)
         {

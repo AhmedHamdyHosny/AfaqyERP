@@ -25,5 +25,13 @@ namespace Classes.Utilities
                 return System.Configuration.ConfigurationManager.AppSettings["SecurityKey"];
             }
         }
+
+        public static string ImportFilesPath
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["ImportFilesPath"];
+            }
+        }
     }
 }

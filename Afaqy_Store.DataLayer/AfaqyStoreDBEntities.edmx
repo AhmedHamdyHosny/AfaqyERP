@@ -72,6 +72,66 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName_en" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CustomerName_ar" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactTelephone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerStatusId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CustomerServerIP">
+          <Key>
+            <PropertyRef Name="CustomerServerId" />
+          </Key>
+          <Property Name="CustomerServerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="SystemServerId" Type="int" Nullable="false" />
+          <Property Name="AccountUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CustomerServerUser">
+          <Key>
+            <PropertyRef Name="CustomerServerUserId" />
+          </Key>
+          <Property Name="CustomerServerUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="SystemServerId" Type="int" Nullable="false" />
+          <Property Name="AccountUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CustomerStatus">
+          <Key>
+            <PropertyRef Name="CustomerStatusId" />
+          </Key>
+          <Property Name="CustomerStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerStatus_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CustomerStatus_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentId" />
@@ -108,6 +168,23 @@
           </Key>
           <Property Name="ModelTypeId" Type="int" Nullable="false" />
           <Property Name="ModelTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DeviceServer">
+          <Key>
+            <PropertyRef Name="DeviceServerId" />
+          </Key>
+          <Property Name="DeviceServerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="SystemServerId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ConnectedDate" Type="datetime" />
+          <Property Name="DisconnectedDate" Type="datetime" />
+          <Property Name="LastUpdate" Type="datetime" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -189,13 +266,37 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ServerRole">
+          <Key>
+            <PropertyRef Name="ServerRoleId" />
+          </Key>
+          <Property Name="ServerRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServerRole_en" Type="varchar" MaxLength="20" />
+          <Property Name="ServerRole_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ServerUserRole">
+          <Key>
+            <PropertyRef Name="ServerUserRoleId" />
+          </Key>
+          <Property Name="ServerUserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerServerUserId" Type="int" Nullable="false" />
+          <Property Name="ServerRoleId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SIMCard">
           <Key>
             <PropertyRef Name="SIMCardId" />
           </Key>
           <Property Name="SIMCardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SerialNumber" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="CompanySerialNumber" Type="varchar" MaxLength="20" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="20" />
+          <Property Name="CompanySerialNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="GSM" Type="nvarchar" MaxLength="20" />
           <Property Name="SIMCardStatusId" Type="int" Nullable="false" />
           <Property Name="ContractId" Type="int" />
@@ -401,6 +502,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customer_CustomerStatus">
+          <End Role="CustomerStatus" Type="Self.CustomerStatus" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerStatus">
+              <PropertyRef Name="CustomerStatusId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerIP_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerServerIP" Type="Self.CustomerServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerServerIP">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerIP_SystemServerIP">
+          <End Role="SystemServerIP" Type="Self.SystemServerIP" Multiplicity="1" />
+          <End Role="CustomerServerIP" Type="Self.CustomerServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="CustomerServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerUser_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerServerUser" Type="Self.CustomerServerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerServerUser">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerUser_SystemServerIP">
+          <End Role="SystemServerIP" Type="Self.SystemServerIP" Multiplicity="1" />
+          <End Role="CustomerServerUser" Type="Self.CustomerServerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="CustomerServerUser">
+              <PropertyRef Name="SystemServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Device_Branch">
           <End Role="Branch" Type="Self.Branch" Multiplicity="0..1" />
           <End Role="Device" Type="Self.Device" Multiplicity="*" />
@@ -434,6 +595,42 @@
             </Principal>
             <Dependent Role="Device">
               <PropertyRef Name="ModelTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="DeviceServer" Type="Self.DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="DeviceServer" Type="Self.DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_SystemServerIP">
+          <End Role="SystemServerIP" Type="Self.SystemServerIP" Multiplicity="1" />
+          <End Role="DeviceServer" Type="Self.DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="SystemServerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -542,6 +739,30 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerUserRole_CustomerServerUser">
+          <End Role="CustomerServerUser" Type="Self.CustomerServerUser" Multiplicity="1" />
+          <End Role="ServerUserRole" Type="Self.ServerUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerServerUser">
+              <PropertyRef Name="CustomerServerUserId" />
+            </Principal>
+            <Dependent Role="ServerUserRole">
+              <PropertyRef Name="CustomerServerUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerUserRole_ServerRole">
+          <End Role="ServerRole" Type="Self.ServerRole" Multiplicity="1" />
+          <End Role="ServerUserRole" Type="Self.ServerUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerRole">
+              <PropertyRef Name="ServerRoleId" />
+            </Principal>
+            <Dependent Role="ServerUserRole">
+              <PropertyRef Name="ServerRoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -755,14 +976,21 @@
           <EntitySet Name="BrandServerPort" EntityType="Self.BrandServerPort" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Country" EntityType="Self.Country" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="CustomerServerIP" EntityType="Self.CustomerServerIP" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="CustomerServerUser" EntityType="Self.CustomerServerUser" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="CustomerStatus" EntityType="Self.CustomerStatus" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceServer" EntityType="Self.DeviceServer" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceSIM" EntityType="Self.DeviceSIM" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="ServerRole" EntityType="Self.ServerRole" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="ServerUserRole" EntityType="Self.ServerUserRole" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="SIMCardContract" EntityType="Self.SIMCardContract" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="SIMCardContractRenewal" EntityType="Self.SIMCardContractRenewal" Schema="afqy" store:Type="Tables" />
@@ -787,6 +1015,26 @@
             <End Role="SystemServerIP" EntitySet="SystemServerIP" />
             <End Role="BrandServerPort" EntitySet="BrandServerPort" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customer_CustomerStatus" Association="Self.FK_Customer_CustomerStatus">
+            <End Role="CustomerStatus" EntitySet="CustomerStatus" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerIP_Customer" Association="Self.FK_CustomerServerIP_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerServerIP" EntitySet="CustomerServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerIP_SystemServerIP" Association="Self.FK_CustomerServerIP_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="CustomerServerIP" EntitySet="CustomerServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerUser_Customer" Association="Self.FK_CustomerServerUser_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerUser_SystemServerIP" Association="Self.FK_CustomerServerUser_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+          </AssociationSet>
           <AssociationSet Name="FK_Device_Branch" Association="Self.FK_Device_Branch">
             <End Role="Branch" EntitySet="Branch" />
             <End Role="Device" EntitySet="Device" />
@@ -798,6 +1046,18 @@
           <AssociationSet Name="FK_Device_ModelType" Association="Self.FK_Device_ModelType">
             <End Role="DeviceModelType" EntitySet="DeviceModelType" />
             <End Role="Device" EntitySet="Device" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_Customer" Association="Self.FK_DeviceServer_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_Device" Association="Self.FK_DeviceServer_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_SystemServerIP" Association="Self.FK_DeviceServer_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceSIM_Device" Association="Self.FK_DeviceSIM_Device">
             <End Role="Device" EntitySet="Device" />
@@ -834,6 +1094,14 @@
           <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
             <End Role="User" EntitySet="User" />
             <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerUserRole_CustomerServerUser" Association="Self.FK_ServerUserRole_CustomerServerUser">
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+            <End Role="ServerUserRole" EntitySet="ServerUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerUserRole_ServerRole" Association="Self.FK_ServerUserRole_ServerRole">
+            <End Role="ServerRole" EntitySet="ServerRole" />
+            <End Role="ServerUserRole" EntitySet="ServerUserRole" />
           </AssociationSet>
           <AssociationSet Name="FK_SIMCard_Branch" Association="Self.FK_SIMCard_Branch">
             <End Role="Branch" EntitySet="Branch" />
@@ -1062,6 +1330,53 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="Customer" EntityType="Afaqy_Store.DataLayer.Customer" />
+          <EntitySet Name="CustomerServerIP" EntityType="Afaqy_Store.DataLayer.CustomerServerIP" />
+          <EntitySet Name="CustomerServerUser" EntityType="Afaqy_Store.DataLayer.CustomerServerUser" />
+          <EntitySet Name="CustomerStatus" EntityType="Afaqy_Store.DataLayer.CustomerStatus" />
+          <EntitySet Name="DeviceServer" EntityType="Afaqy_Store.DataLayer.DeviceServer" />
+          <EntitySet Name="ServerRole" EntityType="Afaqy_Store.DataLayer.ServerRole" />
+          <EntitySet Name="ServerUserRole" EntityType="Afaqy_Store.DataLayer.ServerUserRole" />
+          <AssociationSet Name="FK_Customer_CustomerStatus" Association="Afaqy_Store.DataLayer.FK_Customer_CustomerStatus">
+            <End Role="CustomerStatus" EntitySet="CustomerStatus" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerIP_Customer" Association="Afaqy_Store.DataLayer.FK_CustomerServerIP_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerServerIP" EntitySet="CustomerServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerUser_Customer" Association="Afaqy_Store.DataLayer.FK_CustomerServerUser_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_Customer" Association="Afaqy_Store.DataLayer.FK_DeviceServer_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerIP_SystemServerIP" Association="Afaqy_Store.DataLayer.FK_CustomerServerIP_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="CustomerServerIP" EntitySet="CustomerServerIP" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServerUser_SystemServerIP" Association="Afaqy_Store.DataLayer.FK_CustomerServerUser_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerUserRole_CustomerServerUser" Association="Afaqy_Store.DataLayer.FK_ServerUserRole_CustomerServerUser">
+            <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
+            <End Role="ServerUserRole" EntitySet="ServerUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_Device" Association="Afaqy_Store.DataLayer.FK_DeviceServer_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeviceServer_SystemServerIP" Association="Afaqy_Store.DataLayer.FK_DeviceServer_SystemServerIP">
+            <End Role="SystemServerIP" EntitySet="SystemServerIP" />
+            <End Role="DeviceServer" EntitySet="DeviceServer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerUserRole_ServerRole" Association="Afaqy_Store.DataLayer.FK_ServerUserRole_ServerRole">
+            <End Role="ServerRole" EntitySet="ServerRole" />
+            <End Role="ServerUserRole" EntitySet="ServerUserRole" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -1180,6 +1495,7 @@
           <NavigationProperty Name="DeviceModelType" Relationship="Afaqy_Store.DataLayer.FK_Device_ModelType" FromRole="Device" ToRole="DeviceModelType" />
           <NavigationProperty Name="DeviceSIM" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_Device" FromRole="Device" ToRole="DeviceSIM" />
           <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Device" FromRole="Device" ToRole="DeviceStatusHistory" />
+          <NavigationProperty Name="DeviceServer" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_Device" FromRole="Device" ToRole="DeviceServer" />
         </EntityType>
         <EntityType Name="DeviceModelType">
           <Key>
@@ -1286,8 +1602,8 @@
             <PropertyRef Name="SIMCardId" />
           </Key>
           <Property Name="SIMCardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SerialNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CompanySerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CompanySerialNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="GSM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="SIMCardStatusId" Type="Int32" Nullable="false" />
           <Property Name="ContractId" Type="Int32" />
@@ -1404,6 +1720,9 @@
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BrandServerPort" Relationship="Afaqy_Store.DataLayer.FK_BrandServerPort_SystemServerIP" FromRole="SystemServerIP" ToRole="BrandServerPort" />
           <NavigationProperty Name="TechniqueSystem" Relationship="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" FromRole="SystemServerIP" ToRole="TechniqueSystem" />
+          <NavigationProperty Name="CustomerServerIP" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerIP_SystemServerIP" FromRole="SystemServerIP" ToRole="CustomerServerIP" />
+          <NavigationProperty Name="CustomerServerUser" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerUser_SystemServerIP" FromRole="SystemServerIP" ToRole="CustomerServerUser" />
+          <NavigationProperty Name="DeviceServer" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_SystemServerIP" FromRole="SystemServerIP" ToRole="DeviceServer" />
         </EntityType>
         <EntityType Name="TechniqueCompany">
           <Key>
@@ -1871,6 +2190,243 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerStatusId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CustomerStatus" Relationship="Afaqy_Store.DataLayer.FK_Customer_CustomerStatus" FromRole="Customer" ToRole="CustomerStatus" />
+          <NavigationProperty Name="CustomerServerIP" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerIP_Customer" FromRole="Customer" ToRole="CustomerServerIP" />
+          <NavigationProperty Name="CustomerServerUser" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerUser_Customer" FromRole="Customer" ToRole="CustomerServerUser" />
+          <NavigationProperty Name="DeviceServer" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_Customer" FromRole="Customer" ToRole="DeviceServer" />
+        </EntityType>
+        <EntityType Name="CustomerServerIP">
+          <Key>
+            <PropertyRef Name="CustomerServerId" />
+          </Key>
+          <Property Name="CustomerServerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="SystemServerId" Type="Int32" Nullable="false" />
+          <Property Name="AccountUserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerIP_Customer" FromRole="CustomerServerIP" ToRole="Customer" />
+          <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerIP_SystemServerIP" FromRole="CustomerServerIP" ToRole="SystemServerIP" />
+        </EntityType>
+        <EntityType Name="CustomerServerUser">
+          <Key>
+            <PropertyRef Name="CustomerServerUserId" />
+          </Key>
+          <Property Name="CustomerServerUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="SystemServerId" Type="Int32" Nullable="false" />
+          <Property Name="AccountUserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerUser_Customer" FromRole="CustomerServerUser" ToRole="Customer" />
+          <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_CustomerServerUser_SystemServerIP" FromRole="CustomerServerUser" ToRole="SystemServerIP" />
+          <NavigationProperty Name="ServerUserRole" Relationship="Afaqy_Store.DataLayer.FK_ServerUserRole_CustomerServerUser" FromRole="CustomerServerUser" ToRole="ServerUserRole" />
+        </EntityType>
+        <EntityType Name="CustomerStatus">
+          <Key>
+            <PropertyRef Name="CustomerStatusId" />
+          </Key>
+          <Property Name="CustomerStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerStatus_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerStatus_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_Customer_CustomerStatus" FromRole="CustomerStatus" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="DeviceServer">
+          <Key>
+            <PropertyRef Name="DeviceServerId" />
+          </Key>
+          <Property Name="DeviceServerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="SystemServerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ConnectedDate" Type="DateTime" Precision="3" />
+          <Property Name="DisconnectedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_Customer" FromRole="DeviceServer" ToRole="Customer" />
+          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_Device" FromRole="DeviceServer" ToRole="Device" />
+          <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_SystemServerIP" FromRole="DeviceServer" ToRole="SystemServerIP" />
+        </EntityType>
+        <EntityType Name="ServerRole">
+          <Key>
+            <PropertyRef Name="ServerRoleId" />
+          </Key>
+          <Property Name="ServerRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerRole_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ServerRole_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ServerUserRole" Relationship="Afaqy_Store.DataLayer.FK_ServerUserRole_ServerRole" FromRole="ServerRole" ToRole="ServerUserRole" />
+        </EntityType>
+        <EntityType Name="ServerUserRole">
+          <Key>
+            <PropertyRef Name="ServerUserRoleId" />
+          </Key>
+          <Property Name="ServerUserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerServerUserId" Type="Int32" Nullable="false" />
+          <Property Name="ServerRoleId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CustomerServerUser" Relationship="Afaqy_Store.DataLayer.FK_ServerUserRole_CustomerServerUser" FromRole="ServerUserRole" ToRole="CustomerServerUser" />
+          <NavigationProperty Name="ServerRole" Relationship="Afaqy_Store.DataLayer.FK_ServerUserRole_ServerRole" FromRole="ServerUserRole" ToRole="ServerRole" />
+        </EntityType>
+        <Association Name="FK_Customer_CustomerStatus">
+          <End Type="Afaqy_Store.DataLayer.CustomerStatus" Role="CustomerStatus" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerStatus">
+              <PropertyRef Name="CustomerStatusId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerIP_Customer">
+          <End Type="Afaqy_Store.DataLayer.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.CustomerServerIP" Role="CustomerServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerServerIP">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerUser_Customer">
+          <End Type="Afaqy_Store.DataLayer.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.CustomerServerUser" Role="CustomerServerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerServerUser">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_Customer">
+          <End Type="Afaqy_Store.DataLayer.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeviceServer" Role="DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerIP_SystemServerIP">
+          <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.CustomerServerIP" Role="CustomerServerIP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="CustomerServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServerUser_SystemServerIP">
+          <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.CustomerServerUser" Role="CustomerServerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="CustomerServerUser">
+              <PropertyRef Name="SystemServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerUserRole_CustomerServerUser">
+          <End Type="Afaqy_Store.DataLayer.CustomerServerUser" Role="CustomerServerUser" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.ServerUserRole" Role="ServerUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerServerUser">
+              <PropertyRef Name="CustomerServerUserId" />
+            </Principal>
+            <Dependent Role="ServerUserRole">
+              <PropertyRef Name="CustomerServerUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_Device">
+          <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeviceServer" Role="DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeviceServer_SystemServerIP">
+          <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeviceServer" Role="DeviceServer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SystemServerIP">
+              <PropertyRef Name="SystemServerId" />
+            </Principal>
+            <Dependent Role="DeviceServer">
+              <PropertyRef Name="SystemServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerUserRole_ServerRole">
+          <End Type="Afaqy_Store.DataLayer.ServerRole" Role="ServerRole" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.ServerUserRole" Role="ServerUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerRole">
+              <PropertyRef Name="ServerRoleId" />
+            </Principal>
+            <Dependent Role="ServerUserRole">
+              <PropertyRef Name="ServerRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2259,6 +2815,114 @@
                 <ScalarProperty Name="UserTypeName_ar" ColumnName="UserTypeName_ar" />
                 <ScalarProperty Name="UserTypeName_en" ColumnName="UserTypeName_en" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="CustomerStatusId" ColumnName="CustomerStatusId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactTelephone" ColumnName="ContactTelephone" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
+                <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerIP">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerIP">
+              <MappingFragment StoreEntitySet="CustomerServerIP">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="AccountPassword" ColumnName="AccountPassword" />
+                <ScalarProperty Name="AccountUserName" ColumnName="AccountUserName" />
+                <ScalarProperty Name="SystemServerId" ColumnName="SystemServerId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerServerId" ColumnName="CustomerServerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerUser">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUser">
+              <MappingFragment StoreEntitySet="CustomerServerUser">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="AccountPassword" ColumnName="AccountPassword" />
+                <ScalarProperty Name="AccountUserName" ColumnName="AccountUserName" />
+                <ScalarProperty Name="SystemServerId" ColumnName="SystemServerId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerServerUserId" ColumnName="CustomerServerUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerStatus">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerStatus">
+              <MappingFragment StoreEntitySet="CustomerStatus">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="CustomerStatus_ar" ColumnName="CustomerStatus_ar" />
+                <ScalarProperty Name="CustomerStatus_en" ColumnName="CustomerStatus_en" />
+                <ScalarProperty Name="CustomerStatusId" ColumnName="CustomerStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeviceServer">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceServer">
+              <MappingFragment StoreEntitySet="DeviceServer">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+                <ScalarProperty Name="DisconnectedDate" ColumnName="DisconnectedDate" />
+                <ScalarProperty Name="ConnectedDate" ColumnName="ConnectedDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="SystemServerId" ColumnName="SystemServerId" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="DeviceServerId" ColumnName="DeviceServerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerRole">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.ServerRole">
+              <MappingFragment StoreEntitySet="ServerRole">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="ServerRole_ar" ColumnName="ServerRole_ar" />
+                <ScalarProperty Name="ServerRole_en" ColumnName="ServerRole_en" />
+                <ScalarProperty Name="ServerRoleId" ColumnName="ServerRoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerUserRole">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.ServerUserRole">
+              <MappingFragment StoreEntitySet="ServerUserRole">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="ServerRoleId" ColumnName="ServerRoleId" />
+                <ScalarProperty Name="CustomerServerUserId" ColumnName="CustomerServerUserId" />
+                <ScalarProperty Name="ServerUserRoleId" ColumnName="ServerUserRoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

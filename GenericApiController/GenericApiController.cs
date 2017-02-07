@@ -17,9 +17,7 @@ namespace GenericApiController
     {
 
         protected UnitOfWork<T> repo;
-
         public GenericAuthorizRoles<T> AuthorizRole { get; set; }
-
         private Expression<Func<T, bool>> DataConstrains { get; set; }
         public string[] UserRoles { get; set; }
         public string DeletedFlagPropertyName = "IsBlock";
@@ -133,15 +131,6 @@ namespace GenericApiController
             {
                 dynamic result = GetWithOptions(data);
                 return Content(HttpStatusCode.OK, result);
-                //if (!(result is IQueryable<T>))
-                //{
-                //    return 
-                //}
-                //else
-                //{
-                //    return Content(HttpStatusCode.OK, (List<object>)result);
-                //}
-
             }
             else
             {
@@ -156,7 +145,6 @@ namespace GenericApiController
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-
             
             foreach (var newItem in newItems)
             {
@@ -465,23 +453,27 @@ namespace GenericApiController
         }
         private bool Save(List<T> values)
         {
-            List<T> result = new List<T>();
-            foreach (var value in values)
+            if (values.Count >= 1000)
             {
-                result.Add(repo.Repo.Insert(value));
+                IEnumerable<T> result = repo.Repo.InserBulk(values);
+                return true;
             }
-            repo.Save();
-            return true;
+            else
+            {
+                //insert less than 1000 records
+                IEnumerable<T> result = repo.Repo.Insert(values);
+                repo.Save();
+                return true;
+            }
+            
         }
+
+
         private IHttpActionResult SaveGroup(List<T> values)
         {
-            List<T> result = new List<T>();
-            foreach (var value in values)
-            {
-                result.Add(repo.Repo.Insert(value));
-            }
+            IEnumerable<T> result = repo.Repo.Insert(values);
             repo.Save();
-            return Content(HttpStatusCode.OK, result);
+            return Content(HttpStatusCode.OK, result.ToList());
         }
         private bool IsAuthorize(Actions action)
         {

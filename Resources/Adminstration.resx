@@ -243,4 +243,28 @@
   <data name="TechniqueCompanyNew" xml:space="preserve">
     <value>New Technique Company</value>
   </data>
+  <data name="CustomerStatus" xml:space="preserve">
+    <value>Customer Status</value>
+  </data>
+  <data name="CustomerStatusAr" xml:space="preserve">
+    <value>Customer Status (Ar)</value>
+  </data>
+  <data name="CustomerStatusCreate" xml:space="preserve">
+    <value>Create Customer Status</value>
+  </data>
+  <data name="CustomerStatusDetails" xml:space="preserve">
+    <value>Customer Status Details</value>
+  </data>
+  <data name="CustomerStatusEdit" xml:space="preserve">
+    <value>Edit Customer Status</value>
+  </data>
+  <data name="CustomerStatusEn" xml:space="preserve">
+    <value>Customer Status</value>
+  </data>
+  <data name="CustomerStatusNew" xml:space="preserve">
+    <value>New Customer Status</value>
+  </data>
+  <data name="CustomerStatusTitle" xml:space="preserve">
+    <value>Customer Status</value>
+  </data>
 </root>

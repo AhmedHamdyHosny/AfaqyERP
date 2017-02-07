@@ -5,7 +5,7 @@
 @using Classes.Common;
 
 @{
-    ViewBag.Title = Resources.Store.SIMCardTitle;
+    ViewBag.Title = Resources.ServerManagement.SIMCardTitle;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -14,7 +14,7 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-header ">
-                <span class="widget-caption">@Resources.Store.SIMCards</span>
+                <span class="widget-caption">@Resources.ServerManagement.SIMCards</span>
                 <div class="widget-buttons">
                     <a href="javascript:void(0);" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -122,9 +122,10 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'SerialNumber', name: '@Resources.Store.SIMCardSerialNumber' },
-            { field: 'GSM', name: '@Resources.Store.SIMCardGSM' },
-            { field: 'SIMCardStatus.SIMCardStatusName_en', name: '@Resources.Store.SIMCardStatusNameEn' },
+            { field: 'CompanySerialNumber', name: '@Resources.ServerManagement.SIMCardCompanySerialNumber' },
+            { field: 'SerialNumber', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
+            { field: 'GSM', name: '@Resources.ServerManagement.SIMCardGSM' },
+            { field: 'SIMCardStatus.SIMCardStatusName_en', name: '@Resources.ServerManagement.SIMCardStatusNameEn' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.SIMCardId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +

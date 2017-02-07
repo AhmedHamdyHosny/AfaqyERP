@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BrandServerPortController : BaseController<BrandServerPort,BrandServerPortViewModel,BrandServerPortCreateBindModel,BrandServerPortEditBindModel,BrandServerPortEditModel,BrandServerPortModel<BrandServerPort>,BrandServerPortModel<BrandServerPortViewModel>>
+    public class BrandServerPortController : BaseController<BrandServerPort,BrandServerPortViewModel, BrandServerPortViewModel, BrandServerPortViewModel, BrandServerPortCreateBindModel,BrandServerPortEditBindModel,BrandServerPortEditModel,BrandServerPortModel<BrandServerPort>,BrandServerPortModel<BrandServerPortViewModel>>
     {
         public override void FuncPreIndexView(ref List<BrandServerPortViewModel> model)
         {

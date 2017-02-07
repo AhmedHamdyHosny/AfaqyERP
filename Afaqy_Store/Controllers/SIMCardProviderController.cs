@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardProviderController : BaseController<SIMCardProvider,SIMCardProviderViewModel, 
+    public class SIMCardProviderController : BaseController<SIMCardProvider,SIMCardProviderViewModel, SIMCardProviderViewModel, SIMCardProviderViewModel,
         SIMCardProviderCreateBindModel, SIMCardProviderEditBindModel,
         SIMCardProviderEditModel,
         SIMCardProviderModel<SIMCardProvider>,SIMCardProviderModel<SIMCardProviderViewModel>>

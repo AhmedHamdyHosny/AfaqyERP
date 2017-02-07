@@ -160,6 +160,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract No.
+        /// </summary>
+        public static string ContractId {
+            get {
+                return ResourceManager.GetString("ContractId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GSM Prefix.
+        /// </summary>
+        public static string GSMPrefix {
+            get {
+                return ResourceManager.GetString("GSMPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port Number.
         /// </summary>
         public static string PortNumber {
@@ -183,6 +201,159 @@ namespace Resources {
         public static string ServerIP {
             get {
                 return ResourceManager.GetString("ServerIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company S/N.
+        /// </summary>
+        public static string SIMCardCompanySerialNumber {
+            get {
+                return ResourceManager.GetString("SIMCardCompanySerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create SIM Card.
+        /// </summary>
+        public static string SIMCardCreate {
+            get {
+                return ResourceManager.GetString("SIMCardCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Date.
+        /// </summary>
+        public static string SIMCardCreateDate {
+            get {
+                return ResourceManager.GetString("SIMCardCreateDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Details.
+        /// </summary>
+        public static string SIMCardDetails {
+            get {
+                return ResourceManager.GetString("SIMCardDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit SIM Card.
+        /// </summary>
+        public static string SIMCardEdit {
+            get {
+                return ResourceManager.GetString("SIMCardEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GSM.
+        /// </summary>
+        public static string SIMCardGSM {
+            get {
+                return ResourceManager.GetString("SIMCardGSM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New SIM Card.
+        /// </summary>
+        public static string SIMCardNew {
+            get {
+                return ResourceManager.GetString("SIMCardNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purchase Date.
+        /// </summary>
+        public static string SIMCardPurchaseDate {
+            get {
+                return ResourceManager.GetString("SIMCardPurchaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Cards.
+        /// </summary>
+        public static string SIMCards {
+            get {
+                return ResourceManager.GetString("SIMCards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number.
+        /// </summary>
+        public static string SIMCardSerialNumber {
+            get {
+                return ResourceManager.GetString("SIMCardSerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatus {
+            get {
+                return ResourceManager.GetString("SIMCardStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status Details.
+        /// </summary>
+        public static string SIMCardStatusDetails {
+            get {
+                return ResourceManager.GetString("SIMCardStatusDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatusEdit {
+            get {
+                return ResourceManager.GetString("SIMCardStatusEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status(Ar).
+        /// </summary>
+        public static string SIMCardStatusNameAr {
+            get {
+                return ResourceManager.GetString("SIMCardStatusNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string SIMCardStatusNameEn {
+            get {
+                return ResourceManager.GetString("SIMCardStatusNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card Status.
+        /// </summary>
+        public static string SIMCardStatusTitle {
+            get {
+                return ResourceManager.GetString("SIMCardStatusTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SIM Card.
+        /// </summary>
+        public static string SIMCardTitle {
+            get {
+                return ResourceManager.GetString("SIMCardTitle", resourceCulture);
             }
         }
         

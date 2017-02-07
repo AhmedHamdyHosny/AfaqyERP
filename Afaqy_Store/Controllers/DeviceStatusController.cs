@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceStatusController : BaseController<DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatusEditBindModel, DeviceStatusEditModel, DeviceStatusModel<DeviceStatus>, DeviceStatusModel<DeviceStatus>>
+    public class DeviceStatusController : BaseController<DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatusEditBindModel, DeviceStatusEditModel, DeviceStatusModel<DeviceStatus>, DeviceStatusModel<DeviceStatus>>
     {
         #region Unused Actions
         [NonAction]

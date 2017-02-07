@@ -19,6 +19,7 @@ namespace Afaqy_Store.DataLayer
         {
             this.DeviceSIM = new HashSet<DeviceSIM>();
             this.DeviceStatusHistory = new HashSet<DeviceStatusHistory>();
+            this.DeviceServer = new HashSet<DeviceServer>();
         }
     
         public int DeviceId { get; set; }
@@ -41,5 +42,7 @@ namespace Afaqy_Store.DataLayer
         public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceStatusHistory> DeviceStatusHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeviceServer> DeviceServer { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,DeviceStatusId,CreateUserId,CreateDate")]
+    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,DeviceStatusId,IsBlock,CreateUserId,CreateDate")]
     public class DeviceEditBindModel : Device
     {
     }

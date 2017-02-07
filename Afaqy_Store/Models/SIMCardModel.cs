@@ -57,40 +57,19 @@ namespace Afaqy_Store.Models
         }
         internal void BindCreate_Modify_User()
         {
-            var tempUser =  this.CreateUser;
+            var tempUser = this.CreateUser;
         }
-
-        //[Display(Name = "Status")]
-        //public Enums.Status ItemStatus
-        //{
-        //    get
-        //    {
-        //        if (Status != null)
-        //        {
-        //            return (Enums.Status)Status;
-        //        }
-        //        else
-        //        {
-        //            return Enums.Status.None;
-        //        }
-
-        //    }
-        //    set
-        //    {
-        //        ItemStatus = value;
-        //    }
-        //}
 
 
     }
 
-    [Bind(Include = "SIMCardId,SerialNumber,GSM")]
+    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM")]
     public class SIMCardCreateBindModel : SIMCard
     {
 
     }
 
-    [Bind(Include = "SIMCardId,SerialNumber,GSM,SIMCardStatusId,CreateUserId,CreateDate")]
+    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,SIMCardStatusId,ContractId,PurchaseDate,BranchId,IsBlock,CreateUserId,CreateDate")]
     public class SIMCardEditBindModel : SIMCard
     {
     }
@@ -99,5 +78,10 @@ namespace Afaqy_Store.Models
     {
         public SIMCard EditItem { get; set; }
         public IEnumerable<SelectListItem> Contract { get; set; }
+    }
+
+    public class SIMCardImportModel : SIMCard
+    {
+        public string ContractNo { get; set; }
     }
 }

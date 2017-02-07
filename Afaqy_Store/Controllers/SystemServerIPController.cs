@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SystemServerIPController : BaseController<SystemServerIP,SystemServerIPViewModel,SystemServerIPCreateBindModel,SystemServerIPEditBindModel,SystemServerIPEditModel,SystemServerIPModel<SystemServerIP>,SystemServerIPModel<SystemServerIPViewModel>>
+    public class SystemServerIPController : BaseController<SystemServerIP,SystemServerIPViewModel, SystemServerIPViewModel, SystemServerIPViewModel, SystemServerIPCreateBindModel,SystemServerIPEditBindModel,SystemServerIPEditModel,SystemServerIPModel<SystemServerIP>,SystemServerIPModel<SystemServerIPViewModel>>
     {
         public override void FuncPreIndexView(ref List<SystemServerIPViewModel> model)
         {

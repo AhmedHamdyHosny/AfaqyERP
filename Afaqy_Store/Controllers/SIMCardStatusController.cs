@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardStatusController : BaseController<SIMCardStatus, SIMCardStatus, SIMCardStatus, SIMCardStatusEditBindModel, SIMCardStatusEditModel , SIMCardStatusModel<SIMCardStatus>, SIMCardStatusModel<SIMCardStatus>>
+    public class SIMCardStatusController : BaseController<SIMCardStatus, SIMCardStatus, SIMCardStatus, SIMCardStatus, SIMCardStatus, SIMCardStatusEditBindModel, SIMCardStatusEditModel , SIMCardStatusModel<SIMCardStatus>, SIMCardStatusModel<SIMCardStatus>>
     {
         
         #region Unused Actions

@@ -12,7 +12,7 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel,TViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel,TModel_TViewModel> : Controller
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel> : Controller
     {
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
@@ -25,7 +25,7 @@ namespace Classes.Common
                 ViewBag.AlertMessage = TempData["AlertMessage"];
             }
             //create instance of List of TViewModel that hold data
-            var model = (List<TViewModel>)Activator.CreateInstance(typeof(List<TViewModel>)); ; 
+            var model = (List<TIndexViewModel>)Activator.CreateInstance(typeof(List<TIndexViewModel>)); ; 
             DelegatePreIndexView delegatePreExecute = new DelegatePreIndexView(FuncPreIndexView);
             delegatePreExecute(ref model);
             DelegatePostIndexView delegatePostExecute = new DelegatePostIndexView(FuncPostIndexView);
@@ -39,14 +39,14 @@ namespace Classes.Common
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //create instance List of TViewModel
-            var items = (List<TViewModel>)Activator.CreateInstance(typeof(List<TViewModel>));
+            var items = (List<TDetailsViewModel>)Activator.CreateInstance(typeof(List<TDetailsViewModel>));
             DelegatePreDetailsView delegatePreExecute = new DelegatePreDetailsView(FuncPreDetailsView);
             delegatePreExecute(id, ref items);
             if (items.Count < 1 || items.ElementAt(0) == null)
             {
                 return HttpNotFound();
             }
-            var model = (TViewModel)items.ElementAt(0);
+            var model = (TDetailsViewModel)items.ElementAt(0);
             DelegatePostDetailsView delegatePostExecute = new DelegatePostDetailsView(FuncPostDetailsView);
             return delegatePostExecute(ref model);
         }
@@ -91,13 +91,13 @@ namespace Classes.Common
         public virtual ActionResult Create(TCreateBindModel[] items, FormCollection fc = null)
         {
             DelegatePreCreateGroup delegatePreExecute = new DelegatePreCreateGroup(FuncPreCreate);
-            delegatePreExecute(items, fc);
+            delegatePreExecute(ref items, fc);
 
             dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
             instance.Import(items);
 
             DelegatePostCreateGroup delegatePostExecute = new DelegatePostCreateGroup(FuncPostCreate);
-            return delegatePostExecute(items, fc);
+            return delegatePostExecute(ref items, fc);
         }
         
         public virtual ActionResult Edit(object id)
@@ -315,19 +315,19 @@ namespace Classes.Common
     //    public string RedirectToAction { get; set; }
     //}
 
-    public partial class GenericContoller<TDBModel, TViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
     {
         #region Delegates
-        public delegate void DelegatePreIndexView(ref List<TViewModel> model);
-        public delegate ActionResult DelegatePostIndexView(ref List<TViewModel> model);
-        public delegate void DelegatePreDetailsView(object id, ref List<TViewModel> items);
-        public delegate ActionResult DelegatePostDetailsView(ref TViewModel model);
+        public delegate void DelegatePreIndexView(ref List<TIndexViewModel> model);
+        public delegate ActionResult DelegatePostIndexView(ref List<TIndexViewModel> model);
+        public delegate void DelegatePreDetailsView(object id, ref List<TDetailsViewModel> items);
+        public delegate ActionResult DelegatePostDetailsView(ref TDetailsViewModel model);
         public delegate void DelegatePreInitCreateView();
         public delegate ActionResult DelegatePostInitCreateView();
         public delegate void DelegatePreCreate(ref TCreateBindModel model);
         public delegate ActionResult DelegatePostCreate(ref TCreateBindModel model);
-        public delegate void DelegatePreCreateGroup(TCreateBindModel[] items, FormCollection formCollection);
-        public delegate ActionResult DelegatePostCreateGroup(TCreateBindModel[] items, FormCollection formCollection);
+        public delegate void DelegatePreCreateGroup(ref TCreateBindModel[] items, FormCollection formCollection);
+        public delegate ActionResult DelegatePostCreateGroup(ref TCreateBindModel[] items, FormCollection formCollection);
         public delegate void DelegatePreInitEditView(object id, ref TDBModel EditItem, ref TEditModel model);
         public delegate ActionResult DelegatePostInitEditView(object id, ref TEditModel model);
         public delegate void DelegatePreEdit(ref object id,ref TEditBindModel EditItem);
@@ -351,19 +351,19 @@ namespace Classes.Common
         #endregion
 
         #region Delegate Functions
-        public virtual void FuncPreIndexView(ref List<TViewModel> model)
+        public virtual void FuncPreIndexView(ref List<TIndexViewModel> model)
         {
 
         }
-        public virtual ActionResult FuncPostIndexView(ref List<TViewModel> model)
+        public virtual ActionResult FuncPostIndexView(ref List<TIndexViewModel> model)
         {
             return View(model);
         }
-        public virtual void FuncPreDetailsView(object id, ref List<TViewModel> items)
+        public virtual void FuncPreDetailsView(object id, ref List<TDetailsViewModel> items)
         {
 
         }
-        public virtual ActionResult FuncPostDetailsView(ref TViewModel model)
+        public virtual ActionResult FuncPostDetailsView(ref TDetailsViewModel model)
         {
             return View(model);
         }
@@ -386,10 +386,10 @@ namespace Classes.Common
             //go to after insert action
             return RedirectToAction("Index");
         }
-        public virtual void FuncPreCreate(TCreateBindModel[] items, FormCollection formCollection)
+        public virtual void FuncPreCreate(ref TCreateBindModel[] items, FormCollection formCollection)
         {
         }
-        public virtual ActionResult FuncPostCreate(TCreateBindModel[] items, FormCollection formCollection)
+        public virtual ActionResult FuncPostCreate(ref TCreateBindModel[] items, FormCollection formCollection)
         {
             //set alerts messages
             TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = items.Length, Transaction = Transactions.Create };

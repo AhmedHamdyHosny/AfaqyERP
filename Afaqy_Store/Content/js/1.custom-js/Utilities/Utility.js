@@ -56,5 +56,6 @@ function showImportDilogFile() {
 }
 function fileChange(obj) {
     var fileName = $(obj).val();
+    showLoading();
     $('#btnImportExcel').click();
 }
