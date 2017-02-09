@@ -1,13 +1,13 @@
-﻿@model Afaqy_Store.Models.CustomerStatusViewModel
+﻿@model Afaqy_Store.Models.CustomerServerStatusViewModel
 
 @{
-    ViewBag.Title = Resources.Adminstration.CustomerStatusDetails;
+    ViewBag.Title = Resources.Adminstration.CustomerServerStatusDetails;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Adminstration.CustomerStatusDetails</h2>
+    <h2 class="modal-title">@Resources.Adminstration.CustomerServerStatusDetails</h2>
 </div>
 
 @using (Html.BeginForm())
@@ -15,16 +15,16 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
-               @Resources.Adminstration.CustomerStatusEn
+               @Resources.Adminstration.CustomerServerStatusEn
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CustomerStatus_en)
+                @Html.DisplayFor(model => model.CustomerServerStatus_en)
             </dd>
             <dt>
-               @Resources.Adminstration.CustomerStatusAr
+               @Resources.Adminstration.CustomerServerStatusAr
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.CustomerStatus_ar)
+                @Html.DisplayFor(model => model.CustomerServerStatus_ar)
             </dd>
             <dt>
                 @Resources.Resource.IsBlock

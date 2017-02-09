@@ -178,74 +178,74 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Status.
+        ///   Looks up a localized string similar to Customer Server Status.
         /// </summary>
-        public static string CustomerStatus {
+        public static string CustomerServerStatus {
             get {
-                return ResourceManager.GetString("CustomerStatus", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatus", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Status (Ar).
+        ///   Looks up a localized string similar to Customer Server Status (Ar).
         /// </summary>
-        public static string CustomerStatusAr {
+        public static string CustomerServerStatusAr {
             get {
-                return ResourceManager.GetString("CustomerStatusAr", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusAr", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Customer Status.
+        ///   Looks up a localized string similar to Create Customer Server Status.
         /// </summary>
-        public static string CustomerStatusCreate {
+        public static string CustomerServerStatusCreate {
             get {
-                return ResourceManager.GetString("CustomerStatusCreate", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusCreate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Status Details.
+        ///   Looks up a localized string similar to Customer Server Status Details.
         /// </summary>
-        public static string CustomerStatusDetails {
+        public static string CustomerServerStatusDetails {
             get {
-                return ResourceManager.GetString("CustomerStatusDetails", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusDetails", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Customer Status.
+        ///   Looks up a localized string similar to Edit Customer Server Status.
         /// </summary>
-        public static string CustomerStatusEdit {
+        public static string CustomerServerStatusEdit {
             get {
-                return ResourceManager.GetString("CustomerStatusEdit", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusEdit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Status.
+        ///   Looks up a localized string similar to Customer Server Status.
         /// </summary>
-        public static string CustomerStatusEn {
+        public static string CustomerServerStatusEn {
             get {
-                return ResourceManager.GetString("CustomerStatusEn", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusEn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Customer Status.
+        ///   Looks up a localized string similar to New Customer Server Status.
         /// </summary>
-        public static string CustomerStatusNew {
+        public static string CustomerServerStatusNew {
             get {
-                return ResourceManager.GetString("CustomerStatusNew", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusNew", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Status.
+        ///   Looks up a localized string similar to Customer Server Status.
         /// </summary>
-        public static string CustomerStatusTitle {
+        public static string CustomerServerStatusTitle {
             get {
-                return ResourceManager.GetString("CustomerStatusTitle", resourceCulture);
+                return ResourceManager.GetString("CustomerServerStatusTitle", resourceCulture);
             }
         }
         

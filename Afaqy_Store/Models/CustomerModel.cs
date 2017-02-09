@@ -73,19 +73,18 @@ namespace Afaqy_Store.Models
     {
     }
 
-    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email,CustomerStatusId")]
+    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email")]
     public class CustomerCreateBindModel : Customer
     {
 
     }
 
-    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email,CustomerStatusId,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email,IsBlock,CreateUserId,CreateDate")]
     public class CustomerEditBindModel : Customer
     {
     }
     public class CustomerEditModel
     {
         public Customer EditItem { get; set; }
-        public IEnumerable<CustomSelectListItem> CustomerStatus { get; set; }
     }
 }

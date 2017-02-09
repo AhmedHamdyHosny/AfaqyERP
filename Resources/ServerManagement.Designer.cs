@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alternative GSM Prefix.
+        /// </summary>
+        public static string AltGSMPrefix {
+            get {
+                return ResourceManager.GetString("AltGSMPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch.
+        /// </summary>
+        public static string Branch {
+            get {
+                return ResourceManager.GetString("Branch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brands.
         /// </summary>
         public static string Brand {
@@ -169,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cost.
+        /// </summary>
+        public static string Cost {
+            get {
+                return ResourceManager.GetString("Cost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GSM Prefix.
         /// </summary>
         public static string GSMPrefix {
@@ -205,11 +232,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt GSM.
+        /// </summary>
+        public static string SIMCardAltGSM {
+            get {
+                return ResourceManager.GetString("SIMCardAltGSM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company S/N.
         /// </summary>
         public static string SIMCardCompanySerialNumber {
             get {
                 return ResourceManager.GetString("SIMCardCompanySerialNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract.
+        /// </summary>
+        public static string SIMCardContract {
+            get {
+                return ResourceManager.GetString("SIMCardContract", resourceCulture);
             }
         }
         

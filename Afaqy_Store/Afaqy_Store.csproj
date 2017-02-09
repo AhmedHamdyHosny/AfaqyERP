@@ -294,7 +294,7 @@
     <Compile Include="Controllers\ApiCustomerController.cs" />
     <Compile Include="Controllers\ApiCustomerServerIPController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUserController.cs" />
-    <Compile Include="Controllers\ApiCustomerStatusController.cs" />
+    <Compile Include="Controllers\ApiCustomerServerStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
     <Compile Include="Controllers\ApiDeviceModelTypeController.cs" />
     <Compile Include="Controllers\ApiDeviceStatusController.cs" />
@@ -317,7 +317,7 @@
     <Compile Include="Controllers\ApiBrandServerPortController.cs" />
     <Compile Include="Controllers\BrandServerPortController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Controllers\CustomerStatusController.cs" />
+    <Compile Include="Controllers\CustomerServerStatusController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
@@ -344,7 +344,7 @@
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomerServerIPModel.cs" />
     <Compile Include="Models\CustomerServerUserModel.cs" />
-    <Compile Include="Models\CustomerStatusModel.cs" />
+    <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
@@ -971,10 +971,10 @@
     <Content Include="Views\BrandServerPort\Details.cshtml" />
     <Content Include="Views\BrandServerPort\Edit.cshtml" />
     <Content Include="Views\BrandServerPort\Index.cshtml" />
-    <Content Include="Views\CustomerStatus\Create.cshtml" />
-    <Content Include="Views\CustomerStatus\Details.cshtml" />
-    <Content Include="Views\CustomerStatus\Edit.cshtml" />
-    <Content Include="Views\CustomerStatus\Index.cshtml" />
+    <Content Include="Views\CustomerServerStatus\Create.cshtml" />
+    <Content Include="Views\CustomerServerStatus\Details.cshtml" />
+    <Content Include="Views\CustomerServerStatus\Edit.cshtml" />
+    <Content Include="Views\CustomerServerStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

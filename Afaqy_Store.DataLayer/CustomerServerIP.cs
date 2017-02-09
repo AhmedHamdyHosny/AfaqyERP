@@ -19,6 +19,7 @@ namespace Afaqy_Store.DataLayer
         public int SystemServerId { get; set; }
         public string AccountUserName { get; set; }
         public string AccountPassword { get; set; }
+        public int CustomerServerStatusId { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -26,6 +27,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Customer Customer { get; set; }
+        public virtual CustomerServerStatus CustomerServerStatus { get; set; }
         public virtual SystemServerIP SystemServerIP { get; set; }
     }
 }

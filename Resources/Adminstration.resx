@@ -243,28 +243,28 @@
   <data name="TechniqueCompanyNew" xml:space="preserve">
     <value>New Technique Company</value>
   </data>
-  <data name="CustomerStatus" xml:space="preserve">
-    <value>Customer Status</value>
+  <data name="CustomerServerStatus" xml:space="preserve">
+    <value>Customer Server Status</value>
   </data>
-  <data name="CustomerStatusAr" xml:space="preserve">
-    <value>Customer Status (Ar)</value>
+  <data name="CustomerServerStatusAr" xml:space="preserve">
+    <value>Customer Server Status (Ar)</value>
   </data>
-  <data name="CustomerStatusCreate" xml:space="preserve">
-    <value>Create Customer Status</value>
+  <data name="CustomerServerStatusCreate" xml:space="preserve">
+    <value>Create Customer Server Status</value>
   </data>
-  <data name="CustomerStatusDetails" xml:space="preserve">
-    <value>Customer Status Details</value>
+  <data name="CustomerServerStatusDetails" xml:space="preserve">
+    <value>Customer Server Status Details</value>
   </data>
-  <data name="CustomerStatusEdit" xml:space="preserve">
-    <value>Edit Customer Status</value>
+  <data name="CustomerServerStatusEdit" xml:space="preserve">
+    <value>Edit Customer Server Status</value>
   </data>
-  <data name="CustomerStatusEn" xml:space="preserve">
-    <value>Customer Status</value>
+  <data name="CustomerServerStatusEn" xml:space="preserve">
+    <value>Customer Server Status</value>
   </data>
-  <data name="CustomerStatusNew" xml:space="preserve">
-    <value>New Customer Status</value>
+  <data name="CustomerServerStatusNew" xml:space="preserve">
+    <value>New Customer Server Status</value>
   </data>
-  <data name="CustomerStatusTitle" xml:space="preserve">
-    <value>Customer Status</value>
+  <data name="CustomerServerStatusTitle" xml:space="preserve">
+    <value>Customer Server Status</value>
   </data>
 </root>

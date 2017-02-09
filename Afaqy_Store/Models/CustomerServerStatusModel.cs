@@ -9,17 +9,17 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Models
 {
-    public class CustomerStatusModel<TModel> : GenericModel<TModel> where TModel : class
+    public class CustomerServerStatusModel<TModel> : GenericModel<TModel> where TModel : class
     {
-        const string ApiRoute = "api/ApiCustomerStatus/";
+        const string ApiRoute = "api/ApiCustomerServerStatus/";
         private static string ApiUrl = SiteConfig.ApiUrl;
 
-        public CustomerStatusModel() : base(ApiUrl, ApiRoute)
+        public CustomerServerStatusModel() : base(ApiUrl, ApiRoute)
         {
         }
     }
 
-    public class CustomerStatusViewModel : CustomerStatus
+    public class CustomerServerStatusViewModel : CustomerServerStatus
     {
 
         private UserViewModel _createUser = null;
@@ -65,26 +65,26 @@ namespace Afaqy_Store.Models
 
     }
 
-    public class CustomerStatusIndexViewModel : CustomerStatusViewModel
+    public class CustomerServerStatusIndexViewModel : CustomerServerStatusViewModel
     {
     }
 
-    public class CustomerStatusDetailsViewModel : CustomerStatusViewModel
+    public class CustomerServerStatusDetailsViewModel : CustomerServerStatusViewModel
     {
     }
 
-    [Bind(Include = "CustomerStatusId,CustomerStatus_en,CustomerStatus_ar")]
-    public class CustomerStatusCreateBindModel : CustomerStatus
+    [Bind(Include = "CustomerServerStatusId,CustomerServerStatus_en,CustomerServerStatus_ar")]
+    public class CustomerServerStatusCreateBindModel : CustomerServerStatus
     {
 
     }
 
-    [Bind(Include = "CustomerStatusId,CustomerStatus_en,CustomerStatus_ar,IsBlock,CreateUserId,CreateDate")]
-    public class CustomerStatusEditBindModel : CustomerStatus
+    [Bind(Include = "CustomerServerStatusId,CustomerServerStatus_en,CustomerServerStatus_ar,IsBlock,CreateUserId,CreateDate")]
+    public class CustomerServerStatusEditBindModel : CustomerServerStatus
     {
     }
-    public class CustomerStatusEditModel
+    public class CustomerServerStatusEditModel
     {
-        public CustomerStatus EditItem { get; set; }
+        public CustomerServerStatus EditItem { get; set; }
     }
 }

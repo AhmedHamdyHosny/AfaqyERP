@@ -1,13 +1,13 @@
-﻿@model Afaqy_Store.DataLayer.CustomerStatus
+﻿@model Afaqy_Store.DataLayer.CustomerServerStatus
 
 @{
-    ViewBag.Title = Resources.Adminstration.CustomerStatusCreate;
+    ViewBag.Title = Resources.Adminstration.CustomerServerStatusCreate;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Adminstration.CustomerStatusNew</h2>
+    <h2 class="modal-title">@Resources.Adminstration.CustomerServerStatusNew</h2>
 </div>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
@@ -17,14 +17,14 @@
         <div >
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.CustomerStatus_en, Resources.Adminstration.CustomerStatusEn, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => model.CustomerStatus_en, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerStatus_en, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.CustomerServerStatus_en, Resources.Adminstration.CustomerServerStatusEn, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.CustomerServerStatus_en, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerServerStatus_en, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.CustomerStatus_ar, Resources.Adminstration.CustomerStatusAr, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => model.CustomerStatus_ar, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerStatus_ar, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.CustomerServerStatus_ar, Resources.Adminstration.CustomerServerStatusAr, htmlAttributes: new { @class = "text-info" })
+                @Html.EditorFor(model => model.CustomerServerStatus_ar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerServerStatus_ar, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>

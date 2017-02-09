@@ -44,16 +44,22 @@
                         </div>
                     </div>
                 </div>
+                
+            </div>
+            <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.Label("GSMPrefix", Resources.ServerManagement.GSMPrefix, htmlAttributes: new { @class = "text-info" })
-                    @Html.TextBox("GSMPrefix", "058", null, htmlAttributes: new { @id = "GSMPrefix", @class = "form-control" })
+                    @Html.TextBox("GSMPrefix", "", null, htmlAttributes: new { @id = "GSMPrefix", @class = "form-control", @onblur = "setGSMPrefix();" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.Label("AltGSMPrefix", Resources.ServerManagement.AltGSMPrefix, htmlAttributes: new { @class = "text-info" })
+                    @Html.TextBox("AltGSMPrefix", "", null, htmlAttributes: new { @id = "AltGSMPrefix", @class = "form-control", @onblur = "setAltGSMPrefix();" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.ContractId, Resources.ServerManagement.ContractId, htmlAttributes: new { @class = "text-info" })
                     @Html.CustomDropdownListFor(model => model.ContractId, (IEnumerable<CustomSelectListItem>)ViewData["ContractId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "ContractId", @id = "ContractId" }) 
-                    @*@Html.DropDownList("ContractId", null, htmlAttributes: new { @class = "form-control" })*@
                     @Html.ValidationMessageFor(model => model.ContractId, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
@@ -71,13 +77,15 @@
                         <th><label class="text-info">@Resources.ServerManagement.SIMCardCompanySerialNumber</label></th>
                         <th><label class="text-info">@Resources.ServerManagement.SIMCardSerialNumber</label></th>
                         <th><label class="text-info">@Resources.ServerManagement.SIMCardGSM</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardAltGSM</label></th>
                     </tr>
                 </thead>
                 <tbody id="items">
                     <tr id="itemRow_1">
                         <td><input name="items[0].CompanySerialNumber" class="form-control" /></td>
                         <td><input name="items[0].SerialNumber" class="form-control" /></td>
-                        <td><input name="items[0].GSM" class="form-control" /></td>
+                        <td><input name="items[0].GSM" class="form-control simCardGSM" /></td>
+                        <td><input name="items[0].AlternativeGSM" class="form-control simCardAltGSM" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -103,6 +111,10 @@
 
     <script>
         $(document).ready(function () {
+            var GSMPrefix = $('#GSMPrefix').val();
+            var AltGSMPrefix = $('#AltGSMPrefix').val();
+            setGSMPrefix();
+            setAltGSMPrefix();
 
             //--Jquery Select2--
             $("#ContractId").select2();
@@ -158,9 +170,11 @@
                         itemsCount--;
                     }
                 }
-
+                //set GSM number prefix
+                setGSMPrefix();
+                //set Alt GSM number prefix
+                setAltGSMPrefix();
             }
-
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {
@@ -169,6 +183,37 @@
 
             });
         });
+
+        function setGSMPrefix() {
+            $('.simCardGSM').each(function () {
+                if ($(this).val() != null && $(this).val().startsWith(GSMPrefix)) {
+                    var val = $(this).val();
+                    val = val.replace(GSMPrefix, $('#GSMPrefix').val());
+                    $(this).val(val);
+                }
+                else if ($(this).val() == null || !$(this).val().startsWith($('#GSMPrefix').val())) {
+                    var val = $(this).val();
+                    val = $('#GSMPrefix').val() + val;
+                    $(this).val(val);
+                }
+            });
+            GSMPrefix = $('#GSMPrefix').val()
+        }
+        function setAltGSMPrefix() {
+            $('.simCardAltGSM').each(function () {
+                if ($(this).val() != null && $(this).val().startsWith(AltGSMPrefix)) {
+                    var val = $(this).val();
+                    val = val.replace(AltGSMPrefix, $('#AltGSMPrefix').val());
+                    $(this).val(val);
+                }
+                else if ($(this).val() == null || !$(this).val().startsWith($('#AltGSMPrefix').val())) {
+                    var val = $(this).val();
+                    val = $('#AltGSMPrefix').val() + val;
+                    $(this).val(val);
+                }
+            });
+            AltGSMPrefix = $('#AltGSMPrefix').val()
+        }
     </script>
 }
 

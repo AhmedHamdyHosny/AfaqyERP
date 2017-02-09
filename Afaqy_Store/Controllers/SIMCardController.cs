@@ -11,22 +11,22 @@ using Classes.Common;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardViewModel, SIMCardViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
+    public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardIndexViewModel, SIMCardDetailsViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
     {
         
-        public override void FuncPreIndexView(ref List<SIMCardViewModel> model)
+        public override void FuncPreIndexView(ref List<SIMCardIndexViewModel> model)
         {
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" }  }; //, Paging = new GenericDataFormat.PagingItem() { PageNumber = 1, PageSize=10}
-            model = new SIMCardModel<SIMCardViewModel>().Get(requestBody);
+            //filters = new List<GenericDataFormat.FilterItems>();
+            //filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            var requestBody = new GenericDataFormat() {Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" }  }; //, Paging = new GenericDataFormat.PagingItem() { PageNumber = 1, PageSize=10}
+            model = new SIMCardModel<SIMCardIndexViewModel>().Get(requestBody);
         }
-        public override void FuncPreDetailsView(object id, ref List<SIMCardViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<SIMCardDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "SIMCardId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" } };
-            items = new SIMCardModel<SIMCardViewModel>().Get(requestBody);
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus,SIMCardContract,Branch" } };
+            items = new SIMCardModel<SIMCardDetailsViewModel>().Get(requestBody);
         }
         public override void FuncPreInitCreateView()
         {
@@ -87,7 +87,12 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreEdit(ref object id, ref SIMCardEditBindModel EditItem)
         {
             id = EditItem.SIMCardId;
-            EditItem.CreateUserId = User.UserId;
+            var simCardContract = new SIMCardContractModel<SIMCardContract>().Get(EditItem.ContractId);
+            var cost = simCardContract.CurrentCost;
+            var currencyId = simCardContract.CurrencyId;
+            EditItem.Cost = cost;
+            EditItem.CurrencyId = currencyId;
+            EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)

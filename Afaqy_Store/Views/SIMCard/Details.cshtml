@@ -15,6 +15,20 @@
     <div class="modal-body">
         <dl class="dl-horizontal">
             <dt>
+                @Resources.ServerManagement.SIMCardContract
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SIMCardContract.ContractNo)
+            </dd>
+            <dt>
+                @Resources.ServerManagement.SIMCardCompanySerialNumber
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanySerialNumber)
+            </dd>
+            <dt>
                @Resources.ServerManagement.SIMCardSerialNumber
             </dt>
 
@@ -24,16 +38,45 @@
             <dt>
                @Resources.ServerManagement.SIMCardGSM
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.GSM)
             </dd>
             <dt>
-                @Resources.ServerManagement.SIMCardStatusNameEn
+                @Resources.ServerManagement.SIMCardAltGSM
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AlternativeGSM)
+            </dd>
+            <dt>
+                @Resources.ServerManagement.SIMCardPurchaseDate
             </dt>
 
             <dd>
+                @Html.DisplayFor(model => model.PurchaseDate_Format)
+            </dd>
+            <dt>
+                @Resources.ServerManagement.Cost
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
+            <dt>
+                @Resources.ServerManagement.Branch
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Branch.BranchName_en)
+            </dd>
+            <dt>
+                @Resources.ServerManagement.SIMCardStatusNameEn
+            </dt>
+            <dd>
                 @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+            </dd>
+            <dt>
+                @Resources.Resource.Block
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Block)
             </dd>
             <dt>
                 @Resources.Resource.CreateUserFullNameEn 

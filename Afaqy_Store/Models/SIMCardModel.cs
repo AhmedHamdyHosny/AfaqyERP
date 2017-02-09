@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System;
 using Models;
+using Classes.Helper;
 
 namespace Afaqy_Store.Models
 {
@@ -55,6 +56,14 @@ namespace Afaqy_Store.Models
                 return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
             }
         }
+        public string PurchaseDate_Format
+        {
+            get
+            {
+
+                return this.PurchaseDate != null ? ((DateTime)this.PurchaseDate).ToString(Classes.Common.Constant.DateFormat) : "";
+            }
+        }
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;
@@ -63,13 +72,31 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM")]
+    public class SIMCardIndexViewModel : SIMCard
+    {
+        public string PurchaseDate_Format
+        {
+            get
+            {
+
+                return this.PurchaseDate != null ? ((DateTime)this.PurchaseDate).ToString(Classes.Common.Constant.DateFormat) : "";
+            }
+        }
+        
+    }
+
+    public class SIMCardDetailsViewModel : SIMCardViewModel
+    {
+        
+    }
+
+    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,AlternativeGSM")]
     public class SIMCardCreateBindModel : SIMCard
     {
 
     }
 
-    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,SIMCardStatusId,ContractId,PurchaseDate,BranchId,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,AlternativeGSM,SIMCardStatusId,ContractId,PurchaseDate,BranchId,IsBlock,CreateUserId,CreateDate")]
     public class SIMCardEditBindModel : SIMCard
     {
     }
@@ -77,7 +104,7 @@ namespace Afaqy_Store.Models
     public class SIMCardEditModel
     {
         public SIMCard EditItem { get; set; }
-        public IEnumerable<SelectListItem> Contract { get; set; }
+        public IEnumerable<CustomSelectListItem> Contract { get; set; }
     }
 
     public class SIMCardImportModel : SIMCard

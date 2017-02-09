@@ -30,11 +30,11 @@
 .controller('TechniqueSystemEditCtrl', TechniqueSystemEditCtrl)
 .controller('TechniqueSystemDetailsCtrl', TechniqueSystemDetailsCtrl)
 
-//CustomerStatus
-.controller('CustomerStatusCtrl', CustomerStatusCtrl)
-.controller('CustomerStatusCreateCtrl', CustomerStatusCreateCtrl)
-.controller('CustomerStatusEditCtrl', CustomerStatusEditCtrl)
-.controller('CustomerStatusDetailsCtrl', CustomerStatusDetailsCtrl)
+//CustomerServerStatus
+.controller('CustomerServerStatusCtrl', CustomerServerStatusCtrl)
+.controller('CustomerServerStatusCreateCtrl', CustomerServerStatusCreateCtrl)
+.controller('CustomerServerStatusEditCtrl', CustomerServerStatusEditCtrl)
+.controller('CustomerServerStatusDetailsCtrl', CustomerServerStatusDetailsCtrl)
 
 //Branch functions ========
 function BranchCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
@@ -456,8 +456,8 @@ function TechniqueSystemDetailsCtrl($scope, $uibModalInstance) {
     };
 }
 
-//CustomerStatus functions ========
-function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+//CustomerServerStatus functions ========
+function CustomerServerStatusCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
     ctrlService.initCtrl($scope);
     gridService.initGrid($scope);
     gridService.configureExport($scope);
@@ -467,7 +467,7 @@ function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridServi
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: createActionUrl,
-            controller: 'CustomerStatusCreateCtrl',
+            controller: 'CustomerServerStatusCreateCtrl',
             scope: $scope,
             backdrop: false,
         });
@@ -479,7 +479,7 @@ function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridServi
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: editActionUrl + '/' + id,
-            controller: 'CustomerStatusEditCtrl',
+            controller: 'CustomerServerStatusEditCtrl',
             scope: $scope,
             backdrop: false,
         });
@@ -491,7 +491,7 @@ function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridServi
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: detailsActionUrl + '/' + id,
-            controller: 'CustomerStatusDetailsCtrl',
+            controller: 'CustomerServerStatusDetailsCtrl',
             scope: $scope,
             backdrop: false,
         });
@@ -506,7 +506,7 @@ function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridServi
             //get selected ids from grid
             var selectedItems = $scope.gridApi.selection.getSelectedRows();
             selectedItems.forEach(function (item) {
-                selectedIds.push(item.CustomerStatusId)
+                selectedIds.push(item.CustomerServerStatusId)
             });
             //call delete confirm method and pass ids
             var url = deleteActionUrl;
@@ -521,21 +521,21 @@ function CustomerStatusCtrl($scope, $uibModal, confirmService, global, gridServi
     }
 }
 
-function CustomerStatusCreateCtrl($scope, $uibModalInstance) {
+function CustomerServerStatusCreateCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 }
 
-function CustomerStatusEditCtrl($scope, $uibModalInstance) {
+function CustomerServerStatusEditCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
 }
 
-function CustomerStatusDetailsCtrl($scope, $uibModalInstance) {
+function CustomerServerStatusDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

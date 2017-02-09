@@ -122,10 +122,14 @@
     <script>
 
         var gridColumnDefs = [
+            @*{ field: 'SIMCardContract.ContractNo', name: '@Resources.ServerManagement.SIMCardContract' },*@
             { field: 'CompanySerialNumber', name: '@Resources.ServerManagement.SIMCardCompanySerialNumber' },
             { field: 'SerialNumber', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
             { field: 'GSM', name: '@Resources.ServerManagement.SIMCardGSM' },
+            { field: 'AlternativeGSM', name: '@Resources.ServerManagement.SIMCardAltGSM' },
             { field: 'SIMCardStatus.SIMCardStatusName_en', name: '@Resources.ServerManagement.SIMCardStatusNameEn' },
+            @*{ field: 'PurchaseDate_Format', name: '@Resources.ServerManagement.SIMCardPurchaseDate' },*@
+           { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.SIMCardId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +

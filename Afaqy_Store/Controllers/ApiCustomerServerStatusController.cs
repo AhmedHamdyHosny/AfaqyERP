@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiCustomerStatusController : BaseApiController<CustomerStatus>
+    public class ApiCustomerServerStatusController : BaseApiController<CustomerServerStatus>
     {
     }
 }

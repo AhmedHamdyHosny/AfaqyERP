@@ -30,14 +30,21 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<BrandServerPort> BrandServerPort { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerServerIP> CustomerServerIP { get; set; }
+        public virtual DbSet<CustomerServerStatus> CustomerServerStatus { get; set; }
+        public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<DeviceModelType> DeviceModelType { get; set; }
+        public virtual DbSet<DeviceServer> DeviceServer { get; set; }
         public virtual DbSet<DeviceSIM> DeviceSIM { get; set; }
         public virtual DbSet<DeviceStatus> DeviceStatus { get; set; }
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<ServerRole> ServerRole { get; set; }
+        public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
         public virtual DbSet<SIMCard> SIMCard { get; set; }
         public virtual DbSet<SIMCardContract> SIMCardContract { get; set; }
         public virtual DbSet<SIMCardContractRenewal> SIMCardContractRenewal { get; set; }
@@ -50,12 +57,5 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<CustomerServerIP> CustomerServerIP { get; set; }
-        public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
-        public virtual DbSet<CustomerStatus> CustomerStatus { get; set; }
-        public virtual DbSet<DeviceServer> DeviceServer { get; set; }
-        public virtual DbSet<ServerRole> ServerRole { get; set; }
-        public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
     }
 }

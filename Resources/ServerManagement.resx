@@ -234,4 +234,19 @@
   <data name="SystemServerIPNew" xml:space="preserve">
     <value>New Server IP</value>
   </data>
+  <data name="SIMCardContract" xml:space="preserve">
+    <value>Contract</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="AltGSMPrefix" xml:space="preserve">
+    <value>Alternative GSM Prefix</value>
+  </data>
+  <data name="SIMCardAltGSM" xml:space="preserve">
+    <value>Alt GSM</value>
+  </data>
 </root>

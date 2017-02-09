@@ -25,10 +25,11 @@ namespace Afaqy_Store.DataLayer
         public string SerialNumber { get; set; }
         public string CompanySerialNumber { get; set; }
         public string GSM { get; set; }
+        public string AlternativeGSM { get; set; }
         public int SIMCardStatusId { get; set; }
         public Nullable<int> ContractId { get; set; }
         public Nullable<System.DateTime> PurchaseDate { get; set; }
-        public Nullable<decimal> Cost { get; set; }
+        public decimal Cost { get; set; }
         public Nullable<int> CurrencyId { get; set; }
         public Nullable<int> BranchId { get; set; }
         public bool IsBlock { get; set; }
