@@ -1,4 +1,4 @@
-﻿@model Afaqy_Store.Models.SIMCardViewModel
+﻿@model Afaqy_Store.Models.SIMCardDetailsViewModel
 
 @{
     ViewBag.Title = Resources.ServerManagement.SIMCardDetails;
@@ -19,7 +19,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.SIMCardContract.ContractNo)
+                @Html.DisplayFor(model => model.ContractNo)
             </dd>
             <dt>
                 @Resources.ServerManagement.SIMCardCompanySerialNumber
@@ -64,13 +64,13 @@
                 @Resources.ServerManagement.Branch
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Branch.BranchName_en)
+                @Html.DisplayFor(model => model.BranchName_en)
             </dd>
             <dt>
                 @Resources.ServerManagement.SIMCardStatusNameEn
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.SIMCardStatus.SIMCardStatusName_en)
+                @Html.DisplayFor(model => model.SIMCardStatusName_en)
             </dd>
             <dt>
                 @Resources.Resource.Block
@@ -83,7 +83,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+                @Html.DisplayFor(model => model.CreateUser_FullName_en)
             </dd>
 
             <dt>
@@ -99,7 +99,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+                @Html.DisplayFor(model => model.ModifyUser_FullName_en)
             </dd>
 
             <dt>

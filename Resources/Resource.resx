@@ -312,6 +312,9 @@
   <data name="ItemsCount" xml:space="preserve">
     <value>Count</value>
   </data>
+  <data name="LoadingMessage" xml:space="preserve">
+    <value>loading please wait....</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

@@ -646,6 +646,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to loading please wait.....
+        /// </summary>
+        public static string LoadingMessage {
+            get {
+                return ResourceManager.GetString("LoadingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login {

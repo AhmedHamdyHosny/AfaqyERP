@@ -23,7 +23,6 @@ namespace Afaqy_Store.DataLayer
         public System.DateTime CreateDate { get; set; }
     
         public virtual Branch Branch { get; set; }
-        public virtual SIMCard SIMCard { get; set; }
         public virtual SIMCardStatus SIMCardStatus { get; set; }
     }
 }

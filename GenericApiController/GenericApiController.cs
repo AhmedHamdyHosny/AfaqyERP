@@ -10,6 +10,7 @@ using static GenericApiController.Utilities.GenericDataFormat;
 using System.Net.Http;
 
 using System.Data.Entity.Validation;
+using System.Web.Script.Serialization;
 
 namespace GenericApiController
 {
@@ -31,7 +32,6 @@ namespace GenericApiController
             UserRoles = userRoles;
             repo = new UnitOfWork<T>(context);
         }
-
         // GET api/controller
         public virtual IHttpActionResult Get()
         {
@@ -136,6 +136,37 @@ namespace GenericApiController
             {
                 return Get();
             }
+        }
+        // POST api/controller/GetByPage
+        [HttpPost]
+        public virtual IHttpActionResult GetView(GenericDataFormat data)
+        {
+            var query = (IQueryable<T>)GetWithOptions(data);
+            dynamic pageItems = query.ToList<T>();
+            //remove paging
+            data.Paging = null;
+            query = (IQueryable<T>)GetWithOptions(data);
+            int TotalItemsCount = query.Count();
+            //var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+            //string s = serializer.Serialize(new PaginationResult<T>
+            //{
+            //    TotalItemsCount = TotalItemsCount,
+            //    PageItems = pageItems
+            //});
+            var result = new PaginationResult<T>
+            {
+                TotalItemsCount = TotalItemsCount,
+                PageItems = pageItems
+            };
+            //var resp = new HttpResponseMessage()
+            //{
+            //    Content =
+            //            new StringContent(serializer.Serialize(result), System.Text.Encoding.UTF8, "application/json")
+                        
+            //};
+            
+            return Content(HttpStatusCode.OK, result);
+            //return ResponseMessage(resp);
         }
         // POST api/controller/put
         public virtual IHttpActionResult put(List<UpdateItemFormat<T>> newItems)
@@ -313,7 +344,6 @@ namespace GenericApiController
             }
 
         }
-
         private dynamic GetWithOptions(GenericDataFormat data)
         {
             dynamic result = null;
@@ -467,8 +497,6 @@ namespace GenericApiController
             }
             
         }
-
-
         private IHttpActionResult SaveGroup(List<T> values)
         {
             IEnumerable<T> result = repo.Repo.Insert(values);

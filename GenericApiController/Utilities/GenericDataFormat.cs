@@ -25,6 +25,7 @@ namespace GenericApiController.Utilities
         {
             public string Property { get; set; }
             public SortType SortType { get; set; }
+            public int Priority { get; set; }
         }
         public class IncludeItems
         {
@@ -63,6 +64,12 @@ namespace GenericApiController.Utilities
     {
         public int id { get; set; }
         public T newValue { get; set; }
+    }
+
+    public class PaginationResult<T>
+    {
+        public int TotalItemsCount { get; set; }
+        public List<T> PageItems { get; set; }
     }
    
 }

@@ -166,7 +166,7 @@
     <value>Server IP</value>
   </data>
   <data name="SIMCardCompanySerialNumber" xml:space="preserve">
-    <value>Company S/N</value>
+    <value>Provider S/N</value>
   </data>
   <data name="SIMCardCreate" xml:space="preserve">
     <value>Create SIM Card</value>

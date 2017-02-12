@@ -13,5 +13,10 @@ namespace Afaqy_Store.Controllers
             //DropDownList list = new DropDownList();
             return PartialView();
         }
+
+        public PartialViewResult Partial_Paging()
+        {
+            return PartialView();
+        }
     }
 }

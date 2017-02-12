@@ -18,7 +18,6 @@ namespace Afaqy_Store.DataLayer
         public SIMCard()
         {
             this.DeviceSIM = new HashSet<DeviceSIM>();
-            this.SIMCardStatusHistory = new HashSet<SIMCardStatusHistory>();
         }
     
         public int SIMCardId { get; set; }
@@ -32,6 +31,7 @@ namespace Afaqy_Store.DataLayer
         public decimal Cost { get; set; }
         public Nullable<int> CurrencyId { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -44,7 +44,5 @@ namespace Afaqy_Store.DataLayer
         public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }
         public virtual SIMCardContract SIMCardContract { get; set; }
         public virtual SIMCardStatus SIMCardStatus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
     }
 }

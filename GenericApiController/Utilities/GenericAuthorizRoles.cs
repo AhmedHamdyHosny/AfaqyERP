@@ -10,7 +10,7 @@ namespace GenericApiController.Utilities
     {
         public List<GenericActionRoles> ActionRoles { get; set; }
         public List<GenericDataAccess<TEntity>> DataAccess { get; set; }
-        
+
     }
 
     public class GenericActionRoles

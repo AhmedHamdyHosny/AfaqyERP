@@ -57,5 +57,6 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<SIMCardView> SIMCardView { get; set; }
     }
 }

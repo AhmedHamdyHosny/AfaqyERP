@@ -6,10 +6,8 @@
     //var g_reqs = null;
 
     return {
-        post: function (url, data, success, faliure, json) {
-            console.log('<== posting data \r\n'+
-                        url +'\r\n'+
-                        JSON.stringify(data));
+        post: function (url, data, success, faliure,showCustLoading, hideCustLoading, json) {
+            //console.log('<== posting data \r\n'+url +'\r\n'+JSON.stringify(data));
 
             var config = {}; //headers: { 'Content-Type': 'application/json' }
             
@@ -17,37 +15,62 @@
                 config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }};
             }
             //show loading page
-            showLoading();
+            if (showCustLoading != undefined && showCustLoading != null) {
+                showCustLoading();
+            } else {
+                showLoading();
+            }
 
             $http.post(url, data, config).then(
                 function (resp) {
                     //hide loading page
-                    hideLoading();
-                    console.log('==> success response \r\n' + JSON.stringify(resp.data));
+                    if (hideCustLoading != undefined && hideCustLoading != null) {
+                        hideCustLoading();
+                    } else {
+                        hideLoading();
+                    }
+                    //console.log('==> success response \r\n' + JSON.stringify(resp.data));
                     success(resp);
                 },
                 function (resp) {
                     //hide loading page
-                    hideLoading();
+                    if (hideCustLoading != undefined && hideCustLoading != null) {
+                        hideCustLoading();
+                    } else {
+                        hideLoading();
+                    }
                     console.log('==> faliure response \r\n' + JSON.stringify(resp.data));
                     //show error
                 });
         },
         //=======
-        get: function (url, success, faliure) {
-            console.log('<== getting data \r\n'+ url);
+        get: function (url, success, faliure,showCustLoading,hideCustLoading) {
+            //console.log('<== getting data \r\n'+ url);
             //show loading page
-            showLoading();
+            if (showCustLoading != undefined && showCustLoading != null) {
+                showCustLoading();
+            } else {
+                showLoading();
+            }
+            
             $http.get(url).then(
                 function (resp) {
                     //hide loading page
-                    hideLoading();
-                    console.log('==> success response \r\n' + JSON.stringify(resp.data));
+                    if (hideCustLoading != undefined && hideCustLoading != null) {
+                        hideCustLoading();
+                    } else {
+                        hideLoading();
+                    }
+                    //console.log('==> success response \r\n' + JSON.stringify(resp.data));
                     success(resp);
                 },
                 function (resp) {
                     //hide loading page
-                    hideLoading();
+                    if (hideCustLoading != undefined && hideCustLoading != null) {
+                        hideCustLoading();
+                    } else {
+                        hideLoading();
+                    }
                     console.log('==> faliure response \r\n' + JSON.stringify(resp.data));
                     //show error
                 });

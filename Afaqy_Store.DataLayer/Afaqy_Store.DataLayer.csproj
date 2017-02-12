@@ -145,6 +145,9 @@
     <Compile Include="SIMCardStatusHistory.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="SIMCardView.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="SystemServerIP.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>

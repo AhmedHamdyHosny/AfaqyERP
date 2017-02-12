@@ -241,7 +241,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company S/N.
+        ///   Looks up a localized string similar to Provider S/N.
         /// </summary>
         public static string SIMCardCompanySerialNumber {
             get {

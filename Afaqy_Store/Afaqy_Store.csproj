@@ -121,6 +121,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -371,6 +372,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\1.custom-style\grid.css" />
+    <Content Include="Content\css\2.angular\ui-grid.min.css" />
     <Content Include="Content\css\4095-rtl.css" />
     <Content Include="Content\css\4095-rtl.min.css" />
     <Content Include="Content\css\4095.css" />
@@ -456,6 +458,7 @@
     <Content Include="Content\img\logo-rtl.png" />
     <Content Include="Content\img\logo-solo.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\ng-loader.gif" />
     <Content Include="Content\img\sort_asc.png" />
     <Content Include="Content\img\sort_asc_disabled.png" />
     <Content Include="Content\img\sort_both.png" />
@@ -975,6 +978,7 @@
     <Content Include="Views\CustomerServerStatus\Details.cshtml" />
     <Content Include="Views\CustomerServerStatus\Edit.cshtml" />
     <Content Include="Views\CustomerServerStatus\Index.cshtml" />
+    <Content Include="Views\Common\Partial_Paging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

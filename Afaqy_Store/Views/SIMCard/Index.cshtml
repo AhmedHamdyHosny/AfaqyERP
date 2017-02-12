@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Afaqy_Store.DataLayer.SIMCard>
+﻿@*@model IEnumerable<Afaqy_Store.DataLayer.SIMCard>*@
 @using Newtonsoft.Json
 @using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
@@ -109,7 +109,9 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-selection class="grid"></div>
+
+                @{ Html.RenderAction("Partial_Paging", "Common"); }
             </div>
         </div>
     </div>
@@ -122,12 +124,14 @@
     <script>
 
         var gridColumnDefs = [
-            @*{ field: 'SIMCardContract.ContractNo', name: '@Resources.ServerManagement.SIMCardContract' },*@
+            { field: 'BranchName_en', name: '@Resources.ServerManagement.Branch' },
+            { field: 'ProviderName_en', name: '@Resources.Adminstration.SIMCardProvider' },
+            { field: 'ContractNo', name: '@Resources.ServerManagement.SIMCardContract' },
             { field: 'CompanySerialNumber', name: '@Resources.ServerManagement.SIMCardCompanySerialNumber' },
             { field: 'SerialNumber', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
             { field: 'GSM', name: '@Resources.ServerManagement.SIMCardGSM' },
             { field: 'AlternativeGSM', name: '@Resources.ServerManagement.SIMCardAltGSM' },
-            { field: 'SIMCardStatus.SIMCardStatusName_en', name: '@Resources.ServerManagement.SIMCardStatusNameEn' },
+            { field: 'SIMCardStatusName_en', name: '@Resources.ServerManagement.SIMCardStatusNameEn' },
             @*{ field: 'PurchaseDate_Format', name: '@Resources.ServerManagement.SIMCardPurchaseDate' },*@
            { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
@@ -146,11 +150,12 @@
             bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
         };
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
-        var deleteActionUrl = '@Url.Action("HideGroup")';
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
+        @*var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';*@
     </script>
 }

@@ -44,6 +44,16 @@ namespace Models
             return task.Result;
         }
 
+        public virtual PaginationResult<T> GetView<T>(GenericDataFormat requestBody)
+        {
+            string url = ApiServerUrl + ControllerRoute + "getView";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(requestBody), System.Text.Encoding.UTF8, "application/json") };
+            var task = request.Execute<PaginationResult<T>>();
+            task.Wait();
+            return task.Result;
+        }
+
+
         public virtual TModel Insert(TModel obj)
         {
             string url = ApiServerUrl + ControllerRoute;

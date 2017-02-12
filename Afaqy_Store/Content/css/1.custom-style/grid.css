@@ -29,3 +29,25 @@ height: 31px;
     width:100%;
     height:30px
 }
+
+.loadmore {
+    z-index: 1 ;
+    bottom: initial  ;
+    padding-top:7px;
+}
+
+.color-green {
+    color: green;
+}
+
+.ui-grid-pager-control 
+.ui-grid-pager-max-pages-number{
+    vertical-align:middle ;
+    font-size: 15px ;
+}
+
+abbr[title], abbr[data-original-title]
+{
+    font-size:20px ;
+}
+

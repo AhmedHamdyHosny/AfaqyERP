@@ -12,7 +12,7 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel> : Controller
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel, TModel_TViewModel> : Controller
     {
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
@@ -25,7 +25,7 @@ namespace Classes.Common
                 ViewBag.AlertMessage = TempData["AlertMessage"];
             }
             //create instance of List of TViewModel that hold data
-            var model = (List<TIndexViewModel>)Activator.CreateInstance(typeof(List<TIndexViewModel>)); ; 
+            var model = (List<TIndexViewModel>)Activator.CreateInstance(typeof(List<TIndexViewModel>)); 
             DelegatePreIndexView delegatePreExecute = new DelegatePreIndexView(FuncPreIndexView);
             delegatePreExecute(ref model);
             DelegatePostIndexView delegatePostExecute = new DelegatePostIndexView(FuncPostIndexView);
@@ -290,6 +290,17 @@ namespace Classes.Common
                 throw ex;
             }
         }
+        [HttpPost]
+        public JsonResult GetView(GenericDataFormat options)
+        {
+            var model  = (PaginationResult<TIndexViewModel>)Activator.CreateInstance(typeof(PaginationResult<TIndexViewModel>));
+            DelegatePreGetView delegatePreExecute = new DelegatePreGetView(FuncPreGetView);
+            delegatePreExecute(ref model, options);
+            DelegatePostGetView delegatePostExecute = new DelegatePostGetView(FuncPostGetView);
+            return delegatePostExecute(ref model);
+            
+        }
+
     }
     //public class Reference
     //{
@@ -320,6 +331,8 @@ namespace Classes.Common
         #region Delegates
         public delegate void DelegatePreIndexView(ref List<TIndexViewModel> model);
         public delegate ActionResult DelegatePostIndexView(ref List<TIndexViewModel> model);
+        public delegate void DelegatePreGetView(ref PaginationResult<TIndexViewModel> model, GenericDataFormat options);
+        public delegate JsonResult DelegatePostGetView(ref PaginationResult<TIndexViewModel> model);
         public delegate void DelegatePreDetailsView(object id, ref List<TDetailsViewModel> items);
         public delegate ActionResult DelegatePostDetailsView(ref TDetailsViewModel model);
         public delegate void DelegatePreInitCreateView();
@@ -358,6 +371,19 @@ namespace Classes.Common
         public virtual ActionResult FuncPostIndexView(ref List<TIndexViewModel> model)
         {
             return View(model);
+        }
+        public virtual void FuncPreGetView(ref PaginationResult<TIndexViewModel> model,GenericDataFormat Options)
+        {
+            if(Options.Sorts != null && Options.Sorts.Count > 1)
+            {
+                Options.Sorts = Options.Sorts.Where(x => x.Priority == 1).ToList();
+            }
+            dynamic instance = Activator.CreateInstance(typeof(TModel_TViewModel));
+            model = instance.GetView<TIndexViewModel>(Options);
+        }
+        public virtual JsonResult FuncPostGetView(ref PaginationResult<TIndexViewModel> model)
+        {
+            return Json(model);
         }
         public virtual void FuncPreDetailsView(object id, ref List<TDetailsViewModel> items)
         {
