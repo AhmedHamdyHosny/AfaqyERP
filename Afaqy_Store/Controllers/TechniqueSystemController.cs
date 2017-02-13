@@ -9,19 +9,14 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class TechniqueSystemController : BaseController<TechniqueSystem,TechniqueSystemViewModel, TechniqueSystemViewModel, TechniqueSystemViewModel, TechniqueSystemCreateBindModel,TechniqueSystemEditBindModel,TechniqueSystemEditModel,TechniqueSystemModel<TechniqueSystem>,TechniqueSystemModel<TechniqueSystemViewModel>>
+    public class TechniqueSystemController : BaseController<TechniqueSystem,TechniqueSystemViewModel, TechniqueSystemIndexViewModel, TechniqueSystemDetailsViewModel, TechniqueSystemCreateBindModel,TechniqueSystemEditBindModel,TechniqueSystemEditModel,TechniqueSystemModel<TechniqueSystem>,TechniqueSystemModel<TechniqueSystemViewModel>>
     {
-        public override void FuncPreIndexView(ref List<TechniqueSystemViewModel> model)
-        {
-            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "TechniqueCompany" } };
-            model = new TechniqueSystemModel<TechniqueSystemViewModel>().Get(requestBody);
-        }
-        public override void FuncPreDetailsView(object id, ref List<TechniqueSystemViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<TechniqueSystemDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "SystemId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "TechniqueCompany" } };
-            items = new TechniqueSystemModel<TechniqueSystemViewModel>().Get(requestBody);
+            items = new TechniqueSystemModel<TechniqueSystemDetailsViewModel>().Get(requestBody);
         }
         public override void FuncPreInitCreateView()
         {
@@ -61,10 +56,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "TechniqueSystems.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "SystemId,SystemName", References = "TechniqueCompany" } };
+            string properties = "SystemId,SystemName,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

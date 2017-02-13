@@ -9,18 +9,14 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class TechniqueCompanyController : BaseController<TechniqueCompany, TechniqueCompanyViewModel, TechniqueCompanyViewModel, TechniqueCompanyViewModel, TechniqueCompanyCreateBindModel, TechniqueCompanyEditBindModel, TechniqueCompanyEditModel, TechniqueCompanyModel<TechniqueCompany>, TechniqueCompanyModel<TechniqueCompanyViewModel>>
+    public class TechniqueCompanyController : BaseController<TechniqueCompany, TechniqueCompanyViewModel, TechniqueCompanyIndexViewModel, TechniqueCompanyDetailsViewModel, TechniqueCompanyCreateBindModel, TechniqueCompanyEditBindModel, TechniqueCompanyEditModel, TechniqueCompanyModel<TechniqueCompany>, TechniqueCompanyModel<TechniqueCompanyViewModel>>
     {
-        public override void FuncPreIndexView(ref List<TechniqueCompanyViewModel> model)
-        {
-            model = new TechniqueCompanyModel<TechniqueCompanyViewModel>().Get();
-        }
-        public override void FuncPreDetailsView(object id, ref List<TechniqueCompanyViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<TechniqueCompanyDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "CompanyId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters};
-            items = new TechniqueCompanyModel<TechniqueCompanyViewModel>().Get(requestBody);
+            items = new TechniqueCompanyModel<TechniqueCompanyDetailsViewModel>().Get(requestBody);
         }
         public override void FuncPreCreate(ref TechniqueCompanyCreateBindModel model)
         {
@@ -49,10 +45,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "TechniqueCompanies.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "CompanyId,CompanyName"} };
+            string properties = "CompanyId,CompanyName,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

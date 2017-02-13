@@ -56,12 +56,18 @@ namespace Afaqy_Store.Models
                 return this.IsBlock ?  Resources.Resource.True : Resources.Resource.False;
             }
         }
-
-
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;
         }
+    }
+    public class TechniqueCompanyIndexViewModel : TechniqueCompany
+    {
+
+    }
+    public class TechniqueCompanyDetailsViewModel : TechniqueCompanyViewModel
+    {
+
     }
 
     [Bind(Include = "CompanyId,CompanyName")]
@@ -77,6 +83,5 @@ namespace Afaqy_Store.Models
     public class TechniqueCompanyEditModel
     {
         public TechniqueCompany EditItem { get; set; }
-        public IEnumerable<CustomSelectListItem> ModelType { get; set; }
     }
 }

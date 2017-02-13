@@ -361,6 +361,28 @@ function TechniqueCompanyCtrl($scope, $uibModal, confirmService, global, gridSer
         modalInstance.result.then(null, function () { });
     }
 
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.CompanyId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
+    }
+
 }
 
 function TechniqueCompanyCreateCtrl($scope, $uibModalInstance) {
@@ -430,7 +452,27 @@ function TechniqueSystemCtrl($scope, $uibModal, confirmService, global, gridServ
         modalInstance.result.then(null, function () { });
     }
 
-
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.SystemId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
+    }
 }
 
 function TechniqueSystemCreateCtrl($scope, $uibModalInstance) {

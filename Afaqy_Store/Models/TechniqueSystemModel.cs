@@ -62,6 +62,15 @@ namespace Afaqy_Store.Models
         }
     }
 
+    public class TechniqueSystemIndexViewModel : TechniqueSystem
+    {
+
+    }
+    public class TechniqueSystemDetailsViewModel : TechniqueSystemViewModel
+    {
+
+    }
+
     [Bind(Include = "SystemId,SystemName,CompanyId")]
     public class TechniqueSystemCreateBindModel : TechniqueSystem
     {
