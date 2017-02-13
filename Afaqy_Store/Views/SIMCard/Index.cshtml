@@ -1,6 +1,4 @@
-﻿@*@model IEnumerable<Afaqy_Store.DataLayer.SIMCard>*@
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
@@ -110,7 +108,6 @@
                     </div>
                 </div>
                 <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-selection class="grid"></div>
-
                 @{ Html.RenderAction("Partial_Paging", "Common"); }
             </div>
         </div>
@@ -118,8 +115,6 @@
 </div>
 
 @section scripts{
-
-    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
 
     <script>
 
@@ -155,7 +150,5 @@
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
-
-        @*var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';*@
     </script>
 }

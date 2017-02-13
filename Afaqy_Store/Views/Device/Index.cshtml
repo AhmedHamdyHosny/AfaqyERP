@@ -1,14 +1,10 @@
-﻿@model IEnumerable<Afaqy_Store.DataLayer.Device>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
-
 @{
     ViewBag.Title = Resources.Store.DeviceTitle;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
-
 
 <br />
 <div class="row" ng-controller="DeviceCtrl">
@@ -110,23 +106,22 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions"  ui-grid-exporter ui-grid-selection class="grid"></div>
+                <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Paging", "Common"); }
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-    
-    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
 
     <script>
-       
+
         var gridColumnDefs = [
             { field: 'SerialNumber', name: '@Resources.Store.DeviceSerialNumber' },
             { field: 'IMEI', name: '@Resources.Store.DeviceIMEI' },
-            { field: 'DeviceModelType.ModelTypeName', name: '@Resources.Store.DeviceModelType' },
-            { field: 'DeviceStatus.DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
+            { field: 'ModelTypeName', name: '@Resources.Store.DeviceModelType' },
+            { field: 'DeviceStatus_en', name: '@Resources.Store.DeviceStatus' },
             { field: 'Firmware', name: '@Resources.Store.Firmware'  },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
@@ -144,12 +139,10 @@
             bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
         };
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
-        var deleteActionUrl = '@Url.Action("HideGroup")';
-
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
-
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
     </script>
 }

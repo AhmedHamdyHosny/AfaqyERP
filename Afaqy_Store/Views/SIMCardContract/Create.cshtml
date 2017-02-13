@@ -14,7 +14,7 @@
 {
     <div class="modal-body">
         @Html.AntiForgeryToken()
-        <div >
+        <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
                 <div class="col-xs-6 form-group">
@@ -35,7 +35,7 @@
                     @Html.ValidationMessageFor(model => model.ContractNo, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.CurrentCost, Resources.Adminstration.CurrentCost, htmlAttributes: new { @class = "text-info" })
@@ -48,34 +48,28 @@
                     @Html.ValidationMessageFor(model => model.CurrencyId, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
-            
+
+
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.ContractDate, Resources.Adminstration.ContractDate, htmlAttributes: new { @class = "text-info" })
-
                     <span class="input-icon icon-right">
-                        <input name="ContractDate" class="form-control date-picker" id="ContractDate" type="text" data-date-format="dd-mm-yyyy">
+                        <input name="ContractDate" class="form-control date-picker" id="ContractDate" type="text" data-date-format="dd/mm/yyyy">
                         <i class="fa fa-calendar"></i>
                     </span>
-
-                    @*@Html.EditorFor(model => model.ContractDate, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.ContractDate, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.ExpiryDate, Resources.Adminstration.ExpiryDate, htmlAttributes: new { @class = "text-info" })
                     <span class="input-icon icon-right">
-                        <input name="ExpiryDate" class="form-control date-picker" id="ExpiryDate" type="text" data-date-format="dd-mm-yyyy">
+                        <input name="ExpiryDate" class="form-control date-picker" id="ExpiryDate" type="text" data-date-format="dd/mm/yyyy">
                         <i class="fa fa-calendar"></i>
                     </span>
-                    @*@Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
-                    
-                </div>
-            </div>
+        </div>
+    </div>
     <div class="modal-footer">
         <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
         <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
@@ -85,9 +79,6 @@
 
 
 @section scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-
     <!--Bootstrap Date Picker-->
     <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
     <script>

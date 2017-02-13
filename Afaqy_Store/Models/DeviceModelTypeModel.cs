@@ -20,12 +20,65 @@ namespace Afaqy_Store.Models
         
     }
 
+    public class DeviceModelTypeViewModel : DeviceModelType
+    {
+        private UserViewModel _createUser = null;
+        private UserViewModel _modifyUser = null;
+        public UserViewModel CreateUser
+        {
+            get
+            {
+                if (_createUser == null)
+                {
+                    new UserModel<UserViewModel>().Get_Create_Modify_User(this.CreateUserId, this.ModifyUserId, ref this._createUser, ref this._modifyUser);
+                }
+                return _createUser;
+            }
+            set
+            {
+                _createUser = value;
+            }
+        }
+        public UserViewModel ModifyUser
+        {
+            get
+            {
+                return _modifyUser;
+            }
+            set
+            {
+                _modifyUser = value;
+            }
+        }
+        public string Block
+        {
+            get
+            {
+                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
+        internal void BindCreate_Modify_User()
+        {
+            var tempUser = this.CreateUser;
+        }
+    }
+
+    public class DeviceModelTypeIndexViewModel : DeviceModelType
+    {
+
+    }
+
+    public class DeviceModelTypeDetailsViewModel : DeviceModelTypeViewModel
+    {
+
+    }
+
     [Bind(Include = "ModelTypeId,ModelTypeName")]
     public class DeviceModelTypeCreateBindModel : DeviceModelType
     {
     }
 
-    [Bind(Include = "ModelTypeId,ModelTypeName")]
+    [Bind(Include = "ModelTypeId,ModelTypeName,IsBlock,CreateUserId,CreateDate")]
     public class DeviceModelTypeEditBindModel : DeviceModelType
     {
     }

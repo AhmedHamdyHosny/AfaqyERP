@@ -114,6 +114,9 @@
     <Compile Include="DeviceStatusHistory.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeviceView.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Employee.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
@@ -134,6 +137,9 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SIMCardContractRenewal.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SIMCardContractView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SIMCardProvider.cs">

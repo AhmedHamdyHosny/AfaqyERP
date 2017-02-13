@@ -13,21 +13,15 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceController : BaseController<Device,DeviceViewModel, DeviceViewModel, DeviceViewModel, DeviceCreateBindModel, DeviceEditBindModel, DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
+    public class DeviceController : BaseController<Device,DeviceViewModel,DeviceIndexViewModel,DeviceDetailsViewModel, DeviceCreateBindModel, DeviceEditBindModel, DeviceEditModel,DeviceModel<Device>,DeviceModel<DeviceViewModel>>
     {
-        public override void FuncPreIndexView(ref List<DeviceViewModel> model)
+        
+        public override void FuncPreDetailsView(object id, ref List<DeviceDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeviceStatus,DeviceModelType" } };
-            model = new DeviceModel<DeviceViewModel>().Get(requestBody);
-        }
-        public override void FuncPreDetailsView(object id, ref List<DeviceViewModel> items)
-        {
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeviceId", Operation = GenericDataFormat.FilterOperations.Equal });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeviceStatus,DeviceModelType" } };
-            items = new DeviceModel<DeviceViewModel>().Get(requestBody);
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeviceId", Operation = GenericDataFormat.FilterOperations.Equal,Value = id });
+            var requestBody = new GenericDataFormat() { Filters = filters};
+            items = new DeviceModel<DeviceDetailsViewModel>().GetView<DeviceDetailsViewModel>(requestBody).PageItems;
         }
         public override void FuncPreInitCreateView()
         {
@@ -40,15 +34,9 @@ namespace Afaqy_Store.Controllers
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
             model.DeviceStatusId = (int)DBEnums.DeviceStatus.New;
-
-            var deviceStatusHistory = new List<DeviceStatusHistory>();
-            deviceStatusHistory.Add(new DeviceStatusHistory()
-            {
-                StatusId = (int)DBEnums.DeviceStatus.New,
-                CreateUserId = User.UserId,
-                CreateDate = DateTime.Now
-            });
-            model.DeviceStatusHistory = deviceStatusHistory;
+            //for test
+            model.BranchId = 1;
+            
         }
         public override void FuncPreInitEditView(object id, ref Device EditItem, ref DeviceEditModel model)
         {
@@ -75,10 +63,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "Devices.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceId,SerialNumber,IMEI,Firmware", References = "DeviceStatus,DeviceModelType" } };
+            string properties = string.Join(",", typeof(DeviceView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar")));
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

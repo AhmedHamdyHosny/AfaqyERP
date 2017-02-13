@@ -979,6 +979,8 @@
     <Content Include="Views\CustomerServerStatus\Edit.cshtml" />
     <Content Include="Views\CustomerServerStatus\Index.cshtml" />
     <Content Include="Views\Common\Partial_Paging.cshtml" />
+    <Content Include="Views\Common\Partial_Grid.cshtml" />
+    <Content Include="Views\Branch\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,13 +14,7 @@ namespace Afaqy_Store.Controllers
     public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardIndexViewModel, SIMCardDetailsViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
     {
         
-        public override void FuncPreIndexView(ref List<SIMCardIndexViewModel> model)
-        {
-            //filters = new List<GenericDataFormat.FilterItems>();
-            //filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            //var requestBody = new GenericDataFormat() {Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardStatus" }  }; //, Paging = new GenericDataFormat.PagingItem() { PageNumber = 1, PageSize=10}
-            //model = new SIMCardModel<SIMCardIndexViewModel>().Get(requestBody);
-        }
+        
         public override void FuncPreDetailsView(object id, ref List<SIMCardDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
@@ -58,14 +52,6 @@ namespace Afaqy_Store.Controllers
                 item.PurchaseDate = purchaseDate;
                 item.CreateUserId = userId;
                 item.CreateDate = DateTime.Now;
-                //item.SIMCardStatusHistory = new List<SIMCardStatusHistory>();
-                //item.SIMCardStatusHistory.Add(new SIMCardStatusHistory()
-                //{
-                //    SIMCardStatusId = (int)DBEnums.SIMCardStatus.New,
-                //    BranchId = branchId,
-                //    CreateUserId = userId,
-                //    CreateDate = DateTime.Now
-                //});
             }
         }
         public override void FuncPreInitEditView(object id, ref SIMCard EditItem, ref SIMCardEditModel model)
@@ -98,11 +84,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "SIMCards.xlsx";
-            //filters
-            //filters = new List<GenericDataFormat.FilterItems>();
-            //filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             string properties = string.Join(",", typeof(SIMCardView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar"))); 
-            ExportRequestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
+            ExportRequestBody = new GenericDataFormat() {Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
         
         //for test
@@ -110,10 +93,8 @@ namespace Afaqy_Store.Controllers
         {
             var file = Request.Files["file"];
             var instance = new SIMCardModel<SIMCard>();
-
-            //var result = instance.Import(file);
             string error = "";
-            string path = Server.MapPath(Classes.Utilities.SiteConfig.ImportFilesPath); //"D:\\Afaqy\\Files\\";
+            string path = Server.MapPath(Classes.Utilities.SiteConfig.ImportFilesPath); 
             var fileName = DataImportHelper(file, path,"SIMCards");
             var lst = ParseExcelFile(fileName, ref error);
             var result = instance.Import(lst.ToArray());

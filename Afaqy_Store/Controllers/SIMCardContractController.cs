@@ -11,21 +11,15 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardContractController : BaseController<SIMCardContract,SIMCardContractViewModel, SIMCardContractViewModel, SIMCardContractViewModel, SIMCardContractCreateBindModel,SIMCardContractEditBindModel,SIMCardContractEditModel,SIMCardContractModel<SIMCardContract>,SIMCardContractModel<SIMCardContractViewModel>>
+    public class SIMCardContractController : BaseController<SIMCardContract,SIMCardContractViewModel, SIMCardContractIndexViewModel, SIMCardContractDetailsViewModel, SIMCardContractCreateBindModel,SIMCardContractEditBindModel,SIMCardContractEditModel,SIMCardContractModel<SIMCardContract>,SIMCardContractModel<SIMCardContractViewModel>>
     {
-        public override void FuncPreIndexView(ref List<SIMCardContractViewModel> model)
-        {
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardProvider,Currency" } };
-            model = new SIMCardContractModel<SIMCardContractViewModel>().Get(requestBody);
-        }
-        public override void FuncPreDetailsView(object id, ref List<SIMCardContractViewModel> items)
+        
+        public override void FuncPreDetailsView(object id, ref List<SIMCardContractDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "SIMCardContractId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "SIMCardProvider,Currency" } };
-            items = new SIMCardContractModel<SIMCardContractViewModel>().Get(requestBody);
+            var requestBody = new GenericDataFormat() { Filters = filters};
+            items = new SIMCardContractModel<SIMCardContractDetailsViewModel>().GetView<SIMCardContractDetailsViewModel>(requestBody).PageItems;
         }
         public override void FuncPreInitCreateView()
         {
@@ -62,16 +56,14 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreEdit(ref object id, ref SIMCardContractEditBindModel EditItem)
         {
             id = EditItem.SIMCardContractId;
-            EditItem.CreateUserId = User.UserId;
+            EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "SIMCardContracts.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "SIMCardContractId,CurrentCost,ContractDate,ExpiryDate", References = "SIMCardProvider,Currency" } };
+            string properties = string.Join(",", typeof(SIMCardContractView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar")));
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
 
     }

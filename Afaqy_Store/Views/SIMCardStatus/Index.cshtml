@@ -1,11 +1,9 @@
-﻿@model IEnumerable<Afaqy_Store.DataLayer.SIMCardStatus>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
 @{
-    ViewBag.Title = Resources.Store.SIMCardStatusTitle;
+    ViewBag.Title = Resources.ServerManagement.SIMCardStatusTitle;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -14,7 +12,7 @@
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-header ">
-                <span class="widget-caption">@Resources.Store.SIMCardStatus</span>
+                <span class="widget-caption">@Resources.ServerManagement.SIMCardStatus</span>
                 <div class="widget-buttons">
                     <a href="javascript:void(0);" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -96,20 +94,20 @@
                             </ul>
                         </div>
                     </div>
-                    </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                </div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
     <script>
 
         var gridColumnDefs = [
-            { field: 'SIMCardStatusName_en', name: '@Resources.Store.SIMCardStatusNameEn' },
-            { field: 'SIMCardStatusName_ar', name: '@Resources.Store.SIMCardStatusNameAr' },
+            { field: 'SIMCardStatusName_en', name: '@Resources.ServerManagement.SIMCardStatusNameEn' },
+            { field: 'SIMCardStatusName_ar', name: '@Resources.ServerManagement.SIMCardStatusNameAr' },
+            { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.SIMCardStatusId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
@@ -119,9 +117,9 @@
             }
         ];
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
     </script>
 }

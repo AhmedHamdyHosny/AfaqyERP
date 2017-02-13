@@ -19,36 +19,8 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class SIMCardContractViewModel : SIMCardContract
+    public class SIMCardContractViewModel : SIMCardContractView
     {
-        private UserViewModel _createUser = null;
-        private UserViewModel _modifyUser = null;
-        public UserViewModel CreateUser
-        {
-            get
-            {
-                if (_createUser == null)
-                {
-                    new UserModel<UserViewModel>().Get_Create_Modify_User(this.CreateUserId, this.ModifyUserId, ref this._createUser, ref this._modifyUser);
-                }
-                return _createUser;
-            }
-            set
-            {
-                _createUser = value;
-            }
-        }
-        public UserViewModel ModifyUser
-        {
-            get
-            {
-                return _modifyUser;
-            }
-            set
-            {
-                _modifyUser = value;
-            }
-        }
         public string Block
         {
             get
@@ -71,10 +43,15 @@ namespace Afaqy_Store.Models
                 return this.ExpiryDate != null ? ((DateTime)this.ExpiryDate).ToString(Classes.Common.Constant.DateFormat) : "";
             }
         }
-        internal void BindCreate_Modify_User()
-        {
-            var tempUser = this.CreateUser;
-        }
+    }
+
+    public class SIMCardContractIndexViewModel : SIMCardContractViewModel
+    {
+
+    }
+
+    public class SIMCardContractDetailsViewModel : SIMCardContractViewModel
+    {
 
     }
 

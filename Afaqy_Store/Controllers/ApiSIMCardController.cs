@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Afaqy_Store.DataLayer;
-using GenericApiController.Utilities;
 
 namespace Afaqy_Store.Controllers
 {
@@ -28,7 +27,7 @@ namespace Afaqy_Store.Controllers
             return controller.GetView(data);
         }
 
-        public override IHttpActionResult Export(GenericDataFormat data)
+        public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
         {
             var controller = new ApiSIMCardViewController();
             controller.Request = new HttpRequestMessage();

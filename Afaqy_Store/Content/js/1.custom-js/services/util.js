@@ -199,7 +199,6 @@ function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, ui
                     NextPage = $scope.pagination.pageNumber;
                 }
                 var NextPageSize = $scope.pagination.pageSize;
-                console.log(NextPageSize);
                 gridOptions.Paging = { PageNumber: NextPage, PageSize: NextPageSize };
                 var url = getViewActionUrl; //+ '/' + NextPage + '/' + NextPageSize;
                 global.post(url, gridOptions, function (resp) {

@@ -1,4 +1,4 @@
-﻿@model Afaqy_Store.DataLayer.DeviceModelType
+﻿@model Afaqy_Store.Models.DeviceModelTypeDetailsViewModel
 
 @{
     ViewBag.Title = Resources.Store.DeviceModelTypeDetails;
@@ -20,6 +20,46 @@
 
             <dd>
                 @Html.DisplayFor(model => model.ModelTypeName)
+            </dd>
+
+            <dt>
+                @Resources.Resource.IsBlock
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Block)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyDate)
             </dd>
         </dl>
     </div>

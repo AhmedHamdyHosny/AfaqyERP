@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Afaqy_Store.DataLayer.DeviceStatus>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
@@ -96,21 +94,20 @@
                             </ul>
                         </div>
                     </div>
-                    
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
     <script>
 
         var gridColumnDefs = [
             { field: 'DeviceStatus_en', name: '@Resources.Store.DeviceStatusNameEn' },
             { field: 'DeviceStatus_ar', name: '@Resources.Store.DeviceStatusNameAr' },
+            { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceStatusId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
@@ -120,9 +117,9 @@
             }
         ];
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
     </script>
 }

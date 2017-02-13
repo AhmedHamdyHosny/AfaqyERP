@@ -1,4 +1,4 @@
-﻿@model Afaqy_Store.Models.DeviceViewModel
+﻿@model Afaqy_Store.Models.DeviceDetailsViewModel
 
 @{
     ViewBag.Title = Resources.Store.DeviceDetails;
@@ -40,20 +40,20 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.DeviceModelType.ModelTypeName)
+                @Html.DisplayFor(model => model.ModelTypeName)
             </dd>
             <dt>
                 @Resources.Store.DeviceStatus
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.DeviceStatus.DeviceStatus_en)
+                @Html.DisplayFor(model => model.DeviceStatus_en)
             </dd>
             <dt>
                 @Resources.Resource.CreateUserFullNameEn
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+                @Html.DisplayFor(model => model.CreateUser_FullName_en)
             </dd>
 
             <dt>
@@ -69,7 +69,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+                @Html.DisplayFor(model => model.ModifyUser_FullName_en)
             </dd>
 
             <dt>

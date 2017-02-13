@@ -12,35 +12,37 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class DeviceView
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Device()
-        {
-            this.DeviceServer = new HashSet<DeviceServer>();
-            this.DeviceSIM = new HashSet<DeviceSIM>();
-        }
-    
         public int DeviceId { get; set; }
         public string SerialNumber { get; set; }
         public string IMEI { get; set; }
         public int ModelTypeId { get; set; }
+        public string ModelTypeName { get; set; }
         public int DeviceStatusId { get; set; }
+        public string DeviceStatus_en { get; set; }
+        public string DeviceStatus_ar { get; set; }
         public string Firmware { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public string BranchName_en { get; set; }
+        public string BranchName_ar { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
+        public string CreateUser_FirstName_en { get; set; }
+        public string CreateUser_FirstName_ar { get; set; }
+        public string CreateUser_LastName_en { get; set; }
+        public string CreateUser_LastName_ar { get; set; }
+        public string CreateUser_FullName_en { get; set; }
+        public string CreateUser_FullName_ar { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
+        public string ModifyUser_FirstName_en { get; set; }
+        public string ModifyUser_FirstName_ar { get; set; }
+        public string ModifyUser_LastName_en { get; set; }
+        public string ModifyUser_LastName_ar { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-    
-        public virtual Branch Branch { get; set; }
-        public virtual DeviceStatus DeviceStatus { get; set; }
-        public virtual DeviceModelType DeviceModelType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceServer> DeviceServer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }
+        public string ModifyUser_FullName_en { get; set; }
+        public string ModifyUser_FullName_ar { get; set; }
     }
 }

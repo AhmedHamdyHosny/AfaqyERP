@@ -37,10 +37,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.EditItem.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
                 @Html.CustomDropdownListFor(m => m.EditItem.ModelTypeId, Model.ModelType, null, Resources.Resource.SelectItem , htmlAttributes : new { @class = "form-control" ,@name = "ModelTypeId",@id = "ModelTypeId"}) 
-                @*@Html.DropDownListFor(model => model.EditItem.ModelTypeId, Model.ModelType, htmlAttributes: new { @class = "form-control" })*@ @*name = "ModelTypeId", id = "ModelTypeId"*@
                 @Html.ValidationMessageFor(model => model.EditItem.ModelTypeId, "", new { @class = "text-danger" })
             </div>
             <div>
+                @Html.HiddenFor(model => model.EditItem.BranchId)
                 @Html.HiddenFor(model=>model.EditItem.DeviceStatusId)
                 @Html.HiddenFor(model => model.EditItem.CreateUserId)
                 @Html.HiddenFor(model => model.EditItem.CreateDate)

@@ -10,5 +10,25 @@ namespace Afaqy_Store.Controllers
 {
     public class ApiSIMCardContractController : BaseApiController<SIMCardContract>
     {
+        public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
+        {
+            var controller = new ApiSIMCardContractViewController();
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            return controller.GetView(data);
+        }
+
+        public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
+        {
+            var controller = new ApiSIMCardContractViewController();
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            return controller.Export(data);
+        }
+    }
+
+    public class ApiSIMCardContractViewController : BaseApiController<SIMCardContractView>
+    {
+
     }
 }

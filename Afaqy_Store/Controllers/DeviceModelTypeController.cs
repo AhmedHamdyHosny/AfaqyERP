@@ -9,15 +9,8 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceModelTypeController : BaseController<DeviceModelType, DeviceModelType, DeviceModelType, DeviceModelType, DeviceModelTypeCreateBindModel, DeviceModelTypeEditBindModel, DeviceModelTypeEditModel, DeviceModelTypeModel<DeviceModelType>, DeviceModelTypeModel<DeviceModelType>>
+    public class DeviceModelTypeController : BaseController<DeviceModelType, DeviceModelTypeViewModel, DeviceModelTypeIndexViewModel, DeviceModelTypeDetailsViewModel, DeviceModelTypeCreateBindModel, DeviceModelTypeEditBindModel, DeviceModelTypeEditModel, DeviceModelTypeModel<DeviceModelType>, DeviceModelTypeModel<DeviceModelTypeViewModel>>
     {
-        public DeviceModelTypeController()
-        {
-            #region Details
-            
-            #endregion
-        }
-
         #region Unused Actions
         [NonAction]
         public override bool DeleteConfirmed(object id)
@@ -46,16 +39,44 @@ namespace Afaqy_Store.Controllers
         }
         #endregion
 
-        public override void FuncPreDetailsView(object id, ref List<DeviceModelType> items)
+        public override void FuncPreDetailsView(object id, ref List<DeviceModelTypeDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "ModelTypeId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters };
-            items = new DeviceModelTypeModel<DeviceModelType>().Get(requestBody);
+            items = new DeviceModelTypeModel<DeviceModelTypeDetailsViewModel>().Get(requestBody);
+        }
+
+        public override void FuncPreCreate(ref DeviceModelTypeCreateBindModel model)
+        {
+            model.CreateUserId = User.UserId;
+            model.CreateDate = DateTime.Now;
+        }
+
+        public override void FuncPreInitEditView(object id, ref DeviceModelType EditItem, ref DeviceModelTypeEditModel model)
+        {
+            if (EditItem == null)
+            {
+                //get the item by id
+                EditItem = new DeviceModelTypeModel<DeviceModelType>().Get(id);
+            }
+            if (EditItem != null)
+            {
+                model = new DeviceModelTypeEditModel();
+                model.EditItem = EditItem;
+            }
+        }
+        public override void FuncPreEdit(ref object id, ref DeviceModelTypeEditBindModel EditItem)
+        {
+            id = EditItem.ModelTypeId;
+            EditItem.ModifyUserId = User.UserId;
+            EditItem.ModifyDate = DateTime.Now;
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "DeviceModelType.xlsx";
+            string properties = "ModelTypeId,ModelTypeName,IsBlock";
+            ExportRequestBody = new GenericDataFormat() {Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

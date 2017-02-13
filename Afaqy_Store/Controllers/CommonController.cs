@@ -18,5 +18,10 @@ namespace Afaqy_Store.Controllers
         {
             return PartialView();
         }
+
+        public PartialViewResult Partial_Grid()
+        {
+            return PartialView();
+        }
     }
 }

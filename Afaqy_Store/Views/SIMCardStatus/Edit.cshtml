@@ -1,13 +1,13 @@
 ﻿@model Afaqy_Store.Models.SIMCardStatusEditModel
-
+@using BeyondThemes.Bootstrap;
 @{
-    ViewBag.Title = Resources.Store.SIMCardStatusEdit;
+    ViewBag.Title = Resources.ServerManagement.SIMCardStatusEdit;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Store.SIMCardStatusEdit</h2>
+    <h2 class="modal-title">@Resources.ServerManagement.SIMCardStatusEdit</h2>
 </div>
 
 
@@ -19,14 +19,21 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => Model.EditItem.SIMCardStatusId)
             <div class="form-group">
-               @Html.LabelFor(model => Model.EditItem.SIMCardStatusName_en,Resources.Store.SIMCardStatusNameEn, htmlAttributes: new { @class = "text-info" })
+               @Html.LabelFor(model => Model.EditItem.SIMCardStatusName_en,Resources.ServerManagement.SIMCardStatusNameEn, htmlAttributes: new { @class = "text-info" })
                 @Html.EditorFor(model => Model.EditItem.SIMCardStatusName_en, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => Model.EditItem.SIMCardStatusName_en, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.SIMCardStatusName_ar,Resources.Store.SIMCardStatusNameAr, htmlAttributes: new { @class = "text-info" })
+                @Html.LabelFor(model => model.EditItem.SIMCardStatusName_ar,Resources.ServerManagement.SIMCardStatusNameAr, htmlAttributes: new { @class = "text-info" })
                 @Html.EditorFor(model => model.EditItem.SIMCardStatusName_ar, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EditItem.SIMCardStatusName_ar, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
+            </div>
+            <div>
+                @Html.HiddenFor(model => model.EditItem.CreateUserId)
+                @Html.HiddenFor(model => model.EditItem.CreateDate)
             </div>
             
         </div>

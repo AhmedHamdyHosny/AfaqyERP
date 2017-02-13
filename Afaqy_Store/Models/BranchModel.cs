@@ -20,7 +20,6 @@ namespace Afaqy_Store.Models
 
     public class BranchViewModel : Branch
     {
-
         private UserViewModel _createUser = null;
         private UserViewModel _modifyUser = null;
         public UserViewModel CreateUser
@@ -60,7 +59,15 @@ namespace Afaqy_Store.Models
         {
             var tempUser = this.CreateUser;
         }
+    }
 
+    public class BranchIndexViewModel : Branch
+    {
+
+    }
+
+    public class BranchDetailsViewModel : BranchViewModel
+    {
 
     }
 

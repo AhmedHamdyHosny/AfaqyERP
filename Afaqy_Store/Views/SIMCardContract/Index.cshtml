@@ -1,16 +1,12 @@
-﻿@model IEnumerable<Afaqy_Store.Models.SIMCardContractViewModel>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
-
 @{
     ViewBag.Title = Resources.Adminstration.SIMCardContract;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
 <br />
-
 <div class="row" ng-controller="SIMCardContractCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -102,25 +98,21 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-
-    @*<script src="~/Content/js/1.custom-js/controllers/admin.js"></script>
-    <script src="~/Content/js/1.custom-js/controllers/store.js"></script>*@ 
-
     <script>
-
         var gridColumnDefs = [
-            { field: 'SIMCardProvider.ProviderName_en', name: '@Resources.Adminstration.SIMCardContractProvider' },
+            { field: 'ProviderName_en', name: '@Resources.Adminstration.SIMCardContractProvider' },
             { field: 'ContractNo', name: '@Resources.Adminstration.SIMCardContractNo' },
             { field: 'CurrentCost', name: '@Resources.Adminstration.CurrentCost' },
             { field: 'ContractDate_Format', name: '@Resources.Adminstration.ContractDate' },
             { field: 'ExpiryDate_Format', name: '@Resources.Adminstration.ExpiryDate' },
+            { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.SIMCardContractId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
@@ -137,11 +129,11 @@
             bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
         };
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
-        var deleteActionUrl = '@Url.Action("HideGroup")';
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
     </script>
 }

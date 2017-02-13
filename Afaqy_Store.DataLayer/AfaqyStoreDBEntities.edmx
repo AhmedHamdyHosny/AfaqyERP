@@ -156,6 +156,7 @@
           <Property Name="DeviceStatusId" Type="int" Nullable="false" />
           <Property Name="Firmware" Type="varchar" MaxLength="15" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -223,8 +224,9 @@
           </Key>
           <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeviceId" Type="int" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="DeviceStatusId" Type="int" Nullable="false" />
           <Property Name="BranchId" Type="int" />
+          <Property Name="Note" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -467,6 +469,96 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AfaqyStore.afqy.DeviceView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DeviceView">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="ModelTypeId" />
+            <PropertyRef Name="ModelTypeName" />
+            <PropertyRef Name="DeviceStatusId" />
+            <PropertyRef Name="DeviceStatus_en" />
+            <PropertyRef Name="BranchName_en" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="DeviceId" Type="int" Nullable="false" />
+          <Property Name="SerialNumber" Type="varchar" MaxLength="20" />
+          <Property Name="IMEI" Type="varchar" MaxLength="20" />
+          <Property Name="ModelTypeId" Type="int" Nullable="false" />
+          <Property Name="ModelTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DeviceStatusId" Type="int" Nullable="false" />
+          <Property Name="DeviceStatus_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceStatus_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="Firmware" Type="varchar" MaxLength="15" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="BranchName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BranchName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="CreateUser_FullName_ar" Type="nvarchar" MaxLength="41" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="ModifyUser_FullName_ar" Type="nvarchar" MaxLength="41" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AfaqyStore.afqy.SIMCardContractView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SIMCardContractView">
+          <Key>
+            <PropertyRef Name="SIMCardContractId" />
+            <PropertyRef Name="SIMCardProviderId" />
+            <PropertyRef Name="ProviderName_en" />
+            <PropertyRef Name="ContractNo" />
+            <PropertyRef Name="CurrentCost" />
+            <PropertyRef Name="CurrencyId" />
+            <PropertyRef Name="CurrencyName_en" />
+            <PropertyRef Name="CurrencyName_ar" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="SIMCardContractId" Type="int" Nullable="false" />
+          <Property Name="SIMCardProviderId" Type="int" Nullable="false" />
+          <Property Name="ProviderName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProviderName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ContractNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CurrentCost" Type="money" Nullable="false" />
+          <Property Name="CurrencyId" Type="int" Nullable="false" />
+          <Property Name="CurrencyName_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CurrencyName_ar" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ContractDate" Type="date" />
+          <Property Name="ExpiryDate" Type="date" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="CreateUser_FullName_ar" Type="nvarchar" MaxLength="41" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="ModifyUser_FullName_ar" Type="nvarchar" MaxLength="41" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -718,18 +810,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceStatusHistory_Device">
-          <End Role="Device" Type="Self.Device" Multiplicity="1" />
-          <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="DeviceId" />
-            </Principal>
-            <Dependent Role="DeviceStatusHistory">
-              <PropertyRef Name="DeviceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DeviceStatusHistory_DeviceStatus">
           <End Role="DeviceStatus" Type="Self.DeviceStatus" Multiplicity="1" />
           <End Role="DeviceStatusHistory" Type="Self.DeviceStatusHistory" Multiplicity="*" />
@@ -738,7 +818,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
               <PropertyRef Name="DeviceStatusId" />
             </Principal>
             <Dependent Role="DeviceStatusHistory">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="DeviceStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1039,6 +1119,72 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           <EntitySet Name="User" EntityType="Self.User" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeviceView" EntityType="Self.DeviceView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [DeviceView].[DeviceId] AS [DeviceId], 
+    [DeviceView].[SerialNumber] AS [SerialNumber], 
+    [DeviceView].[IMEI] AS [IMEI], 
+    [DeviceView].[ModelTypeId] AS [ModelTypeId], 
+    [DeviceView].[ModelTypeName] AS [ModelTypeName], 
+    [DeviceView].[DeviceStatusId] AS [DeviceStatusId], 
+    [DeviceView].[DeviceStatus_en] AS [DeviceStatus_en], 
+    [DeviceView].[DeviceStatus_ar] AS [DeviceStatus_ar], 
+    [DeviceView].[Firmware] AS [Firmware], 
+    [DeviceView].[BranchId] AS [BranchId], 
+    [DeviceView].[BranchName_en] AS [BranchName_en], 
+    [DeviceView].[BranchName_ar] AS [BranchName_ar], 
+    [DeviceView].[Note] AS [Note], 
+    [DeviceView].[IsBlock] AS [IsBlock], 
+    [DeviceView].[CreateUserId] AS [CreateUserId], 
+    [DeviceView].[CreateUser_FirstName_en] AS [CreateUser_FirstName_en], 
+    [DeviceView].[CreateUser_FirstName_ar] AS [CreateUser_FirstName_ar], 
+    [DeviceView].[CreateUser_LastName_en] AS [CreateUser_LastName_en], 
+    [DeviceView].[CreateUser_LastName_ar] AS [CreateUser_LastName_ar], 
+    [DeviceView].[CreateUser_FullName_en] AS [CreateUser_FullName_en], 
+    [DeviceView].[CreateUser_FullName_ar] AS [CreateUser_FullName_ar], 
+    [DeviceView].[CreateDate] AS [CreateDate], 
+    [DeviceView].[ModifyUserId] AS [ModifyUserId], 
+    [DeviceView].[ModifyUser_FirstName_en] AS [ModifyUser_FirstName_en], 
+    [DeviceView].[ModifyUser_FirstName_ar] AS [ModifyUser_FirstName_ar], 
+    [DeviceView].[ModifyUser_LastName_en] AS [ModifyUser_LastName_en], 
+    [DeviceView].[ModifyUser_LastName_ar] AS [ModifyUser_LastName_ar], 
+    [DeviceView].[ModifyDate] AS [ModifyDate], 
+    [DeviceView].[ModifyUser_FullName_en] AS [ModifyUser_FullName_en], 
+    [DeviceView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar]
+    FROM [afqy].[DeviceView] AS [DeviceView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SIMCardContractView" EntityType="Self.SIMCardContractView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [SIMCardContractView].[SIMCardContractId] AS [SIMCardContractId], 
+    [SIMCardContractView].[SIMCardProviderId] AS [SIMCardProviderId], 
+    [SIMCardContractView].[ProviderName_en] AS [ProviderName_en], 
+    [SIMCardContractView].[ProviderName_ar] AS [ProviderName_ar], 
+    [SIMCardContractView].[ContractNo] AS [ContractNo], 
+    [SIMCardContractView].[CurrentCost] AS [CurrentCost], 
+    [SIMCardContractView].[CurrencyId] AS [CurrencyId], 
+    [SIMCardContractView].[CurrencyName_en] AS [CurrencyName_en], 
+    [SIMCardContractView].[CurrencyName_ar] AS [CurrencyName_ar], 
+    [SIMCardContractView].[ContractDate] AS [ContractDate], 
+    [SIMCardContractView].[ExpiryDate] AS [ExpiryDate], 
+    [SIMCardContractView].[IsBlock] AS [IsBlock], 
+    [SIMCardContractView].[CreateUserId] AS [CreateUserId], 
+    [SIMCardContractView].[CreateUser_FirstName_en] AS [CreateUser_FirstName_en], 
+    [SIMCardContractView].[CreateUser_FirstName_ar] AS [CreateUser_FirstName_ar], 
+    [SIMCardContractView].[CreateUser_LastName_en] AS [CreateUser_LastName_en], 
+    [SIMCardContractView].[CreateUser_LastName_ar] AS [CreateUser_LastName_ar], 
+    [SIMCardContractView].[CreateUser_FullName_en] AS [CreateUser_FullName_en], 
+    [SIMCardContractView].[CreateUser_FullName_ar] AS [CreateUser_FullName_ar], 
+    [SIMCardContractView].[CreateDate] AS [CreateDate], 
+    [SIMCardContractView].[ModifyUserId] AS [ModifyUserId], 
+    [SIMCardContractView].[ModifyDate] AS [ModifyDate], 
+    [SIMCardContractView].[ModifyUser_FirstName_en] AS [ModifyUser_FirstName_en], 
+    [SIMCardContractView].[ModifyUser_FirstName_ar] AS [ModifyUser_FirstName_ar], 
+    [SIMCardContractView].[ModifyUser_LastName_en] AS [ModifyUser_LastName_en], 
+    [SIMCardContractView].[ModifyUser_LastName_ar] AS [ModifyUser_LastName_ar], 
+    [SIMCardContractView].[ModifyUser_FullName_en] AS [ModifyUser_FullName_en], 
+    [SIMCardContractView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar]
+    FROM [afqy].[SIMCardContractView] AS [SIMCardContractView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="SIMCardView" EntityType="Self.SIMCardView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
     [SIMCardView].[SIMCardId] AS [SIMCardId], 
@@ -1141,10 +1287,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           </AssociationSet>
           <AssociationSet Name="FK_DeviceStatusHistory_Branch" Association="Self.FK_DeviceStatusHistory_Branch">
             <End Role="Branch" EntitySet="Branch" />
-            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeviceStatusHistory_Device" Association="Self.FK_DeviceStatusHistory_Device">
-            <End Role="Device" EntitySet="Device" />
             <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
           </AssociationSet>
           <AssociationSet Name="FK_DeviceStatusHistory_DeviceStatus" Association="Self.FK_DeviceStatusHistory_DeviceStatus">
@@ -1277,6 +1419,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           <EntitySet Name="User" EntityType="Afaqy_Store.DataLayer.User" />
           <EntitySet Name="UserRole" EntityType="Afaqy_Store.DataLayer.UserRole" />
           <EntitySet Name="UserType" EntityType="Afaqy_Store.DataLayer.UserType" />
+          <EntitySet Name="DeviceView" EntityType="Afaqy_Store.DataLayer.DeviceView" />
           <EntitySet Name="SIMCardView" EntityType="Afaqy_Store.DataLayer.SIMCardView" />
           <AssociationSet Name="FK_Branch_Country" Association="Afaqy_Store.DataLayer.FK_Branch_Country">
             <End Role="Country" EntitySet="Country" />
@@ -1378,10 +1521,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
             <End Role="Device" EntitySet="Device" />
             <End Role="DeviceSIM" EntitySet="DeviceSIM" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeviceStatusHistory_Device" Association="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
-          </AssociationSet>
           <AssociationSet Name="FK_DeviceServer_SystemServerIP" Association="Afaqy_Store.DataLayer.FK_DeviceServer_SystemServerIP">
             <End Role="SystemServerIP" EntitySet="SystemServerIP" />
             <End Role="DeviceServer" EntitySet="DeviceServer" />
@@ -1442,6 +1581,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="SIMCardContractView" EntityType="Afaqy_Store.DataLayer.SIMCardContractView" />
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -1620,6 +1760,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
           <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1630,7 +1771,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           <NavigationProperty Name="DeviceModelType" Relationship="Afaqy_Store.DataLayer.FK_Device_ModelType" FromRole="Device" ToRole="DeviceModelType" />
           <NavigationProperty Name="DeviceServer" Relationship="Afaqy_Store.DataLayer.FK_DeviceServer_Device" FromRole="Device" ToRole="DeviceServer" />
           <NavigationProperty Name="DeviceSIM" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_Device" FromRole="Device" ToRole="DeviceSIM" />
-          <NavigationProperty Name="DeviceStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Device" FromRole="Device" ToRole="DeviceStatusHistory" />
         </EntityType>
         <EntityType Name="DeviceModelType">
           <Key>
@@ -1701,12 +1841,12 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           </Key>
           <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeviceId" Type="Int32" Nullable="false" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
           <Property Name="BranchId" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Branch" FromRole="DeviceStatusHistory" ToRole="Branch" />
-          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_Device" FromRole="DeviceStatusHistory" ToRole="Device" />
           <NavigationProperty Name="DeviceStatus" Relationship="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_DeviceStatus" FromRole="DeviceStatusHistory" ToRole="DeviceStatus" />
         </EntityType>
         <EntityType Name="Employee">
@@ -1987,6 +2127,49 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="DeviceView">
+          <Key>
+            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="ModelTypeId" />
+            <PropertyRef Name="ModelTypeName" />
+            <PropertyRef Name="DeviceStatusId" />
+            <PropertyRef Name="DeviceStatus_en" />
+            <PropertyRef Name="BranchName_en" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="DeviceId" Type="Int32" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModelTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ModelTypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceStatusId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SIMCardView">
           <Key>
@@ -2332,18 +2515,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeviceStatusHistory_Device">
-          <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.DeviceStatusHistory" Role="DeviceStatusHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="DeviceId" />
-            </Principal>
-            <Dependent Role="DeviceStatusHistory">
-              <PropertyRef Name="DeviceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DeviceServer_SystemServerIP">
           <End Type="Afaqy_Store.DataLayer.SystemServerIP" Role="SystemServerIP" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.DeviceServer" Role="DeviceServer" Multiplicity="*" />
@@ -2376,7 +2547,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
               <PropertyRef Name="DeviceStatusId" />
             </Principal>
             <Dependent Role="DeviceStatusHistory">
-              <PropertyRef Name="StatusId" />
+              <PropertyRef Name="DeviceStatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2524,6 +2695,49 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SIMCardContractView">
+          <Key>
+            <PropertyRef Name="SIMCardContractId" />
+            <PropertyRef Name="SIMCardProviderId" />
+            <PropertyRef Name="ProviderName_en" />
+            <PropertyRef Name="ContractNo" />
+            <PropertyRef Name="CurrentCost" />
+            <PropertyRef Name="CurrencyId" />
+            <PropertyRef Name="CurrencyName_en" />
+            <PropertyRef Name="CurrencyName_ar" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="SIMCardContractId" Type="Int32" Nullable="false" />
+          <Property Name="SIMCardProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProviderName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ContractNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CurrencyName_ar" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ContractDate" Type="DateTime" Precision="0" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2688,6 +2902,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="Firmware" ColumnName="Firmware" />
                 <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
@@ -2762,8 +2977,9 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
               <MappingFragment StoreEntitySet="DeviceStatusHistory">
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
                 <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
                 <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
               </MappingFragment>
@@ -3025,6 +3241,42 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DeviceView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceView">
+              <MappingFragment StoreEntitySet="DeviceView">
+                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
+                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
+                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
+                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
+                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
+                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
+                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
+                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
+                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
+                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="BranchName_ar" ColumnName="BranchName_ar" />
+                <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+                <ScalarProperty Name="DeviceStatus_ar" ColumnName="DeviceStatus_ar" />
+                <ScalarProperty Name="DeviceStatus_en" ColumnName="DeviceStatus_en" />
+                <ScalarProperty Name="DeviceStatusId" ColumnName="DeviceStatusId" />
+                <ScalarProperty Name="ModelTypeName" ColumnName="ModelTypeName" />
+                <ScalarProperty Name="ModelTypeId" ColumnName="ModelTypeId" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="SIMCardView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardView">
               <MappingFragment StoreEntitySet="SIMCardView">
@@ -3060,6 +3312,40 @@ warning 6002: The table/view 'AfaqyStore.afqy.SIMCardView' does not have a prima
                 <ScalarProperty Name="BranchName_ar" ColumnName="BranchName_ar" />
                 <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
                 <ScalarProperty Name="SIMCardId" ColumnName="SIMCardId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIMCardContractView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.SIMCardContractView">
+              <MappingFragment StoreEntitySet="SIMCardContractView">
+                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
+                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
+                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
+                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
+                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
+                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
+                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
+                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
+                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
+                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
+                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="CurrencyName_ar" ColumnName="CurrencyName_ar" />
+                <ScalarProperty Name="CurrencyName_en" ColumnName="CurrencyName_en" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="CurrentCost" ColumnName="CurrentCost" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="ProviderName_ar" ColumnName="ProviderName_ar" />
+                <ScalarProperty Name="ProviderName_en" ColumnName="ProviderName_en" />
+                <ScalarProperty Name="SIMCardProviderId" ColumnName="SIMCardProviderId" />
+                <ScalarProperty Name="SIMCardContractId" ColumnName="SIMCardContractId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

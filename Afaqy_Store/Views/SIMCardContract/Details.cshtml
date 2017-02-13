@@ -1,5 +1,4 @@
-﻿@model Afaqy_Store.Models.SIMCardContractViewModel
-
+﻿@model Afaqy_Store.Models.SIMCardContractDetailsViewModel
 @{
     ViewBag.Title = Resources.Adminstration.SIMCardContractDetails;
     Layout = "~/Views/Shared/_Popup.cshtml";
@@ -25,7 +24,7 @@
                @Resources.Adminstration.SIMCardProvider
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.SIMCardProvider.ProviderName_en)
+                @Html.DisplayFor(model => model.ProviderName_en)
             </dd>
             <dt>
                 @Resources.Adminstration.SIMCardContractNo
@@ -46,7 +45,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Currency.CurrencyName_en)
+                @Html.DisplayFor(model => model.CurrencyName_en)
             </dd>
             <dt>
                 @Resources.Adminstration.ContractDate
@@ -63,11 +62,18 @@
                 @Html.DisplayFor(model => model.ExpiryDate)
             </dd>
             <dt>
+                @Resources.Resource.IsBlock
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Block)
+            </dd>
+            <dt>
                 @Resources.Resource.CreateUserFullNameEn
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.CreateUser.FullName_En)
+                @Html.DisplayFor(model => model.CreateUser_FullName_en)
             </dd>
 
             <dt>
@@ -83,7 +89,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ModifyUser.FullName_En)
+                @Html.DisplayFor(model => model.ModifyUser_FullName_en)
             </dd>
 
             <dt>

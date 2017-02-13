@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceStatusController : BaseController<DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatus, DeviceStatusEditBindModel, DeviceStatusEditModel, DeviceStatusModel<DeviceStatus>, DeviceStatusModel<DeviceStatus>>
+    public class DeviceStatusController : BaseController<DeviceStatus, DeviceStatusViewModel, DeviceStatusIndexViewModel, DeviceStatusDetailsViewModel, DeviceStatus, DeviceStatusEditBindModel, DeviceStatusEditModel, DeviceStatusModel<DeviceStatus>, DeviceStatusModel<DeviceStatusViewModel>>
     {
         #region Unused Actions
         [NonAction]
@@ -44,16 +44,37 @@ namespace Afaqy_Store.Controllers
         }
         #endregion
 
-        public override void FuncPreDetailsView(object id, ref List<DeviceStatus> items)
+        public override void FuncPreDetailsView(object id, ref List<DeviceStatusDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeviceStatusId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters };
-            items = new DeviceStatusModel<DeviceStatus>().Get(requestBody);
+            items = new DeviceStatusModel<DeviceStatusDetailsViewModel>().Get(requestBody);
+        }
+        public override void FuncPreInitEditView(object id, ref DeviceStatus EditItem, ref DeviceStatusEditModel model)
+        {
+            if (EditItem == null)
+            {
+                //get the item by id
+                EditItem = new DeviceStatusModel<DeviceStatus>().Get(id);
+            }
+            if (EditItem != null)
+            {
+                model = new DeviceStatusEditModel();
+                model.EditItem = EditItem;
+            }
+        }
+        public override void FuncPreEdit(ref object id, ref DeviceStatusEditBindModel EditItem)
+        {
+            id = EditItem.DeviceStatusId;
+            EditItem.ModifyUserId = User.UserId;
+            EditItem.ModifyDate = DateTime.Now;
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "DeviceStatus.xlsx";
+            string properties = "DeviceStatusId,DeviceStatus_en,DeviceStatus_ar,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

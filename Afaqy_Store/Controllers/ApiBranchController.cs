@@ -13,29 +13,6 @@ namespace Afaqy_Store.Controllers
         public ApiBranchController()
         {
         }
-
-        [NonAction]
-        public override IHttpActionResult Delete(int id)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override IHttpActionResult Delete(int[] ids)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override IHttpActionResult Deactive(int id)
-        {
-            return null;
-        }
-
-        [NonAction]
-        public override IHttpActionResult Deactive(int[] ids)
-        {
-            return null;
-        }
+        
     }
 }

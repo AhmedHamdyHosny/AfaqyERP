@@ -1,5 +1,5 @@
 ﻿@model Afaqy_Store.Models.SIMCardContractEditModel
-
+@using BeyondThemes.Bootstrap;
 @{
     ViewBag.Title = Resources.Adminstration.SIMCardContractEdit;
     Layout = "~/Views/Shared/_Popup.cshtml";
@@ -18,35 +18,52 @@
         <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => Model.EditItem.SIMCardContractId)
-            <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.SIMCardProviderId, Resources.Adminstration.SIMCardProvider, htmlAttributes: new { @class = "text-info" })
-                @Html.DropDownListFor(model => model.EditItem.SIMCardProviderId, Model.SIMCardProvider, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EditItem.SIMCardProviderId, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.SIMCardProviderId, Resources.Adminstration.SIMCardProvider, htmlAttributes: new { @class = "text-info" })
+                    @Html.DropDownListFor(model => model.EditItem.SIMCardProviderId, Model.SIMCardProvider, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EditItem.SIMCardProviderId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.ContractNo, Resources.Adminstration.SIMCardContractNo, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.EditItem.ContractNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EditItem.ContractNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => Model.EditItem.CurrentCost, Resources.Adminstration.CurrentCost, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => Model.EditItem.CurrentCost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => Model.EditItem.CurrentCost, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.CurrencyId, Resources.Resource.Currency, htmlAttributes: new { @class = "text-info" })
+                    @Html.DropDownListFor(model => model.EditItem.CurrencyId, Model.Currency, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EditItem.CurrencyId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => Model.EditItem.ContractDate, Resources.Adminstration.ContractDate, htmlAttributes: new { @class = "text-info" })
+                    <span class="input-icon icon-right">
+                        <input name="EditItem.ContractDate" class="form-control date-picker" id="EditItem.ContractDate" type="text" data-date-format="dd/mm/yyyy" value="@(Model.EditItem.ContractDate != null ? ((DateTime)Model.EditItem.ContractDate).ToString(Classes.Common.Constant.DateFormat) : "" )">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => Model.EditItem.ContractDate, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => Model.EditItem.ExpiryDate, Resources.Adminstration.ExpiryDate, htmlAttributes: new { @class = "text-info" })
+                    <span class="input-icon icon-right">
+                        <input name="EditItem.ExpiryDate" class="form-control date-picker" id="EditItem.ExpiryDate" type="text" data-date-format="dd/mm/yyyy" value="@(Model.EditItem.ExpiryDate != null ? ((DateTime)Model.EditItem.ExpiryDate).ToString(Classes.Common.Constant.DateFormat) : "" )">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    @Html.ValidationMessageFor(model => Model.EditItem.ExpiryDate, "", new { @class = "text-danger" })
+                </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.ContractNo, Resources.Adminstration.SIMCardContractNo, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => model.EditItem.ContractNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EditItem.ContractNo, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-               @Html.LabelFor(model => Model.EditItem.CurrentCost,Resources.Adminstration.CurrentCost, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => Model.EditItem.CurrentCost, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.EditItem.CurrentCost, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.CurrencyId, Resources.Resource.Currency, htmlAttributes: new { @class = "text-info" })
-                @Html.DropDownListFor(model => model.EditItem.CurrencyId, Model.Currency, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EditItem.CurrencyId, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => Model.EditItem.ContractDate, Resources.Adminstration.ContractDate, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => Model.EditItem.ContractDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.EditItem.ContractDate, "", new { @class = "text-danger" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => Model.EditItem.ExpiryDate, Resources.Adminstration.ExpiryDate, htmlAttributes: new { @class = "text-info" })
-                @Html.EditorFor(model => Model.EditItem.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.EditItem.ExpiryDate, "", new { @class = "text-danger" })
+                @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
             </div>
             <div>
                 @Html.HiddenFor(model => model.EditItem.CreateUserId)
@@ -60,5 +77,18 @@
         <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
         <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
     </div>
+}
+
+
+@section scripts {
+    <!--Bootstrap Date Picker-->
+    <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //--Bootstrap Date Picker--
+            $('.date-picker').datepicker();
+        });
+    </script>
 }
 

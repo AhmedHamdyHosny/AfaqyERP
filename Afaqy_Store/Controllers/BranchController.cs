@@ -11,33 +11,35 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BranchController : BaseController<Branch,BranchViewModel, BranchViewModel, BranchViewModel, BranchCreateBindModel,BranchEditBindModel,BranchEditModel,BranchModel<Branch>,BranchModel<BranchViewModel>>
+    public class BranchController : BaseController<Branch,BranchViewModel, BranchIndexViewModel, BranchDetailsViewModel, BranchCreateBindModel,BranchEditBindModel,BranchEditModel,BranchModel<Branch>,BranchModel<BranchViewModel>>
     {
-        public override bool DeactiveGroupConfirmed(object[] ids)
-        {
-            var instance = new BranchModel<Branch>();
-            instance.Deactive(ids);
-            TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Deactive };
-            return true;
-        }
+        //public override bool DeactiveGroupConfirmed(object[] ids)
+        //{
+        //    var instance = new BranchModel<Branch>();
+        //    instance.Deactive(ids);
+        //    TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Deactive };
+        //    return true;
+        //}
 
-        public override void FuncPreIndexView(ref List<BranchViewModel> model)
+        public override void FuncPreIndexView(ref List<BranchIndexViewModel> model)
         {
             var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
-            model = new BranchModel<BranchViewModel>().Get(requestBody);
+            model = new BranchModel<BranchIndexViewModel>().Get(requestBody);
         }
-        public override void FuncPreDetailsView(object id, ref List<BranchViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<BranchDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
-            items = new BranchModel<BranchViewModel>().Get(requestBody);
+            items = new BranchModel<BranchDetailsViewModel>().Get(requestBody);
         }
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
-            List<Country> lst = new CountryModel<Country>().GetAsDDLst("CountryId,CountryName_en", "CountryName_en");
-            ViewBag.ModelTypeId = lst.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CountryName_en, Value = x.CountryId.ToString() });
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            List<Country> lst = new CountryModel<Country>().GetAsDDLst("CountryId,CountryName_en", "CountryName_en", filters);
+            ViewBag.CountryId = lst.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CountryName_en, Value = x.CountryId.ToString() });
         }
         public override void FuncPreCreate(ref BranchCreateBindModel model)
         {
@@ -70,10 +72,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "Branches.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "Active", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "BranchId,BranchName_en,BranchName_ar", References = "Coutry" } };
+            string properties = "BranchId,BranchName_en,BranchName_ar,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties } };
         }
     }
 }
