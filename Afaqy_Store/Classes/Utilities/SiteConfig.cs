@@ -33,5 +33,71 @@ namespace Classes.Utilities
                 return System.Configuration.ConfigurationManager.AppSettings["ImportFilesPath"];
             }
         }
+
+        public static class AfaqyIn
+        {
+            public static string Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.In_Urls"];
+                }
+            }
+        }
+
+        public static class AfaqyNet
+        {
+            public static string Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_Urls"];
+                }
+            }
+        }
+
+        public static class AfaqyInfo
+        {
+            public static string Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Info_Url"];
+                }
+            }
+            public static string UserName
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Info_UserName"];
+                }
+            }
+            public static string Password
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Info_Password"];
+                }
+            }
+        }
+
+        public static class AfaqyMe
+        {
+            public static string Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.me_Url"];
+                }
+            }
+            public static string Token
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.me_Token"];
+                }
+            }
+           
+        }
     }
 }

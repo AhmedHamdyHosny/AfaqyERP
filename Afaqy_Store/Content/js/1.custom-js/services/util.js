@@ -202,8 +202,10 @@ function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, ui
                 gridOptions.Paging = { PageNumber: NextPage, PageSize: NextPageSize };
                 var url = getViewActionUrl; //+ '/' + NextPage + '/' + NextPageSize;
                 global.post(url, gridOptions, function (resp) {
+                    //console.log(JSON.stringify("hi--------------:"+resp.data));
                     $scope.pagination.totalItems = resp.data.TotalItemsCount;
                     $scope.gridOptions.data = resp.data.PageItems;
+                    //console.log(JSON.stringify(resp.data.PageItems));
                     $scope.gridOptions.selectedItems = [];
                 }, function (resp) {
                     console.log("Error: " + error);
@@ -276,7 +278,6 @@ function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, ui
         }
     }
 
-    
 }
 
 function ctrlService() {

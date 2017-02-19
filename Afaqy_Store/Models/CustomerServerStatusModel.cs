@@ -65,7 +65,7 @@ namespace Afaqy_Store.Models
 
     }
 
-    public class CustomerServerStatusIndexViewModel : CustomerServerStatusViewModel
+    public class CustomerServerStatusIndexViewModel : CustomerServerStatus
     {
     }
 

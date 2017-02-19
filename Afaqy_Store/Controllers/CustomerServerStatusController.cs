@@ -9,12 +9,8 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class CustomerServerStatusController : BaseController<CustomerServerStatus, CustomerServerStatusViewModel, CustomerServerStatusIndexViewModel, CustomerServerStatusDetailsViewModel, CustomerServerStatusCreateBindModel, CustomerServerStatusEditBindModel, CustomerServerStatusEditModel, CustomerServerStatusModel<CustomerServerStatus>, CustomerServerStatusModel<CustomerServerStatusViewModel>>
+    public class CustomerServerStatusController : BaseController<CustomerServerStatus, CustomerServerStatusViewModel, CustomerServerStatusIndexViewModel, CustomerServerStatusDetailsViewModel, CustomerServerStatusCreateBindModel, CustomerServerStatusEditBindModel, CustomerServerStatusEditModel, CustomerServerStatus, CustomerServerStatusModel<CustomerServerStatus>, CustomerServerStatusModel<CustomerServerStatusViewModel>>
     {
-        public override void FuncPreIndexView(ref List<CustomerServerStatusIndexViewModel> model)
-        {
-            model = new CustomerServerStatusModel<CustomerServerStatusIndexViewModel>().Get();
-        }
         public override void FuncPreDetailsView(object id, ref List<CustomerServerStatusDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
@@ -49,10 +45,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "CustomerServerStatus.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "CustomerServerStatusId,CustomerServerStatus_en,CustomerServerStatus_ar" } };
+            string properties = "CustomerServerStatusId,CustomerServerStatus_en,CustomerServerStatus_ar,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

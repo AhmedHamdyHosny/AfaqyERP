@@ -249,4 +249,13 @@
   <data name="SIMCardAltGSM" xml:space="preserve">
     <value>Alt GSM</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="CustomerEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Customer Name</value>
+  </data>
 </root>

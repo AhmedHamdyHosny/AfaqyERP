@@ -11,7 +11,7 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardContractController : BaseController<SIMCardContract,SIMCardContractViewModel, SIMCardContractIndexViewModel, SIMCardContractDetailsViewModel, SIMCardContractCreateBindModel,SIMCardContractEditBindModel,SIMCardContractEditModel,SIMCardContractModel<SIMCardContract>,SIMCardContractModel<SIMCardContractViewModel>>
+    public class SIMCardContractController : BaseController<SIMCardContract,SIMCardContractViewModel, SIMCardContractIndexViewModel, SIMCardContractDetailsViewModel, SIMCardContractCreateBindModel,SIMCardContractEditBindModel,SIMCardContractEditModel, SIMCardContract, SIMCardContractModel<SIMCardContract>,SIMCardContractModel<SIMCardContractViewModel>>
     {
         
         public override void FuncPreDetailsView(object id, ref List<SIMCardContractDetailsViewModel> items)

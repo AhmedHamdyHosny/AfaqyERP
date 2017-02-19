@@ -12,7 +12,7 @@ namespace Afaqy_Store.Controllers
 {
     public class SIMCardProviderController : BaseController<SIMCardProvider,SIMCardProviderViewModel, SIMCardProviderIndexViewModel, SIMCardProviderDetailsViewModel,
         SIMCardProviderCreateBindModel, SIMCardProviderEditBindModel,
-        SIMCardProviderEditModel,
+        SIMCardProviderEditModel, SIMCardProvider,
         SIMCardProviderModel<SIMCardProvider>,SIMCardProviderModel<SIMCardProviderViewModel>>
     {
         public override void FuncPreDetailsView(object id, ref List<SIMCardProviderDetailsViewModel> items)

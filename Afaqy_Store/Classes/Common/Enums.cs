@@ -107,5 +107,17 @@ namespace Classes.Common
             Replacement = 8,
             Missing = 9
         }
+
+        public class SystemServerIp
+        {
+            public static string AfaqyInfo = "212.70.49.19";
+            public static string AfaqyMe = "212.70.49.122";
+        }
+
+        public enum SystemServer
+        {
+            AfaqyInfo = 7,
+            AfaqyMe = 8
+        }
     }
 }

@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Afaqy_Store.Models.BrandViewModel>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
@@ -10,7 +8,6 @@
 }
 
 <br />
-
 <div class="row" ng-controller="BrandCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -102,7 +99,7 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
             </div>
         </div>
     </div>
@@ -111,7 +108,6 @@
 @section scripts{
 
     <script>
-
         var gridColumnDefs = [
             { field: 'BrandName', name: '@Resources.ServerManagement.BrandName' },
             { field: 'ProtocolName', name: '@Resources.ServerManagement.ProtocolName' },
@@ -132,11 +128,11 @@
             bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
         };
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
     </script>
 }

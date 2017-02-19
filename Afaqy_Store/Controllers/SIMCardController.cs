@@ -11,7 +11,7 @@ using Classes.Common;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardIndexViewModel, SIMCardDetailsViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
+    public class SIMCardController : BaseController<SIMCard, SIMCardViewModel, SIMCardIndexViewModel, SIMCardDetailsViewModel, SIMCardCreateBindModel, SIMCardEditBindModel, SIMCardEditModel, SIMCardImportModel, SIMCardModel<SIMCard>, SIMCardModel<SIMCardViewModel>>
     {
         
         

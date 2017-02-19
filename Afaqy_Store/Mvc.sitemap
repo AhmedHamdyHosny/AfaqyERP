@@ -36,7 +36,7 @@
       <mvcSiteMapNode title="SIM Cards Contract" controller="SIMCardContract" action="Index" description="Sim card contract"/>
       <mvcSiteMapNode title="Technique Company" controller="TechniqueCompany" action="Index" description="Technique company"/>
       <mvcSiteMapNode title="Technique System" controller="TechniqueSystem" action="Index" description="Technique system"/>
-      <mvcSiteMapNode title="Customer Status" controller="CustomerStatus" action="Index" description="Customer status"/>
+      <mvcSiteMapNode title="Customer Server Status" controller="CustomerServerStatus" action="Index" description="Customer server status"/>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Server Management" controller="ServerManagement" action="UIServerManagement" description="Server management">
       <mvcSiteMapNode title="Brand" controller="Brand" action="Index" description="brand"/>

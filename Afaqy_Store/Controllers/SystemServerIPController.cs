@@ -9,19 +9,14 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class SystemServerIPController : BaseController<SystemServerIP,SystemServerIPViewModel, SystemServerIPViewModel, SystemServerIPViewModel, SystemServerIPCreateBindModel,SystemServerIPEditBindModel,SystemServerIPEditModel,SystemServerIPModel<SystemServerIP>,SystemServerIPModel<SystemServerIPViewModel>>
+    public class SystemServerIPController : BaseController<SystemServerIP,SystemServerIPViewModel, SystemServerIPIndexViewModel, SystemServerIPDetailsViewModel, SystemServerIPCreateBindModel,SystemServerIPEditBindModel,SystemServerIPEditModel, SystemServerIP, SystemServerIPModel<SystemServerIP>,SystemServerIPModel<SystemServerIPViewModel>>
     {
-        public override void FuncPreIndexView(ref List<SystemServerIPViewModel> model)
-        {
-            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "TechniqueSystem" } };
-            model = new SystemServerIPModel<SystemServerIPViewModel>().Get(requestBody);
-        }
-        public override void FuncPreDetailsView(object id, ref List<SystemServerIPViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<SystemServerIPDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "SystemServerId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
-            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "TechniqueSystem" },Filters = filters };
-            items = new SystemServerIPModel<SystemServerIPViewModel>().Get(requestBody);
+            var requestBody = new GenericDataFormat() { Filters = filters };
+            items = new SystemServerIPModel<SystemServerIPDetailsViewModel>().GetView<SystemServerIPDetailsViewModel>(requestBody).PageItems;
         }
         public override void FuncPreInitCreateView()
         {
@@ -61,10 +56,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "ServerIP.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "ServerIP,TechniqueSystem.SystemName" } };
+            string properties = string.Join(",", typeof(SystemServerIPView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar")));
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 

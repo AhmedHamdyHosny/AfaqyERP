@@ -12,7 +12,7 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel,TModel_TDBModel, TModel_TViewModel> : Controller
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller
     {
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
@@ -300,6 +300,48 @@ namespace Classes.Common
             return delegatePostExecute(ref model);
             
         }
+        // POST: Controller/ImportAsEntities
+        [HttpPost]
+        public virtual ActionResult ImportAsEntities(FormCollection fc)
+        {
+            var file = Request.Files["file"];
+            dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
+            string error = "";
+            string path = Server.MapPath(SiteConfig.ImportFilesPath);
+            var fileName = Utilities.Utility.DataImportHelper(file, path, typeof(TDBModel).GetType().Name);
+            var items = ParseExcelFile(fileName, ref error);
+
+            DelegatePreImportAsEntities delegatePreExecute = new DelegatePreImportAsEntities(FuncPreImportAsEntities);
+            delegatePreExecute(ref items, fc);
+
+            var result = instance.Import(items.ToArray());
+
+            DelegatePostImportAsEntities delegatePostExecute = new DelegatePostImportAsEntities(FuncPostImportAsEntities);
+            return delegatePostExecute(result);
+            
+        }
+        [NonAction]
+        public List<TImportModel> ParseExcelFile(string fileName, ref string errorMsg)
+        {
+            var excelFile = new LinqToExcel.ExcelQueryFactory(fileName);
+            IEnumerable<string> workSheetNames = excelFile.GetWorksheetNames();
+            List<TImportModel> sheetData = new List<TImportModel>();
+            foreach (string sheetName in workSheetNames)
+            {
+                List<string> excelHeaders = excelFile.GetColumnNames(sheetName).ToList();
+                List<string> props = typeof(TImportModel).GetProperties().Select(x => x.Name).ToList();
+                bool isSubset = !excelHeaders.Except(props).Any();
+                if (isSubset)
+                {
+                    errorMsg = "";
+                    var data = from row in excelFile.Worksheet<TImportModel>(sheetName)
+                               select row;
+                    sheetData = data.ToList();
+                }
+            }
+
+            return sheetData;
+        }
 
     }
     //public class Reference
@@ -326,7 +368,7 @@ namespace Classes.Common
     //    public string RedirectToAction { get; set; }
     //}
 
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TModel_TDBModel, TModel_TViewModel>
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel>
     {
         #region Delegates
         public delegate void DelegatePreIndexView(ref List<TIndexViewModel> model);
@@ -359,6 +401,8 @@ namespace Classes.Common
         public delegate bool DelegatePostActivateGroup(object[] ids);
         public delegate void DelegatePreImport(FormCollection formCollection);
         public delegate ActionResult DelegatePostImport(bool result);
+        public delegate void DelegatePreImportAsEntities(ref List<TImportModel>items, FormCollection formCollection);
+        public delegate ActionResult DelegatePostImportAsEntities(bool result);
         public delegate void DelegatePreExport(ref GenericDataFormat ExportRequestBody,ref string ExportFileName);
         public delegate ActionResult DelegatePostExport(byte[] fileBytes, string ExportFileName);
         #endregion
@@ -497,6 +541,20 @@ namespace Classes.Common
 
         }
         public virtual ActionResult FuncPostImport(bool result)
+        {
+            if (result)
+            {
+                TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, Transaction = Transactions.Import };
+                return RedirectToAction("Index");
+            }
+            TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Error, Transaction = Transactions.Import };
+            return RedirectToAction("Index");
+        }
+        public virtual void FuncPreImportAsEntities(ref List<TImportModel> items,FormCollection formCollection)
+        {
+
+        }
+        public virtual ActionResult FuncPostImportAsEntities(bool result)
         {
             if (result)
             {

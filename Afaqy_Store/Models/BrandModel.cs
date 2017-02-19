@@ -55,12 +55,18 @@ namespace Afaqy_Store.Models
                 return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
             }
         }
-
-
         internal void BindCreate_Modify_User()
         {
             var tempUser = this.CreateUser;
         }
+    }
+    public class BrandIndexViewModel : Brand
+    {
+
+    }
+    public class BrandDetailsViewModel : BrandViewModel
+    {
+
     }
 
     [Bind(Include = "BrandId,BrandName,ProtocolName")]

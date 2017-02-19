@@ -29,6 +29,10 @@
 .controller('SIMCardStatusEditCtrl', SIMCardStatusEditCtrl)
 .controller('SIMCardStatusDetailsCtrl', SIMCardStatusDetailsCtrl)
 
+//Customer controllers ========
+.controller('CustomerCtrl', CustomerCtrl)
+.controller('CustomerDetailsCtrl', CustomerDetailsCtrl)
+
 //Brand functions ========
 function BrandCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
     ctrlService.initCtrl($scope);
@@ -427,6 +431,33 @@ function SIMCardStatusEditCtrl($scope, $uibModalInstance) {
 }
 
 function SIMCardStatusDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//Customer functions ========
+function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+    ctrlService.initCtrl($scope);
+    gridService.initGrid($scope);
+    gridService.configureExport($scope);
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'CustomerDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+}
+
+function CustomerDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

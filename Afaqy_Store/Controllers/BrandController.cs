@@ -9,18 +9,14 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BrandController : BaseController<Brand,BrandViewModel, BrandViewModel, BrandViewModel, BrandCreateBindModel,BrandEditBindModel,BrandEditModel,BrandModel<Brand>,BrandModel<BrandViewModel>>
+    public class BrandController : BaseController<Brand,BrandViewModel, BrandIndexViewModel, BrandDetailsViewModel, BrandCreateBindModel,BrandEditBindModel,BrandEditModel, Brand, BrandModel<Brand>,BrandModel<BrandViewModel>>
     {
-        public override void FuncPreIndexView(ref List<BrandViewModel> model)
-        {
-            model = new BrandModel<BrandViewModel>().Get();
-        }
-        public override void FuncPreDetailsView(object id, ref List<BrandViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<BrandDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "BrandId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters };
-            items = new BrandModel<BrandViewModel>().Get(requestBody);
+            items = new BrandModel<BrandDetailsViewModel>().Get(requestBody);
         }
         public override void FuncPreCreate(ref BrandCreateBindModel model)
         {
@@ -49,10 +45,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "Brands.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "BrandId,BrandName,ProtocolName" } };
+            string properties = "BrandId,BrandName,ProtocolName,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

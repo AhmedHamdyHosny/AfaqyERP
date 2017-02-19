@@ -88,6 +88,29 @@ namespace Classes.Utilities
             return null;
         }
 
+        public async Task<string> ExcecuteAsString()
+        {
+            SetRequestBody();
+            SetOAuthToken();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.Timeout = TimeSpan.FromMinutes(60);
+                HttpResponseMessage response = client.SendAsync(RequestMessage).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return result;
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+
+            return null;
+        }
+
         private void SetOAuthToken()
         {
             if (OAuthToken != null)

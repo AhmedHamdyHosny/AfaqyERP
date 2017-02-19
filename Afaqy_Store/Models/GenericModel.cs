@@ -169,7 +169,7 @@ namespace Models
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = formData};
             var task = request.ExcecuteImport(file);
             task.Wait();
-            if (task.Result.ToString().Contains("Success"))
+            if (task.Result != null && task.Result.ToString().Contains("Success"))
             {
                 return true;
             }

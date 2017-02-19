@@ -9,19 +9,14 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BrandServerPortController : BaseController<BrandServerPort,BrandServerPortViewModel, BrandServerPortViewModel, BrandServerPortViewModel, BrandServerPortCreateBindModel,BrandServerPortEditBindModel,BrandServerPortEditModel,BrandServerPortModel<BrandServerPort>,BrandServerPortModel<BrandServerPortViewModel>>
+    public class BrandServerPortController : BaseController<BrandServerPort,BrandServerPortViewModel, BrandServerPortIndexViewModel, BrandServerPortDetailsViewModel, BrandServerPortCreateBindModel,BrandServerPortEditBindModel,BrandServerPortEditModel, BrandServerPort, BrandServerPortModel<BrandServerPort>,BrandServerPortModel<BrandServerPortViewModel>>
     {
-        public override void FuncPreIndexView(ref List<BrandServerPortViewModel> model)
-        {
-            var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Brand,SystemServerIP" } };
-            model = new BrandServerPortModel<BrandServerPortViewModel>().Get(requestBody);
-        }
-        public override void FuncPreDetailsView(object id, ref List<BrandServerPortViewModel> items)
+        public override void FuncPreDetailsView(object id, ref List<BrandServerPortDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "BrandPortId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "Brand,SystemServerIP" } };
-            items = new BrandServerPortModel<BrandServerPortViewModel>().Get(requestBody);
+            var requestBody = new GenericDataFormat() { Filters = filters};
+            items = new BrandServerPortModel<BrandServerPortDetailsViewModel>().GetView<BrandServerPortDetailsViewModel>(requestBody).PageItems;
         }
         public override void FuncPreInitCreateView()
         {
@@ -65,10 +60,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "BrandServerPorts.xlsx";
-            //filters
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = "BrandPortId,Brand.BrandName,SystemServerIP.ServerIP,PortNumber", References = "Brand,SystemServerIP" }, Filters = filters };
+            string properties = "BrandPortId,PortNumber,IsBlock";
+            ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }
 }

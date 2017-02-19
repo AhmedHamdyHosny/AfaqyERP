@@ -150,6 +150,21 @@ namespace Classes.Utilities
             }
             return Convert.ChangeType(value, targetType);
         }
+
+        public static string DataImportHelper(HttpPostedFileBase file, string directoryPath, string folderPath)
+        {
+            string fileName_datetimePart = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss_");
+            if (!System.IO.File.Exists(directoryPath + "\\" + folderPath))
+            {
+                System.IO.Directory.CreateDirectory(directoryPath + "\\" + folderPath);
+            }
+
+            string fileName = fileName_datetimePart + file.FileName;
+            string tempFilePath = System.IO.Path.Combine(directoryPath + "\\" + folderPath, fileName);
+            (new System.IO.FileInfo(tempFilePath)).Directory.Create();
+            file.SaveAs(tempFilePath);
+            return tempFilePath;
+        }
     }
 
     public class AlertMessage

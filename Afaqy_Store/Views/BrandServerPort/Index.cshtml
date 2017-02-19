@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Afaqy_Store.Models.BrandServerPortViewModel>
-@using Newtonsoft.Json
-@using BeyondThemes.Bootstrap;
+﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
 
@@ -10,7 +8,6 @@
 }
 
 <br />
-
 <div class="row" ng-controller="BrandServerPortCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
@@ -102,7 +99,7 @@
                         </ul>
                     </div>
                 </div>
-                <div id="grid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
             </div>
         </div>
     </div>
@@ -113,8 +110,8 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'Brand.BrandName', name: '@Resources.ServerManagement.Brand' },
-            { field: 'SystemServerIP.ServerIP', name: '@Resources.ServerManagement.ServerIP' },
+            { field: 'BrandName', name: '@Resources.ServerManagement.Brand' },
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP' },
             { field: 'PortNumber', name: '@Resources.ServerManagement.PortNumber' },
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock' },
             {
@@ -133,11 +130,11 @@
             bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
         };
 
+        var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
 
-        var gridData = '@Html.Raw(JsonConvert.SerializeObject(this.Model))';
     </script>
 }
