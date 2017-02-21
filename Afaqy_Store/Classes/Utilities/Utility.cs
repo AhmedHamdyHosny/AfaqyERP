@@ -165,6 +165,46 @@ namespace Classes.Utilities
             file.SaveAs(tempFilePath);
             return tempFilePath;
         }
+
+        internal static DateTime? ParseDateTime(string datetimeStr)
+        {
+            DateTime datetime = new DateTime();
+            Double seconds;
+            //check if string is long
+            if (double.TryParse(datetimeStr, out seconds))
+            {
+                DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                datetime = unixEpoch.AddSeconds(seconds).ToLocalTime();
+                return datetime;
+            }
+            else if (DateTime.TryParse(datetimeStr,out datetime))
+            {
+                return datetime;
+            }
+            return null;
+        }
+
+        internal static bool? ParseBool(string boolStr)
+        {
+            bool flag = false;
+            if (bool.TryParse(boolStr, out flag))
+            {
+                return flag;
+            }
+            else
+            {
+                switch (boolStr)
+                {
+                    case "0":
+                        return false;
+                    case "1":
+                        return true;
+                    default:
+                        break;
+                }
+            }
+            return null;
+        }
     }
 
     public class AlertMessage

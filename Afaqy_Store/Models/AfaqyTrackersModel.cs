@@ -7,10 +7,10 @@ namespace Afaqy_Store.Models
 {
     public class AfaqyTacker
     {
-        public List<ServerUnit> AfaqyTackers { get; set; }
+        public List<CustServerUnit> AfaqyTackers { get; set; }
     }
 
-    public class Afaqy_Info_Me
+    public abstract class Afaqy_Info_Me
     {
         public partial class AfaqyAccount
         {
@@ -40,7 +40,7 @@ namespace Afaqy_Store.Models
                     public string c { get; set; }
                     public string sc { get; set; }
                 }
-
+                
                 public string nm { get; set; }
                 public string cls { get; set; }
                 public string id { get; set; }
@@ -51,31 +51,21 @@ namespace Afaqy_Store.Models
                 public string ph { get; set; }
                 public string psw { get; set; }
                 public Pos pos { get; set; }
-
-                public ServerUnit ToUnit()
+                //public Dictionary<string, CustomField> flds { get; set; }
+                private bool _isCorrect = true;
+                public bool IsCorrect
                 {
-                    ServerUnit unit = null;
-
-                    if (this != null)
+                    get
                     {
-                        unit = new ServerUnit();
-                        unit.gsm_number = this.ph;
-                        //unit.sim_serial = 
-                        unit.device_imei = this.uid;
-                        //unit.device_serial = 
-                        //unit.device_status =
-                        //unit.device_deleted = 
-                        unit.device_name_at_Server = this.nm;
-                        unit.lastConnection = this.pos != null ? this.pos.t : null;
-                        //unit.server_ip_address = 
-                        unit.client_id = this.bact;
-                        //unit.client_name = 
-                        //unit.client_status = 
-
+                        return _isCorrect;
                     }
-
-                    return unit;
+                    set
+                    {
+                        _isCorrect = value;
+                    }
                 }
+
+                
             }
 
             public SearchSpec searchSpec { get; set; }
@@ -85,6 +75,8 @@ namespace Afaqy_Store.Models
             public int indexTo { get; set; }
             public List<Item> items { get; set; }
         }
+
+        
     }
     public class AfaqyInfo : Afaqy_Info_Me
     {
@@ -104,7 +96,7 @@ namespace Afaqy_Store.Models
 
             public new class Item : Afaqy_Info_Me.AfaqySearchUnit.Item
             {
-                public new class Pos :  Afaqy_Info_Me.AfaqySearchUnit.Item
+                public new class Pos :  Afaqy_Info_Me.AfaqySearchUnit.Item.Pos
                 {
                     public class P
                     {
@@ -157,6 +149,12 @@ namespace Afaqy_Store.Models
                     public string dr { get; set; }
                 }
 
+                public class CustomField 
+                {
+                    public int id { get; set; }
+                    public string nm { get; set; }
+                    public string vl { get; set; }
+                }
                 //public string nm { get; set; }
                 //public string cls { get; set; }
                 //public string id { get; set; }
@@ -168,31 +166,101 @@ namespace Afaqy_Store.Models
                 //public string psw { get; set; }
                 public new Pos pos { get; set; }
                 //public string lmsg { get; set; } sometime equal to string like "lmsg":"dup" and sometime equal to array "lmsg":{"t":1431376086,"f":0,"tp":"ud","p":{"f0":160}}
+                public Dictionary<string, CustomField> flds { get; set; }
+                public CustServerUnit ToUnit()
+                {
+                    CustServerUnit unit = null;
+                    if (this != null)
+                    {
+                        unit = new CustServerUnit();
+                        unit.gsm_number = this.ph;
+                        //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
+                        unit.device_imei = this.uid;
+                        //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
+                        //unit.device_status =
+                        //unit.device_deleted = 
+                        unit.device_name_at_Server = this.nm;
+                        unit.lastConnection = this.pos != null ? this.pos.t : null;
+                        //unit.server_ip_address = 
+                        unit.client_id = this.bact;
+                        //unit.client_name = 
+                        //unit.client_status = 
 
-                //public Unit ToUnit()
-                //{
-                //    Unit unit = null;
+                    }
+                    return unit;
+                }
 
-                //    if (this != null)
-                //    {
-                //        unit = new Unit();
-                //        unit.gsm_number = this.ph;
-                //        //unit.sim_serial = 
-                //        unit.device_imei = this.uid;
-                //        //unit.device_serial = 
-                //        //unit.device_status =
-                //        //unit.device_deleted = 
-                //        unit.device_name_at_Server = this.nm;
-                //        unit.lastConnection = this.pos != null ? this.pos.t : null;
-                //        //unit.server_ip_address = 
-                //        unit.client_id = this.bact;
-                //        //unit.client_name = 
-                //        //unit.client_status = 
+                public DataLayer.ServerUnit ToServerUnit()
+                {
+                    DataLayer.ServerUnit unit = null;
 
-                //    }
+                    if (this != null)
+                    {
+                        unit = new DataLayer.ServerUnit();
+                        unit.GSMNumber = this.ph;
+                        //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
+                        unit.DeviceIMEI = this.uid;
+                        //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
+                        //unit.device_status =
+                        //unit.device_deleted = 
+                        unit.DeviceServerName = this.nm;
+                        unit.LastConnection = this.pos != null ? Classes.Utilities.Utility.ParseDateTime(this.pos.t) : (DateTime?)null;
+                        //unit.server_ip_address = 
+                        unit.ClientId = int.Parse(this.bact);
+                        //unit.client_name = 
+                        //unit.client_status = 
 
-                //    return unit;
-                //}
+                    }
+                    return unit;
+                }
+                
+                public virtual string GetSIMSerial(string gsm_number, Dictionary<string, CustomField> fields)
+                {
+                    string simSerial = null;
+                    if(gsm_number !=null)
+                    {
+                        var filters = new List<GenericApiController.Utilities.GenericDataFormat.FilterItems>();
+                        filters.Add(new GenericApiController.Utilities.GenericDataFormat.FilterItems() { Property = "GSM", Operation = GenericApiController.Utilities.GenericDataFormat.FilterOperations.Equal, Value=gsm_number });
+                        var orders = new List<GenericApiController.Utilities.GenericDataFormat.SortItems>();
+                        orders.Add(new GenericApiController.Utilities.GenericDataFormat.SortItems() { Property = "SIMCardId", SortType = GenericApiController.Utilities.GenericDataFormat.SortType.Desc });
+                        var request = new GenericApiController.Utilities.GenericDataFormat() { Filters = filters, Sorts = orders};
+                        var SIMs = new SIMCardModel<DataLayer.SIMCard>().Get(request);
+                        if(SIMs != null && SIMs.Count > 0)
+                        {
+                            simSerial = SIMs[0].SerialNumber;
+                        }
+                    }
+                    //if (fields != null)
+                    //{
+                    //    var sim_field = flds.Where(x => x.Value.nm.ToLower().Contains("sim")
+                    //        || x.Value.vl.StartsWith("89966")
+                    //        || x.Value.vl.StartsWith("4211")).SingleOrDefault();
+
+                    //    if (sim_field.Value != null)
+                    //    {
+                    //        simSerial = sim_field.Value.vl;
+                    //    }
+                    //}
+                    return simSerial;
+                }
+
+                private string GetDeviceSerial(string device_imei, Dictionary<string, CustomField> flds)
+                {
+                    string deviceSerial = null;
+                    if(device_imei != null)
+                    {
+                        var filters = new List<GenericApiController.Utilities.GenericDataFormat.FilterItems>();
+                        filters.Add(new GenericApiController.Utilities.GenericDataFormat.FilterItems() { Property = "IMEI", Operation = GenericApiController.Utilities.GenericDataFormat.FilterOperations.Equal, Value = device_imei });
+                        var request = new GenericApiController.Utilities.GenericDataFormat() { Filters = filters, };
+                        var devices = new DeviceModel<DataLayer.Device>().Get(request);
+                        if (devices != null && devices.Count == 1)
+                        {
+                            deviceSerial = devices[0].SerialNumber;
+                        }
+                    }
+                    return deviceSerial;
+                }
+
             }
 
             //public SearchSpec searchSpec { get; set; }
@@ -237,7 +305,12 @@ namespace Afaqy_Store.Models
                     //public string c { get; set; }
                     //public string sc { get; set; }
                 }
-
+                public class CustomField 
+                {
+                    public int id { get; set; }
+                    public string n { get; set; }
+                    public string v { get; set; }
+                }
                 //public string nm { get; set; }
                 //public string cls { get; set; }
                 //public string id { get; set; }
@@ -251,10 +324,74 @@ namespace Afaqy_Store.Models
                 public string ph2 { get; set; }
                 //public string psw { get; set; }
                 public new Pos pos { get; set; }
+                public Dictionary<string, CustomField> flds { get; set; }
                 //public Lmsg lmsg { get; set; }
                 public string uacl { get; set; }
 
-                
+                public CustServerUnit ToUnit()
+                {
+                    CustServerUnit unit = null;
+
+                    if (this != null)
+                    {
+                        unit = new CustServerUnit();
+                        unit.gsm_number = this.ph;
+                        //unit.sim_serial = GetSIMSerial(this.flds);
+                        unit.device_imei = this.uid;
+                        //unit.device_serial = 
+                        //unit.device_status =
+                        //unit.device_deleted = 
+                        unit.device_name_at_Server = this.nm;
+                        unit.lastConnection = this.pos != null ? this.pos.t : null;
+                        //unit.server_ip_address = 
+                        unit.client_id = this.bact;
+                        //unit.client_name = 
+                        //unit.client_status = 
+
+                    }
+                    return unit;
+                }
+
+                public DataLayer.ServerUnit ToServerUnit()
+                {
+                    DataLayer.ServerUnit unit = null;
+
+                    if (this != null)
+                    {
+                        unit = new DataLayer.ServerUnit();
+                        unit.GSMNumber = this.ph;
+                        //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
+                        unit.DeviceIMEI = this.uid;
+                        //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
+                        //unit.device_status =
+                        //unit.device_deleted = 
+                        unit.DeviceServerName = this.nm;
+                        unit.LastConnection = this.pos != null ? Classes.Utilities.Utility.ParseDateTime(this.pos.t) : (DateTime?)null;
+                        //unit.server_ip_address = 
+                        unit.ClientId = int.Parse(this.bact);
+                        //unit.client_name = 
+                        //unit.client_status = 
+
+                    }
+                    return unit;
+                }
+
+                public virtual string GetSIMSerial(Dictionary<string, CustomField> fields)
+                {
+                    string simSerial = null;
+                    if (fields != null)
+                    {
+                        var sim_field = flds.Where(x => x.Value.n.ToLower().Contains("sim")
+                        || x.Value.v.StartsWith("89966")
+                        || x.Value.v.StartsWith("4211")).SingleOrDefault();
+
+                        if (sim_field.Value != null)
+                        {
+                            simSerial = sim_field.Value.v;
+                        }
+                    }
+                    return simSerial;
+                }
             }
 
             //public class Pos2
@@ -299,7 +436,7 @@ namespace Afaqy_Store.Models
 
     }
     
-    public class ServerUnit
+    public class CustServerUnit
     {
         public string gsm_number { get; set; }
         public string sim_serial { get; set; }
@@ -314,7 +451,24 @@ namespace Afaqy_Store.Models
         public string client_name { get; set; }
         public string client_status { get; set; }
 
-        
+        internal DataLayer.ServerUnit ToServerUnit()
+        {
+            return new DataLayer.ServerUnit()
+            {
+                DeviceIMEI = this.device_imei,
+                DeviceSerial = this.device_serial,
+                SIMSerial = this.sim_serial,
+                GSMNumber = this.gsm_number,
+                DeviceStatus = string.IsNullOrEmpty(this.device_status) ? (int?)null : int.Parse(this.device_status),
+                IsDeleted = string.IsNullOrEmpty(this.device_deleted) ? (bool?)null : Classes.Utilities.Utility.ParseBool(this.device_deleted),
+                DeviceServerName = this.device_name_at_Server,
+                LastConnection = Classes.Utilities.Utility.ParseDateTime(this.lastConnection),
+                ServerIP = this.server_ip_address,
+                ClientId = int.Parse(this.client_id),
+                ClientName = this.client_name,
+                ClientStatus = string.IsNullOrEmpty(this.client_status) ? (int?)null : int.Parse(this.client_status)
+            };
+        }
     }
 
     public class ServerCustomer
@@ -322,6 +476,6 @@ namespace Afaqy_Store.Models
         public string client_id { get; set; }
         public string client_name { get; set; }
         public string client_status { get; set; }
-        public List<ServerUnit> Units { get; set; }
+        public List<CustServerUnit> Units { get; set; }
     }
 }

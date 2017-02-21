@@ -2,7 +2,7 @@
 @using Classes.Utilities;
 @using Classes.Common;
 @{
-    ViewBag.Title = "AfaqyTracker"; //Resources.ServerManagement.AfaqyTracker;
+    ViewBag.Title = "ServerUnit"; //Resources.ServerManagement.ServerUnit;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
@@ -47,8 +47,13 @@
                                     <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
                                 </li>
                                 <li>
+                                    <a onclick="showLoading();" href="@Url.Action("Synchronize")">Synchronize</a>
+                                </li>
+                                <li>
                                     <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
                                 </li>
+
+                                
                             </ul>
                         </div>
                     </div>
@@ -64,18 +69,19 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'gsm_number', name: 'GSM' }, @*@Resources.ServerManagement.Brand*@
-            { field: 'sim_serial', name: 'SIM Serial' },
-            { field: 'device_imei', name: 'IMEI' },
-            { field: 'device_serial', name: 'Device Serial' },
-            { field: 'device_status', name: 'Device Status' },
-            { field: 'device_deleted', name: 'Deleted' },
-            { field: 'device_name_at_Server', name: 'Device Name at server' },
-            { field: 'lastConnection', name: 'Last Connection' },
-            { field: 'server_ip_address', name: 'Server IP Address' },
-            { field: 'client_id', name: 'Client id' },
-            { field: 'client_name', name: 'Client Name' },
-            { field: 'client_status', name: 'Client Status' },
+            { field: 'GSMNumber', name: 'GSM' }, @*@Resources.ServerManagement.Brand*@
+            { field: 'SIMSerial', name: 'SIM Serial' },
+            { field: 'DeviceIMEI', name: 'IMEI' },
+            { field: 'DeviceSerial', name: 'Device Serial' },
+            { field: 'DeviceStatus', name: 'Device Status' },
+            { field: 'IsDeleted', name: 'Deleted' },
+            { field: 'DeviceServerName', name: 'Device Name at server' },
+            { field: 'LastConnection', name: 'Last Connection' },
+            { field: 'ServerIP', name: 'Server IP Address' },
+            { field: 'ClientId', name: 'Client id' },
+            { field: 'ClientName', name: 'Client Name' },
+            { field: 'ClientStatus', name: 'Client Status' },
+            { field: 'IsCorrect', name: 'Correct' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.BrandPortId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +

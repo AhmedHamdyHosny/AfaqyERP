@@ -64,5 +64,7 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
+        public virtual DbSet<ServerUnit> ServerUnit { get; set; }
+        public virtual DbSet<TempDevice> TempDevice { get; set; }
     }
 }

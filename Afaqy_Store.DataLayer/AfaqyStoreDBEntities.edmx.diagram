@@ -85,6 +85,8 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_User_UserType" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_UserRole_User" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerView" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerUnit" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TempDevice" Width="1.5" PointX="7.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

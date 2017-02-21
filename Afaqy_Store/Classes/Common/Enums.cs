@@ -112,6 +112,15 @@ namespace Classes.Common
         {
             public static string AfaqyInfo = "212.70.49.19";
             public static string AfaqyMe = "212.70.49.122";
+            public static string AfaqyXYZ = "212.70.49.27";
+            public static string Sfac_AfaqyIn = "212.70.49.106";
+            public static string AfaqyIn_Old = "212.70.49.114";
+            public static string AfaqyIn_New = "212.70.49.108";
+            public static string A_AfaqyNet_101 = "212.70.49.101";
+            public static string AfaqyNet_20 = "212.70.49.20";
+            public static string Waste_AfaqyNet_104 = "212.49.70.104";
+            public static string Tatweer_AfaqyNet_119 = "212.70.49.119";
+
         }
 
         public enum SystemServer

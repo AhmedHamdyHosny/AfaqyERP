@@ -125,6 +125,8 @@ namespace Afaqy_Store.Controllers
         public List<SIMCardImportModel> ParseExcelFile(string fileName, ref string errorMsg)
         {
             var userId = User.UserId;
+            //for test
+            var branchId = 1;
             var excelFile = new LinqToExcel.ExcelQueryFactory(fileName);
             IEnumerable<string> workSheetNames = excelFile.GetWorksheetNames();
             List<SIMCardImportModel> sheetData = new List<SIMCardImportModel>();
@@ -141,6 +143,7 @@ namespace Afaqy_Store.Controllers
                     sheetData = data.ToList();
                     sheetData = sheetData.Select(x =>
                     {
+                        x.BranchId = branchId;
                         x.CreateUserId = userId;
                         x.CreateDate = DateTime.Now;
                         return x;

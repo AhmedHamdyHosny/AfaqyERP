@@ -36,22 +36,57 @@ namespace Classes.Utilities
 
         public static class AfaqyIn
         {
-            public static string Url
+            public static string AfaqyIn_Url
             {
                 get
                 {
-                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.In_Urls"];
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.In_Url"];
+                }
+            }
+            public static string AfaqyXYZ_Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.XYZ_Url"];
+                }
+            }
+            public static string SFAC_AfaqyIn_Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["SFAC.Afaqy.In_url"];
                 }
             }
         }
 
         public static class AfaqyNet
         {
-            public static string Url
+            public static string Net_101_Url
             {
                 get
                 {
-                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_Urls"];
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_101_Url"];
+                }
+            }
+            public static string Net_20_Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_20_Url"];
+                }
+            }
+            public static string Net_104_Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_104_Url"];
+                }
+            }
+            public static string Net_119_Url
+            {
+                get
+                {
+                    return System.Configuration.ConfigurationManager.AppSettings["Afaqy.Net_119_Url"];
                 }
             }
         }

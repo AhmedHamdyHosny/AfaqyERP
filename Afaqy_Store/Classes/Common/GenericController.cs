@@ -314,11 +314,11 @@ namespace Classes.Common
             DelegatePreImportAsEntities delegatePreExecute = new DelegatePreImportAsEntities(FuncPreImportAsEntities);
             delegatePreExecute(ref items, fc);
 
-            var result = instance.Import(items.ToArray());
+            var result = false;//instance.Import(items.ToArray());
 
             DelegatePostImportAsEntities delegatePostExecute = new DelegatePostImportAsEntities(FuncPostImportAsEntities);
             return delegatePostExecute(result);
-            
+
         }
         [NonAction]
         public List<TImportModel> ParseExcelFile(string fileName, ref string errorMsg)

@@ -57,4 +57,9 @@ namespace Afaqy_Store.Models
         public Device EditItem { get; set; }
         public IEnumerable<CustomSelectListItem> ModelType { get; set; }
     }
+
+    public class DeviceImportModel:Device
+    {
+        public string DeviceSerial { get; set; }
+    }
 }

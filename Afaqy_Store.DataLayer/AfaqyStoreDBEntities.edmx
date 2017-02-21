@@ -282,6 +282,25 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ServerUnit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GSMNumber" Type="varchar" MaxLength="50" />
+          <Property Name="SIMSerial" Type="varchar" MaxLength="50" />
+          <Property Name="DeviceIMEI" Type="varchar" MaxLength="20" />
+          <Property Name="DeviceSerial" Type="varchar" MaxLength="20" />
+          <Property Name="DeviceStatus" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeviceServerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastConnection" Type="datetime" />
+          <Property Name="ServerIP" Type="varchar" MaxLength="15" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="ClientName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ClientStatus" Type="int" />
+          <Property Name="IsCorrect" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="ServerUserRole">
           <Key>
             <PropertyRef Name="ServerUserRoleId" />
@@ -423,6 +442,14 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TempDevice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceIMEI" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="DeviceSerial" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1253,6 +1280,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="ServerRole" EntityType="Self.ServerRole" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="ServerUnit" EntityType="Self.ServerUnit" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="ServerUserRole" EntityType="Self.ServerUserRole" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="SIMCard" EntityType="Self.SIMCard" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="SIMCardContract" EntityType="Self.SIMCardContract" Schema="afqy" store:Type="Tables" />
@@ -1263,6 +1291,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="SystemServerIP" EntityType="Self.SystemServerIP" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="TechniqueCompany" EntityType="Self.TechniqueCompany" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="TechniqueSystem" EntityType="Self.TechniqueSystem" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="TempDevice" EntityType="Self.TempDevice" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="afqy" store:Type="Tables" />
@@ -1838,6 +1867,8 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
           <EntitySet Name="CustomerView" EntityType="Afaqy_Store.DataLayer.CustomerView" />
+          <EntitySet Name="ServerUnit" EntityType="Afaqy_Store.DataLayer.ServerUnit" />
+          <EntitySet Name="TempDevice" EntityType="Afaqy_Store.DataLayer.TempDevice" />
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -3135,6 +3166,33 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="ServerUnit">
+          <Key>
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GSMNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SIMSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceSerial" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceStatus" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeviceServerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastConnection" Type="DateTime" Precision="3" />
+          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientStatus" Type="Int32" />
+          <Property Name="IsCorrect" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TempDevice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceIMEI" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceSerial" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3849,6 +3907,35 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
                 <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerUnit">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.ServerUnit">
+              <MappingFragment StoreEntitySet="ServerUnit">
+                <ScalarProperty Name="IsCorrect" ColumnName="IsCorrect" />
+                <ScalarProperty Name="ClientStatus" ColumnName="ClientStatus" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="LastConnection" ColumnName="LastConnection" />
+                <ScalarProperty Name="DeviceServerName" ColumnName="DeviceServerName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeviceStatus" ColumnName="DeviceStatus" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
+                <ScalarProperty Name="SIMSerial" ColumnName="SIMSerial" />
+                <ScalarProperty Name="GSMNumber" ColumnName="GSMNumber" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempDevice">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TempDevice">
+              <MappingFragment StoreEntitySet="TempDevice">
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
