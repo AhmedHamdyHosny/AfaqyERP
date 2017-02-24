@@ -87,7 +87,13 @@
     <Compile Include="Customer.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CustomerServerIP.cs">
+    <Compile Include="CustomerServerAccount.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerServerAccountStatusHistory.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerServerAccountView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomerServerStatus.cs">
@@ -112,6 +118,9 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeviceSIM.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceSIMView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeviceStatus.cs">

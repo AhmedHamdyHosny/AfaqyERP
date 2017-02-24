@@ -17,7 +17,8 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CustomerServerStatus()
         {
-            this.CustomerServerIP = new HashSet<CustomerServerIP>();
+            this.CustomerServerAccount = new HashSet<CustomerServerAccount>();
+            this.CustomerServerAccountStatusHistory = new HashSet<CustomerServerAccountStatusHistory>();
         }
     
         public int CustomerServerStatusId { get; set; }
@@ -30,6 +31,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerServerIP> CustomerServerIP { get; set; }
+        public virtual ICollection<CustomerServerAccount> CustomerServerAccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerServerAccountStatusHistory> CustomerServerAccountStatusHistory { get; set; }
     }
 }

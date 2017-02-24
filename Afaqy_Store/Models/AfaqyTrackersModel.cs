@@ -209,6 +209,7 @@ namespace Afaqy_Store.Models
                         unit.ClientId = int.Parse(this.bact);
                         //unit.client_name = 
                         //unit.client_status = 
+                        unit.IsCorrect = true; //by default
 
                     }
                     return unit;
@@ -371,6 +372,7 @@ namespace Afaqy_Store.Models
                         unit.ClientId = int.Parse(this.bact);
                         //unit.client_name = 
                         //unit.client_status = 
+                        unit.IsCorrect = true; //by default
 
                     }
                     return unit;
@@ -466,7 +468,8 @@ namespace Afaqy_Store.Models
                 ServerIP = this.server_ip_address,
                 ClientId = int.Parse(this.client_id),
                 ClientName = this.client_name,
-                ClientStatus = string.IsNullOrEmpty(this.client_status) ? (int?)null : int.Parse(this.client_status)
+                ClientStatus = string.IsNullOrEmpty(this.client_status) ? (int?)null : int.Parse(this.client_status),
+                IsCorrect = true // by default
             };
         }
     }

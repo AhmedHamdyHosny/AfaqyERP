@@ -9,15 +9,8 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ServerUnitController : BaseController<ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnitModel<ServerUnit>,ServerUnitModel<ServerUnit>>
+    public class ServerUnitController : BaseController<ServerUnit,ServerUnitViewModel,ServerUnitIndexViewModel,ServerUnitDetailsViewModel,ServerUnit,ServerUnit,ServerUnit,ServerUnit,ServerUnitModel<ServerUnit>,ServerUnitModel<ServerUnit>>
     {
-        //public JsonResult GetView(GenericDataFormat options)
-        //{
-        //    List<ServerUnit> result = new ServerUnitModel<ServerUnit>().get(options);
-        //    var model = new PaginationResult<ServerUnit> { TotalItemsCount = result.Count, PageItems = result };
-        //    return Json(model);
-        //}
-
         public ActionResult Synchronize()
         {
             if (ServerUnitModel<CustServerUnit>.SynchronizeServerUnits())

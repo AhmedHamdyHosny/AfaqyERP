@@ -258,4 +258,49 @@
   <data name="CustomerName" xml:space="preserve">
     <value>Customer Name</value>
   </data>
+  <data name="ClientId" xml:space="preserve">
+    <value>Client id</value>
+  </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Client Name</value>
+  </data>
+  <data name="ClientStatus" xml:space="preserve">
+    <value>Client Status</value>
+  </data>
+  <data name="DeviceServerName" xml:space="preserve">
+    <value>Device Name at server</value>
+  </data>
+  <data name="LastConnection" xml:space="preserve">
+    <value>Last Connection</value>
+  </data>
+  <data name="ServerUnit" xml:space="preserve">
+    <value>ServerUnit</value>
+  </data>
+  <data name="DeviceConfiguration" xml:space="preserve">
+    <value>Device Configuration</value>
+  </data>
+  <data name="DeviceConfigurationCreate" xml:space="preserve">
+    <value>Configure Device</value>
+  </data>
+  <data name="DeviceConfigurationNew" xml:space="preserve">
+    <value>New Device Configuration</value>
+  </data>
+  <data name="AccountId" xml:space="preserve">
+    <value>Account Id</value>
+  </data>
+  <data name="AccountStatus" xml:space="preserve">
+    <value>Account Status</value>
+  </data>
+  <data name="AccountUserName" xml:space="preserve">
+    <value>Account User Name</value>
+  </data>
+  <data name="CustomerId" xml:space="preserve">
+    <value>Customer Id</value>
+  </data>
+  <data name="CustomerServerAccount" xml:space="preserve">
+    <value>Customer Server Account</value>
+  </data>
+  <data name="ServerCustomerName" xml:space="preserve">
+    <value>Server Customer Name</value>
+  </data>
 </root>

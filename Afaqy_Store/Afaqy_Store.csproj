@@ -287,6 +287,9 @@
     <Compile Include="Classes\Utilities\SiteConfig.cs" />
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiDeviceSIMController.cs" />
+    <Compile Include="Controllers\CustomerServerAccountController.cs" />
+    <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiBranchController.cs" />
@@ -294,7 +297,7 @@
     <Compile Include="Controllers\ApiCountryController.cs" />
     <Compile Include="Controllers\ApiCurrencyController.cs" />
     <Compile Include="Controllers\ApiCustomerController.cs" />
-    <Compile Include="Controllers\ApiCustomerServerIPController.cs" />
+    <Compile Include="Controllers\ApiCustomerServerAccountController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUserController.cs" />
     <Compile Include="Controllers\ApiCustomerServerStatusController.cs" />
     <Compile Include="Controllers\ApiDeviceController.cs" />
@@ -348,11 +351,12 @@
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\CustomerServerIPModel.cs" />
+    <Compile Include="Models\CustomerServerAccountModel.cs" />
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
+    <Compile Include="Models\DeviceSIMModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
     <Compile Include="Models\DeviceStatusModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
@@ -990,6 +994,11 @@
     <Content Include="Views\Branch\Create.cshtml" />
     <Content Include="Views\ServerUnit\Index.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\DeviceConfiguration\Index.cshtml" />
+    <Content Include="Views\DeviceConfiguration\Create.cshtml" />
+    <Content Include="Views\DeviceConfiguration\Details.cshtml" />
+    <Content Include="Views\DeviceConfiguration\Edit.cshtml" />
+    <Content Include="Views\CustomerServerAccount\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,188 @@
+﻿@model Afaqy_Store.DataLayer.DeviceSIM
+@using Classes.Helper;
+@{
+    ViewBag.Title = Resources.ServerManagement.DeviceConfigurationCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<style>
+    .counterDiv {
+        display: inline-block;
+    }
+
+    .counterBody {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+</style>
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.ServerManagement.DeviceConfigurationNew</h2>
+</div>
+
+@using (Html.BeginForm("CreateGroup", null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group counterDiv">
+                    <div class="col-lg-6 col-sm-6 col-xs-6 counterBody">
+                        @Html.Label("", Resources.Resource.ItemsCount, htmlAttributes: new { @class = "text-info" })
+                        <div class="spinbox spinbox-horizontal spinbox-right">
+                            <div class="spinbox-buttons	btn-group">
+                                <button type="button" class="btn spinbox-down blueberry" disabled="true">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn spinbox-up purple">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="spinbox-input form-control form mb-2 mr-sm-2 mb-sm-0" value="1" min="1">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th colspan="2" style="text-align:center"><label class="text-info">@Resources.Store.Devices</label></th>
+                        <th colspan="2" style="text-align:center"><label class="text-info">@Resources.ServerManagement.SIMCards</label></th>
+                    </tr>
+                    <tr>
+                        <th><label class="text-info">@Resources.Store.DeviceIMEI</label></th>
+                        <th><label class="text-info">@Resources.Store.DeviceSerialNumber</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardSerialNumber</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardCompanySerialNumber</label></th>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                    <tr id="itemRow_1">
+                        <td><input name="items[0].IMEI" ng-model="items[0].IMEI" ng-change="getDeviceIDByIMEI(items[0].IMEI,items[0].DeviceSerial,items[0].DeviceId)" class="form-control" /></td>
+                        <td><input name="items[0].DeviceSerial" ng-model="items[0].DeviceSerial" onblur="getDeviceIDBySerial(this)" class="form-control" /> <input name="items[0].DeviceId" ng-model="items[0].DeviceId" type="hidden" class="form-control" /></td>
+                        <td><input name="items[0].SIMCardSerial" onblur="getSIMCardIDBySerial(this)" class="form-control" /></td>
+                        <td><input name="items[0].CompanySerialNumber" onblur="getSIMCardIDByCompanySerial(this)" class="form-control" /> <input name="items[0].SIMCardId" type="hidden" class="form-control" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+
+}
+
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!--Fuelux Spinbox-->
+    <script src="~/Content/js/fuelux/spinbox/fuelux.spinbox.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            var itemsCount = 1;
+            var itemRow = $('#itemRow_1');
+
+            //--Fuelux Spinbox--
+            $('.spinbox').spinbox();
+
+            $('.spinbox-input').change(function () {
+                counterValueChanged();
+            });
+
+            $('.spinbox-up').click(function () {
+                counterValueChanged();
+            });
+
+            $('.spinbox-down').click(function () {
+                counterValueChanged();
+            });
+
+
+            function counterValueChanged() {
+                if ($('.spinbox-input').val() <= 1) {
+                    $('.spinbox-input').val(1);
+                    $('.spinbox-down').prop('disabled', true);
+                } else {
+                    $('.spinbox-down').prop('disabled', false);
+                }
+
+                //change items rows
+                var targetNo = Number($('.spinbox-input').val());
+                if (itemsCount < targetNo) {
+                    for (var i = itemsCount + 1; i <= targetNo; i++) {
+                        var rowHtml = itemRow.clone().attr('id', 'itemRow_' + i)[0].outerHTML
+                        var $row = $(rowHtml);
+                        $row.children('td').each(function () {
+                            $(this).html($(this).html().replace(/\[0]/g, '[' + String(i - 1) + ']'));
+                        });
+                        $('#items').append($row);
+                        itemsCount++;
+                    }
+                } else if (itemsCount > targetNo) {
+                    for (var i = itemsCount; i > targetNo; i--) {
+                        $('#items tr:last-child').last().remove();
+                        itemsCount--;
+                    }
+                }
+            }
+
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+
+            });
+        });
+
+        var DeviceGetInfoUrl = '@Url.Action("GetInfo","Device")';
+
+        @*function getDeviceIDByIMEI(ref) {
+            term = $("input[name='items[0].IMEI'").val();
+            //imei = ref.value;
+            console.log('@Url.Action("GetInfo", "Device")');
+            var Options = {}
+            Options.Filters = [];
+            Options.Filters.push({ Property: 'IMEI', Operation: 'Equal', Value: term });
+            console.log(JSON.stringify(Options));
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetInfo","Device")',
+                data: Options,
+                dataType: 'json',
+                success: function (response) {
+                    var items = response;
+                    console.log(items);
+                },
+                error: function (error) {
+                }
+            });
+        }*@
+
+        function getDeviceIDBySerial(ref) {
+            console.log('getDeviceIDBySerial');
+        }
+
+        function getSIMCardIDBySerial(ref) {
+            console.log('getSIMCardIDBySerial');
+        }
+
+        function getSIMCardIDByCompanySerial(ref) {
+            console.log('getSIMCardIDByCompanySerial');
+        }
+
+    </script>
+}
+
+
+
+

@@ -18,7 +18,7 @@ namespace Afaqy_Store.DataLayer
         public SystemServerIP()
         {
             this.BrandServerPort = new HashSet<BrandServerPort>();
-            this.CustomerServerIP = new HashSet<CustomerServerIP>();
+            this.CustomerServerAccount = new HashSet<CustomerServerAccount>();
             this.CustomerServerUser = new HashSet<CustomerServerUser>();
             this.DeviceServer = new HashSet<DeviceServer>();
         }
@@ -35,7 +35,7 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BrandServerPort> BrandServerPort { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerServerIP> CustomerServerIP { get; set; }
+        public virtual ICollection<CustomerServerAccount> CustomerServerAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServerUser> CustomerServerUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

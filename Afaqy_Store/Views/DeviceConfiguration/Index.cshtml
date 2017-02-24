@@ -1,16 +1,18 @@
 ﻿@using BeyondThemes.Bootstrap;
 @using Classes.Utilities;
 @using Classes.Common;
+
 @{
-    ViewBag.Title = Resources.Store.DeviceModelTypeTitle;
+    ViewBag.Title = Resources.ServerManagement.DeviceConfiguration;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
+
 <br />
-<div class="row" ng-controller="DeviceModelTypeCtrl">
+<div class="row" ng-controller="DeviceConfigurationCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-header ">
-                <span class="widget-caption">@Resources.Store.DeviceModelType</span>
+                <span class="widget-caption">@Resources.ServerManagement.DeviceConfiguration</span>
                 <div class="widget-buttons">
                     <a href="javascript:void(0);" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -66,8 +68,11 @@
                 }
                 
                 <div class="table-toolbar">
-                    <a ng-click="create()" class="btn purple" id="addBtn">
+                    <a  ng-click="create()" class="btn purple" id="addBtn"> 
                         <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                    </a>
+                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
+                        <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
                     </a>
                     <div class="btn-group pull-right">
                         <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
@@ -94,32 +99,44 @@
                         </ul>
                     </div>
                 </div>
-                @{ Html.RenderAction("Partial_Grid", "Common"); }
+                <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Paging", "Common"); }
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-    <script>
 
+    <script>
         var gridColumnDefs = [
-            { field: 'ModelTypeId', name: '@Resources.Store.DeviceModelTypeId' },
-            { field: 'ModelTypeName', name: '@Resources.Store.DeviceModelTypeName' },
+            { field: 'IMEI', name: '@Resources.Store.DeviceIMEI' },
+            { field: 'DeviceSerial', name: '@Resources.Store.DeviceSerialNumber' },
+            { field: 'SIMCardSerial', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
+            { field: 'CompanySerialNumber', name: '@Resources.ServerManagement.SIMCardCompanySerialNumber' },
+            { field: 'GSM', name: '@Resources.ServerManagement.SIMCardGSM' },
+            { field: 'AlternativeGSM', name: '@Resources.ServerManagement.SIMCardAltGSM' },
             { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.ModelTypeId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
-                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.ModelTypeId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.SIMCardId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.SIMCardId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false
             }
         ];
 
+        var deleteModalOptions = {
+            closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
+            actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
+            headerText: '@Resources.Resource.DeleteConfirmDialogHeader',
+            bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
+        };
+
         var getViewActionUrl = '@Url.Action("GetView")';
         var createActionUrl = '@Url.Action("Create")';
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
-
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
     </script>
 }

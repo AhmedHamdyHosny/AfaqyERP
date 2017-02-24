@@ -31,7 +31,8 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<CustomerServerIP> CustomerServerIP { get; set; }
+        public virtual DbSet<CustomerServerAccount> CustomerServerAccount { get; set; }
+        public virtual DbSet<CustomerServerAccountStatusHistory> CustomerServerAccountStatusHistory { get; set; }
         public virtual DbSet<CustomerServerStatus> CustomerServerStatus { get; set; }
         public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
         public virtual DbSet<Department> Department { get; set; }
@@ -44,6 +45,7 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<ServerRole> ServerRole { get; set; }
+        public virtual DbSet<ServerUnit> ServerUnit { get; set; }
         public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
         public virtual DbSet<SIMCard> SIMCard { get; set; }
         public virtual DbSet<SIMCardContract> SIMCardContract { get; set; }
@@ -54,17 +56,18 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SystemServerIP> SystemServerIP { get; set; }
         public virtual DbSet<TechniqueCompany> TechniqueCompany { get; set; }
         public virtual DbSet<TechniqueSystem> TechniqueSystem { get; set; }
+        public virtual DbSet<TempDevice> TempDevice { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<BrandServerPortView> BrandServerPortView { get; set; }
+        public virtual DbSet<CustomerServerAccountView> CustomerServerAccountView { get; set; }
+        public virtual DbSet<CustomerView> CustomerView { get; set; }
+        public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
         public virtual DbSet<SIMCardContractView> SIMCardContractView { get; set; }
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
-        public virtual DbSet<CustomerView> CustomerView { get; set; }
-        public virtual DbSet<ServerUnit> ServerUnit { get; set; }
-        public virtual DbSet<TempDevice> TempDevice { get; set; }
     }
 }

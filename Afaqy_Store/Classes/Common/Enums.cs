@@ -128,5 +128,13 @@ namespace Classes.Common
             AfaqyInfo = 7,
             AfaqyMe = 8
         }
+
+        public enum CustomerServerStatus
+        {
+            New = 1,
+            Working = 2,
+            Disable = 3,
+            Blocked = 4
+        }
     }
 }

@@ -90,19 +90,15 @@ namespace Afaqy_Store.Controllers
                 x.BranchId = branchId;
                 return x;
             }).ToList();
-
-            var i = items.Count(x=>x.IMEI != null);
-            var itms = items.Where(x => x.IMEI != null).ToList();
-            i = items.Count(x => x.SerialNumber != null);
-            itms = items.Where(x => x.SerialNumber != null).ToList();
-
-            //set device serial
-            items.Select(x =>
+            
+            //set device serial & device IMEI
+            items = items.Select(x =>
             {
                 x.SerialNumber = x.SerialNumber == null ? GetSerial(ref x) : x.SerialNumber;
-                x.IMEI = x.IMEI == null ?  GetIMEI(x.SerialNumber) : x.IMEI;
+                x.IMEI = x.IMEI == null ? GetIMEI(ref x) : x.IMEI;
                 return x;
-            });
+            }).ToList() ;
+            
         }
 
         private string GetSerial(ref DeviceImportModel device)
@@ -113,10 +109,10 @@ namespace Afaqy_Store.Controllers
             List<string> SN_lst = new List<string>();
             List<string> tmp_SN_lst = new List<string>();
             List<string> server_SN_lst = new List<string>();
-            if(string.IsNullOrEmpty(imei))
+            if(!string.IsNullOrEmpty(imei))
             {
                 //get serial number for server temp data
-                if(TempDevices != null)
+                if(TempDevices == null)
                 {
                     TempDevices = new TempDeviceModel<DataLayer.TempDevice>().Get();
                 }
@@ -132,7 +128,7 @@ namespace Afaqy_Store.Controllers
                 }
 
                 //get serial number for devices connected to server
-                if (ServerUnits != null)
+                if (ServerUnits == null)
                 {
                     ServerUnits = new ServerUnitModel<DataLayer.ServerUnit>().Get();
                 }
@@ -171,7 +167,11 @@ namespace Afaqy_Store.Controllers
                 }
                 else if(server_SN_lst.Count == 0 && tmp_SN_lst.Count == 0)
                 {
-                    note = "Serial number of Device IMEI [" + imei + "] not exist in fetch Data from server api or in Stored Data (Excel Sheets)";
+                    note = "Serial number is difference between device in server [" + string.Join(",", server_SN_lst.ToArray()) + "] and device in stored data [" + string.Join(",", tmp_SN_lst.ToArray()) + "]";
+                    if (note.Length > 200)
+                    {
+                        note = "Serial number is difference between device in server and device in stored data";
+                    }
                 }
             }
             else
@@ -179,32 +179,41 @@ namespace Afaqy_Store.Controllers
                 note = "Device IMEI is null or empty";
             }
 
-            if(!string.IsNullOrEmpty(serialNumber))
+            if(string.IsNullOrEmpty(serialNumber))
             {
                 device.Note = note;
             }
             return serialNumber;
         }
 
-        private string GetIMEI(string serialNumber)
+        private string GetIMEI(ref DeviceImportModel device)
         {
             string imei = null;
+            string serialNumber = device.SerialNumber;
+            string note = "";
             List<string> imei_lst = new List<string>();
-            if (serialNumber != null)
+            List<string> tmp_imei_lst = new List<string>();
+            List<string> server_imei_lst = new List<string>();
+            if (!string.IsNullOrEmpty(serialNumber))
             {
                 //get IMEI for server temp data
-                if (TempDevices != null)
+                if (TempDevices == null)
                 {
                     TempDevices = new TempDeviceModel<DataLayer.TempDevice>().Get();
                 }
                 var tempServerDevices = TempDevices.Where(x => x.DeviceSerial == serialNumber).ToList();
                 if (tempServerDevices != null && tempServerDevices.Count > 0)
                 {
-                    imei_lst.AddRange(tempServerDevices.Where(x => x.DeviceIMEI != null).Select(x => x.DeviceIMEI));
+                    tmp_imei_lst = tempServerDevices.Where(x => x.DeviceIMEI != null).Select(x => x.DeviceIMEI).ToList();
+                    imei_lst.AddRange(tmp_imei_lst);
+                }
+                else
+                {
+                    note = "IMEI of Device Serial [" + serialNumber + "] not exist in Stored Data (Excel Sheets)";
                 }
 
                 //get IMEI for devices connected to server
-                if (ServerUnits != null)
+                if (ServerUnits == null)
                 {
                     ServerUnits = new ServerUnitModel<DataLayer.ServerUnit>().Get();
                 }
@@ -213,11 +222,18 @@ namespace Afaqy_Store.Controllers
                 if (serverdevices != null && serverdevices.Count > 0)
                 {
                     //get IMEI
-                    imei_lst.AddRange(serverdevices.Where(x => x.DeviceIMEI != null).Select(x => x.DeviceIMEI));
+                    server_imei_lst = serverdevices.Where(x => x.DeviceIMEI != null).Select(x => x.DeviceIMEI).ToList();
+                    imei_lst.AddRange(server_imei_lst);
+                }
+                else
+                {
+                    note = "IMEI of Device Serial [" + serialNumber + "] not exist in fetch Data from server api";
                 }
 
                 //remove all null or empty serial
-                imei_lst = imei_lst.Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x)).ToList();
+                tmp_imei_lst = tmp_imei_lst.Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+                server_imei_lst = server_imei_lst.Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+                imei_lst = imei_lst.Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
 
                 //get serial number
                 if (imei_lst.Count > 0)
@@ -226,7 +242,27 @@ namespace Afaqy_Store.Controllers
                     {
                         imei = imei_lst[0];
                     }
+                    else
+                    {
+                        note = "IMEI is difference between device in server [" + string.Join(",", server_imei_lst.ToArray()) + "] and device in stored data [" + string.Join(",", tmp_imei_lst.ToArray()) + "]";
+                        if (note.Length > 200)
+                        {
+                            note = "IMEI is difference between device in server and device in stored data";
+                        }
+                    }
                 }
+                else if (server_imei_lst.Count == 0 && tmp_imei_lst.Count == 0)
+                {
+                    note = "IMEI of Device Serial [" + serialNumber + "] not exist in fetch Data from server api or in Stored Data (Excel Sheets)";
+                }
+            }
+            else
+            {
+                note = "Device Serial Number is null or empty";
+            }
+            if (string.IsNullOrEmpty(imei))
+            {
+                device.Note = note;
             }
 
             return imei;

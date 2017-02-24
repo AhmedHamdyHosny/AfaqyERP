@@ -314,7 +314,7 @@ namespace Classes.Common
             DelegatePreImportAsEntities delegatePreExecute = new DelegatePreImportAsEntities(FuncPreImportAsEntities);
             delegatePreExecute(ref items, fc);
 
-            var result = false;//instance.Import(items.ToArray());
+            var result = instance.Import(items.ToArray());
 
             DelegatePostImportAsEntities delegatePostExecute = new DelegatePostImportAsEntities(FuncPostImportAsEntities);
             return delegatePostExecute(result);
@@ -341,6 +341,20 @@ namespace Classes.Common
             }
 
             return sheetData;
+        }
+
+        // POST: Controller/getinfo
+        [HttpPost]
+        public JsonResult GetInfo(GenericApiController.Utilities.GenericDataFormat Options)
+        {
+            //create instance List of TViewModel
+            var model = (List<TViewModel>)Activator.CreateInstance(typeof(List<TViewModel>));
+            if (Options.Filters != null )
+            {
+                dynamic instance = Activator.CreateInstance(typeof(TModel_TViewModel));
+                model = instance.Get(Options);
+            }
+            return Json(model);
         }
 
     }

@@ -637,6 +637,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correct.
+        /// </summary>
+        public static string IsCorrect {
+            get {
+                return ResourceManager.GetString("IsCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Count.
         /// </summary>
         public static string ItemsCount {
@@ -678,6 +687,15 @@ namespace Resources {
         public static string ModifyUserFullNameEn {
             get {
                 return ResourceManager.GetString("ModifyUserFullNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
             }
         }
         

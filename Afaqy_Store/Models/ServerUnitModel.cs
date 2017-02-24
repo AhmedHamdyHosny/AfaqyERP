@@ -18,31 +18,9 @@ namespace Afaqy_Store.Models
         public ServerUnitModel() : base(ApiUrl, ApiRoute)
         {
         }
-
+        
         private static string url = null;
         private static MyHttpRequestMessage request = null;
-
-        //internal static List<CustServerUnit> GetAllUnits(GenericDataFormat options = null)
-        //{
-        //    List<CustServerUnit> result = new List<CustServerUnit>();
-
-        //    //afaqy.in
-        //    //result.AddRange(GetAllUnitsFromServerIn());
-
-        //    //afaqy.net
-        //    //result.AddRange(GetAllUnitsFromServerNet());
-
-        //    //afaqy.info
-        //    result.AddRange(GetAllUnitsFromServerInfo());
-
-        //    //afaqy.me
-        //    result.AddRange(GetAllUnitsFromServerMe());
-
-        //    return result;
-        //}
-
-        
-
         private static List<CustServerUnit> GetAllUnitsFromServerIn()
         {
             //afaqy.in
@@ -85,7 +63,6 @@ namespace Afaqy_Store.Models
 
             return result;
         }
-
         private static string GetServerIP(string server_ip_address)
         {
             string serverIp = null;
@@ -103,7 +80,6 @@ namespace Afaqy_Store.Models
 
             return serverIp;
         }
-
         private static List<CustServerUnit> GetAllUnitsFromServerNet()
         {
             //afaqy.net
@@ -232,7 +208,6 @@ namespace Afaqy_Store.Models
             }
             return result;
         }
-
         internal static bool SynchronizeServerUnits()
         {
             try
@@ -270,5 +245,34 @@ namespace Afaqy_Store.Models
             }
             
         }
+    }
+
+    public class ServerUnitViewModel : ServerUnit
+    {
+        public string Block
+        {
+            get
+            {
+                return this.IsDeleted != null && (bool)this.IsDeleted ? Resources.Resource.True : Resources.Resource.False;
+            }
+        }
+
+        public string LastConnection_Format
+        {
+            get
+            {
+
+                return this.LastConnection != null ? ((DateTime)this.LastConnection).ToString(Classes.Common.Constant.DateFormat) : "";
+            }
+        }
+    }
+
+    public class ServerUnitIndexViewModel : ServerUnitViewModel
+    {
+
+    }
+    public class ServerUnitDetailsViewModel : ServerUnitViewModel
+    {
+
     }
 }

@@ -61,6 +61,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Id.
+        /// </summary>
+        public static string AccountId {
+            get {
+                return ResourceManager.GetString("AccountId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Status.
+        /// </summary>
+        public static string AccountStatus {
+            get {
+                return ResourceManager.GetString("AccountStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account User Name.
+        /// </summary>
+        public static string AccountUserName {
+            get {
+                return ResourceManager.GetString("AccountUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternative GSM Prefix.
         /// </summary>
         public static string AltGSMPrefix {
@@ -178,6 +205,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client id.
+        /// </summary>
+        public static string ClientId {
+            get {
+                return ResourceManager.GetString("ClientId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Name.
+        /// </summary>
+        public static string ClientName {
+            get {
+                return ResourceManager.GetString("ClientName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Client Status.
+        /// </summary>
+        public static string ClientStatus {
+            get {
+                return ResourceManager.GetString("ClientStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract No.
         /// </summary>
         public static string ContractId {
@@ -214,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Id.
+        /// </summary>
+        public static string CustomerId {
+            get {
+                return ResourceManager.GetString("CustomerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Name.
         /// </summary>
         public static string CustomerName {
@@ -223,11 +286,65 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Server Account.
+        /// </summary>
+        public static string CustomerServerAccount {
+            get {
+                return ResourceManager.GetString("CustomerServerAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Configuration.
+        /// </summary>
+        public static string DeviceConfiguration {
+            get {
+                return ResourceManager.GetString("DeviceConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure Device.
+        /// </summary>
+        public static string DeviceConfigurationCreate {
+            get {
+                return ResourceManager.GetString("DeviceConfigurationCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Device Configuration.
+        /// </summary>
+        public static string DeviceConfigurationNew {
+            get {
+                return ResourceManager.GetString("DeviceConfigurationNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Name at server.
+        /// </summary>
+        public static string DeviceServerName {
+            get {
+                return ResourceManager.GetString("DeviceServerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GSM Prefix.
         /// </summary>
         public static string GSMPrefix {
             get {
                 return ResourceManager.GetString("GSMPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Connection.
+        /// </summary>
+        public static string LastConnection {
+            get {
+                return ResourceManager.GetString("LastConnection", resourceCulture);
             }
         }
         
@@ -250,11 +367,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server Customer Name.
+        /// </summary>
+        public static string ServerCustomerName {
+            get {
+                return ResourceManager.GetString("ServerCustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server IP.
         /// </summary>
         public static string ServerIP {
             get {
                 return ResourceManager.GetString("ServerIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ServerUnit.
+        /// </summary>
+        public static string ServerUnit {
+            get {
+                return ResourceManager.GetString("ServerUnit", resourceCulture);
             }
         }
         

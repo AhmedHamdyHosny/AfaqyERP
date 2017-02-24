@@ -2,16 +2,16 @@
 @using Classes.Utilities;
 @using Classes.Common;
 @{
-    ViewBag.Title = "ServerUnit"; //Resources.ServerManagement.ServerUnit;
+    ViewBag.Title = Resources.ServerManagement.ServerUnit;
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
 <br />
-<div class="row" ng-controller="BrandServerPortCtrl">
+<div class="row" ng-controller="ServerUnitCtrl">
     <div class="col-xs-12 col-md-12">
         <div class="widget">
             <div class="widget-header ">
-                <span class="widget-caption">@Resources.ServerManagement.BrandServerPort</span>
+                <span class="widget-caption">@Resources.ServerManagement.ServerUnit</span>
                 <div class="widget-buttons">
                     <a href="javascript:void(0);" data-toggle="maximize">
                         <i class="fa fa-expand"></i>
@@ -52,8 +52,6 @@
                                 <li>
                                     <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
                                 </li>
-
-                                
                             </ul>
                         </div>
                     </div>
@@ -69,19 +67,19 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'GSMNumber', name: 'GSM' }, @*@Resources.ServerManagement.Brand*@
-            { field: 'SIMSerial', name: 'SIM Serial' },
-            { field: 'DeviceIMEI', name: 'IMEI' },
-            { field: 'DeviceSerial', name: 'Device Serial' },
-            { field: 'DeviceStatus', name: 'Device Status' },
-            { field: 'IsDeleted', name: 'Deleted' },
-            { field: 'DeviceServerName', name: 'Device Name at server' },
-            { field: 'LastConnection', name: 'Last Connection' },
-            { field: 'ServerIP', name: 'Server IP Address' },
-            { field: 'ClientId', name: 'Client id' },
-            { field: 'ClientName', name: 'Client Name' },
-            { field: 'ClientStatus', name: 'Client Status' },
-            { field: 'IsCorrect', name: 'Correct' },
+            { field: 'GSMNumber', name: '@Resources.ServerManagement.SIMCardGSM' },
+            { field: 'SIMSerial', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
+            { field: 'DeviceIMEI', name: '@Resources.Store.DeviceIMEI' },
+            { field: 'DeviceSerial', name: '@Resources.Store.DeviceSerialNumber' },
+            { field: 'DeviceStatus', name: '@Resources.Store.DeviceStatus' },
+            { field: 'IsDeleted', name: '@Resources.Resource.IsBlock' },
+            { field: 'DeviceServerName', name: '@Resources.ServerManagement.DeviceServerName' },
+            { field: 'LastConnection_Format', name: '@Resources.ServerManagement.LastConnection' },
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP' },
+            { field: 'ClientId', name: '@Resources.ServerManagement.ClientId'  },
+            { field: 'ClientName', name: '@Resources.ServerManagement.ClientName' },
+            { field: 'ClientStatus', name: '@Resources.ServerManagement.ClientStatus' },
+            { field: 'IsCorrect', name: '@Resources.Resource.IsCorrect' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.BrandPortId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +

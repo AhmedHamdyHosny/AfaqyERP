@@ -12,22 +12,15 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerServerIP
+    public partial class CustomerServerAccountStatusHistory
     {
-        public int CustomerServerId { get; set; }
-        public int CustomerId { get; set; }
-        public int SystemServerId { get; set; }
-        public string AccountUserName { get; set; }
-        public string AccountPassword { get; set; }
+        public int HistoryId { get; set; }
+        public int CustomerServerAccountId { get; set; }
         public int CustomerServerStatusId { get; set; }
-        public bool IsBlock { get; set; }
+        public string Note { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> ModifyUserId { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
         public virtual CustomerServerStatus CustomerServerStatus { get; set; }
-        public virtual SystemServerIP SystemServerIP { get; set; }
     }
 }

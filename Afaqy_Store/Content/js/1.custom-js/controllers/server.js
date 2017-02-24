@@ -33,6 +33,22 @@
 .controller('CustomerCtrl', CustomerCtrl)
 .controller('CustomerDetailsCtrl', CustomerDetailsCtrl)
 
+//ServerUnit controllers ========
+.controller('ServerUnitCtrl', ServerUnitCtrl)
+.controller('ServerUnitDetailsCtrl', ServerUnitDetailsCtrl)
+
+//DeviceConfiguration controllers ========
+.controller('DeviceConfigurationCtrl', DeviceConfigurationCtrl)
+.controller('DeviceConfigurationCreateCtrl', DeviceConfigurationCreateCtrl)
+.controller('DeviceConfigurationEditCtrl', DeviceConfigurationEditCtrl)
+.controller('DeviceConfigurationDetailsCtrl', DeviceConfigurationDetailsCtrl)
+
+//CustomerServerAccount controllers ========
+.controller('CustomerServerAccountCtrl', CustomerServerAccountCtrl)
+.controller('CustomerServerAccountCreateCtrl', CustomerServerAccountCreateCtrl)
+.controller('CustomerServerAccountEditCtrl', CustomerServerAccountEditCtrl)
+.controller('CustomerServerAccountDetailsCtrl', CustomerServerAccountDetailsCtrl)
+
 //Brand functions ========
 function BrandCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
     ctrlService.initCtrl($scope);
@@ -386,7 +402,6 @@ function SIMCardDetailsCtrl($scope, $uibModalInstance) {
     };
 }
 
-
 //SIMCardStatus functions ========
 function SIMCardStatusCtrl($scope, $uibModal, gridService, ctrlService) {
 
@@ -458,6 +473,248 @@ function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ct
 }
 
 function CustomerDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//ServerUnit functions ========
+function ServerUnitCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+    ctrlService.initCtrl($scope);
+    gridService.initGrid($scope);
+    gridService.configureExport($scope);
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'ServerUnitDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+}
+
+function ServerUnitDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//DeviceConfiguration functions ========
+function DeviceConfigurationCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'DeviceConfigurationCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'DeviceConfigurationEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'DeviceConfigurationDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.DeleteItems = function (ev) {
+
+        var modalOptions = deleteModalOptions;
+
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.DeviceSIMId)
+            });
+
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+
+            hideLoading();
+        });
+    }
+}
+
+function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.getDeviceIDByIMEI = function (imei,deviceSerial,deviceId) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'IMEI', Operation: 'Equal', Value: imei });
+        var url = DeviceGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var items = resp.data
+            if (items != undefined && items != null) {
+                if (items.length == 1) {
+                    var device = items[0];
+                    console.log(JSON.stringify(device));
+                    deviceSerial = device.SerialNumber;
+                    deviceId = device.DeviceId;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+    }
+}
+
+function DeviceConfigurationEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function DeviceConfigurationDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//CustomerServerAccount functions ========
+function CustomerServerAccountCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'CustomerServerAccountCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'CustomerServerAccountEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'CustomerServerAccountDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.DeleteItems = function (ev) {
+
+        var modalOptions = deleteModalOptions;
+
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.CustomerServerAccountId)
+            });
+
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+
+            hideLoading();
+        });
+    }
+}
+
+function CustomerServerAccountCreateCtrl($scope, $uibModalInstance, global) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+}
+
+function CustomerServerAccountEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function CustomerServerAccountDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
