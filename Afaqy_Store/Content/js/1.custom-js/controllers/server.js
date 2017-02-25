@@ -49,6 +49,10 @@
 .controller('CustomerServerAccountEditCtrl', CustomerServerAccountEditCtrl)
 .controller('CustomerServerAccountDetailsCtrl', CustomerServerAccountDetailsCtrl)
 
+//CustomerServerUnits controllers ========
+.controller('CustomerServerUnitsCtrl', CustomerServerUnitsCtrl)
+.controller('CustomerServerUnitsDetailsCtrl', CustomerServerUnitsDetailsCtrl)
+
 //Brand functions ========
 function BrandCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
     ctrlService.initCtrl($scope);
@@ -719,4 +723,221 @@ function CustomerServerAccountDetailsCtrl($scope, $uibModalInstance) {
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
+}
+
+//CustomerServerUnits functions ========
+function CustomerServerUnitsCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+    ctrlService.initCtrl($scope);
+    gridService.initGrid($scope);
+    gridService.configureExport($scope);
+
+    $scope.details = function (id) {
+        showLoading();
+        $scope.selectedCustomerId = id;
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'CustomerServerUnitsDetailsCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+}
+
+function CustomerServerUnitsDetailsCtrl($scope, $uibModalInstance, uiGridConstants, $interval, $q, uiGridExporterConstants, uiGridExporterService, global) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    var fakeI18n = function (title) {
+            var deferred = $q.defer();
+            $interval(function () {
+                deferred.resolve('col: ' + title);
+            }, 1000, 1);
+            return deferred.promise;
+    };
+
+    var gridOptions = {}
+
+    //Pagination
+    $scope.pagination = {
+            paginationPageSizes: [15, 25, 50, 75, 100, "All"],
+            ddlpageSize: 15,
+            pageNumber: 1,
+            pageSize: 15,
+            totalItems: 0,
+
+            getTotalPages: function () {
+                return Math.ceil(this.totalItems / this.pageSize);
+            },
+            pageSizeChange: function () {
+                if (this.ddlpageSize == "All")
+                    this.pageSize = $scope.pagination.totalItems;
+                else
+                    this.pageSize = this.ddlpageSize
+
+                this.pageNumber = 1
+                $scope.GetProducts();
+            },
+            firstPage: function () {
+                if (this.pageNumber > 1) {
+                    this.pageNumber = 1
+                    $scope.GetProducts();
+                }
+            },
+            nextPage: function () {
+                if (this.pageNumber < this.getTotalPages()) {
+                    this.pageNumber++;
+                    $scope.GetProducts();
+                }
+            },
+            previousPage: function () {
+                if (this.pageNumber > 1) {
+                    this.pageNumber--;
+                    $scope.GetProducts();
+                }
+            },
+            lastPage: function () {
+                if (this.pageNumber >= 1) {
+                    this.pageNumber = this.getTotalPages();
+                    $scope.GetProducts();
+                }
+            }
+    };
+
+    //ui-Grid Call
+    $scope.GetProducts = function () {
+            $scope.result = "color-green";
+            $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+                if (col.filters[0].term) {
+                    return 'header-filtered';
+                } else {
+                    return '';
+                }
+            };
+            $scope.gridOptions = {
+                useExternalPagination: true,
+
+                useExternalSorting: false,
+                enableFiltering: true,
+                enableRowSelection: true,
+                enableSelectAll: true,
+                enableGridMenu: true,
+                gridMenuTitleFilter: fakeI18n,
+                exporterMenuCsv: false,
+                exporterMenuPdf: false,
+                columnDefs: gridColumnDefs2,
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
+                    gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                        $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                    });
+                    gridApi.core.on.filterChanged($scope,
+                        function () {
+                            var grid = this.grid;
+                            //reset filters
+                            gridOptions.Filters = [];
+                            for (var i = 0; i < grid.columns.length; i++) {
+                                term = grid.columns[i].filters[0].term;
+                                field = grid.columns[i].field;
+                                if (term != undefined && term != null && term != '') {
+                                    gridOptions.Filters.push({ Property: field, Operation: 'Like', Value: term, LogicalOperation: 'And' });
+                                }
+                            }
+                            //console.log(JSON.stringify(gridOptions));
+                            //rebind grid data
+                            $scope.GetProducts();
+                        });
+                    gridApi.core.on.sortChanged($scope, function () {
+                        var grid = this.grid;
+                        //reset sort
+                        gridOptions.Sorts = [];
+                        for (var i = 0; i < grid.columns.length; i++) {
+                            direction = grid.columns[i].sort.direction;
+                            field = grid.columns[i].field;
+                            priority = grid.columns[i].sort.priority
+                            if (direction != undefined && direction != null && direction != '') {
+                                gridOptions.Sorts.push({ Property: field, SortType: direction, Priority: priority });
+                            }
+                        }
+                        //console.log(JSON.stringify(gridOptions));
+                        //rebind grid data
+                        $scope.GetProducts();
+                    });
+                },
+                exporterAllDataFn: function () {
+                    return getPage(1, $scope.gridOptions.totalItems, paginationOptions.sort)
+                    .then(function () {
+                        $scope.gridOptions.useExternalPagination = false;
+                        $scope.gridOptions.useExternalSorting = false;
+                        getPage = null;
+                    });
+                },
+            };
+            var NextPage;
+            if (isNaN($scope.pagination.pageNumber)) {
+                NextPage = 1;
+            }else{
+                NextPage = $scope.pagination.pageNumber;
+            }
+            var NextPageSize = $scope.pagination.pageSize;
+            gridOptions.Paging = { PageNumber: NextPage, PageSize: NextPageSize };
+            var url = getCustomerServerUnitsDetailsViewActionUrl;
+            var formData = { customerId: $scope.selectedCustomerId, options: gridOptions };
+            console.log(JSON.stringify(formData));
+            global.post(url, formData, function (resp) {
+                console.log(JSON.stringify("hi--------------:"+resp.data));
+                $scope.pagination.totalItems = resp.data.TotalItemsCount;
+                $scope.gridOptions.data = resp.data.PageItems;
+                console.log(JSON.stringify(resp.data.PageItems));
+                $scope.gridOptions.selectedItems = [];
+            }, function (resp) {
+                console.log("Error: " + error);
+            }, function () {
+                $scope.loaderMore = true;
+            }, function () {
+                $scope.loaderMore = false;
+            });
+    }
+    
+    //Default Load
+    $scope.GetProducts();
+
+    $scope.ToggoleGridFilter = function ($event) {
+        $scope.gridOptions.enableFiltering = !$scope.gridOptions.enableFiltering;
+        $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+    }
+
+    $scope.ExportAllDataAsPdf = function () {
+        var grid = $scope.gridApi.grid;
+        var rowTypes = uiGridExporterConstants.ALL;
+        var colTypes = uiGridExporterConstants.ALL;
+        uiGridExporterService.pdfExport(grid, rowTypes, colTypes);
+    }
+
+    $scope.ExportVisibleDataAsPdf = function () {
+        var grid = $scope.gridApi.grid;
+        var rowTypes = uiGridExporterConstants.VISIBLE;
+        var colTypes = uiGridExporterConstants.ALL;
+        uiGridExporterService.pdfExport(grid, rowTypes, colTypes);
+    }
+
+    $scope.ExportAllDataAsCsv = function () {
+        var grid = $scope.gridApi.grid;
+        var rowTypes = uiGridExporterConstants.ALL;
+        var colTypes = uiGridExporterConstants.ALL;
+        uiGridExporterService.csvExport(grid, rowTypes, colTypes);
+    }
+
+    $scope.ExportVisibleDataAsCsv = function () {
+        var grid = $scope.gridApi.grid;
+        var rowTypes = uiGridExporterConstants.VISIBLE;
+        var colTypes = uiGridExporterConstants.ALL;
+        uiGridExporterService.csvExport(grid, rowTypes, colTypes);
+    }
+    
+
 }

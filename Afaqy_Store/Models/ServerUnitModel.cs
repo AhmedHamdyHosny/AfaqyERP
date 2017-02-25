@@ -214,36 +214,59 @@ namespace Afaqy_Store.Models
             {
                 List<CustServerUnit> result = new List<CustServerUnit>();
                 List<ServerUnit> items = new List<ServerUnit>();
-                //afaqy.in
-                result = GetAllUnitsFromServerIn();
-                items = result.Select(x => x.ToServerUnit()).ToList();
-                //insert result 
-                new ServerUnitModel<ServerUnit>().Import(items.ToArray());
 
-                //afaqy.net
-                result = GetAllUnitsFromServerNet();
-                items = result.Select(x => x.ToServerUnit()).ToList();
-                //insert result
-                new ServerUnitModel<ServerUnit>().Import(items.ToArray());
+                //clear all data from db
+                if(new ServerUnitModel<ServerUnit>().ClearData())
+                {
+                    //afaqy.in
+                    result = GetAllUnitsFromServerIn();
+                    items = result.Select(x => x.ToServerUnit()).ToList();
+                    //insert result 
+                    new ServerUnitModel<ServerUnit>().Import(items.ToArray());
 
-                //afaqy.info
-                items = GetAllUnitsFromServerInfo<ServerUnit>();
-                //insert result
-                new ServerUnitModel<ServerUnit>().Import(items.ToArray());
+                    //afaqy.net
+                    result = GetAllUnitsFromServerNet();
+                    items = result.Select(x => x.ToServerUnit()).ToList();
+                    //insert result
+                    new ServerUnitModel<ServerUnit>().Import(items.ToArray());
 
-                //afaqy.me
-                items = GetAllUnitsFromServerMe<ServerUnit>();
-                //insert result
-                new ServerUnitModel<ServerUnit>().Import(items.ToArray());
+                    //afaqy.info
+                    items = GetAllUnitsFromServerInfo<ServerUnit>();
+                    //insert result
+                    new ServerUnitModel<ServerUnit>().Import(items.ToArray());
 
-                return true;
+                    //afaqy.me
+                    items = GetAllUnitsFromServerMe<ServerUnit>();
+                    //insert result
+                    new ServerUnitModel<ServerUnit>().Import(items.ToArray());
+
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
+                
+            }
+
+            return false;
+
+        }
+
+        public bool ClearData()
+        {
+            string url = ApiServerUrl + ControllerRoute + "clear";
+            MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            var task = request.Execute<String>();
+            task.Wait();
+            if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
                 return false;
             }
-            
         }
     }
 

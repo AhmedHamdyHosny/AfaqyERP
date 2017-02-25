@@ -286,11 +286,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Name (Ar).
+        /// </summary>
+        public static string CustomerNameAr {
+            get {
+                return ResourceManager.GetString("CustomerNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Name (En).
+        /// </summary>
+        public static string CustomerNameEn {
+            get {
+                return ResourceManager.GetString("CustomerNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Server Account.
         /// </summary>
         public static string CustomerServerAccount {
             get {
                 return ResourceManager.GetString("CustomerServerAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Server Units.
+        /// </summary>
+        public static string CustomerServerUnits {
+            get {
+                return ResourceManager.GetString("CustomerServerUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Server Units Details.
+        /// </summary>
+        public static string CustomerServerUnitsDetails {
+            get {
+                return ResourceManager.GetString("CustomerServerUnitsDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Count (Deleted).
+        /// </summary>
+        public static string DeletedUnitsCount {
+            get {
+                return ResourceManager.GetString("DeletedUnitsCount", resourceCulture);
             }
         }
         
@@ -322,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Device Name at server.
+        ///   Looks up a localized string similar to Device Server Name.
         /// </summary>
         public static string DeviceServerName {
             get {
@@ -615,6 +660,33 @@ namespace Resources {
         public static string SystemServerIPNew {
             get {
                 return ResourceManager.GetString("SystemServerIPNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Units Count (Total).
+        /// </summary>
+        public static string TotalUnitsCount {
+            get {
+                return ResourceManager.GetString("TotalUnitsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit Id.
+        /// </summary>
+        public static string UnitId {
+            get {
+                return ResourceManager.GetString("UnitId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Units Count (Working).
+        /// </summary>
+        public static string WorkingUnitsCount {
+            get {
+                return ResourceManager.GetString("WorkingUnitsCount", resourceCulture);
             }
         }
     }

@@ -91,6 +91,8 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_User_UserType" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_UserRole_User" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" Width="1.5" PointX="13.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

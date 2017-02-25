@@ -69,5 +69,7 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
+        public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
+        public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
     }
 }

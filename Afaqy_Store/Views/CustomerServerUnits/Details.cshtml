@@ -1,0 +1,36 @@
+﻿@model object
+@using Newtonsoft.Json
+@{
+    ViewBag.Title = Resources.ServerManagement.CustomerServerUnitsDetails;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.ServerManagement.CustomerServerUnitsDetails</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+   <input type="hidden" value="@Model" ng-model="CustomerId" />
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            
+        </dl>
+
+        @{ Html.RenderAction("Partial_Grid", "Common"); }
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
+    </div>
+}
+
+
+@section scripts{
+    <script>
+        
+
+        
+
+    </script>
+}

@@ -605,6 +605,47 @@ warning 6002: The table/view 'AfaqyStore.afqy.CustomerServerAccountView' does no
           <Property Name="ModifyUser_FullName_ar" Type="nvarchar" MaxLength="41" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'AfaqyStore.afqy.CustomerServerUnitsCountView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerServerUnitsCountView">
+          <Key>
+            <PropertyRef Name="BranchName_en" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerName_en" />
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="BranchName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CustomerName_en" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CustomerName_ar" Type="nvarchar" MaxLength="100" />
+          <Property Name="ServerIP" Type="varchar" MaxLength="15" />
+          <Property Name="AccountId" Type="int" Nullable="false" />
+          <Property Name="AccountUserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SeverCustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ClientStatus" Type="int" />
+          <Property Name="TotalUnitsCount" Type="int" />
+          <Property Name="WorkingUnitsCount" Type="int" />
+          <Property Name="DeletedUnitsCount" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AfaqyStore.afqy.CustomerServerUnitsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerServerUnitsView">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="UnitId" Type="int" Nullable="false" />
+          <Property Name="GSMNumber" Type="varchar" MaxLength="50" />
+          <Property Name="SIMSerial" Type="varchar" MaxLength="50" />
+          <Property Name="DeviceIMEI" Type="varchar" MaxLength="20" />
+          <Property Name="DeviceSerial" Type="varchar" MaxLength="20" />
+          <Property Name="DeviceStatus" Type="int" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="DeviceServerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastConnection" Type="datetime" />
+          <Property Name="ServerIP" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'AfaqyStore.afqy.CustomerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CustomerView">
           <Key>
@@ -1477,6 +1518,37 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
     [CustomerServerAccountView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar]
     FROM [afqy].[CustomerServerAccountView] AS [CustomerServerAccountView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="CustomerServerUnitsCountView" EntityType="Self.CustomerServerUnitsCountView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [CustomerServerUnitsCountView].[BranchName_en] AS [BranchName_en], 
+    [CustomerServerUnitsCountView].[CustomerId] AS [CustomerId], 
+    [CustomerServerUnitsCountView].[CustomerName_en] AS [CustomerName_en], 
+    [CustomerServerUnitsCountView].[CustomerName_ar] AS [CustomerName_ar], 
+    [CustomerServerUnitsCountView].[ServerIP] AS [ServerIP], 
+    [CustomerServerUnitsCountView].[AccountId] AS [AccountId], 
+    [CustomerServerUnitsCountView].[AccountUserName] AS [AccountUserName], 
+    [CustomerServerUnitsCountView].[SeverCustomerName] AS [SeverCustomerName], 
+    [CustomerServerUnitsCountView].[ClientStatus] AS [ClientStatus], 
+    [CustomerServerUnitsCountView].[TotalUnitsCount] AS [TotalUnitsCount], 
+    [CustomerServerUnitsCountView].[WorkingUnitsCount] AS [WorkingUnitsCount], 
+    [CustomerServerUnitsCountView].[DeletedUnitsCount] AS [DeletedUnitsCount]
+    FROM [afqy].[CustomerServerUnitsCountView] AS [CustomerServerUnitsCountView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CustomerServerUnitsView" EntityType="Self.CustomerServerUnitsView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [CustomerServerUnitsView].[CustomerId] AS [CustomerId], 
+    [CustomerServerUnitsView].[UnitId] AS [UnitId], 
+    [CustomerServerUnitsView].[GSMNumber] AS [GSMNumber], 
+    [CustomerServerUnitsView].[SIMSerial] AS [SIMSerial], 
+    [CustomerServerUnitsView].[DeviceIMEI] AS [DeviceIMEI], 
+    [CustomerServerUnitsView].[DeviceSerial] AS [DeviceSerial], 
+    [CustomerServerUnitsView].[DeviceStatus] AS [DeviceStatus], 
+    [CustomerServerUnitsView].[IsDeleted] AS [IsDeleted], 
+    [CustomerServerUnitsView].[DeviceServerName] AS [DeviceServerName], 
+    [CustomerServerUnitsView].[LastConnection] AS [LastConnection], 
+    [CustomerServerUnitsView].[ServerIP] AS [ServerIP]
+    FROM [afqy].[CustomerServerUnitsView] AS [CustomerServerUnitsView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="CustomerView" EntityType="Self.CustomerView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
     [CustomerView].[CustomerId] AS [CustomerId], 
@@ -2063,6 +2135,8 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <EntitySet Name="CustomerServerUnitsCountView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" />
+          <EntitySet Name="CustomerServerUnitsView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" />
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -3501,6 +3575,43 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CustomerServerUnitsCountView">
+          <Key>
+            <PropertyRef Name="BranchName_en" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerName_en" />
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="AccountUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SeverCustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientStatus" Type="Int32" />
+          <Property Name="TotalUnitsCount" Type="Int32" />
+          <Property Name="WorkingUnitsCount" Type="Int32" />
+          <Property Name="DeletedUnitsCount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CustomerServerUnitsView">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="GSMNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SIMSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceSerial" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceStatus" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeviceServerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastConnection" Type="DateTime" Precision="3" />
+          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4329,6 +4440,41 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="FirstName_en" ColumnName="FirstName_en" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerUnitsCountView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsCountView">
+              <MappingFragment StoreEntitySet="CustomerServerUnitsCountView">
+                <ScalarProperty Name="DeletedUnitsCount" ColumnName="DeletedUnitsCount" />
+                <ScalarProperty Name="WorkingUnitsCount" ColumnName="WorkingUnitsCount" />
+                <ScalarProperty Name="TotalUnitsCount" ColumnName="TotalUnitsCount" />
+                <ScalarProperty Name="ClientStatus" ColumnName="ClientStatus" />
+                <ScalarProperty Name="SeverCustomerName" ColumnName="SeverCustomerName" />
+                <ScalarProperty Name="AccountUserName" ColumnName="AccountUserName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
+                <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerUnitsView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsView">
+              <MappingFragment StoreEntitySet="CustomerServerUnitsView">
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="LastConnection" ColumnName="LastConnection" />
+                <ScalarProperty Name="DeviceServerName" ColumnName="DeviceServerName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeviceStatus" ColumnName="DeviceStatus" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
+                <ScalarProperty Name="SIMSerial" ColumnName="SIMSerial" />
+                <ScalarProperty Name="GSMNumber" ColumnName="GSMNumber" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

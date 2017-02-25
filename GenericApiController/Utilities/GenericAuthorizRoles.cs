@@ -29,6 +29,6 @@ namespace GenericApiController.Utilities
 
     public enum Actions
     {
-        Get, GetById, Post, Put, Delete, GetByOptions,Import,Export
+        Get, GetById, Post, Put, Delete, Clear, GetByOptions,Import,Export
     }
 }

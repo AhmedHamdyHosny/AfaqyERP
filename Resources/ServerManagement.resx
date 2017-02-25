@@ -268,7 +268,7 @@
     <value>Client Status</value>
   </data>
   <data name="DeviceServerName" xml:space="preserve">
-    <value>Device Name at server</value>
+    <value>Device Server Name</value>
   </data>
   <data name="LastConnection" xml:space="preserve">
     <value>Last Connection</value>
@@ -302,5 +302,29 @@
   </data>
   <data name="ServerCustomerName" xml:space="preserve">
     <value>Server Customer Name</value>
+  </data>
+  <data name="CustomerNameAr" xml:space="preserve">
+    <value>Customer Name (Ar)</value>
+  </data>
+  <data name="CustomerNameEn" xml:space="preserve">
+    <value>Customer Name (En)</value>
+  </data>
+  <data name="CustomerServerUnits" xml:space="preserve">
+    <value>Customer Server Units</value>
+  </data>
+  <data name="CustomerServerUnitsDetails" xml:space="preserve">
+    <value>Customer Server Units Details</value>
+  </data>
+  <data name="DeletedUnitsCount" xml:space="preserve">
+    <value>Unit Count (Deleted)</value>
+  </data>
+  <data name="TotalUnitsCount" xml:space="preserve">
+    <value>Units Count (Total)</value>
+  </data>
+  <data name="UnitId" xml:space="preserve">
+    <value>Unit Id</value>
+  </data>
+  <data name="WorkingUnitsCount" xml:space="preserve">
+    <value>Units Count (Working)</value>
   </data>
 </root>

@@ -503,7 +503,7 @@ namespace GenericApiController
             repo.Save();
             return Content(HttpStatusCode.OK, result.ToList());
         }
-        private bool IsAuthorize(Actions action)
+        protected bool IsAuthorize(Actions action)
         {
             //check if there is authorization roles defined in contorller
             if (AuthorizRole != null)

@@ -287,8 +287,10 @@
     <Compile Include="Classes\Utilities\SiteConfig.cs" />
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
+    <Compile Include="Controllers\CustomerServerUnitsController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
@@ -352,6 +354,7 @@
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomerServerAccountModel.cs" />
+    <Compile Include="Models\CustomerServerUnitsModel.cs" />
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
@@ -999,6 +1002,8 @@
     <Content Include="Views\DeviceConfiguration\Details.cshtml" />
     <Content Include="Views\DeviceConfiguration\Edit.cshtml" />
     <Content Include="Views\CustomerServerAccount\Index.cshtml" />
+    <Content Include="Views\CustomerServerUnits\Index.cshtml" />
+    <Content Include="Views\CustomerServerUnits\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

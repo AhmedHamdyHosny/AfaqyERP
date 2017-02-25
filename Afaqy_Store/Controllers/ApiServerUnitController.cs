@@ -10,5 +10,18 @@ namespace Afaqy_Store.Controllers
 {
     public class ApiServerUnitController : BaseApiController<ServerUnit>
     {
+        [HttpGet]
+        public IHttpActionResult Clear()
+        {
+            
+            GetAuthorization();
+            if (!IsAuthorize(GenericApiController.Utilities.Actions.Clear))
+            {
+                return Content(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            repo.Repo.ExceuteSql("TRUNCATE TABLE [afqy].[ServerUnit]");
+            return Content(HttpStatusCode.OK, "Success");
+           
+        }
     }
 }

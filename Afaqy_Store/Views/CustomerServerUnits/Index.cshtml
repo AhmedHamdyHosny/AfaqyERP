@@ -1,0 +1,147 @@
+﻿@using BeyondThemes.Bootstrap;
+@using Classes.Utilities;
+@using Classes.Common;
+
+@{
+    ViewBag.Title = Resources.ServerManagement.CustomerServerUnits;
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<br />
+<div class="row" ng-controller="CustomerServerUnitsCtrl">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@Resources.ServerManagement.CustomerServerUnits</span>
+                <div class="widget-buttons">
+                    <a href="javascript:void(0);" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                @{
+                    //check for alert messages
+                    if (ViewBag.AlertMessage != null)
+                    {
+                        var alertMessage = (AlertMessage)ViewBag.AlertMessage;
+                        switch (alertMessage.MessageType)
+                        {
+                            case Enums.AlertMessageType.Success:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id="alert"}).Style(AlertColor.Success).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-check"></i>
+                                    <strong>@Resources.Resource.AlertSuccess</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Error:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Error).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>@Resources.Resource.AlertError</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Warning:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Warning).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-warning"></i>
+                                    <strong>@Resources.Resource.AlertWarning</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.info:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Info).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-info"></i>
+                                    <strong>@Resources.Resource.AlertInfo</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                
+                <div class="table-toolbar">
+                    <div class="ToolsDiv">
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
+                            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu dropdown-default">
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="ExportAllDataAsCsv()">@Resources.Resource.ExportAllDataCsv</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="ExportVisibleDataAsCsv()">@Resources.Resource.ExportVisibleDataCsv</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="ExportAllDataAsPdf()">@Resources.Resource.ExportAllDataPdf</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" ng-click="ExportVisibleDataAsPdf()">@Resources.Resource.ExportVisibleDataPdf</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter ui-grid-selection class="grid"></div>
+                @{ Html.RenderAction("Partial_Paging", "Common"); }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        var gridColumnDefs = [
+            { field: 'BranchName_en', name: '@Resources.ServerManagement.Branch', width:80 },
+            { field: 'CustomerId', name: '@Resources.ServerManagement.CustomerId', width: 110 },
+            { field: 'CustomerName_en', name: '@Resources.ServerManagement.CustomerNameEn', width: 200 },
+            { field: 'CustomerName_ar', name: '@Resources.ServerManagement.CustomerNameAr', width: 200 },
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP', width: 100 },
+            { field: 'AccountId', name: '@Resources.ServerManagement.AccountId', width: 100 },
+            { field: 'AccountUserName', name: '@Resources.ServerManagement.AccountUserName', width: 200 },
+            { field: 'SeverCustomerName', name: '@Resources.ServerManagement.ServerCustomerName', width: 200 },
+            { field: 'ClientStatus', name: '@Resources.ServerManagement.ClientStatus', width: 110 },
+            { field: 'TotalUnitsCount', name: '@Resources.ServerManagement.TotalUnitsCount', width: 165 },
+            { field: 'WorkingUnitsCount', name: '@Resources.ServerManagement.WorkingUnitsCount', width: 175 },
+            { field: 'DeletedUnitsCount', name: '@Resources.ServerManagement.DeletedUnitsCount', width: 170 },
+            {
+                name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.CustomerId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, width: 100
+            }
+        ];
+
+        var getViewActionUrl = '@Url.Action("GetView")';
+        var detailsActionUrl = '@Url.Action("Details")';
+        var getCustomerServerUnitsDetailsViewActionUrl = '@Url.Action("GetCustomerServerUnitsDetailsView")';
+
+
+        var gridColumnDefs2 = [
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP', width: 100 },
+            { field: 'UnitId', name: '@Resources.ServerManagement.UnitId', width: 80 },
+            { field: 'GSMNumber', name: '@Resources.ServerManagement.SIMCardGSM', width: 150 },
+            { field: 'SIMSerial', name: '@Resources.ServerManagement.SIMCardSerialNumber', width: 200 },
+            { field: 'DeviceIMEI', name: '@Resources.Store.DeviceIMEI', width: 200 },
+            { field: 'DeviceSerial', name: '@Resources.Store.DeviceSerialNumber', width: 120 },
+            { field: 'DeviceServerName', name: '@Resources.ServerManagement.DeviceServerName', width: 150 },
+            { field: 'LastConnection_Format', name: '@Resources.ServerManagement.LastConnection', width: 150 },
+            { field: 'IsDeleted', name: '@Resources.Resource.Block', width: 100 },
+        ];
+    </script>
+}

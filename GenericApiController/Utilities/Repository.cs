@@ -323,5 +323,10 @@ namespace GenericApiController.Utilities
         {
             return DbSet.SqlQuery(query, parameters) as IQueryable<TEntity>; //DbSet.SqlQuery to connect directly to the database
         }
+
+        public virtual int ExceuteSql(string query)
+        {
+            return _context.Database.ExecuteSqlCommand(query); 
+        }
     }
 }
