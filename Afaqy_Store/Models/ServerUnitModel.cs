@@ -101,7 +101,8 @@ namespace Afaqy_Store.Models
 
             //101
             string url = SiteConfig.AfaqyNet.Net_101_Url;
-            request = new MyHttpRequestMessage(url, HttpMethod.Get);task = request.Execute<AfaqyTacker>();
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            task = request.Execute<AfaqyTacker>();
             task.Wait();
             //set server ip address
             var data = task.Result.AfaqyTackers;
@@ -110,7 +111,8 @@ namespace Afaqy_Store.Models
 
             //20
             url = SiteConfig.AfaqyNet.Net_20_Url;
-            request = new MyHttpRequestMessage(url, HttpMethod.Get); task = request.Execute<AfaqyTacker>();
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            task = request.Execute<AfaqyTacker>();
             task.Wait();
             //set server ip address
             data = task.Result.AfaqyTackers;
@@ -119,7 +121,8 @@ namespace Afaqy_Store.Models
 
             //104
             url = SiteConfig.AfaqyNet.Net_104_Url;
-            request = new MyHttpRequestMessage(url, HttpMethod.Get); task = request.Execute<AfaqyTacker>();
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            task = request.Execute<AfaqyTacker>();
             task.Wait();
             //set server ip address
             data = task.Result.AfaqyTackers;
@@ -128,12 +131,13 @@ namespace Afaqy_Store.Models
 
             //119
             url = SiteConfig.AfaqyNet.Net_119_Url;
-            request = new MyHttpRequestMessage(url, HttpMethod.Get); task = request.Execute<AfaqyTacker>();
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            task = request.Execute<AfaqyTacker>();
             task.Wait();
             //set server ip address
             data = task.Result.AfaqyTackers;
             data = data.Select(x => { x.server_ip_address = Classes.Common.DBEnums.SystemServerIp.Tatweer_AfaqyNet_119; return x; }).ToList();
-            result.AddRange(task.Result.AfaqyTackers);
+            result.AddRange(data);
 
             //request = new MyHttpRequestMessage(url, HttpMethod.Get);
             //request.RequestMessage.SetConfiguration(new System.Web.Http.HttpConfiguration() {  });
@@ -155,23 +159,31 @@ namespace Afaqy_Store.Models
             var accountInfoTask = request.Execute<Afaqy_Info_Me.AfaqyAccount>();
             accountInfoTask.Wait();
             string sessionId = accountInfoTask.Result.ssid;
+            //get all accounts 
+            url = SiteConfig.AfaqyInfo.Url;
+            url += "/ajax.html?ssid="+sessionId+"&svc=core/search_items&params={\"spec\":{\"itemsType\":\"avl_resource\",\"propName\":\"rel_is_account,sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\"},\"force\":1,\"flags\":5,\"from\":0,\"to\":0xffffffff}";
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            var accountsInfoTask = request.Execute<AfaqyInfo.AfaqySearchItem>();
+            accountsInfoTask.Wait();
+            var accounts = accountsInfoTask.Result.items.Select(x=> new Afaqy_Info_Me.AfaqySearchItem.Account().ToAccount(x)).ToList();
+
             //get units
             url = SiteConfig.AfaqyInfo.Url;
             url = url + "/ajax.html?ssid=" + sessionId + "&svc=core/search_items&params={\"spec\":{\"itemsType\":\"avl_unit\",\"propName\":\"sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\"},\"force\":0,\"flags\":1301,\"from\":0,\"to\":0xffffffff}";
             request = new MyHttpRequestMessage(url, HttpMethod.Get);
-            var unitsInfoTask = request.Execute<AfaqyInfo.AfaqySearchUnit>();
+            var unitsInfoTask = request.Execute<AfaqyInfo.AfaqySearchItem>();
             unitsInfoTask.Wait();
-            var itms = unitsInfoTask.Result.items;
+            var data = unitsInfoTask.Result.items;
             dynamic result = Activator.CreateInstance(typeof(List<T>));
             string serverIp = Classes.Common.DBEnums.SystemServerIp.AfaqyInfo;
             if (typeof(T) == typeof(CustServerUnit))
             {
-                result = ((IEnumerable<T>)unitsInfoTask.Result.items.Select(x => x.ToUnit())).ToList<T>();
+                result = ((IEnumerable<T>)data.Select(x => x.ToUnit(accounts))).ToList<T>();
                 result = ((IEnumerable<CustServerUnit>)result).Select(x => { x.server_ip_address = serverIp; return x; }).ToList();
             }
             else
             {
-                result = ((IEnumerable<T>)unitsInfoTask.Result.items.Select(x => x.ToServerUnit())).ToList<T>();
+                result = ((IEnumerable<T>)data.Select(x => x.ToServerUnit(accounts))).ToList<T>();
                 result = ((IEnumerable<ServerUnit>)result).Select(x => { x.ServerIP = serverIp; return x; }).ToList();
             }
             return result;
@@ -186,11 +198,18 @@ namespace Afaqy_Store.Models
             var accountMeTask = request.Execute<AfaqyMe.AfaqyAccount>();
             accountMeTask.Wait();
             var sessionId = accountMeTask.Result.eid;
+            //get all accounts 
+            url = SiteConfig.AfaqyMe.Url;
+            url += "/wialon/ajax.html?sid=" + sessionId + "&svc=core/search_items&params={\"spec\":{\"itemsType\":\"avl_resource\",\"propName\":\"rel_is_account,sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\"},\"force\":1,\"flags\":5,\"from\":0,\"to\":0xffffffff}";
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            var accountsMeTask = request.Execute<AfaqyMe.AfaqySearchItem>();
+            accountsMeTask.Wait();
+            var accounts = accountsMeTask.Result.items.Select(x => new Afaqy_Info_Me.AfaqySearchItem.Account().ToAccount(x)).ToList();
             //get units
             url = SiteConfig.AfaqyMe.Url;
             url = url + "/wialon/ajax.html?sid=" + sessionId + "&svc=core/search_items&params={\"spec\":{\"itemsType\":\"avl_unit\",\"propName\":\"sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\",\"propType\":\"property\"},\"force\":0,\"flags\":1293,\"from\":0,\"to\":0xffffffff,\"or_logic\":false}";
             request = new MyHttpRequestMessage(url, HttpMethod.Get);
-            var unitsMeTask = request.Execute<AfaqyMe.AfaqySearchUnit>();
+            var unitsMeTask = request.Execute<AfaqyMe.AfaqySearchItem>();
             unitsMeTask.Wait();
             var itms = unitsMeTask.Result.items;
             dynamic result = Activator.CreateInstance(typeof(List<T>));
@@ -198,12 +217,12 @@ namespace Afaqy_Store.Models
 
             if (typeof(T) == typeof(CustServerUnit))
             {
-                result = ((IEnumerable<T>)unitsMeTask.Result.items.Select(x => x.ToUnit())).ToList<T>();
+                result = ((IEnumerable<T>)unitsMeTask.Result.items.Select(x => x.ToUnit(accounts))).ToList<T>();
                 result = ((IEnumerable<CustServerUnit>)result).Select(x => { x.server_ip_address = serverIp; return x; }).ToList();
             }
             else
             {
-                result = ((IEnumerable<T>)unitsMeTask.Result.items.Select(x => x.ToServerUnit())).ToList<T>();
+                result = ((IEnumerable<T>)unitsMeTask.Result.items.Select(x => x.ToServerUnit(accounts))).ToList<T>();
                 result = ((IEnumerable<ServerUnit>)result).Select(x => { x.ServerIP = serverIp; return x; }).ToList();
             }
             return result;

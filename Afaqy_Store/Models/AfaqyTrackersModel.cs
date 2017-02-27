@@ -17,7 +17,7 @@ namespace Afaqy_Store.Models
             public string ssid { get; set; }
             public string eid { get; set; }
         }
-        public class AfaqySearchUnit
+        public class AfaqySearchItem
         {
             public class SearchSpec
             {
@@ -74,17 +74,43 @@ namespace Afaqy_Store.Models
             public int indexFrom { get; set; }
             public int indexTo { get; set; }
             public List<Item> items { get; set; }
-        }
+            
+            public class Account
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+                public int CreatorId { get; set; }
+                public int AccountId { get; set; }
 
+                public Account ToAccount(AfaqyInfo.AfaqySearchItem.Item infoItem)
+                {
+                    this.Id = int.Parse(infoItem.id);
+                    this.Name = infoItem.nm;
+                    this.CreatorId = int.Parse(infoItem.crt);
+                    this.AccountId = int.Parse(infoItem.bact);
+                    return this;
+                    //Account account = new Account() { , , ,  };
+                    //return account;
+                }
+
+                public Account ToAccount(AfaqyMe.AfaqySearchItem.Item infoItem)
+                {
+                    this.Id = int.Parse(infoItem.id);
+                    this.Name = infoItem.nm;
+                    this.CreatorId = int.Parse(infoItem.crt);
+                    this.AccountId = int.Parse(infoItem.bact);
+                    return this;
+                    //Account account = new Account() { , , ,  };
+                    //return account;
+                }
+            }
+
+        }
         
     }
     public class AfaqyInfo : Afaqy_Info_Me
     {
-        //public class AfaqyInfoAccount
-        //{
-        //    public string ssid { get; set; }
-        //}
-        public new class AfaqySearchUnit : Afaqy_Info_Me.AfaqySearchUnit
+        public new class AfaqySearchItem : Afaqy_Info_Me.AfaqySearchItem
         {
             //public class SearchSpec
             //{
@@ -94,9 +120,9 @@ namespace Afaqy_Store.Models
             //    public string sortType { get; set; }
             //}
 
-            public new class Item : Afaqy_Info_Me.AfaqySearchUnit.Item
+            public new class Item : Afaqy_Info_Me.AfaqySearchItem.Item
             {
-                public new class Pos :  Afaqy_Info_Me.AfaqySearchUnit.Item.Pos
+                public new class Pos :  Afaqy_Info_Me.AfaqySearchItem.Item.Pos
                 {
                     public class P
                     {
@@ -167,7 +193,7 @@ namespace Afaqy_Store.Models
                 public new Pos pos { get; set; }
                 //public string lmsg { get; set; } sometime equal to string like "lmsg":"dup" and sometime equal to array "lmsg":{"t":1431376086,"f":0,"tp":"ud","p":{"f0":160}}
                 public Dictionary<string, CustomField> flds { get; set; }
-                public CustServerUnit ToUnit()
+                public CustServerUnit ToUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts)
                 {
                     CustServerUnit unit = null;
                     if (this != null)
@@ -177,20 +203,21 @@ namespace Afaqy_Store.Models
                         //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
                         unit.device_imei = this.uid;
                         //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
-                        //unit.device_status =
-                        //unit.device_deleted = 
+                        unit.device_status = "1";
+                        unit.device_deleted = "0";
                         unit.device_name_at_Server = this.nm;
                         unit.lastConnection = this.pos != null ? this.pos.t : null;
                         //unit.server_ip_address = 
                         unit.client_id = this.bact;
-                        //unit.client_name = 
-                        //unit.client_status = 
+                        var account = accounts.SingleOrDefault(x => x.Id == int.Parse(unit.client_id));
+                        unit.client_name = account != null ? account.Name : null;
+                        unit.client_status = "1";
 
                     }
                     return unit;
                 }
 
-                public DataLayer.ServerUnit ToServerUnit()
+                public DataLayer.ServerUnit ToServerUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts)
                 {
                     DataLayer.ServerUnit unit = null;
 
@@ -201,14 +228,15 @@ namespace Afaqy_Store.Models
                         //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
                         unit.DeviceIMEI = this.uid;
                         //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
-                        //unit.device_status =
-                        //unit.device_deleted = 
+                        unit.DeviceStatus = 1;
+                        unit.IsDeleted = false;
                         unit.DeviceServerName = this.nm;
                         unit.LastConnection = this.pos != null ? Classes.Utilities.Utility.ParseDateTime(this.pos.t) : (DateTime?)null;
                         //unit.server_ip_address = 
-                        unit.ClientId = int.Parse(this.bact);
-                        //unit.client_name = 
-                        //unit.client_status = 
+                        unit.ClientId = int.Parse(this.bact); 
+                        var account = accounts.SingleOrDefault(x => x.Id == (int)unit.ClientId);
+                        unit.ClientName = account != null ? account.Name : null;
+                        unit.ClientStatus = 1;
                         unit.IsCorrect = true; //by default
 
                     }
@@ -275,14 +303,9 @@ namespace Afaqy_Store.Models
 
     public class AfaqyMe : Afaqy_Info_Me
     {
-        //public class AfaqyAccount
-        //{
-        //    public string eid { get; set; }
-        //}
-        
-        public new class AfaqySearchUnit : Afaqy_Info_Me.AfaqySearchUnit
+        public new class AfaqySearchItem : Afaqy_Info_Me.AfaqySearchItem
         {
-            public new class SearchSpec : Afaqy_Info_Me.AfaqySearchUnit.SearchSpec
+            public new class SearchSpec : Afaqy_Info_Me.AfaqySearchItem.SearchSpec
             {
                 //public string itemsType { get; set; }
                 //public string propName { get; set; }
@@ -292,9 +315,9 @@ namespace Afaqy_Store.Models
                 public string or_logic { get; set; }
             }
 
-            public new class Item : Afaqy_Info_Me.AfaqySearchUnit.Item
+            public new class Item : Afaqy_Info_Me.AfaqySearchItem.Item
             {
-                public new class Pos : Afaqy_Info_Me.AfaqySearchUnit.Item.Pos
+                public new class Pos : Afaqy_Info_Me.AfaqySearchItem.Item.Pos
                 {
                     //public string t { get; set; }
                     //public string f { get; set; }
@@ -329,7 +352,7 @@ namespace Afaqy_Store.Models
                 //public Lmsg lmsg { get; set; }
                 public string uacl { get; set; }
 
-                public CustServerUnit ToUnit()
+                public CustServerUnit ToUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts)
                 {
                     CustServerUnit unit = null;
 
@@ -340,20 +363,21 @@ namespace Afaqy_Store.Models
                         //unit.sim_serial = GetSIMSerial(this.flds);
                         unit.device_imei = this.uid;
                         //unit.device_serial = 
-                        //unit.device_status =
-                        //unit.device_deleted = 
+                        unit.device_status = "1";
+                        unit.device_deleted = "0";
                         unit.device_name_at_Server = this.nm;
                         unit.lastConnection = this.pos != null ? this.pos.t : null;
                         //unit.server_ip_address = 
                         unit.client_id = this.bact;
-                        //unit.client_name = 
-                        //unit.client_status = 
-
+                        var account = accounts.SingleOrDefault(x => x.Id == int.Parse(unit.client_id));
+                        unit.client_name = account != null ? account.Name : null;
+                        unit.client_status = "1";
+                        
                     }
                     return unit;
                 }
 
-                public DataLayer.ServerUnit ToServerUnit()
+                public DataLayer.ServerUnit ToServerUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts)
                 {
                     DataLayer.ServerUnit unit = null;
 
@@ -364,14 +388,15 @@ namespace Afaqy_Store.Models
                         //unit.sim_serial = GetSIMSerial(unit.gsm_number,this.flds);
                         unit.DeviceIMEI = this.uid;
                         //unit.device_serial = GetDeviceSerial(unit.device_imei, this.flds);
-                        //unit.device_status =
-                        //unit.device_deleted = 
+                        unit.DeviceStatus = 1;
+                        unit.IsDeleted = false;
                         unit.DeviceServerName = this.nm;
                         unit.LastConnection = this.pos != null ? Classes.Utilities.Utility.ParseDateTime(this.pos.t) : (DateTime?)null;
                         //unit.server_ip_address = 
                         unit.ClientId = int.Parse(this.bact);
-                        //unit.client_name = 
-                        //unit.client_status = 
+                        var account = accounts.SingleOrDefault(x => x.Id == (int)unit.ClientId);
+                        unit.ClientName = account != null ? account.Name : null;
+                        unit.ClientStatus = 1;
                         unit.IsCorrect = true; //by default
 
                     }
@@ -437,7 +462,9 @@ namespace Afaqy_Store.Models
         }
 
     }
-    
+
+   
+
     public class CustServerUnit
     {
         public string gsm_number { get; set; }

@@ -119,20 +119,20 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'CustomerId', name: '@Resources.ServerManagement.CustomerId' },
-            { field: 'CustomerName_en', name: '@Resources.ServerManagement.CustomerName' },
-            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP' },
-            { field: 'AccountId', name: '@Resources.ServerManagement.AccountId' },
-            { field: 'SeverCustomerName', name: '@Resources.ServerManagement.ServerCustomerName' },
-            { field: 'AccountUserName', name: '@Resources.ServerManagement.AccountUserName' },
-            { field: 'CustomerServerStatus_en', name: '@Resources.ServerManagement.AccountStatus' },
-            { field: 'IsBlock', name: '@Resources.Resource.Block' },
+            { field: 'CustomerId', name: '@Resources.ServerManagement.CustomerId', width: 100 },
+            { field: 'CustomerName_en', name: '@Resources.ServerManagement.CustomerName', width: 200 },
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP', width: 100 },
+            { field: 'AccountId', name: '@Resources.ServerManagement.AccountId', width: 100 },
+            { field: 'SeverCustomerName', name: '@Resources.ServerManagement.ServerCustomerName', width: 200 },
+            { field: 'AccountUserName', name: '@Resources.ServerManagement.AccountUserName', width: 200 },
+            { field: 'CustomerServerStatus_en', name: '@Resources.ServerManagement.AccountStatus', width: 130 },
+            { field: 'IsBlock', name: '@Resources.Resource.Block', width: 100 },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.CustomerServerAccountId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.CustomerServerAccountId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '</div>',
-                enableSorting: false, enableFiltering: false
+                enableSorting: false, enableFiltering: false,  width: 100
             }
         ];
 
