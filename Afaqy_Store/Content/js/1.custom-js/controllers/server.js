@@ -525,6 +525,7 @@ function DeviceConfigurationCtrl($scope, $uibModal, confirmService, global, grid
             animation: true,
             templateUrl: createActionUrl,
             controller: 'DeviceConfigurationCreateCtrl',
+            windowClass: 'large-Modal',
             scope: $scope,
             backdrop: false,
         });
@@ -590,19 +591,64 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         $uibModalInstance.dismiss('cancel');
     };
 
-    $scope.getDeviceIDByIMEI = function (imei,deviceSerial,deviceId) {
+    class DeviceConfiguration {
+        constructor(IMEI, DeviceSerial, DeviceId, SIMCardSerial, CompanySerialNumber, GSM, AltGSM, SIMCardId) {
+            this.IMEI = IMEI;
+            this.DeviceSerial = DeviceSerial;
+            this.DeviceId = DeviceId;
+            this.SIMCardSerial = SIMCardSerial;
+            this.CompanySerialNumber = CompanySerialNumber;
+            this.GSM = GSM;
+            this.AltGSM = AltGSM;
+            this.SIMCardId = SIMCardId;
+        }
+    }
+
+    $scope.counterMinusDisabled = true;
+    $scope.items = [];
+    $scope.items.push(new DeviceConfiguration());
+    var itemsCount = 1;
+
+    $scope.counterValueChanged = function () {
+        var targetNo = Number($('.spinbox-input').val());
+        if (targetNo <= 1) {
+            $('.spinbox-input').val(1);
+            $scope.counterMinusDisabled = true;
+        }
+        else {
+            $scope.counterMinusDisabled = false;
+        }
+
+        //change items rows
+        if (itemsCount < targetNo) {
+            for (var i = itemsCount + 1; i <= targetNo; i++) {
+                $scope.items.push(new DeviceConfiguration());
+                itemsCount++;
+            }
+        } else if (itemsCount > targetNo) {
+            for (var i = itemsCount; i > targetNo; i--) {
+                $scope.items.pop();
+                itemsCount--;
+            }
+        }
+    }
+
+    $scope.getDeviceIDByIMEI = function (index) {
         var Options = {}
         Options.Filters = [];
-        Options.Filters.push({ Property: 'IMEI', Operation: 'Equal', Value: imei });
+        Options.Filters.push({ Property: 'IMEI', Operation: 'Equal', Value: $scope.items[index].IMEI });
+        //reset device information
+        $scope.items[index].DeviceSerial = null;
+        $scope.items[index].DeviceId = null;
+
         var url = DeviceGetInfoUrl;
         global.post(url, Options, function (resp) {
-            var items = resp.data
-            if (items != undefined && items != null) {
-                if (items.length == 1) {
-                    var device = items[0];
-                    console.log(JSON.stringify(device));
-                    deviceSerial = device.SerialNumber;
-                    deviceId = device.DeviceId;
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var device = result[0];
+                    $scope.items[index].DeviceSerial = device.SerialNumber;
+                    $scope.items[index].DeviceId = device.DeviceId;
                 }
             }
         }, function (resp) {
@@ -612,7 +658,170 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
+        
     }
+
+    $scope.getDeviceIDBySerial = function (index) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'SerialNumber', Operation: 'Equal', Value: $scope.items[index].DeviceSerial });
+        //reset device information
+        $scope.items[index].IMEI = null;
+        $scope.items[index].DeviceId = null;
+
+        var url = DeviceGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var device = result[0];
+                    $scope.items[index].IMEI = device.IMEI;
+                    $scope.items[index].DeviceId = device.DeviceId;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+
+    }
+
+    $scope.getSIMCardIDBySerial = function (index) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'SerialNumber', Operation: 'Equal', Value: $scope.items[index].SIMCardSerial });
+        //reset SIM card Information
+        $scope.items[index].CompanySerialNumber = null;
+        $scope.items[index].GSM = null;
+        $scope.items[index].AltGSM = null;
+        $scope.items[index].SIMCardId = null;
+
+        var url = SIMCardGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var simCard = result[0];
+                    $scope.items[index].CompanySerialNumber = simCard.CompanySerialNumber;
+                    $scope.items[index].GSM = simCard.GSM;
+                    $scope.items[index].AltGSM = simCard.AlternativeGSM;
+                    $scope.items[index].SIMCardId = simCard.SIMCardId;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+
+    }
+
+    $scope.getSIMCardIDByCompanySerial = function (index) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'CompanySerialNumber', Operation: 'Equal', Value: $scope.items[index].CompanySerialNumber });
+        //reset SIM card Information
+        $scope.items[index].SIMCardSerial = null;
+        $scope.items[index].GSM = null;
+        $scope.items[index].AltGSM = null;
+        $scope.items[index].SIMCardId = null;
+
+        var url = SIMCardGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var simCard = result[0];
+                    $scope.items[index].SIMCardSerial = simCard.SerialNumber;
+                    $scope.items[index].GSM = simCard.GSM;
+                    $scope.items[index].AltGSM = simCard.AlternativeGSM;
+                    $scope.items[index].SIMCardId = simCard.SIMCardId;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+
+    }
+
+    $scope.getSIMCardIDByGSM = function (index) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'GSM', Operation: 'Equal', Value: $scope.items[index].GSM });
+        //reset SIM card Information
+        $scope.items[index].SIMCardSerial = null;
+        $scope.items[index].CompanySerialNumber = null;
+        $scope.items[index].AltGSM = null;
+        $scope.items[index].SIMCardId = null;
+
+        var url = SIMCardGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var simCard = result[0];
+                    $scope.items[index].SIMCardSerial = simCard.SerialNumber;
+                    $scope.items[index].CompanySerialNumber = simCard.CompanySerialNumber;
+                    $scope.items[index].AltGSM = simCard.AlternativeGSM;
+                    $scope.items[index].SIMCardId = simCard.SIMCardId;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+
+    }
+
+    $scope.getSIMCardIDByAltGSM = function (index) {
+        var Options = {}
+        Options.Filters = [];
+        Options.Filters.push({ Property: 'AlternativeGSM', Operation: 'Equal', Value: $scope.items[index].AltGSM });
+
+        //reset SIM card Information
+        $scope.items[index].SIMCardSerial = null;
+        $scope.items[index].CompanySerialNumber = null;
+        $scope.items[index].GSM = null;
+        $scope.items[index].SIMCardId = null;
+
+        var url = SIMCardGetInfoUrl;
+        global.post(url, Options, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var simCard = result[0];
+                    $scope.items[index].SIMCardSerial = simCard.SerialNumber;
+                    $scope.items[index].CompanySerialNumber = simCard.CompanySerialNumber;
+                    $scope.items[index].GSM = simCard.GSM;
+                    $scope.items[index].SIMCardId = simCard.SIMCardId;
+                }
+                else{
+
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+            
+
+        }, function () {
+
+        });
+
+    }
+
 }
 
 function DeviceConfigurationEditCtrl($scope, $uibModalInstance) {

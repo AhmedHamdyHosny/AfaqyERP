@@ -67,24 +67,24 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'GSMNumber', name: '@Resources.ServerManagement.SIMCardGSM' },
-            { field: 'SIMSerial', name: '@Resources.ServerManagement.SIMCardSerialNumber' },
-            { field: 'DeviceIMEI', name: '@Resources.Store.DeviceIMEI' },
-            { field: 'DeviceSerial', name: '@Resources.Store.DeviceSerialNumber' },
-            { field: 'DeviceStatus', name: '@Resources.Store.DeviceStatus' },
-            { field: 'IsDeleted', name: '@Resources.Resource.IsBlock' },
-            { field: 'DeviceServerName', name: '@Resources.ServerManagement.DeviceServerName' },
-            { field: 'LastConnection_Format', name: '@Resources.ServerManagement.LastConnection' },
-            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP' },
-            { field: 'ClientId', name: '@Resources.ServerManagement.ClientId'  },
-            { field: 'ClientName', name: '@Resources.ServerManagement.ClientName' },
-            { field: 'ClientStatus', name: '@Resources.ServerManagement.ClientStatus' },
-            { field: 'IsCorrect', name: '@Resources.Resource.IsCorrect' },
+            { field: 'GSMNumber', name: '@Resources.ServerManagement.SIMCardGSM', width: 120 },
+            { field: 'SIMSerial', name: '@Resources.ServerManagement.SIMCardSerialNumber', width: 120 },
+            { field: 'DeviceIMEI', name: '@Resources.Store.DeviceIMEI', width: 150 },
+            { field: 'DeviceSerial', name: '@Resources.Store.DeviceSerialNumber', width: 120 },
+            { field: 'DeviceStatus', name: '@Resources.Store.DeviceStatus', width: 100 },
+            { field: 'IsDeleted', name: '@Resources.Resource.IsBlock', width: 100 },
+            { field: 'DeviceServerName', name: '@Resources.ServerManagement.DeviceServerName', width: 160 },
+            { field: 'LastConnection_Format', name: '@Resources.ServerManagement.LastConnection', width: 170 },
+            { field: 'ServerIP', name: '@Resources.ServerManagement.ServerIP', width: 100 },
+            { field: 'ClientId', name: '@Resources.ServerManagement.ClientId', width: 100 },
+            { field: 'ClientName', name: '@Resources.ServerManagement.ClientName', width: 200 },
+            { field: 'ClientStatus', name: '@Resources.ServerManagement.ClientStatus', width: 110 },
+            { field: 'IsCorrect', name: '@Resources.Resource.IsCorrect', width: 100 },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.BrandPortId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '</div>',
-                enableSorting: false, enableFiltering: false
+                enableSorting: false, enableFiltering: false, width: 100
             }
         ];
 

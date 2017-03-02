@@ -73,10 +73,12 @@
                         <input type="file" id="upload" name="file" class="upload" onchange="fileChange(this)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                         <button type="submit" id="btnImportExcel"></button>
                     }
-                    <a  ng-click="create()" class="btn purple" id="addBtn"> 
+                    @*for test*@
+                    <a  ng-click="create()" class="btn purple" id="addBtn" disabled="true"> 
                         <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
                     </a>
-                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
+                    @*for test*@
+                    <a  ng-click="DeleteItems($event);" class="btn btn-danger" disabled="true">
                         <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
                     </a>
                     <div class="btn-group pull-right">

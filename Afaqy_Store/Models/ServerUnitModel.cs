@@ -304,7 +304,7 @@ namespace Afaqy_Store.Models
             get
             {
 
-                return this.LastConnection != null ? ((DateTime)this.LastConnection).ToString(Classes.Common.Constant.DateFormat) : "";
+                return this.LastConnection != null ? ((DateTime)this.LastConnection).ToString(Classes.Common.Constant.DateTimeFormat) : "";
             }
         }
     }

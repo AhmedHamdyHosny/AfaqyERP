@@ -42,6 +42,9 @@
       <mvcSiteMapNode title="Brand" controller="Brand" action="Index" description="brand"/>
       <mvcSiteMapNode title="Server IP" controller="SystemServerIP" action="Index" description="Server ip"/>
       <mvcSiteMapNode title="Brand Server Port" controller="BrandServerPort" action="Index" description="Brand server port"/>
+      <mvcSiteMapNode title="Customer Server Accounts" controller="CustomerServerAccount" action="Index" description="Customer server account"/>
+      <mvcSiteMapNode title="Server Units" controller="ServerUnit" action="Index" description="Server units"/>
+      <mvcSiteMapNode title="Customer Server Units" controller="CustomerServerUnits" action="Index" description="Customer server units"/>
       <mvcSiteMapNode title="SIM Card" controller="SIMCard" action="Index" description="Sim card"/>
     </mvcSiteMapNode>
   </mvcSiteMapNode>

@@ -149,7 +149,8 @@ namespace Models
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(objs), System.Text.Encoding.UTF8, "application/json") };
             var task = request.Execute<string>();
             task.Wait();
-            if (task.Result.ToString().Contains("Success"))
+            
+            if (task.Result != null && task.Result.ToString().Contains("Success"))
             {
                 return true;
             }

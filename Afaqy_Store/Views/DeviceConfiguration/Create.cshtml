@@ -14,6 +14,7 @@
         padding-left: 0px;
         padding-right: 0px;
     }
+    
 </style>
 
 <div class="modal-header">
@@ -33,38 +34,43 @@
                         @Html.Label("", Resources.Resource.ItemsCount, htmlAttributes: new { @class = "text-info" })
                         <div class="spinbox spinbox-horizontal spinbox-right">
                             <div class="spinbox-buttons	btn-group">
-                                <button type="button" class="btn spinbox-down blueberry" disabled="true">
-                                    <i class="fa fa-minus"></i>
+                                <button type="button" ng-click="counterValueChanged()" class="btn spinbox-down blueberry" ng-disabled="counterMinusDisabled">
+                                    <i class="fa fa-minus" ng-disabled="counterMinusDisabled"></i>
                                 </button>
-                                <button type="button" class="btn spinbox-up purple">
-                                    <i class="fa fa-plus"></i>
+                                <button type="button" ng-click="counterValueChanged()" class="btn spinbox-up purple">
+                                    <i class="fa fa-plus" ></i>
                                 </button>
                             </div>
-                            <input type="text" class="spinbox-input form-control form mb-2 mr-sm-2 mb-sm-0" value="1" min="1">
+                            <input type="text" ng-model="itemsCount" ng-change="counterValueChanged()" class="spinbox-input form-control form mb-2 mr-sm-2 mb-sm-0" value="1" min="1">
                         </div>
                     </div>
                 </div>
                 
             </div>
+           
             <table class="table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th colspan="2" style="text-align:center"><label class="text-info">@Resources.Store.Devices</label></th>
-                        <th colspan="2" style="text-align:center"><label class="text-info">@Resources.ServerManagement.SIMCards</label></th>
+                        <th colspan="4" style="text-align:center"><label class="text-info">@Resources.ServerManagement.SIMCards</label></th>
                     </tr>
                     <tr>
                         <th><label class="text-info">@Resources.Store.DeviceIMEI</label></th>
                         <th><label class="text-info">@Resources.Store.DeviceSerialNumber</label></th>
                         <th><label class="text-info">@Resources.ServerManagement.SIMCardSerialNumber</label></th>
                         <th><label class="text-info">@Resources.ServerManagement.SIMCardCompanySerialNumber</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardGSM</label></th>
+                        <th><label class="text-info">@Resources.ServerManagement.SIMCardAltGSM</label></th>
                     </tr>
                 </thead>
-                <tbody id="items">
-                    <tr id="itemRow_1">
-                        <td><input name="items[0].IMEI" ng-model="items[0].IMEI" ng-change="getDeviceIDByIMEI(items[0].IMEI,items[0].DeviceSerial,items[0].DeviceId)" class="form-control" /></td>
-                        <td><input name="items[0].DeviceSerial" ng-model="items[0].DeviceSerial" onblur="getDeviceIDBySerial(this)" class="form-control" /> <input name="items[0].DeviceId" ng-model="items[0].DeviceId" type="hidden" class="form-control" /></td>
-                        <td><input name="items[0].SIMCardSerial" onblur="getSIMCardIDBySerial(this)" class="form-control" /></td>
-                        <td><input name="items[0].CompanySerialNumber" onblur="getSIMCardIDByCompanySerial(this)" class="form-control" /> <input name="items[0].SIMCardId" type="hidden" class="form-control" /></td>
+                <tbody id="items" ng-repeat="item in items">  @*track by $index*@
+                    <tr>
+                        <td width="18%"><input name="items[{{items.indexOf(item)}}].IMEI" ng-model="item.IMEI" ng-change="getDeviceIDByIMEI({{items.indexOf(item)}})" class="form-control" /></td>
+                        <td width="12%"><input name="items[{{items.indexOf(item)}}].DeviceSerial" ng-model="item.DeviceSerial" ng-change="getDeviceIDBySerial({{items.indexOf(item)}})" class="form-control" /> <input name="items[{{items.indexOf(item)}}].DeviceId" value="{{item.DeviceId}}" type="hidden" class="form-control" /></td>
+                        <td width="20%"><input name="items[{{items.indexOf(item)}}].SIMCardSerial" ng-model="item.SIMCardSerial" ng-change="getSIMCardIDBySerial({{items.indexOf(item)}})" class="form-control" /></td>
+                        <td width="20%"><input name="items[{{items.indexOf(item)}}].CompanySerialNumber" ng-model="item.CompanySerialNumber" ng-change="getSIMCardIDByCompanySerial({{items.indexOf(item)}})" class="form-control" /> <input name="items[{{items.indexOf(item)}}].SIMCardId" value="{{item.SIMCardId}}" type="hidden" class="form-control" /></td>
+                        <td width="15%"><input name="items[{{items.indexOf(item)}}].GSM" ng-model="item.GSM"  ng-change="getSIMCardIDByGSM({{items.indexOf(item)}})" class="form-control" /></td>
+                        <td width="15%"><input name="items[{{items.indexOf(item)}}].AltGSM" ng-model="item.AltGSM" ng-change="getSIMCardIDByAltGSM({{items.indexOf(item)}})" class="form-control" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -88,53 +94,13 @@
         $(document).ready(function () {
 
 
-            var itemsCount = 1;
-            var itemRow = $('#itemRow_1');
+            //var itemsCount = 1;
+            //var itemRow = $('#itemRow_1');
 
             //--Fuelux Spinbox--
             $('.spinbox').spinbox();
 
-            $('.spinbox-input').change(function () {
-                counterValueChanged();
-            });
-
-            $('.spinbox-up').click(function () {
-                counterValueChanged();
-            });
-
-            $('.spinbox-down').click(function () {
-                counterValueChanged();
-            });
-
-
-            function counterValueChanged() {
-                if ($('.spinbox-input').val() <= 1) {
-                    $('.spinbox-input').val(1);
-                    $('.spinbox-down').prop('disabled', true);
-                } else {
-                    $('.spinbox-down').prop('disabled', false);
-                }
-
-                //change items rows
-                var targetNo = Number($('.spinbox-input').val());
-                if (itemsCount < targetNo) {
-                    for (var i = itemsCount + 1; i <= targetNo; i++) {
-                        var rowHtml = itemRow.clone().attr('id', 'itemRow_' + i)[0].outerHTML
-                        var $row = $(rowHtml);
-                        $row.children('td').each(function () {
-                            $(this).html($(this).html().replace(/\[0]/g, '[' + String(i - 1) + ']'));
-                        });
-                        $('#items').append($row);
-                        itemsCount++;
-                    }
-                } else if (itemsCount > targetNo) {
-                    for (var i = itemsCount; i > targetNo; i--) {
-                        $('#items tr:last-child').last().remove();
-                        itemsCount--;
-                    }
-                }
-            }
-
+            $('.spinbox-input').val(1);
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {
@@ -145,40 +111,7 @@
         });
 
         var DeviceGetInfoUrl = '@Url.Action("GetInfo","Device")';
-
-        @*function getDeviceIDByIMEI(ref) {
-            term = $("input[name='items[0].IMEI'").val();
-            //imei = ref.value;
-            console.log('@Url.Action("GetInfo", "Device")');
-            var Options = {}
-            Options.Filters = [];
-            Options.Filters.push({ Property: 'IMEI', Operation: 'Equal', Value: term });
-            console.log(JSON.stringify(Options));
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("GetInfo","Device")',
-                data: Options,
-                dataType: 'json',
-                success: function (response) {
-                    var items = response;
-                    console.log(items);
-                },
-                error: function (error) {
-                }
-            });
-        }*@
-
-        function getDeviceIDBySerial(ref) {
-            console.log('getDeviceIDBySerial');
-        }
-
-        function getSIMCardIDBySerial(ref) {
-            console.log('getSIMCardIDBySerial');
-        }
-
-        function getSIMCardIDByCompanySerial(ref) {
-            console.log('getSIMCardIDByCompanySerial');
-        }
+        var SIMCardGetInfoUrl = '@Url.Action("GetInfo","SIMCard")';
 
     </script>
 }
