@@ -26,7 +26,6 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-
         public virtual TModel Get(object id)
         {
             string url = ApiServerUrl + ControllerRoute + id;
@@ -43,7 +42,6 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-
         public virtual PaginationResult<T> GetView<T>(GenericDataFormat requestBody)
         {
             string url = ApiServerUrl + ControllerRoute + "getView";
@@ -52,8 +50,6 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-
-
         public virtual TModel Insert(TModel obj)
         {
             string url = ApiServerUrl + ControllerRoute;
@@ -70,7 +66,6 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-
         public virtual List<TModel> Update(UpdateItemFormat<TModel> newItems)
         {
             string url = ApiServerUrl + ControllerRoute + "put";
@@ -94,14 +89,13 @@ namespace Models
                 return false;
             }
         }
-
         public virtual bool Delete(object[] ids)
         {
             string url = ApiServerUrl + ControllerRoute +"delete";
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(ids), System.Text.Encoding.UTF8, "application/json") };
             var task = request.Execute<String>();
             task.Wait();
-            if (task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
+            if (task.Result != null && task.Result.ToString().Equals("Success", StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
@@ -110,7 +104,6 @@ namespace Models
                 return false;
             }
         }
-
         public virtual bool Deactive(object id)
         {
             string url = ApiServerUrl + ControllerRoute+"deactive/" + id;
@@ -126,7 +119,6 @@ namespace Models
                 return false;
             }
         }
-
         public virtual bool Deactive(object[] ids)
         {
             string url = ApiServerUrl + ControllerRoute + "deactive";
@@ -142,7 +134,6 @@ namespace Models
                 return false;
             }
         }
-
         public virtual bool Import(TModel[] objs)
         {
             string url = ApiServerUrl + ControllerRoute + "import";
@@ -161,7 +152,6 @@ namespace Models
 
 
         }
-
         public virtual bool Import(HttpPostedFileBase file)
         {
             string url = ApiServerUrl + ControllerRoute + "import/file";
@@ -182,7 +172,6 @@ namespace Models
 
 
         }
-
         public virtual byte[] Export(GenericDataFormat requestBody = null)
         {
             string url = ApiServerUrl + ControllerRoute + "export";
@@ -193,7 +182,6 @@ namespace Models
             
             
         }
-
         public virtual List<TModel> GetAsDDLst(string includeProperties, string sortByProperty, List<GenericDataFormat.FilterItems> filters = null, GenericDataFormat.SortType sortType = GenericDataFormat.SortType.Asc)
         {
             var sorts = new List<GenericDataFormat.SortItems>();

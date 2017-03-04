@@ -19,20 +19,18 @@ namespace Afaqy_Store.Controllers
             var requestBody = new GenericDataFormat() { Filters = filters};
             items = new DeviceSIMModel<DeviceSIMDetailsViewModel>().Get(requestBody);
         }
+       
         public override void FuncPreCreate(ref DeviceSIMCreateBindModel[] items, FormCollection formCollection)
         {
             items = items.Select(x =>
             {
                 x.CreateUserId = User.UserId;
                 x.CreateDate = DateTime.Now;
-                //x.Device = new DeviceModel<Device>().Get(x.DeviceId);
-                //x.Device.DeviceStatusId = (int)DBEnums.DeviceStatus.Connted_with_SIM_card;
-                //x.SIMCard = new SIMCardModel<SIMCard>().Get(x.SIMCardId);
-                //x.SIMCard.SIMCardStatusId = (int)DBEnums.SIMCardStatus.Linked_with_device;
                 return x;
             }).ToArray();
         }
-        
+
+
         public override void FuncPreInitEditView(object id, ref DeviceSIM EditItem, ref DeviceSIMEditModel model)
         {
             if (EditItem == null)

@@ -14,7 +14,17 @@
         padding-left: 0px;
         padding-right: 0px;
     }
-    
+    .loading {    
+        background-color: #ffffff;
+        background-image: url("../../Content/img/loader.gif");
+        background-size: 25px 25px;
+        background-position:right center;
+        background-repeat: no-repeat;
+    }
+    /*.ng-invalid
+    {
+        border-color:red;
+    }*/
 </style>
 
 <div class="modal-header">
@@ -65,12 +75,12 @@
                 </thead>
                 <tbody id="items" ng-repeat="item in items">  @*track by $index*@
                     <tr>
-                        <td width="18%"><input name="items[{{items.indexOf(item)}}].IMEI" ng-model="item.IMEI" ng-change="getDeviceIDByIMEI({{items.indexOf(item)}})" class="form-control" /></td>
-                        <td width="12%"><input name="items[{{items.indexOf(item)}}].DeviceSerial" ng-model="item.DeviceSerial" ng-change="getDeviceIDBySerial({{items.indexOf(item)}})" class="form-control" /> <input name="items[{{items.indexOf(item)}}].DeviceId" value="{{item.DeviceId}}" type="hidden" class="form-control" /></td>
-                        <td width="20%"><input name="items[{{items.indexOf(item)}}].SIMCardSerial" ng-model="item.SIMCardSerial" ng-change="getSIMCardIDBySerial({{items.indexOf(item)}})" class="form-control" /></td>
-                        <td width="20%"><input name="items[{{items.indexOf(item)}}].CompanySerialNumber" ng-model="item.CompanySerialNumber" ng-change="getSIMCardIDByCompanySerial({{items.indexOf(item)}})" class="form-control" /> <input name="items[{{items.indexOf(item)}}].SIMCardId" value="{{item.SIMCardId}}" type="hidden" class="form-control" /></td>
-                        <td width="15%"><input name="items[{{items.indexOf(item)}}].GSM" ng-model="item.GSM"  ng-change="getSIMCardIDByGSM({{items.indexOf(item)}})" class="form-control" /></td>
-                        <td width="15%"><input name="items[{{items.indexOf(item)}}].AltGSM" ng-model="item.AltGSM" ng-change="getSIMCardIDByAltGSM({{items.indexOf(item)}})" class="form-control" /></td>
+                        <td width="18%"><input name="items[{{items.indexOf(item)}}].IMEI" ng-model="item.IMEI" ng-change="getDeviceIDByIMEI({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.IMEI_LoadingClass}}" required/></td>
+                        <td width="12%"><input name="items[{{items.indexOf(item)}}].DeviceSerial" ng-model="item.DeviceSerial" ng-change="getDeviceIDBySerial({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.DeviceSerial_LoadingClass}}" /> <input name="items[{{items.indexOf(item)}}].DeviceId" value="{{item.DeviceId}}" type="hidden" class="form-control" /></td>
+                        <td width="20%"><input name="items[{{items.indexOf(item)}}].SIMCardSerial" ng-model="item.SIMCardSerial" ng-change="getSIMCardIDBySerial({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.SIMCardSerial_LoadingClass}}" required/></td>
+                        <td width="20%"><input name="items[{{items.indexOf(item)}}].CompanySerialNumber" ng-model="item.CompanySerialNumber" ng-change="getSIMCardIDByCompanySerial({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.CompanySN_LoadingClass}}" /> <input name="items[{{items.indexOf(item)}}].SIMCardId" value="{{item.SIMCardId}}" type="hidden" class="form-control" /></td>
+                        <td width="15%"><input name="items[{{items.indexOf(item)}}].GSM" ng-model="item.GSM"  ng-change="getSIMCardIDByGSM({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.GSM_LoadingClass}}" required /></td>
+                        <td width="15%"><input name="items[{{items.indexOf(item)}}].AltGSM" ng-model="item.AltGSM" ng-change="getSIMCardIDByAltGSM({{items.indexOf(item)}})" class="form-control {{items[items.indexOf(item)].Inputs.AltGSM_LoadingClass}}" /></td>
                     </tr>
                 </tbody>
             </table>

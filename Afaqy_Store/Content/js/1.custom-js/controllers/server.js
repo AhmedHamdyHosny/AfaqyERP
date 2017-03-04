@@ -601,6 +601,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
             this.GSM = GSM;
             this.AltGSM = AltGSM;
             this.SIMCardId = SIMCardId;
+            this.Inputs = { IMEI_LoadingClass: '', DeviceSerial_LoadingClass: '', SIMCardSerial_LoadingClass: '', CompanySN_LoadingClass: '', GSM_LoadingClass: '', AltGSM_LoadingClass : '' };
         }
     }
 
@@ -640,7 +641,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         //reset device information
         $scope.items[index].DeviceSerial = null;
         $scope.items[index].DeviceId = null;
-
+        $scope.items[index].Inputs.IMEI_LoadingClass = "loading";
         var url = DeviceGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -658,6 +659,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
+        $scope.items[index].Inputs.IMEI_LoadingClass = "";
         
     }
 
@@ -668,7 +670,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         //reset device information
         $scope.items[index].IMEI = null;
         $scope.items[index].DeviceId = null;
-
+        $scope.items[index].Inputs.DeviceSerial_LoadingClass = "loading";
         var url = DeviceGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -686,7 +688,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
-
+        $scope.items[index].Inputs.DeviceSerial_LoadingClass = "";
     }
 
     $scope.getSIMCardIDBySerial = function (index) {
@@ -698,7 +700,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         $scope.items[index].GSM = null;
         $scope.items[index].AltGSM = null;
         $scope.items[index].SIMCardId = null;
-
+        $scope.items[index].Inputs.SIMCardSerial_LoadingClass = "loading";
         var url = SIMCardGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -718,7 +720,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
-
+        $scope.items[index].Inputs.SIMCardSerial_LoadingClass = "";
     }
 
     $scope.getSIMCardIDByCompanySerial = function (index) {
@@ -730,7 +732,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         $scope.items[index].GSM = null;
         $scope.items[index].AltGSM = null;
         $scope.items[index].SIMCardId = null;
-
+        $scope.items[index].Inputs.CompanySN_LoadingClass = "loading";
         var url = SIMCardGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -750,7 +752,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
-
+        $scope.items[index].Inputs.CompanySN_LoadingClass = "";
     }
 
     $scope.getSIMCardIDByGSM = function (index) {
@@ -762,7 +764,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         $scope.items[index].CompanySerialNumber = null;
         $scope.items[index].AltGSM = null;
         $scope.items[index].SIMCardId = null;
-
+        $scope.items[index].Inputs.GSM_LoadingClass = "loading";
         var url = SIMCardGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -782,7 +784,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function () {
 
         });
-
+        $scope.items[index].Inputs.GSM_LoadingClass = "";
     }
 
     $scope.getSIMCardIDByAltGSM = function (index) {
@@ -795,7 +797,7 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         $scope.items[index].CompanySerialNumber = null;
         $scope.items[index].GSM = null;
         $scope.items[index].SIMCardId = null;
-
+        $scope.items[index].Inputs.AltGSM_LoadingClass = "loading";
         var url = SIMCardGetInfoUrl;
         global.post(url, Options, function (resp) {
             var result = resp.data
@@ -814,12 +816,11 @@ function DeviceConfigurationCreateCtrl($scope, $uibModalInstance,global) {
         }, function (resp) {
             console.log("Error: " + error);
         }, function () {
-            
 
         }, function () {
 
         });
-
+        $scope.items[index].Inputs.AltGSM_LoadingClass = "";
     }
 
 }

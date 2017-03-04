@@ -179,99 +179,16 @@ namespace GenericApiController.Utilities
             try
             {
                 _context.BulkInsert<TEntity>(entities);
-                //DbSet.AddRange(entities);
-                //_context.BulkSaveChanges(false);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
            
-            /*
-            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
-            {
-                DbContext context = null;
-                result = new List<TEntity>();
-                try
-                {
-                    
-                    //context = new DbContext("name=AfaqyStoreEntities");
-                    var entityCnxStringBuilder = 
-                        new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
-
-                    context = new DbContext(entityCnxStringBuilder.ConnectionString);
-                    context.Configuration.LazyLoadingEnabled = false;
-                    context.Configuration.ProxyCreationEnabled = false;
-                    context.Configuration.AutoDetectChangesEnabled = false;
-                    //context.Database.Connection.Open();
-                    const int bulkCount = 100;
-                    int index = 0;
-                    int count = index * bulkCount;
-                    while (count < entities.Count())
-                    {
-                        var bulkEntities = entities.Skip(count).Take(bulkCount);
-                        //insert to context 
-                        //result.AddRange(context.Set<TEntity>().AddRange(bulkEntities));
-                        context.Set<TEntity>().AddRange(bulkEntities);
-                        context.SaveChanges();
-                        context.Dispose();
-                        entityCnxStringBuilder =
-                        new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
-                        context = new DbContext(entityCnxStringBuilder.ConnectionString);
-                        context.Configuration.LazyLoadingEnabled = false;
-                        context.Configuration.ProxyCreationEnabled = false;
-                        context.Configuration.AutoDetectChangesEnabled = false;
-
-                        ++index;
-                        count = index * bulkCount;
-                    }
-                    
-                    //foreach (var entity in entities)
-                    //{
-                    //    ++count;
-                    //    context = AddToContext(context, entity,ref result, count, 100, true);
-                    //}
-
-                    context.SaveChanges();
-                }
-                finally
-                {
-                    if (context != null)
-                        context.Dispose();
-                }
-
-                scope.Complete();
-            }
-            */
+            
             return result;
         }
-        //private DbContext AddToContext(DbContext context,TEntity entity,ref List<TEntity> result, int count, int commitCount, bool recreateContext)
-        //{
-        //    try
-        //    {
-        //        result.Add(context.Set<TEntity>().Add(entity));
-        //        if (count % commitCount == 0)
-        //        {
-        //            context.SaveChanges();
-        //            if (recreateContext)
-        //            {
-        //                context.Dispose();
-        //                var entityCnxStringBuilder =
-        //                new System.Data.Entity.Core.EntityClient.EntityConnectionStringBuilder(System.Configuration.ConfigurationManager.ConnectionStrings[_context.GetType().Name].ConnectionString);
-        //                context = new DbContext(entityCnxStringBuilder.ConnectionString);
-        //                context.Configuration.LazyLoadingEnabled = false;
-        //                context.Configuration.ProxyCreationEnabled = false;
-        //                context.Configuration.AutoDetectChangesEnabled = false;
-        //            }
-        //        }
-        //        return context;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
+        
         public virtual void Delete(int id)
         {
             TEntity entityToDelete = DbSet.Find(id);
