@@ -7,29 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Afaqy_Store.DataLayer
+namespace Security.DataLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserType
+    public partial class AccessType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserType()
+        public AccessType()
         {
-            this.User = new HashSet<User>();
+            this.ServiceAccess = new HashSet<ServiceAccess>();
         }
     
-        public int UserTypeId { get; set; }
-        public string UserTypeName_en { get; set; }
-        public string UserTypeName_ar { get; set; }
-        public bool IsBlock { get; set; }
+        public int AccessTypeId { get; set; }
+        public string AccessTypeName_en { get; set; }
+        public string AccessTypeName_ar { get; set; }
+        public bool Active { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<ServiceAccess> ServiceAccess { get; set; }
     }
 }

@@ -43,7 +43,6 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<DeviceStatus> DeviceStatus { get; set; }
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<ServerRole> ServerRole { get; set; }
         public virtual DbSet<ServerUnit> ServerUnit { get; set; }
         public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
@@ -57,11 +56,10 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<TechniqueCompany> TechniqueCompany { get; set; }
         public virtual DbSet<TechniqueSystem> TechniqueSystem { get; set; }
         public virtual DbSet<TempDevice> TempDevice { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<UserRole> UserRole { get; set; }
-        public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<BrandServerPortView> BrandServerPortView { get; set; }
         public virtual DbSet<CustomerServerAccountView> CustomerServerAccountView { get; set; }
+        public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
+        public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
@@ -69,7 +67,5 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
-        public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
-        public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
     }
 }

@@ -46,6 +46,7 @@
       <mvcSiteMapNode title="Server Units" controller="ServerUnit" action="Index" description="Server units"/>
       <mvcSiteMapNode title="Customer Server Units" controller="CustomerServerUnits" action="Index" description="Customer server units"/>
       <mvcSiteMapNode title="SIM Card" controller="SIMCard" action="Index" description="Sim card"/>
+      <mvcSiteMapNode title="Device Configuration" controller="DeviceConfiguration" action="Index" description="Device configuration"/>
     </mvcSiteMapNode>
   </mvcSiteMapNode>
 

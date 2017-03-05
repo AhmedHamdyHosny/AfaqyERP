@@ -38,6 +38,5 @@ namespace Afaqy_Store.DataLayer
         public virtual Branch Branch { get; set; }
         public virtual Country Country { get; set; }
         public virtual Department Department { get; set; }
-        public virtual User User { get; set; }
     }
 }

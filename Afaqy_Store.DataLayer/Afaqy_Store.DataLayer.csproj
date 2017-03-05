@@ -142,9 +142,6 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs">
-      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="ServerRole.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
@@ -191,15 +188,6 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="TempDevice.cs">
-      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserType.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UserView.cs">

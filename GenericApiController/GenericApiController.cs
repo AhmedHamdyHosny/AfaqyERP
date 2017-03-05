@@ -483,19 +483,10 @@ namespace GenericApiController
         }
         private bool Save(List<T> values)
         {
-            if (values.Count >= 1000)
-            {
-                IEnumerable<T> result = repo.Repo.InserBulk(values);
-                return true;
-            }
-            else
-            {
-                //insert less than 1000 records
-                IEnumerable<T> result = repo.Repo.Insert(values);
-                repo.Save();
-                return true;
-            }
-            
+            IEnumerable<T> result = repo.Repo.Insert(values);
+            repo.Save();
+            return true;
+
         }
         private IHttpActionResult SaveGroup(List<T> values)
         {

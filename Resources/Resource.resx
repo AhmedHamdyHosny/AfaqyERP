@@ -342,6 +342,9 @@
   <data name="SelectItem" xml:space="preserve">
     <value>---- Select ----</value>
   </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
   <data name="SignUpWithEmail" xml:space="preserve">
     <value>Sign Up With Email</value>
   </data>

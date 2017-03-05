@@ -173,22 +173,7 @@ namespace GenericApiController.Utilities
         {
             return DbSet.AddRange(entities);
         }
-        public virtual IEnumerable<TEntity> InserBulk(IEnumerable<TEntity> entities)
-        {
-            List<TEntity> result = null;
-            try
-            {
-                _context.BulkInsert<TEntity>(entities);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-           
-            
-            return result;
-        }
-        
+       
         public virtual void Delete(int id)
         {
             TEntity entityToDelete = DbSet.Find(id);

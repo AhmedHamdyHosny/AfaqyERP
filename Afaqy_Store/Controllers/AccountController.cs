@@ -34,5 +34,13 @@ namespace Afaqy_Store.Controllers
             }
             return View();
         }
+
+
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            new UserViewModel().RemoveUserSession();
+            return RedirectToAction("Login");
+        }
     }
 }

@@ -7,41 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Afaqy_Store.DataLayer
+namespace Security.DataLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Role()
         {
-            this.Employee = new HashSet<Employee>();
+            this.RoleService = new HashSet<RoleService>();
+            this.RoleServiceAccess = new HashSet<RoleServiceAccess>();
+            this.UserGroupRole = new HashSet<UserGroupRole>();
             this.UserRole = new HashSet<UserRole>();
         }
     
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string FirstName_en { get; set; }
-        public string FirstName_ar { get; set; }
-        public string LastName_en { get; set; }
-        public string LastName_ar { get; set; }
-        public Nullable<int> CountryId { get; set; }
-        public int UserTypeId { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName_en { get; set; }
+        public string RoleName_ar { get; set; }
         public bool Active { get; set; }
-        public bool AllowAccess { get; set; }
-        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
-        public virtual UserType UserType { get; set; }
+        public virtual ICollection<RoleService> RoleService { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RoleServiceAccess> RoleServiceAccess { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserGroupRole> UserGroupRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRole { get; set; }
     }

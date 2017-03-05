@@ -289,6 +289,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
+    <Compile Include="Controllers\BaseSecurityApiController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
     <Compile Include="Controllers\CustomerServerUnitsController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
@@ -1030,6 +1031,10 @@
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{2b41fe2d-ac78-4ad9-84ae-57ff337281f4}</Project>
       <Name>Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Security.DataLayer\Security.DataLayer.csproj">
+      <Project>{61bde92d-d52c-43d4-a45a-5b01ec2e9f1e}</Project>
+      <Name>Security.DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

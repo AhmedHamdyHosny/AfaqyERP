@@ -60,6 +60,5 @@ namespace Afaqy_Store.Models
 
     public class DeviceImportModel:Device
     {
-        public string DeviceSerial { get; set; }
     }
 }

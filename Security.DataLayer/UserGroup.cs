@@ -7,32 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Afaqy_Store.DataLayer
+namespace Security.DataLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class UserGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public UserGroup()
         {
-            this.Branch = new HashSet<Branch>();
-            this.Employee = new HashSet<Employee>();
+            this.UserGroupRole = new HashSet<UserGroupRole>();
         }
     
-        public int CountryId { get; set; }
-        public string CountryName_en { get; set; }
-        public string CountryName_ar { get; set; }
-        public bool IsBlock { get; set; }
+        public int UserGroupId { get; set; }
+        public string GroupName_en { get; set; }
+        public string GroupName_ar { get; set; }
+        public bool Active { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Branch> Branch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<UserGroupRole> UserGroupRole { get; set; }
     }
 }

@@ -5,50 +5,48 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="405a28d3d02c4e22a79aec7dc3bf2cfb" Name="Diagram1" ZoomLevel="100">
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Branch" Width="1.5" PointX="3" PointY="28.25" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Brand" Width="1.5" PointX="8.25" PointY="36.125" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.BrandServerPort" Width="1.5" PointX="10.5" PointY="41" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Country" Width="1.5" PointX="0.75" PointY="23.125" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Currency" Width="1.5" PointX="6" PointY="46.125" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Customer" Width="1.5" PointX="5.25" PointY="52.875" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccount" Width="1.5" PointX="7.5" PointY="52.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccountStatusHistory" Width="1.5" PointX="7.5" PointY="58.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerStatus" Width="1.5" PointX="5.25" PointY="58.5" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUser" Width="1.5" PointX="10.5" PointY="53.125" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Department" Width="1.5" PointX="3" PointY="18" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Device" Width="1.5" PointX="5.25" PointY="28.125" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceModelType" Width="1.5" PointX="3" PointY="33.25" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceServer" Width="1.5" PointX="7.5" PointY="40.625" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceSIM" Width="1.5" PointX="10.5" PointY="28.875" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceStatus" Width="1.5" PointX="3" PointY="36.5" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceStatusHistory" Width="1.5" PointX="5.25" PointY="34" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Employee" Width="1.5" PointX="5.25" PointY="21.5" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Role" Width="1.5" PointX="6" PointY="17.375" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerRole" Width="1.5" PointX="10.5" PointY="49.625" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Branch" Width="1.5" PointX="3" PointY="19.5" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Brand" Width="1.5" PointX="11.25" PointY="29.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.BrandServerPort" Width="1.5" PointX="13.5" PointY="34.625" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Country" Width="1.5" PointX="0.75" PointY="20" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Currency" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Customer" Width="1.5" PointX="5.25" PointY="43.875" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccount" Width="1.5" PointX="10.5" PointY="43.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccountStatusHistory" Width="1.5" PointX="10.5" PointY="49.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerStatus" Width="1.5" PointX="8.25" PointY="40.5" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUser" Width="1.5" PointX="7.5" PointY="44.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Department" Width="1.5" PointX="6" PointY="11.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Device" Width="1.5" PointX="8.25" PointY="24.25" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceModelType" Width="1.5" PointX="6" PointY="29.25" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceServer" Width="1.5" PointX="10.5" PointY="34.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceSIM" Width="1.5" PointX="10.5" PointY="22.375" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceStatus" Width="1.5" PointX="6" PointY="25" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceStatusHistory" Width="1.5" PointX="8.25" PointY="20.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Employee" Width="1.5" PointX="8.25" PointY="13.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerRole" Width="1.5" PointX="10.5" PointY="39.625" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerUnit" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerUserRole" Width="1.5" PointX="12.75" PointY="53.625" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCard" Width="1.5" PointX="8.25" PointY="27.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContract" Width="1.5" PointX="6" PointY="7.375" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContractRenewal" Width="1.5" PointX="11.25" PointY="24.625" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardProvider" Width="1.5" PointX="3.75" PointY="8" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardStatus" Width="1.5" PointX="6" PointY="12.875" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardStatusHistory" Width="1.5" PointX="8.25" PointY="24" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SystemServerIP" Width="1.5" PointX="5.25" PointY="40.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TechniqueCompany" Width="1.5" PointX="0.75" PointY="41.25" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TechniqueSystem" Width="1.5" PointX="3" PointY="41.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ServerUserRole" Width="1.5" PointX="12.75" PointY="44.625" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCard" Width="1.5" PointX="5.25" PointY="18.875" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContract" Width="1.5" PointX="3" PointY="24.375" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContractRenewal" Width="1.5" PointX="11.25" PointY="17.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardProvider" Width="1.5" PointX="0.75" PointY="25.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardStatus" Width="1.5" PointX="3" PointY="15" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardStatusHistory" Width="1.5" PointX="5.25" PointY="15.125" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SystemServerIP" Width="1.5" PointX="8.25" PointY="34.375" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TechniqueCompany" Width="1.5" PointX="3.75" PointY="34.875" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TechniqueSystem" Width="1.5" PointX="6" PointY="34.625" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TempDevice" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.User" Width="1.5" PointX="3" PointY="22.25" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.UserRole" Width="1.5" PointX="8.25" PointY="20.25" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.UserType" Width="1.5" PointX="0.75" PointY="19.375" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.BrandServerPortView" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccountView" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.BrandServerPortView" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerAccountView" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" Width="1.5" PointX="6.75" PointY="5.75" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerView" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceSIMView" Width="1.5" PointX="8.75" PointY="7.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceView" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContractView" Width="1.5" PointX="10.75" PointY="8.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardView" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SystemServerIPView" Width="1.5" PointX="2.75" PointY="11.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.UserView" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceSIMView" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceView" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContractView" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardView" Width="1.5" PointX="12.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SystemServerIPView" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.UserView" Width="1.5" PointX="14.75" PointY="6.75" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_Branch_Country" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_Customer_Branch" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_Device_Branch" />
@@ -59,7 +57,6 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_BrandServerPort_Brand" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_BrandServerPort_SystemServerIP" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_Employee_Country" />
-        <AssociationConnector Association="Afaqy_Store.DataLayer.FK_User_Country" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCard_Currency" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCardContract_Currency" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCardContractRenewal_Currency" />
@@ -79,8 +76,6 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_DeviceServer_SystemServerIP" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_DeviceSIM_SIMCard" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_DeviceStatusHistory_DeviceStatus" />
-        <AssociationConnector Association="Afaqy_Store.DataLayer.FK_Employee_User" />
-        <AssociationConnector Association="Afaqy_Store.DataLayer.FK_UserRole_Role" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_ServerUserRole_ServerRole" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardContract" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCard_SIMCardStatus" />
@@ -89,10 +84,6 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_SIMCardStatus" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" />
-        <AssociationConnector Association="Afaqy_Store.DataLayer.FK_User_UserType" />
-        <AssociationConnector Association="Afaqy_Store.DataLayer.FK_UserRole_User" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

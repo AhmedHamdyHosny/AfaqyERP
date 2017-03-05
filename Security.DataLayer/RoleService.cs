@@ -7,29 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Afaqy_Store.DataLayer
+namespace Security.DataLayer
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class RoleService
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.UserRole = new HashSet<UserRole>();
-        }
-    
+        public int RoleServiceId { get; set; }
         public int RoleId { get; set; }
-        public string RoleName_en { get; set; }
-        public string RoleName_ar { get; set; }
-        public bool IsBlock { get; set; }
+        public int ServiceId { get; set; }
+        public bool Active { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRole { get; set; }
+        public virtual Role Role { get; set; }
+        public virtual Service Service { get; set; }
     }
 }

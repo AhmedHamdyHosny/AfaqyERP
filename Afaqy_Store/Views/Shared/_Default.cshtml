@@ -1,5 +1,6 @@
 ﻿@using System
 @using BeyondThemes.Bootstrap
+@using Afaqy_Store.Models;
 <!DOCTYPE html>
 <!--
 BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
@@ -44,6 +45,10 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
 
 </head>
 <!-- /Head -->
+
+@{ 
+    UserViewModel user = new UserViewModel().GetUserFromSession();
+}
 <!-- Body -->
 <body ng-app="app">
     <!-- Loading Container -->
@@ -79,13 +84,13 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                         <img src="/Content/img/avatars/adam-jansen.jpg">
                                     </div>
                                     <section>
-                                        <h2><span class="profile"><span>David Stevenson</span></span></h2>
+                                        <h2><span class="profile"><span>@user.User_FullName_en</span></span></h2>
                                     </section>
                                 </a>
                                 <!--Login Area Dropdown-->
                                 <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
-                                    <li class="username"><a>David Stevenson</a></li>
-                                    <li class="email"><a>David.Stevenson@live.com</a></li>
+                                    @*<li class="username"><a>David Stevenson</a></li>*@
+                                    <li class="email"><a>@user.UserName</a></li>
                                     <!--Avatar Area-->
                                     <li>
                                         <div class="avatar-area">
@@ -117,8 +122,8 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--/Theme Selector Area-->
                                     <li class="dropdown-footer">
-                                        <a href="@Url.Action("Login", "Account");">
-                                            Sign out
+                                        <a href="@Url.Action("SignOut", "Account")">
+                                            @Resources.Resource.SignOut
                                         </a>
                                     </li>
                                 </ul>

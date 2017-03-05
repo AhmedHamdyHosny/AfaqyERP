@@ -54,97 +54,15 @@ namespace Afaqy_Store.Models
     }
 
 
-    public class UserViewModel : User
+    public class UserViewModel : UserView
     {
         public const string SessionName = "CurrentUser";
-        private string _fullName_en;
-        public string FullName_En
-        {
-            get
-            {
-                if(string.IsNullOrEmpty(_fullName_en))
-                {
-                    _fullName_en = GetUserFullName(this,Languages.en);
-                }
-                return _fullName_en;
-            }
-            set
-            {
-                _fullName_en = value;
-            }
-        }
-
-
-        private string _fullName_ar;
-        public string FullName_Ar
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_fullName_ar))
-                {
-                    _fullName_ar = GetUserFullName(this,Languages.ar);
-                }
-                return _fullName_ar;
-            }
-            set
-            {
-                _fullName_ar = value;
-            }
-        }
-
-
-        public static string GetUserFullName(User user, Languages language = Languages.en)
-        {
-            string firstName = null;
-            string lastName = null;
-
-            switch (language)
-            {
-                case Languages.en:
-                    if(!string.IsNullOrEmpty(user.FirstName_en))
-                    {
-                        firstName = user.FirstName_en;
-                    }
-                    if(!string.IsNullOrEmpty(user.LastName_en))
-                    {
-                        lastName = user.LastName_en;
-                    }
-                    break;
-                case Languages.ar:
-                    if (!string.IsNullOrEmpty(user.FirstName_ar))
-                    {
-                        firstName = user.FirstName_ar;
-                    }
-                    if (!string.IsNullOrEmpty(user.LastName_ar))
-                    {
-                        lastName = user.LastName_ar;
-                    }
-                    break;
-                default:
-                    if (!string.IsNullOrEmpty(user.FirstName_en))
-                    {
-                        firstName = user.FirstName_en;
-                    }
-                    if (!string.IsNullOrEmpty(user.LastName_en))
-                    {
-                        lastName = user.LastName_en;
-                    }
-                    break;
-            }
-            var fullName = "";
-            if(user != null)
-            {
-                fullName = string.IsNullOrWhiteSpace( firstName + " " ) ? lastName : firstName + " "  + lastName; 
-            }
-            return fullName;
-        }
-
         public UserViewModel Login()
         {
             GenericDataFormat requestBody = new GenericDataFormat();
             requestBody.Filters = new List<GenericDataFormat.FilterItems>();
             requestBody.Filters.Add(new GenericDataFormat.FilterItems() { Property = "UserName", Value = this.UserName, Operation = GenericDataFormat.FilterOperations.Equal });
-            UserViewModel user = new UserModel<UserViewModel>().Get(requestBody).SingleOrDefault();
+            UserViewModel user = new UserModel<UserViewModel>().GetView<UserViewModel>(requestBody).PageItems.SingleOrDefault();
             if (user != null)
             {
                 var uPass = SecurityMethods.Hashing(this.UserName, this.Password);
@@ -173,6 +91,12 @@ namespace Afaqy_Store.Models
             }
             return cUser;
                
+        }
+
+        public bool RemoveUserSession()
+        {
+            HttpContext.Current.Session[UserViewModel.SessionName] = null;
+            return true;
         }
     }
 }

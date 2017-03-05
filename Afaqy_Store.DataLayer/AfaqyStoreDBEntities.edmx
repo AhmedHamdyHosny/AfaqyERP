@@ -270,19 +270,6 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleName_en" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleName_ar" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsBlock" Type="bit" Nullable="false" />
-          <Property Name="CreateUserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyUserId" Type="int" />
-          <Property Name="ModifyDate" Type="datetime" />
-        </EntityType>
         <EntityType Name="ServerRole">
           <Key>
             <PropertyRef Name="ServerRoleId" />
@@ -464,53 +451,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeviceIMEI" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="DeviceSerial" Type="varchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstName_en" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="FirstName_ar" Type="nvarchar" MaxLength="20" />
-          <Property Name="LastName_en" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="LastName_ar" Type="nvarchar" MaxLength="20" />
-          <Property Name="CountryId" Type="int" />
-          <Property Name="UserTypeId" Type="int" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="AllowAccess" Type="bit" Nullable="false" />
-          <Property Name="IsBlock" Type="bit" Nullable="false" />
-          <Property Name="CreateUserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyUserId" Type="int" />
-          <Property Name="ModifyDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserRoleId" />
-          </Key>
-          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="RoleId" Type="int" Nullable="false" />
-          <Property Name="IsBlock" Type="bit" Nullable="false" />
-          <Property Name="CreateUserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="int" Nullable="false" />
-          <Property Name="ModifyUserId" Type="int" />
-          <Property Name="ModifyDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="UserTypeId" />
-          </Key>
-          <Property Name="UserTypeId" Type="int" Nullable="false" />
-          <Property Name="UserTypeName_en" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserTypeName_ar" Type="nvarchar" MaxLength="20" />
-          <Property Name="IsBlock" Type="bit" Nullable="false" />
-          <Property Name="CreateUserId" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifyUserId" Type="int" />
-          <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AfaqyStore.afqy.BrandServerPortView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -900,18 +840,63 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
             <PropertyRef Name="FirstName_en" />
             <PropertyRef Name="LastName_en" />
             <PropertyRef Name="User_FullName_en" />
+            <PropertyRef Name="UserTypeId" />
+            <PropertyRef Name="UserTypeName_en" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="AllowAccess" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="FirstName_ar" Type="nvarchar" MaxLength="20" />
           <Property Name="LastName_en" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="LastName_ar" Type="nvarchar" MaxLength="20" />
           <Property Name="User_FullName_en" Type="nvarchar" MaxLength="41" Nullable="false" />
           <Property Name="User_FullName_ar" Type="nvarchar" MaxLength="41" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="CountryName_en" Type="varchar" MaxLength="50" />
+          <Property Name="CountryName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
+          <Property Name="UserTypeName_en" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserTypeName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="AllowAccess" Type="bit" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="10" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="DepartmentName_en" Type="varchar" MaxLength="20" />
+          <Property Name="DepartmentName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ManagerId" Type="int" />
+          <Property Name="BranchId" Type="int" />
+          <Property Name="BranchName_en" Type="varchar" MaxLength="20" />
+          <Property Name="BranchName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="JoinDate" Type="date" />
+          <Property Name="Employee_UserId" Type="int" />
+          <Property Name="Employee_IsBlock" Type="bit" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="CreateUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="CreateUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="CreateUser_FullName_ar" Type="nvarchar" MaxLength="41" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyUser_FirstName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_FirstName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_en" Type="varchar" MaxLength="20" />
+          <Property Name="ModifyUser_LastName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyUser_FullName_en" Type="varchar" MaxLength="41" />
+          <Property Name="ModifyUser_FullName_ar" Type="nvarchar" MaxLength="41" />
         </EntityType>
         <Association Name="FK_Branch_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
@@ -1189,18 +1174,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServerUserRole_CustomerServerUser">
           <End Role="CustomerServerUser" Type="Self.CustomerServerUser" Multiplicity="1" />
           <End Role="ServerUserRole" Type="Self.ServerUserRole" Multiplicity="*" />
@@ -1369,54 +1342,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_UserType">
-          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserType">
-              <PropertyRef Name="UserTypeId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UserTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Afaqy_StoreDataLayerStoreContainer">
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="afqy" store:Type="Tables" />
@@ -1436,7 +1361,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="DeviceStatus" EntityType="Self.DeviceStatus" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceStatusHistory" EntityType="Self.DeviceStatusHistory" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="afqy" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="ServerRole" EntityType="Self.ServerRole" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="ServerUnit" EntityType="Self.ServerUnit" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="ServerUserRole" EntityType="Self.ServerUserRole" Schema="afqy" store:Type="Tables" />
@@ -1450,9 +1374,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="TechniqueCompany" EntityType="Self.TechniqueCompany" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="TechniqueSystem" EntityType="Self.TechniqueSystem" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="TempDevice" EntityType="Self.TempDevice" Schema="afqy" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="afqy" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="afqy" store:Type="Tables" />
-          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="BrandServerPortView" EntityType="Self.BrandServerPortView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
     [BrandServerPortView].[BrandPortId] AS [BrandPortId], 
@@ -1741,12 +1662,50 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <DefiningQuery>SELECT 
     [UserView].[UserId] AS [UserId], 
     [UserView].[UserName] AS [UserName], 
+    [UserView].[Password] AS [Password], 
     [UserView].[FirstName_en] AS [FirstName_en], 
     [UserView].[FirstName_ar] AS [FirstName_ar], 
     [UserView].[LastName_en] AS [LastName_en], 
     [UserView].[LastName_ar] AS [LastName_ar], 
     [UserView].[User_FullName_en] AS [User_FullName_en], 
-    [UserView].[User_FullName_ar] AS [User_FullName_ar]
+    [UserView].[User_FullName_ar] AS [User_FullName_ar], 
+    [UserView].[CountryId] AS [CountryId], 
+    [UserView].[CountryName_en] AS [CountryName_en], 
+    [UserView].[CountryName_ar] AS [CountryName_ar], 
+    [UserView].[UserTypeId] AS [UserTypeId], 
+    [UserView].[UserTypeName_en] AS [UserTypeName_en], 
+    [UserView].[UserTypeName_ar] AS [UserTypeName_ar], 
+    [UserView].[Active] AS [Active], 
+    [UserView].[AllowAccess] AS [AllowAccess], 
+    [UserView].[EmployeeId] AS [EmployeeId], 
+    [UserView].[PhoneNumber] AS [PhoneNumber], 
+    [UserView].[MobileNumber] AS [MobileNumber], 
+    [UserView].[DepartmentId] AS [DepartmentId], 
+    [UserView].[DepartmentName_en] AS [DepartmentName_en], 
+    [UserView].[DepartmentName_ar] AS [DepartmentName_ar], 
+    [UserView].[ManagerId] AS [ManagerId], 
+    [UserView].[BranchId] AS [BranchId], 
+    [UserView].[BranchName_en] AS [BranchName_en], 
+    [UserView].[BranchName_ar] AS [BranchName_ar], 
+    [UserView].[JoinDate] AS [JoinDate], 
+    [UserView].[Employee_UserId] AS [Employee_UserId], 
+    [UserView].[Employee_IsBlock] AS [Employee_IsBlock], 
+    [UserView].[CreateUserId] AS [CreateUserId], 
+    [UserView].[CreateUser_FirstName_en] AS [CreateUser_FirstName_en], 
+    [UserView].[CreateUser_FirstName_ar] AS [CreateUser_FirstName_ar], 
+    [UserView].[CreateUser_LastName_en] AS [CreateUser_LastName_en], 
+    [UserView].[CreateUser_LastName_ar] AS [CreateUser_LastName_ar], 
+    [UserView].[CreateUser_FullName_en] AS [CreateUser_FullName_en], 
+    [UserView].[CreateUser_FullName_ar] AS [CreateUser_FullName_ar], 
+    [UserView].[CreateDate] AS [CreateDate], 
+    [UserView].[ModifyUserId] AS [ModifyUserId], 
+    [UserView].[ModifyUser_FirstName_en] AS [ModifyUser_FirstName_en], 
+    [UserView].[ModifyUser_FirstName_ar] AS [ModifyUser_FirstName_ar], 
+    [UserView].[ModifyUser_LastName_en] AS [ModifyUser_LastName_en], 
+    [UserView].[ModifyUser_LastName_ar] AS [ModifyUser_LastName_ar], 
+    [UserView].[ModifyDate] AS [ModifyDate], 
+    [UserView].[ModifyUser_FullName_en] AS [ModifyUser_FullName_en], 
+    [UserView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar]
     FROM [afqy].[UserView] AS [UserView]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Branch_Country" Association="Self.FK_Branch_Country">
@@ -1841,10 +1800,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="Department" EntitySet="Department" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
           <AssociationSet Name="FK_ServerUserRole_CustomerServerUser" Association="Self.FK_ServerUserRole_CustomerServerUser">
             <End Role="CustomerServerUser" EntitySet="CustomerServerUser" />
             <End Role="ServerUserRole" EntitySet="ServerUserRole" />
@@ -1901,22 +1856,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="TechniqueCompany" EntitySet="TechniqueCompany" />
             <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
-            <End Role="UserType" EntitySet="UserType" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1941,7 +1880,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="DeviceStatus" EntityType="Afaqy_Store.DataLayer.DeviceStatus" />
           <EntitySet Name="DeviceStatusHistory" EntityType="Afaqy_Store.DataLayer.DeviceStatusHistory" />
           <EntitySet Name="Employee" EntityType="Afaqy_Store.DataLayer.Employee" />
-          <EntitySet Name="Role" EntityType="Afaqy_Store.DataLayer.Role" />
           <EntitySet Name="ServerRole" EntityType="Afaqy_Store.DataLayer.ServerRole" />
           <EntitySet Name="ServerUnit" EntityType="Afaqy_Store.DataLayer.ServerUnit" />
           <EntitySet Name="ServerUserRole" EntityType="Afaqy_Store.DataLayer.ServerUserRole" />
@@ -1955,11 +1893,10 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="TechniqueCompany" EntityType="Afaqy_Store.DataLayer.TechniqueCompany" />
           <EntitySet Name="TechniqueSystem" EntityType="Afaqy_Store.DataLayer.TechniqueSystem" />
           <EntitySet Name="TempDevice" EntityType="Afaqy_Store.DataLayer.TempDevice" />
-          <EntitySet Name="User" EntityType="Afaqy_Store.DataLayer.User" />
-          <EntitySet Name="UserRole" EntityType="Afaqy_Store.DataLayer.UserRole" />
-          <EntitySet Name="UserType" EntityType="Afaqy_Store.DataLayer.UserType" />
           <EntitySet Name="BrandServerPortView" EntityType="Afaqy_Store.DataLayer.BrandServerPortView" />
           <EntitySet Name="CustomerServerAccountView" EntityType="Afaqy_Store.DataLayer.CustomerServerAccountView" />
+          <EntitySet Name="CustomerServerUnitsCountView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" />
+          <EntitySet Name="CustomerServerUnitsView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" />
           <EntitySet Name="CustomerView" EntityType="Afaqy_Store.DataLayer.CustomerView" />
           <EntitySet Name="DeviceSIMView" EntityType="Afaqy_Store.DataLayer.DeviceSIMView" />
           <EntitySet Name="DeviceView" EntityType="Afaqy_Store.DataLayer.DeviceView" />
@@ -2006,10 +1943,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <AssociationSet Name="FK_Employee_Country" Association="Afaqy_Store.DataLayer.FK_Employee_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Country" Association="Afaqy_Store.DataLayer.FK_User_Country">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_SIMCard_Currency" Association="Afaqy_Store.DataLayer.FK_SIMCard_Currency">
             <End Role="Currency" EntitySet="Currency" />
@@ -2087,14 +2020,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="DeviceStatus" EntitySet="DeviceStatus" />
             <End Role="DeviceStatusHistory" EntitySet="DeviceStatusHistory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_User" Association="Afaqy_Store.DataLayer.FK_Employee_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Afaqy_Store.DataLayer.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
           <AssociationSet Name="FK_ServerUserRole_ServerRole" Association="Afaqy_Store.DataLayer.FK_ServerUserRole_ServerRole">
             <End Role="ServerRole" EntitySet="ServerRole" />
             <End Role="ServerUserRole" EntitySet="ServerUserRole" />
@@ -2127,16 +2052,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="TechniqueCompany" EntitySet="TechniqueCompany" />
             <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserType" Association="Afaqy_Store.DataLayer.FK_User_UserType">
-            <End Role="UserType" EntitySet="UserType" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserRole_User" Association="Afaqy_Store.DataLayer.FK_UserRole_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
-          <EntitySet Name="CustomerServerUnitsCountView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" />
-          <EntitySet Name="CustomerServerUnitsView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" />
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -2203,7 +2118,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Branch_Country" FromRole="Country" ToRole="Branch" />
           <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Country" ToRole="Employee" />
-          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="Country" ToRole="User" />
         </EntityType>
         <EntityType Name="Currency">
           <Key>
@@ -2450,21 +2364,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <NavigationProperty Name="Branch" Relationship="Afaqy_Store.DataLayer.FK_Employee_Branch" FromRole="Employee" ToRole="Branch" />
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Employee" ToRole="Country" />
           <NavigationProperty Name="Department" Relationship="Afaqy_Store.DataLayer.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
-          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_Employee_User" FromRole="Employee" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RoleName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="UserRole" Relationship="Afaqy_Store.DataLayer.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="ServerRole">
           <Key>
@@ -2675,60 +2574,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="DeviceIMEI" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="DeviceSerial" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LastName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CountryId" Type="Int32" />
-          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="AllowAccess" Type="Boolean" Nullable="false" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_User_Country" FromRole="User" ToRole="Country" />
-          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_Employee_User" FromRole="User" ToRole="Employee" />
-          <NavigationProperty Name="UserType" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="User" ToRole="UserType" />
-          <NavigationProperty Name="UserRole" Relationship="Afaqy_Store.DataLayer.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserRoleId" />
-          </Key>
-          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" Nullable="false" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="Int32" Nullable="false" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Role" Relationship="Afaqy_Store.DataLayer.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
-          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="UserTypeId" />
-          </Key>
-          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
-          <Property Name="UserTypeName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UserTypeName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="User" Relationship="Afaqy_Store.DataLayer.FK_User_UserType" FromRole="UserType" ToRole="User" />
-        </EntityType>
         <EntityType Name="BrandServerPortView">
           <Key>
             <PropertyRef Name="BrandPortId" />
@@ -2816,6 +2661,43 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
           <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CustomerServerUnitsCountView">
+          <Key>
+            <PropertyRef Name="BranchName_en" />
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="CustomerName_en" />
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="AccountUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SeverCustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientStatus" Type="Int32" />
+          <Property Name="TotalUnitsCount" Type="Int32" />
+          <Property Name="WorkingUnitsCount" Type="Int32" />
+          <Property Name="DeletedUnitsCount" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CustomerServerUnitsView">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="UnitId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="UnitId" Type="Int32" Nullable="false" />
+          <Property Name="GSMNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SIMSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceIMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceSerial" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceStatus" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="DeviceServerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastConnection" Type="DateTime" Precision="3" />
+          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CustomerView">
           <Key>
@@ -3058,18 +2940,63 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
             <PropertyRef Name="FirstName_en" />
             <PropertyRef Name="LastName_en" />
             <PropertyRef Name="User_FullName_en" />
+            <PropertyRef Name="UserTypeId" />
+            <PropertyRef Name="UserTypeName_en" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="AllowAccess" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirstName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="User_FullName_en" Type="String" Nullable="false" MaxLength="41" FixedLength="false" Unicode="true" />
           <Property Name="User_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="CountryName_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CountryName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserTypeName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="AllowAccess" Type="Boolean" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="DepartmentName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerId" Type="Int32" />
+          <Property Name="BranchId" Type="Int32" />
+          <Property Name="BranchName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BranchName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="JoinDate" Type="DateTime" Precision="0" />
+          <Property Name="Employee_UserId" Type="Int32" />
+          <Property Name="Employee_IsBlock" Type="Boolean" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Branch_Country">
           <End Type="Afaqy_Store.DataLayer.Country" Role="Country" Multiplicity="0..1" />
@@ -3187,18 +3114,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
               <PropertyRef Name="CountryId" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_Country">
-          <End Type="Afaqy_Store.DataLayer.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="CountryId" />
-            </Principal>
-            <Dependent Role="User">
               <PropertyRef Name="CountryId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3431,30 +3346,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employee_User">
-          <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="0..1" />
-          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Type="Afaqy_Store.DataLayer.Role" Role="Role" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.UserRole" Role="UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServerUserRole_ServerRole">
           <End Type="Afaqy_Store.DataLayer.ServerRole" Role="ServerRole" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.ServerUserRole" Role="ServerUserRole" Multiplicity="*" />
@@ -3551,67 +3442,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_UserType">
-          <End Type="Afaqy_Store.DataLayer.UserType" Role="UserType" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserType">
-              <PropertyRef Name="UserTypeId" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UserTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserRole_User">
-          <End Type="Afaqy_Store.DataLayer.User" Role="User" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.UserRole" Role="UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CustomerServerUnitsCountView">
-          <Key>
-            <PropertyRef Name="BranchName_en" />
-            <PropertyRef Name="CustomerId" />
-            <PropertyRef Name="CustomerName_en" />
-            <PropertyRef Name="AccountId" />
-          </Key>
-          <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="AccountId" Type="Int32" Nullable="false" />
-          <Property Name="AccountUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SeverCustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ClientStatus" Type="Int32" />
-          <Property Name="TotalUnitsCount" Type="Int32" />
-          <Property Name="WorkingUnitsCount" Type="Int32" />
-          <Property Name="DeletedUnitsCount" Type="Int32" />
-        </EntityType>
-        <EntityType Name="CustomerServerUnitsView">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-            <PropertyRef Name="UnitId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="UnitId" Type="Int32" Nullable="false" />
-          <Property Name="GSMNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SIMSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceIMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceSerial" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceStatus" Type="Int32" />
-          <Property Name="IsDeleted" Type="Boolean" />
-          <Property Name="DeviceServerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastConnection" Type="DateTime" Precision="3" />
-          <Property Name="ServerIP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3901,20 +3731,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="RoleName_ar" ColumnName="RoleName_ar" />
-                <ScalarProperty Name="RoleName_en" ColumnName="RoleName_en" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ServerRole">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.ServerRole">
               <MappingFragment StoreEntitySet="ServerRole">
@@ -4110,56 +3926,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="LastName_ar" ColumnName="LastName_ar" />
-                <ScalarProperty Name="LastName_en" ColumnName="LastName_en" />
-                <ScalarProperty Name="FirstName_ar" ColumnName="FirstName_ar" />
-                <ScalarProperty Name="FirstName_en" ColumnName="FirstName_en" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRole">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserRole">
-              <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserType">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserType">
-              <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="UserTypeName_ar" ColumnName="UserTypeName_ar" />
-                <ScalarProperty Name="UserTypeName_en" ColumnName="UserTypeName_en" />
-                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BrandServerPortView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.BrandServerPortView">
               <MappingFragment StoreEntitySet="BrandServerPortView">
@@ -4226,6 +3992,41 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="CustomerServerAccountId" ColumnName="CustomerServerAccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerUnitsCountView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsCountView">
+              <MappingFragment StoreEntitySet="CustomerServerUnitsCountView">
+                <ScalarProperty Name="DeletedUnitsCount" ColumnName="DeletedUnitsCount" />
+                <ScalarProperty Name="WorkingUnitsCount" ColumnName="WorkingUnitsCount" />
+                <ScalarProperty Name="TotalUnitsCount" ColumnName="TotalUnitsCount" />
+                <ScalarProperty Name="ClientStatus" ColumnName="ClientStatus" />
+                <ScalarProperty Name="SeverCustomerName" ColumnName="SeverCustomerName" />
+                <ScalarProperty Name="AccountUserName" ColumnName="AccountUserName" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
+                <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServerUnitsView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsView">
+              <MappingFragment StoreEntitySet="CustomerServerUnitsView">
+                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
+                <ScalarProperty Name="LastConnection" ColumnName="LastConnection" />
+                <ScalarProperty Name="DeviceServerName" ColumnName="DeviceServerName" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeviceStatus" ColumnName="DeviceStatus" />
+                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
+                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
+                <ScalarProperty Name="SIMSerial" ColumnName="SIMSerial" />
+                <ScalarProperty Name="GSMNumber" ColumnName="GSMNumber" />
+                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4432,49 +4233,52 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySetMapping Name="UserView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.UserView">
               <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
+                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
+                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
+                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
+                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
+                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
+                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
+                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
+                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
+                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="Employee_IsBlock" ColumnName="Employee_IsBlock" />
+                <ScalarProperty Name="Employee_UserId" ColumnName="Employee_UserId" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="BranchName_ar" ColumnName="BranchName_ar" />
+                <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="DepartmentName_ar" ColumnName="DepartmentName_ar" />
+                <ScalarProperty Name="DepartmentName_en" ColumnName="DepartmentName_en" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="UserTypeName_ar" ColumnName="UserTypeName_ar" />
+                <ScalarProperty Name="UserTypeName_en" ColumnName="UserTypeName_en" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="CountryName_ar" ColumnName="CountryName_ar" />
+                <ScalarProperty Name="CountryName_en" ColumnName="CountryName_en" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="User_FullName_ar" ColumnName="User_FullName_ar" />
                 <ScalarProperty Name="User_FullName_en" ColumnName="User_FullName_en" />
                 <ScalarProperty Name="LastName_ar" ColumnName="LastName_ar" />
                 <ScalarProperty Name="LastName_en" ColumnName="LastName_en" />
                 <ScalarProperty Name="FirstName_ar" ColumnName="FirstName_ar" />
                 <ScalarProperty Name="FirstName_en" ColumnName="FirstName_en" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerServerUnitsCountView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsCountView">
-              <MappingFragment StoreEntitySet="CustomerServerUnitsCountView">
-                <ScalarProperty Name="DeletedUnitsCount" ColumnName="DeletedUnitsCount" />
-                <ScalarProperty Name="WorkingUnitsCount" ColumnName="WorkingUnitsCount" />
-                <ScalarProperty Name="TotalUnitsCount" ColumnName="TotalUnitsCount" />
-                <ScalarProperty Name="ClientStatus" ColumnName="ClientStatus" />
-                <ScalarProperty Name="SeverCustomerName" ColumnName="SeverCustomerName" />
-                <ScalarProperty Name="AccountUserName" ColumnName="AccountUserName" />
-                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
-                <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
-                <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerServerUnitsView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.CustomerServerUnitsView">
-              <MappingFragment StoreEntitySet="CustomerServerUnitsView">
-                <ScalarProperty Name="ServerIP" ColumnName="ServerIP" />
-                <ScalarProperty Name="LastConnection" ColumnName="LastConnection" />
-                <ScalarProperty Name="DeviceServerName" ColumnName="DeviceServerName" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="DeviceStatus" ColumnName="DeviceStatus" />
-                <ScalarProperty Name="DeviceSerial" ColumnName="DeviceSerial" />
-                <ScalarProperty Name="DeviceIMEI" ColumnName="DeviceIMEI" />
-                <ScalarProperty Name="SIMSerial" ColumnName="SIMSerial" />
-                <ScalarProperty Name="GSMNumber" ColumnName="GSMNumber" />
-                <ScalarProperty Name="UnitId" ColumnName="UnitId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
