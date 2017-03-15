@@ -1,0 +1,103 @@
+﻿@model Afaqy_Store.Models.DeliveryRequestDetailsViewModel
+
+@{
+    ViewBag.Title = Resources.Store.DeliveryRequestDetails;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Store.DeliveryRequestDetails</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>
+               @Resources.Sales.POS
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.POSName_en)
+            </dd>
+
+            <dt>
+                @Resources.ServerManagement.Customer
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerName_en)
+            </dd>
+
+            <dt>
+                @Resources.Sales.SaleTransactionType
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SaleTransactionType_en)
+            </dd>
+
+            <dt>
+                @Resources.Store.DeliveryDateTime
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DeliveryDateTime)
+            </dd>
+
+            <dt>
+                @Resources.Store.DeliveryRequestStatus
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DeliveryRequestStatus_en)
+            </dd>
+
+            <dt>
+                @Resources.Store.DeliveryRequestNote
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+
+            <dt>
+                @Resources.Resource.IsBlock
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Block)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateUser_FullName_en)
+            </dd>
+
+            <dt>
+                @Resources.Resource.CreateDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreateDate)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyUserFullNameEn
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyUser_FullName_en)
+            </dd>
+
+            <dt>
+                @Resources.Resource.ModifyDateTime
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ModifyDate)
+            </dd>
+        </dl>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
+    </div>
+}

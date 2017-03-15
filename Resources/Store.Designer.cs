@@ -61,6 +61,96 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Date.
+        /// </summary>
+        public static string DeliveryDate {
+            get {
+                return ResourceManager.GetString("DeliveryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery DateTime.
+        /// </summary>
+        public static string DeliveryDateTime {
+            get {
+                return ResourceManager.GetString("DeliveryDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request.
+        /// </summary>
+        public static string DeliveryRequest {
+            get {
+                return ResourceManager.GetString("DeliveryRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Delivery Request.
+        /// </summary>
+        public static string DeliveryRequestCreate {
+            get {
+                return ResourceManager.GetString("DeliveryRequestCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request Details.
+        /// </summary>
+        public static string DeliveryRequestDetails {
+            get {
+                return ResourceManager.GetString("DeliveryRequestDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Delivery Request.
+        /// </summary>
+        public static string DeliveryRequestEdit {
+            get {
+                return ResourceManager.GetString("DeliveryRequestEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Delivery Request.
+        /// </summary>
+        public static string DeliveryRequestNew {
+            get {
+                return ResourceManager.GetString("DeliveryRequestNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string DeliveryRequestNote {
+            get {
+                return ResourceManager.GetString("DeliveryRequestNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Status.
+        /// </summary>
+        public static string DeliveryRequestStatus {
+            get {
+                return ResourceManager.GetString("DeliveryRequestStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Time.
+        /// </summary>
+        public static string DeliveryTime {
+            get {
+                return ResourceManager.GetString("DeliveryTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Device.
         /// </summary>
         public static string DeviceCreate {
@@ -273,6 +363,15 @@ namespace Resources {
         public static string Firmware {
             get {
                 return ResourceManager.GetString("Firmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

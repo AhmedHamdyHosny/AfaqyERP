@@ -20,7 +20,6 @@ namespace Afaqy_Store.Controllers
         [HttpPost]
         public JsonResult GetCustomerServerUnitsDetailsView(string customerId, GenericApiController.Utilities.GenericDataFormat options)
         {
-            
             var model = new GenericApiController.Utilities.PaginationResult<CustomerServerUnitsDetailsViewModel>();
             if (options.Sorts != null && options.Sorts.Count > 1)
             {

@@ -104,13 +104,13 @@
     <script>
 
         var gridColumnDefs = [
-            { field: 'ModelTypeId', name: '@Resources.Store.DeviceModelTypeId' },
-            { field: 'ModelTypeName', name: '@Resources.Store.DeviceModelTypeName' },
+            { field: 'DeviceModelTypeId', name: '@Resources.Store.DeviceModelTypeId' },
+            { field: 'DeviceModelTypeName', name: '@Resources.Store.DeviceModelTypeName' },
             { field: 'IsBlock', name: '@Resources.Resource.Block' },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.ModelTypeId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
-                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.ModelTypeId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeviceModelTypeId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeviceModelTypeId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false
             }

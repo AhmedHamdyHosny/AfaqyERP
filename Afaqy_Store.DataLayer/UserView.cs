@@ -29,7 +29,7 @@ namespace Afaqy_Store.DataLayer
         public int UserTypeId { get; set; }
         public string UserTypeName_en { get; set; }
         public string UserTypeName_ar { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public bool AllowAccess { get; set; }
         public Nullable<int> EmployeeId { get; set; }
         public string PhoneNumber { get; set; }

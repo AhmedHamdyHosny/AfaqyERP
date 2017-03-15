@@ -28,7 +28,7 @@ namespace Security.DataLayer
         public string ServiceName_ar { get; set; }
         public string ServiceDescription_en { get; set; }
         public string ServiceDescription_ar { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

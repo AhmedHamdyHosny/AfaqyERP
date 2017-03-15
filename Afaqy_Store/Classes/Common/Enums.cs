@@ -136,5 +136,12 @@ namespace Classes.Common
             Disable = 3,
             Blocked = 4
         }
+
+        public enum DeliveryRequestStatus
+        {
+            New = 1,
+            Approved = 2,
+            Reject = 3
+        }
     }
 }

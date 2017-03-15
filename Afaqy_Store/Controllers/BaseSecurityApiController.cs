@@ -9,7 +9,7 @@ namespace Afaqy_Store.Controllers
 {
     public class BaseSecurityApiController<T> : GenericApiController.GenericApiController<T> where T : class
     {
-        public BaseSecurityApiController() : base(new Security.DataLayer.AfaqyStoreEntities())
+        public BaseSecurityApiController() : base(new Security.DataLayer.SecurityEntities())
         {
 
         }

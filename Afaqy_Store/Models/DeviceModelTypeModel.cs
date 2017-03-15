@@ -73,12 +73,12 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "ModelTypeId,ModelTypeName")]
+    [Bind(Include = "DeviceModelTypeId,DeviceModelTypeName")]
     public class DeviceModelTypeCreateBindModel : DeviceModelType
     {
     }
 
-    [Bind(Include = "ModelTypeId,ModelTypeName,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeviceModelTypeId,DeviceModelTypeName,IsBlock,CreateUserId,CreateDate")]
     public class DeviceModelTypeEditBindModel : DeviceModelType
     {
     }

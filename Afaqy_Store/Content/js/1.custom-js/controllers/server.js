@@ -1097,12 +1097,9 @@ function CustomerServerUnitsDetailsCtrl($scope, $uibModalInstance, uiGridConstan
             gridOptions.Paging = { PageNumber: NextPage, PageSize: NextPageSize };
             var url = getCustomerServerUnitsDetailsViewActionUrl;
             var formData = { customerId: $scope.selectedCustomerId, options: gridOptions };
-            console.log(JSON.stringify(formData));
             global.post(url, formData, function (resp) {
-                console.log(JSON.stringify("hi--------------:"+resp.data));
                 $scope.pagination.totalItems = resp.data.TotalItemsCount;
                 $scope.gridOptions.data = resp.data.PageItems;
-                console.log(JSON.stringify(resp.data.PageItems));
                 $scope.gridOptions.selectedItems = [];
             }, function (resp) {
                 console.log("Error: " + error);

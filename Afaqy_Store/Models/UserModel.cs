@@ -31,12 +31,12 @@ namespace Afaqy_Store.Models
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "UserId", Operation = GenericDataFormat.FilterOperations.Equal, Value = createUserId });
             }
             var requestBody = new GenericDataFormat() { Filters = filters };
-            var users = this.Get(requestBody);
+            var users = this.GetView<UserViewModel>(requestBody).PageItems;
 
-            createUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == createUserId);
+            createUser = users.SingleOrDefault(x => x.UserId == createUserId);
             if(modifyUserId != null && modifyUserId != 0 )
             {
-                modifyUser = users.Cast<UserViewModel>().SingleOrDefault(x => x.UserId == modifyUserId);
+                modifyUser = users.SingleOrDefault(x => x.UserId == modifyUserId);
             }
         }
 
@@ -89,6 +89,17 @@ namespace Afaqy_Store.Models
             {
                 cUser = (UserViewModel)HttpContext.Current.Session[UserViewModel.SessionName];
             }
+
+            //for test 
+            if(cUser == null)
+            {
+                var requestBody = new GenericDataFormat();
+                requestBody.Filters = new List<GenericDataFormat.FilterItems>();
+                requestBody.Filters.Add(new GenericDataFormat.FilterItems() { Property = "UserId", Operation = GenericDataFormat.FilterOperations.Equal, Value = 1 });
+                cUser = new UserModel<UserViewModel>().GetView<UserViewModel>(requestBody).PageItems.SingleOrDefault();
+                cUser.SaveUserToLocalStorage(true);
+            }
+
             return cUser;
                
         }

@@ -25,7 +25,7 @@ namespace Security.DataLayer
         public int ServiceId { get; set; }
         public int AccessTypeId { get; set; }
         public string ControlTag { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

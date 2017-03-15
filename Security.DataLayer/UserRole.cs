@@ -17,7 +17,7 @@ namespace Security.DataLayer
         public int UserRoleId { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public int CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

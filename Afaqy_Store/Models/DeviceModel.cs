@@ -42,20 +42,20 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId")]
+    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,DeviceModelTypeId")]
     public class DeviceCreateBindModel : Device
     {
 
     }
 
-    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,ModelTypeId,DeviceStatusId,BranchId,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeviceId,SerialNumber,IMEI,Firmware,DeviceModelTypeId,DeviceStatusId,BranchId,IsBlock,CreateUserId,CreateDate")]
     public class DeviceEditBindModel : Device
     {
     }
     public class DeviceEditModel 
     {
         public Device EditItem { get; set; }
-        public IEnumerable<CustomSelectListItem> ModelType { get; set; }
+        public IEnumerable<CustomSelectListItem> DeviceModelType { get; set; }
     }
 
     public class DeviceImportModel:Device

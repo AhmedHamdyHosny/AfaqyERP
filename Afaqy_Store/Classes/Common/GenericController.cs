@@ -73,7 +73,7 @@ namespace Classes.Common
                 //create instance to insert object
                 dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
                 var item = instance.Insert(model);
-                
+
                 DelegatePostCreate delegatePostExecute = new DelegatePostCreate(FuncPostCreate);
                 return delegatePostExecute(ref model);
             }
@@ -356,31 +356,11 @@ namespace Classes.Common
             }
             return Json(model);
         }
+        
 
     }
-    //public class Reference
-    //{
-    //    public Type TypeModel { get; set; }
-    //    public string ViewDataName { get; set; }
-    //    public string SelectColumns { get; set; }
-    //    public string DataValueField { get; set; }
-    //    public string DataTextField { get; set; }
-    //    public string SelectedValue { get; set; }
-    //    public string PropertyName { get; set; }
-    //    public List<GenericDataFormat.FilterItems> Filters { get; set; }
-    //}
-    //public class ActionItemPropertyValue
-    //{
-    //    public Transactions Transaction { get; set; }
-    //    public string PropertyName { get; set; }
-    //    public object Value { get; set; }
+    
 
-    //}
-    //public class PostActionExcuteRedirect
-    //{
-    //    public Transactions Transaction{ get; set; }
-    //    public string RedirectToAction { get; set; }
-    //}
 
     public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel>
     {

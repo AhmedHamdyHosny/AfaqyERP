@@ -42,7 +42,7 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreDetailsView(object id, ref List<DeviceModelTypeDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "ModelTypeId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeviceModelTypeId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters };
             items = new DeviceModelTypeModel<DeviceModelTypeDetailsViewModel>().Get(requestBody);
         }
@@ -68,14 +68,14 @@ namespace Afaqy_Store.Controllers
         }
         public override void FuncPreEdit(ref object id, ref DeviceModelTypeEditBindModel EditItem)
         {
-            id = EditItem.ModelTypeId;
+            id = EditItem.DeviceModelTypeId;
             EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "DeviceModelType.xlsx";
-            string properties = "ModelTypeId,ModelTypeName,IsBlock";
+            string properties = "DeviceModelTypeId,DeviceModelTypeName,IsBlock";
             ExportRequestBody = new GenericDataFormat() {Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
     }

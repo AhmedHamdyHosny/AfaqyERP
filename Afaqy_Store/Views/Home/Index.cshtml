@@ -3,14 +3,14 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/_Default.cshtml";
-    var lst = Model.ModelType.Select(x=> new CustomSelectListItem() { Selected = x.Selected, Value = x.Value, Text = x.Text});
+    var lst = Model.DeviceModelType.Select(x=> new CustomSelectListItem() { Selected = x.Selected, Value = x.Value, Text = x.Text});
 }
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(m => m.EditItem.ModelTypeId);
-@Html.CustomDropdownListFor(m => m.EditItem.ModelTypeId, lst, null, "---- Select ----",
-        new { name = "ModelTypeId", id = "ModelTypeId" })
-@Html.ValidationMessageFor(m => m.EditItem.ModelTypeId, null, new { @class = "ValidationErrors" })
+    @Html.LabelFor(m => m.EditItem.DeviceModelTypeId);
+@Html.CustomDropdownListFor(m => m.EditItem.DeviceModelTypeId, lst, null, "---- Select ----",
+        new { name = "DeviceModelTypeId", id = "DeviceModelTypeId" })
+@Html.ValidationMessageFor(m => m.EditItem.DeviceModelTypeId, null, new { @class = "ValidationErrors" })
     <button type="submit">Save</button>
 }
 
@@ -24,7 +24,7 @@
 
 <script>
     //--Jquery Select2--
-    $("#ModelTypeId").select2();
+    $("#DeviceModelTypeId").select2();
 
 </script>
 }

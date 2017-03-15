@@ -23,7 +23,7 @@ namespace Security.DataLayer
         public int UserGroupId { get; set; }
         public string GroupName_en { get; set; }
         public string GroupName_ar { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

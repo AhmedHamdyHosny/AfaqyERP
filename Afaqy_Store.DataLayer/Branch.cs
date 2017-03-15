@@ -21,8 +21,10 @@ namespace Afaqy_Store.DataLayer
             this.Device = new HashSet<Device>();
             this.DeviceStatusHistory = new HashSet<DeviceStatusHistory>();
             this.Employee = new HashSet<Employee>();
+            this.PointOfSale = new HashSet<PointOfSale>();
             this.SIMCard = new HashSet<SIMCard>();
             this.SIMCardStatusHistory = new HashSet<SIMCardStatusHistory>();
+            this.Warehouse = new HashSet<Warehouse>();
         }
     
         public int BranchId { get; set; }
@@ -45,8 +47,12 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PointOfSale> PointOfSale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCard> SIMCard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SIMCardStatusHistory> SIMCardStatusHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Warehouse> Warehouse { get; set; }
     }
 }

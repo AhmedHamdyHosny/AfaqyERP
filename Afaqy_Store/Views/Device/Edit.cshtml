@@ -35,9 +35,9 @@
                 @Html.ValidationMessageFor(model => model.EditItem.Firmware, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.ModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
-                @Html.CustomDropdownListFor(m => m.EditItem.ModelTypeId, Model.ModelType, null, Resources.Resource.SelectItem , htmlAttributes : new { @class = "form-control" ,@name = "ModelTypeId",@id = "ModelTypeId"}) 
-                @Html.ValidationMessageFor(model => model.EditItem.ModelTypeId, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.EditItem.DeviceModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(m => m.EditItem.DeviceModelTypeId, Model.DeviceModelType, null, Resources.Resource.SelectItem , htmlAttributes : new { @class = "form-control" ,@name = "DeviceModelTypeId", @id = "DeviceModelTypeId" }) 
+                @Html.ValidationMessageFor(model => model.EditItem.DeviceModelTypeId, "", new { @class = "text-danger" })
             </div>
             <div>
                 @Html.HiddenFor(model => model.EditItem.BranchId)
@@ -62,7 +62,7 @@
     <script>
         $(document).ready(function () {
             //--Jquery Select2--
-            $("#ModelTypeId").select2();
+            $("#DeviceModelTypeId").select2();
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {

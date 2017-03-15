@@ -17,18 +17,22 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            this.CustomerContact = new HashSet<CustomerContact>();
             this.CustomerServerAccount = new HashSet<CustomerServerAccount>();
             this.CustomerServerUser = new HashSet<CustomerServerUser>();
+            this.DeliveryNote = new HashSet<DeliveryNote>();
+            this.DeliveryRequest = new HashSet<DeliveryRequest>();
             this.DeviceServer = new HashSet<DeviceServer>();
         }
     
         public int CustomerId { get; set; }
+        public Nullable<int> DolphinId { get; set; }
         public string CustomerName_en { get; set; }
         public string CustomerName_ar { get; set; }
-        public string ContactName { get; set; }
-        public string ContactTelephone { get; set; }
         public string Email { get; set; }
         public Nullable<int> BranchId { get; set; }
+        public Nullable<int> CustomerTypeId { get; set; }
+        public int CustomerStatusId { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -36,10 +40,18 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Branch Branch { get; set; }
+        public virtual CustomerStatus CustomerStatus { get; set; }
+        public virtual CustomerType CustomerType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerContact> CustomerContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServerAccount> CustomerServerAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServerUser> CustomerServerUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceServer> DeviceServer { get; set; }
     }

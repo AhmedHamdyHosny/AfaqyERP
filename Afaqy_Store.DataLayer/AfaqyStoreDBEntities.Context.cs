@@ -28,13 +28,25 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<Branch> Branch { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<BrandServerPort> BrandServerPort { get; set; }
+        public virtual DbSet<ContactMethod> ContactMethod { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Currency> Currency { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerContact> CustomerContact { get; set; }
+        public virtual DbSet<CustomerContactDetails> CustomerContactDetails { get; set; }
         public virtual DbSet<CustomerServerAccount> CustomerServerAccount { get; set; }
         public virtual DbSet<CustomerServerAccountStatusHistory> CustomerServerAccountStatusHistory { get; set; }
         public virtual DbSet<CustomerServerStatus> CustomerServerStatus { get; set; }
         public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
+        public virtual DbSet<CustomerStatus> CustomerStatus { get; set; }
+        public virtual DbSet<CustomerType> CustomerType { get; set; }
+        public virtual DbSet<DeliveryDetails> DeliveryDetails { get; set; }
+        public virtual DbSet<DeliveryDevice> DeliveryDevice { get; set; }
+        public virtual DbSet<DeliveryNote> DeliveryNote { get; set; }
+        public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
+        public virtual DbSet<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
+        public virtual DbSet<DeliveryRequestStatus> DeliveryRequestStatus { get; set; }
+        public virtual DbSet<DeliveryStatus> DeliveryStatus { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<DeviceModelType> DeviceModelType { get; set; }
@@ -43,6 +55,10 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<DeviceStatus> DeviceStatus { get; set; }
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<ErrorLog> ErrorLog { get; set; }
+        public virtual DbSet<ItemFamily> ItemFamily { get; set; }
+        public virtual DbSet<PointOfSale> PointOfSale { get; set; }
+        public virtual DbSet<SaleTransactionType> SaleTransactionType { get; set; }
         public virtual DbSet<ServerRole> ServerRole { get; set; }
         public virtual DbSet<ServerUnit> ServerUnit { get; set; }
         public virtual DbSet<ServerUserRole> ServerUserRole { get; set; }
@@ -56,11 +72,13 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<TechniqueCompany> TechniqueCompany { get; set; }
         public virtual DbSet<TechniqueSystem> TechniqueSystem { get; set; }
         public virtual DbSet<TempDevice> TempDevice { get; set; }
+        public virtual DbSet<Warehouse> Warehouse { get; set; }
         public virtual DbSet<BrandServerPortView> BrandServerPortView { get; set; }
         public virtual DbSet<CustomerServerAccountView> CustomerServerAccountView { get; set; }
         public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
         public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
+        public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
         public virtual DbSet<SIMCardContractView> SIMCardContractView { get; set; }

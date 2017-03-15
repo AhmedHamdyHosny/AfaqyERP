@@ -32,7 +32,7 @@ namespace Security.DataLayer
         public Nullable<int> CountryId { get; set; }
         public int UserTypeId { get; set; }
         public bool AllowAccess { get; set; }
-        public bool Active { get; set; }
+        public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }

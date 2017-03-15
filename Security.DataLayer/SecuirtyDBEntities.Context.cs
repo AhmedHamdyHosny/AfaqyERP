@@ -13,10 +13,10 @@ namespace Security.DataLayer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AfaqyStoreEntities : DbContext
+    public partial class SecurityEntities : DbContext
     {
-        public AfaqyStoreEntities()
-            : base("name=AfaqyStoreEntities")
+        public SecurityEntities()
+            : base("name=SecurityEntities")
         {
         }
     
@@ -38,5 +38,6 @@ namespace Security.DataLayer
         public virtual DbSet<UserService> UserService { get; set; }
         public virtual DbSet<UserServiceAccess> UserServiceAccess { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<ServiceAccessView> ServiceAccessView { get; set; }
     }
 }

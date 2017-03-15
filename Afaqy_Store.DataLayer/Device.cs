@@ -17,6 +17,7 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Device()
         {
+            this.DeliveryDevice = new HashSet<DeliveryDevice>();
             this.DeviceServer = new HashSet<DeviceServer>();
             this.DeviceSIM = new HashSet<DeviceSIM>();
         }
@@ -24,7 +25,7 @@ namespace Afaqy_Store.DataLayer
         public int DeviceId { get; set; }
         public string SerialNumber { get; set; }
         public string IMEI { get; set; }
-        public int ModelTypeId { get; set; }
+        public int DeviceModelTypeId { get; set; }
         public int DeviceStatusId { get; set; }
         public string Firmware { get; set; }
         public Nullable<int> BranchId { get; set; }
@@ -36,8 +37,10 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Branch Branch { get; set; }
-        public virtual DeviceStatus DeviceStatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
         public virtual DeviceModelType DeviceModelType { get; set; }
+        public virtual DeviceStatus DeviceStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceServer> DeviceServer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -189,4 +189,37 @@
   <data name="DeviceModelTypeTitle" xml:space="preserve">
     <value>Device Model Type</value>
   </data>
+  <data name="DeliveryDateTime" xml:space="preserve">
+    <value>Delivery DateTime</value>
+  </data>
+  <data name="DeliveryRequest" xml:space="preserve">
+    <value>Delivery Request</value>
+  </data>
+  <data name="DeliveryRequestCreate" xml:space="preserve">
+    <value>Create Delivery Request</value>
+  </data>
+  <data name="DeliveryRequestDetails" xml:space="preserve">
+    <value>Delivery Request Details</value>
+  </data>
+  <data name="DeliveryRequestEdit" xml:space="preserve">
+    <value>Edit Delivery Request</value>
+  </data>
+  <data name="DeliveryRequestNew" xml:space="preserve">
+    <value>New Delivery Request</value>
+  </data>
+  <data name="DeliveryRequestNote" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="DeliveryRequestStatus" xml:space="preserve">
+    <value>Request Status</value>
+  </data>
+  <data name="DeliveryDate" xml:space="preserve">
+    <value>Delivery Date</value>
+  </data>
+  <data name="DeliveryTime" xml:space="preserve">
+    <value>Delivery Time</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>

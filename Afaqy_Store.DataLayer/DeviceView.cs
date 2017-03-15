@@ -17,8 +17,8 @@ namespace Afaqy_Store.DataLayer
         public int DeviceId { get; set; }
         public string SerialNumber { get; set; }
         public string IMEI { get; set; }
-        public int ModelTypeId { get; set; }
-        public string ModelTypeName { get; set; }
+        public int DeviceModelTypeId { get; set; }
+        public string DeviceModelTypeName { get; set; }
         public int DeviceStatusId { get; set; }
         public string DeviceStatus_en { get; set; }
         public string DeviceStatus_ar { get; set; }

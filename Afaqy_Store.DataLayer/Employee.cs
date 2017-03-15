@@ -14,6 +14,13 @@ namespace Afaqy_Store.DataLayer
     
     public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.DeliveryDevice = new HashSet<DeliveryDevice>();
+            this.DeliveryNote = new HashSet<DeliveryNote>();
+        }
+    
         public int EmployeeId { get; set; }
         public string FirstName_en { get; set; }
         public string FirstName_ar { get; set; }
@@ -37,6 +44,10 @@ namespace Afaqy_Store.DataLayer
     
         public virtual Branch Branch { get; set; }
         public virtual Country Country { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
         public virtual Department Department { get; set; }
     }
 }

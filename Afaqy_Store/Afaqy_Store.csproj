@@ -288,10 +288,17 @@
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
+    <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
+    <Compile Include="Controllers\ApiItemFamilyController.cs" />
+    <Compile Include="Controllers\ApiSaleTransactionTypeController.cs" />
+    <Compile Include="Controllers\ApiSystemRoleController.cs" />
+    <Compile Include="Controllers\ApiSystemServiceAccessController.cs" />
+    <Compile Include="Controllers\ApiSystemServiceController.cs" />
     <Compile Include="Controllers\BaseSecurityApiController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
     <Compile Include="Controllers\CustomerServerUnitsController.cs" />
+    <Compile Include="Controllers\DeliveryRequestController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
@@ -337,6 +344,7 @@
     <Compile Include="Controllers\SIMCardController.cs" />
     <Compile Include="Controllers\SIMCardProviderController.cs" />
     <Compile Include="Controllers\SIMCardStatusController.cs" />
+    <Compile Include="Controllers\SystemRoleController.cs" />
     <Compile Include="Controllers\SystemServerIPController.cs" />
     <Compile Include="Controllers\TechniqueCompanyController.cs" />
     <Compile Include="Controllers\TechniqueSystemController.cs" />
@@ -358,6 +366,7 @@
     <Compile Include="Models\CustomerServerUnitsModel.cs" />
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
+    <Compile Include="Models\DeliveryRequestModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceSIMModel.cs" />
@@ -365,14 +374,19 @@
     <Compile Include="Models\DeviceStatusModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemFamilyModel.cs" />
+    <Compile Include="Models\SaleTransactionTypeModel.cs" />
     <Compile Include="Models\ServerRoleModel.cs" />
     <Compile Include="Models\ServerUnitModel.cs" />
     <Compile Include="Models\ServerUserRoleModel.cs" />
+    <Compile Include="Models\SystemServiceAccessModel.cs" />
     <Compile Include="Models\SIMCardContractModel.cs" />
     <Compile Include="Models\SIMCardModel.cs" />
     <Compile Include="Models\SIMCardProviderModel.cs" />
     <Compile Include="Models\SIMCardStatusModel.cs" />
+    <Compile Include="Models\SystemRoleModel.cs" />
     <Compile Include="Models\SystemServerIPModel.cs" />
+    <Compile Include="Models\SystemServiceModel.cs" />
     <Compile Include="Models\TechniqueCompanyModel.cs" />
     <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\TempDeviceModel.cs" />
@@ -486,6 +500,7 @@
     <Content Include="Content\js\1.custom-js\app.js" />
     <Content Include="Content\js\1.custom-js\controllers\admin.js" />
     <Content Include="Content\js\1.custom-js\controllers\default.js" />
+    <Content Include="Content\js\1.custom-js\controllers\security.js" />
     <Content Include="Content\js\1.custom-js\controllers\server.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\controllers\temp.js" />
@@ -1007,6 +1022,14 @@
     <Content Include="Views\CustomerServerAccount\Index.cshtml" />
     <Content Include="Views\CustomerServerUnits\Index.cshtml" />
     <Content Include="Views\CustomerServerUnits\Details.cshtml" />
+    <Content Include="Views\SystemRole\Create.cshtml" />
+    <Content Include="Views\SystemRole\Details.cshtml" />
+    <Content Include="Views\SystemRole\Edit.cshtml" />
+    <Content Include="Views\SystemRole\Index.cshtml" />
+    <Content Include="Views\DeliveryRequest\Create.cshtml" />
+    <Content Include="Views\DeliveryRequest\Details.cshtml" />
+    <Content Include="Views\DeliveryRequest\Edit.cshtml" />
+    <Content Include="Views\DeliveryRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

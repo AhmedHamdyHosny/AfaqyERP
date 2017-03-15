@@ -1,0 +1,74 @@
+﻿@model Afaqy_Store.Models.DeliveryRequestEditModel
+@using Classes.Helper;
+@using BeyondThemes.Bootstrap;
+
+@{
+    ViewBag.Title = Resources.Store.DeliveryRequestEdit;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Store.DeliveryRequestEdit</h2>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.EditItem.DeliveryRequestId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(m => m.EditItem.CustomerId, Model.Customer, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId" })
+                @Html.ValidationMessageFor(model => model.EditItem.CustomerId, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EditItem.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(m => m.EditItem.SaleTransactionTypeId, Model.SaleTransactionType, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId" })
+                @Html.ValidationMessageFor(model => model.EditItem.SaleTransactionTypeId, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-xs-6 form-group">
+                @Html.LabelFor(model => model.EditItem.DeliveryDateTime, Resources.Store.DeliveryDateTime, htmlAttributes: new { @class = "text-info" })
+                <span class="input-icon icon-right">
+                    <input name="DeliveryDateTime" class="form-control date-picker" id="DeliveryDateTime" type="text" data-date-format="dd/mm/yyyy">
+                    <i class="fa fa-calendar"></i>
+                </span>
+            </div>
+            <div class="form-group">
+                @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
+            </div>
+            <div>
+                @Html.HiddenFor(model => model.EditItem.CreateUserId)
+                @Html.HiddenFor(model => model.EditItem.CreateDate)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+@section scripts {
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //--Jquery Select2--
+            $("#CustomerId").select2();
+            $("#SaleTransactionTypeId").select2();
+            //--Bootstrap Date Picker--
+            $('.date-picker').datepicker();
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+

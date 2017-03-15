@@ -1,0 +1,78 @@
+﻿@model Security.DataLayer.Role
+@using Classes.Helper;
+
+@{
+    ViewBag.Title = Resources.Security.SystemRoleCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Security.SystemRoleNew</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        <div >
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.RoleName_en, Resources.Security.SystemRoleNameEn, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.RoleName_en, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RoleName_en, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.RoleName_ar, Resources.Security.SystemRoleNameAr, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.RoleName_ar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RoleName_ar, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                
+                <div class="checkbox ServiceAccessDiv"> 
+                <label>
+                    <input data-val="true" type="checkbox" name="SystemRoleServiceAccess[0].Checked" value="true" >
+                    <input name="SystemRoleServiceAccess[0].Checked" type="hidden" value="false" autocomplete="off" >
+                    <span class="text">View</span>
+                    <input type="hidden" name="SystemRoleServiceAccess[0].ServiceAccessId" value="1">
+                </label>
+                </div>
+
+                <div class="checkbox ServiceAccessDiv">
+                    <label>
+                        <input data-val="true" type="checkbox" name="SystemRoleServiceAccess[1].Checked" value="true">
+                        <input name="SystemRoleServiceAccess[1].Checked" type="hidden" value="false" autocomplete="off">
+                        <span class="text">Delete</span>
+                        <input type="hidden" name="SystemRoleServiceAccess[1].ServiceAccessId" value="2">
+                    </label>
+                </div>
+            
+            </div>*@
+
+            <div class="form-group">
+                @{ Html.RenderAction("Partial_Grid", "Common", new { RowSelection = false}); }
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave"  class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    </div>
+
+}
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}

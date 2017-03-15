@@ -61,7 +61,6 @@ namespace Afaqy_Store.Models
             var tempUser = this.CreateUser;
         }
     }
-
     public class TechniqueSystemIndexViewModel : TechniqueSystem
     {
 
@@ -70,13 +69,11 @@ namespace Afaqy_Store.Models
     {
 
     }
-
     [Bind(Include = "SystemId,SystemName,CompanyId")]
     public class TechniqueSystemCreateBindModel : TechniqueSystem
     {
 
     }
-
     [Bind(Include = "SystemId,SystemName,CompanyId,IsBlock,CreateUserId,CreateDate")]
     public class TechniqueSystemEditBindModel : TechniqueSystem
     {

@@ -1,3 +1,7 @@
 ﻿.large-Modal .modal-dialog {
     width: 1000px;
 }
+
+.meduim-Modal .modal-dialog {
+    width: 800px;
+}

@@ -1,0 +1,125 @@
+﻿@model Afaqy_Store.DataLayer.DeliveryRequest
+@using Classes.Helper;
+
+@{
+    ViewBag.Title = Resources.Store.DeliveryRequestCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+@*<style>
+    #grid.ui-grid-cell div select option:first-child[value=""] {
+        display: none;
+    }
+</style>*@
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Store.DeliveryRequestNew</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body" style="overflow-y: scroll; overflow-x: hidden; height:480px;">
+        @Html.AntiForgeryToken()
+        <div >
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                    @Html.CustomDropdownListFor(model => model.CustomerId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId" })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
+                    @Html.CustomDropdownListFor(model => model.SaleTransactionTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.SaleTransactionTypeId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId" })
+                    @Html.ValidationMessageFor(model => model.SaleTransactionTypeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6  form-group">
+                    <label class="text-info" >@Resources.Store.DeliveryDate</label>
+                    <span class="input-icon icon-right">
+                        <input name="DeliveryDate_Str" class="form-control date-picker" id="DeliveryDate" type="text" data-date-format="dd/mm/yyyy">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+                <div class="col-xs-6 form-group">
+                    <label class="text-info" >@Resources.Store.DeliveryTime</label>
+                    <div class="input-group">
+                        <input class="form-control" id="DeliveryTime" name="DeliveryTime_Str" type="text">
+                        <span class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
+                @*@Html.TextAreaFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", @id = "textareaanimated" } })*@
+                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control", @id = "textareaanimated" } })
+                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+            </div>
+            
+            @*<div class="form-group"> 
+                <input type="number" min="1" value="1" />
+            </div>*@
+
+            <div class="table-toolbar">
+                <a ng-click="create()" class="btn purple" id="addBtn">
+                    <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                </a>
+                <a ng-click="DeleteItems($event);" class="btn btn-danger">
+                    <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                </a>
+            </div>
+            <div class="form-group">
+                @{ Html.RenderAction("Partial_Grid", "Common", new { EnablePagination = false}); }
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+@section scripts {
+    <!--Jquery Select2-->
+    <script src="~/Content/js/select2/select2.js"></script>
+    <!--Bootstrap Date Picker-->
+    <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
+    <!--Bootstrap Time Picker-->
+    <script src="~/Content/js/datetime/bootstrap-timepicker.js"></script>
+
+    <!--Dropzone-->
+    <script src="~/Content/js/dropzone/dropzone.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            //--Jquery Select2--
+            $("#CustomerId").select2();
+            $("#SaleTransactionTypeId").select2();
+            //$(".gridSelection").select2();
+            $("#ddl").select2();
+
+            //--Bootstrap Date Picker--
+            $('.date-picker').datepicker();
+            //--Bootstrap Time Picker--
+            $('#DeliveryTime').timepicker();
+
+            //--JQuery Autosize--
+            //$('#textareaanimated').autosize({ append: "\n" });
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

@@ -28,8 +28,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
-            List<DeviceModelType> deviceModelTypes =  new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("ModelTypeId,ModelTypeName", "ModelTypeName");
-            ViewBag.ModelTypeId = deviceModelTypes.Select(x=> new Classes.Helper.CustomSelectListItem() { Text = x.ModelTypeName, Value = x.ModelTypeId.ToString()});
+            List<DeviceModelType> deviceModelTypes =  new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("DeviceModelTypeId,DeviceModelTypeName", "DeviceModelTypeName");
+            ViewBag.DeviceModelTypeId = deviceModelTypes.Select(x=> new Classes.Helper.CustomSelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString()});
         }
         public override void FuncPreCreate(ref DeviceCreateBindModel model)
         {
@@ -52,8 +52,8 @@ namespace Afaqy_Store.Controllers
                 model = new DeviceEditModel();
                 model.EditItem = EditItem;
                 var selectedItem = EditItem;
-                List<DeviceModelType> deviceModelTypes = new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("ModelTypeId,ModelTypeName", "ModelTypeName");
-                model.ModelType = deviceModelTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.ModelTypeName, Value = x.ModelTypeId.ToString(), Selected = (selectedItem.ModelTypeId == x.ModelTypeId) });
+                List<DeviceModelType> deviceModelTypes = new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("DeviceModelTypeId,DeviceModelTypeName", "DeviceModelTypeName");
+                model.DeviceModelType = deviceModelTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Selected = (selectedItem.DeviceModelTypeId == x.DeviceModelTypeId) });
             }
         }
         public override void FuncPreEdit(ref object id, ref DeviceEditBindModel EditItem)
