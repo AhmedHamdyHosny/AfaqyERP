@@ -22,7 +22,7 @@ namespace Afaqy_Store.Controllers
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             var sorts = new List<GenericDataFormat.SortItems>();
             sorts.Add(new GenericDataFormat.SortItems() { Property = "DeviceModelTypeName" });
-            var requestBody = new GenericApiController.Utilities.GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceModelTypeId,DeviceModelTypeName,ItemFamilyId" }, Sorts = sorts };
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceModelTypeId,DeviceModelTypeName,ItemFamilyId" }, Sorts = sorts };
             List<DeviceModelType> modelTypes = new DeviceModelTypeModel<DeviceModelType>().Get(requestBody);
             ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Group = new SelectListGroup() { Name = x.ItemFamilyId.ToString() } }).ToList();
             
@@ -40,15 +40,14 @@ namespace Afaqy_Store.Controllers
             //prepare dropdown list for item references
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en", "CustomerName_en", filters);
-            ViewBag.CustomerId = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString() });
-
+            List<SaleTransactionType> SaleTransactionTypes = new SaleTransactionTypeModel<SaleTransactionType>().GetAsDDLst("SaleTransactionTypeId,SaleTransactionType_en", "SaleTransactionTypeId", filters);
+            ViewBag.SaleTransactionTypeId = SaleTransactionTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SaleTransactionType_en, Value = x.SaleTransactionTypeId.ToString(), Selected = (x.SaleTransactionTypeId == (int)Classes.Common.DBEnums.SaleTransactionType.Sales) });
+            
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<SaleTransactionType> SaleTransactionTypes = new SaleTransactionTypeModel<SaleTransactionType>().GetAsDDLst("SaleTransactionTypeId,SaleTransactionType_en", "SaleTransactionType_en", filters);
-            ViewBag.SaleTransactionTypeId = SaleTransactionTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SaleTransactionType_en, Value = x.SaleTransactionTypeId.ToString() });
-
-           
+            List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en", "CustomerName_en", filters);
+            ViewBag.CustomerId = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString() });
+            
         }
         
         public override void FuncPreCreate(ref DeliveryRequestCreateBindModel model)

@@ -79,13 +79,14 @@ namespace Afaqy_Store.Models
         {
             System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserName, rememberMe);
             System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserId.ToString(), rememberMe);
-            HttpContext.Current.Session[UserViewModel.SessionName] = this;
+            //for test
+            //HttpContext.Current.Session[UserViewModel.SessionName] = this;
         }
 
         public UserViewModel GetUserFromSession()
         {
             UserViewModel cUser = null;
-            if (HttpContext.Current.Session[UserViewModel.SessionName] != null)
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session[UserViewModel.SessionName] != null)
             {
                 cUser = (UserViewModel)HttpContext.Current.Session[UserViewModel.SessionName];
             }

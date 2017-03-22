@@ -286,6 +286,7 @@
           <Property Name="DeliveryRequestStatusId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerContactId" Type="int" />
           <Property Name="SaleTransactionTypeId" Type="int" Nullable="false" />
           <Property Name="DeliveryDateTime" Type="datetime" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
@@ -855,8 +856,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.CustomerView' does not have a prim
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="CustomerName_en" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CustomerName_ar" Type="nvarchar" MaxLength="100" />
-          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
-          <Property Name="ContactTelephone" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="BranchId" Type="int" />
           <Property Name="BranchName_en" Type="varchar" MaxLength="20" Nullable="false" />
@@ -2124,8 +2123,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
     [CustomerView].[CustomerId] AS [CustomerId], 
     [CustomerView].[CustomerName_en] AS [CustomerName_en], 
     [CustomerView].[CustomerName_ar] AS [CustomerName_ar], 
-    [CustomerView].[ContactName] AS [ContactName], 
-    [CustomerView].[ContactTelephone] AS [ContactTelephone], 
     [CustomerView].[Email] AS [Email], 
     [CustomerView].[BranchId] AS [BranchId], 
     [CustomerView].[BranchName_en] AS [BranchName_en], 
@@ -3309,6 +3306,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="DeliveryRequestStatusId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContactId" Type="Int32" />
           <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -3940,8 +3938,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="CustomerName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CustomerName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BranchId" Type="Int32" />
           <Property Name="BranchName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -5351,6 +5347,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
                 <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
+                <ScalarProperty Name="CustomerContactId" ColumnName="CustomerContactId" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="DeliveryRequestStatusId" ColumnName="DeliveryRequestStatusId" />
@@ -5930,8 +5927,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="BranchName_en" ColumnName="BranchName_en" />
                 <ScalarProperty Name="BranchId" ColumnName="BranchId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ContactTelephone" ColumnName="ContactTelephone" />
-                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
                 <ScalarProperty Name="CustomerName_ar" ColumnName="CustomerName_ar" />
                 <ScalarProperty Name="CustomerName_en" ColumnName="CustomerName_en" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />

@@ -1,6 +1,5 @@
 ﻿@using System
 @using BeyondThemes.Bootstrap
-@using Afaqy_Store.Models;
 <!DOCTYPE html>
 <!--
 BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
@@ -40,16 +39,11 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
 
     <link rel="stylesheet" type="text/css" href="~/Content/css/2.angular/ui-grid.min.css">
 
-    <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/grid.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/default.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/grid.css" />
+        <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/default.css" />
 
 </head>
 <!-- /Head -->
-
-@{ 
-    UserViewModel user = new UserViewModel().GetUserFromSession();
-    
-}
 <!-- Body -->
 <body ng-app="app">
     <!-- Loading Container -->
@@ -85,13 +79,13 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                         <img src="/Content/img/avatars/adam-jansen.jpg">
                                     </div>
                                     <section>
-                                        <h2><span class="profile"><span>@user.User_FullName_en</span></span></h2>
+                                        <h2><span class="profile"><span>Shams</span></span></h2>
                                     </section>
                                 </a>
                                 <!--Login Area Dropdown-->
                                 <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
                                     @*<li class="username"><a>David Stevenson</a></li>*@
-                                    <li class="email"><a>@user.UserName</a></li>
+                                    <li class="email"><a>Shams</a></li>
                                     <!--Avatar Area-->
                                     <li>
                                         <div class="avatar-area">
@@ -101,7 +95,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--Avatar Area-->
                                     <li class="edit">
-                                        <a  class="pull-left">Profile</a>
+                                        <a class="pull-left">Profile</a>
                                         <a class="pull-right">Setting</a>
                                     </li>
                                     <!--Theme Selector Area-->
@@ -123,8 +117,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--/Theme Selector Area-->
                                     <li class="dropdown-footer">
-                                        <a href="@Url.Action("SignOut", "Account")">
-                                            @Resources.Resource.SignOut
+                                        <a href="#">
                                         </a>
                                     </li>
                                 </ul>
@@ -135,7 +128,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                             no space must be between these elements-->
                             <!-- Settings -->
                         </ul>
-                       
+
                         <!-- Settings -->
                     </div>
                 </div>
@@ -195,18 +188,18 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                 <!-- /Page Body -->
                 <!-- Page Footer -->
                 @*<div class="page-footer">
-                    <div class="footer-copyright">
-                        <span class="copyright-symbol">
-                            ©
-                        </span>
-                        2017 Afaqy
-                    </div>
-                    <div class="footer-buttons">
-                        <a href="#">
-                            <i class="fa fa-external-link"></i>
-                        </a>
-                    </div>
-                </div>*@
+                        <div class="footer-copyright">
+                            <span class="copyright-symbol">
+                                ©
+                            </span>
+                            2017 Afaqy
+                        </div>
+                        <div class="footer-buttons">
+                            <a href="#">
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
+                    </div>*@
                 <!-- /Page Footer -->
             </div>
             <!-- /Page Content -->
@@ -225,7 +218,6 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
 
     <script src="~/Content/js/bootbox/bootbox.js"></script>
     <script src="~/Content/js/1.custom-js/Utilities/Utility.js"></script>
-    <script src="~/Content/js/1.custom-js/Utilities/Classes.js"></script>
 
     <script src="~/Content/js/3.angular/angular.min.js"></script>
     <script src="~/Content/js/3.angular/angular-touch.min.js"></script>
@@ -235,11 +227,10 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <script src="~/Content/js/3.angular/vfs_fonts.js"></script>
     <script src="~/Content/js/3.angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
     <script src="~/Content/js/3.angular/ui-grid.min.js"></script>
-    
+
 
     <script src="~/Content/js/1.custom-js/services/global.js"></script>
     <script src="~/Content/js/1.custom-js/services/util.js"></script>
-    <script src="~/Content/js/1.custom-js/services/customerContactService.js"></script>
 
     <script src="~/Content/js/1.custom-js/app.js"></script>
     <script src="~/Content/js/1.custom-js/services.js"></script>
@@ -252,7 +243,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <script src="~/Content/js/1.custom-js/controllers/server.js"></script>
 
     <script src="~/Content/js/1.custom-js/directives.js"></script>
-    
+
     <script>
         var loginActionUrl = '@Url.Action("Login", "Account")';
     </script>

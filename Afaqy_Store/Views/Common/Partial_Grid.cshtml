@@ -1,4 +1,4 @@
-﻿<div id="grid" ui-grid="gridOptions" ui-grid-resize-columns ui-grid-exporter @string.Format("{0}", ViewBag.RowSelection ? "ui-grid-selection" : "")  class="grid"></div>
+﻿<div id="@ViewBag.GridId" ui-grid="@ViewBag.UiGrid" ui-grid-resize-columns ui-grid-exporter @string.Format("{0}", ViewBag.RowSelection ? "ui-grid-selection" : "")  class="grid"></div>
 
 @if (ViewBag.EnablePagination)
 {

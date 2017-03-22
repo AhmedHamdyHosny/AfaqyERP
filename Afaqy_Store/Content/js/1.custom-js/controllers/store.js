@@ -315,7 +315,7 @@ function DeliveryRequestCtrl($scope, $uibModal, confirmService, global, gridServ
     }
 }
 
-function DeliveryRequestCreateCtrl($scope, $uibModalInstance, uiGridConstants, $q, $filter, confirmService) {
+function DeliveryRequestCreateCtrl($scope, $uibModalInstance, uiGridConstants, $q, $filter, global, confirmService) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -323,10 +323,45 @@ function DeliveryRequestCreateCtrl($scope, $uibModalInstance, uiGridConstants, $
 
     $scope.ItemFamilies = itemFamilies;
     $scope.ModelTypes = modelTypes;
+    
 
     $scope.bindModel = function (SelectedFamily, rowIndex) {
         var ModelTypes = $scope.ModelTypes;
         $scope.gridOptions.data[rowIndex].ModelTypes = $filter('filter')(ModelTypes, { Group: { Name: String(SelectedFamily) } });
+    }
+
+    $scope.ShowDemoTransactionType = false;
+    $scope.changeSaleTransactionType = function (SaleTransactionType) {
+        alert(SaleTransactionType);
+        if (SaleTransactionType == 1) { // for Sales transaction type
+            $scope.ShowDemoTransactionType = false;
+        } else { // for Demo transaction type
+            $scope.ShowDemoTransactionType = true;
+        }
+    }
+
+
+    $scope.changeCustomerContact = function (SelectedCustomer) {
+        data = { Options: { Filters: [{ Property: 'CustomerId', Operation: 'Equal', Value: SelectedCustomer }] } };
+        var url = ContactsGetInfoUrl;
+        global.post(url, data, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    $CustomerContacts = result;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+    }
+
+    $scope.addDemoCustomer = function () {
+        alert('add customer');
     }
 
     var gridOptions = {}
@@ -380,8 +415,6 @@ function DeliveryRequestCreateCtrl($scope, $uibModalInstance, uiGridConstants, $
         });
     }
 }
-
-
 
 function DeliveryRequestEditCtrl($scope, $uibModalInstance) {
     hideLoading();

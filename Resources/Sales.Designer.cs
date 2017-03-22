@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Contact.
+        /// </summary>
+        public static string CustomerContact {
+            get {
+                return ResourceManager.GetString("CustomerContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Point of sales.
         /// </summary>
         public static string POS {

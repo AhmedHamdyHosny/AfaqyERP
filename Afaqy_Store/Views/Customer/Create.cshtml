@@ -1,0 +1,192 @@
+﻿@model Afaqy_Store.DataLayer.Customer
+@using Classes.Helper;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = @Resources.ServerManagement.CreateCustomer;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<style>
+    .row-dropdownlist
+    {
+        height: 22px;
+        padding: 0px 12px;
+    }
+</style>
+
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.ServerManagement.NewCustomer</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body withVScroll" >
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                @{
+                    var customerTypeHtmlAttribute = (object)new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId" };
+                    if (((IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId).Count() < 2)
+                    {
+                        customerTypeHtmlAttribute = new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId", @disabled = "disabled" };
+                    }
+                }
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.CustomerTypeId, Resources.Adminstration.CustomerType, htmlAttributes: new { @class = "text-info" })
+                    @if (((IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId).Count() < 2)
+                    {
+                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, null, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId", @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId"})
+                    }
+                    @Html.ValidationMessageFor(model => model.CustomerTypeId, "", new { @class = "text-danger" })
+                </div>
+
+                @if (Model.DolphinId != -1)
+                {
+                    <div class="col-xs-4 form-group" id="DolphinDiv">
+                        @Html.LabelFor(model => model.DolphinId, Resources.ServerManagement.CustomerDolphinId, htmlAttributes: new { @class = "text-info" })
+                        @Html.EditorFor(model => model.DolphinId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DolphinId, "", new { @class = "text-danger" })
+                    </div>
+                }
+                
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.BranchId, Resources.ServerManagement.Branch, htmlAttributes: new { @class = "text-info" })
+                    @if (((IEnumerable<CustomSelectListItem>)ViewBag.BranchId).Count() < 2)
+                    {
+                        @Html.CustomDropdownListFor(model => model.BranchId, (IEnumerable<CustomSelectListItem>)ViewBag.BranchId, null, null, htmlAttributes: new { @class = "form-control", @name = "BranchId", @id = "BranchId", @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.CustomDropdownListFor(model => model.BranchId, (IEnumerable<CustomSelectListItem>)ViewBag.BranchId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "BranchId", @id = "BranchId" })
+                    }
+
+                    @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.CustomerName_en, Resources.ServerManagement.CustomerNameEn, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.CustomerName_en, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerName_en, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.CustomerName_ar, Resources.ServerManagement.CustomerNameAr, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.CustomerName_ar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerName_ar, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.Email, Resources.Resource.Email, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="table-toolbar">
+                <a ng-click="createContact()" class="btn purple" id="addBtn">
+                    <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                </a>
+                <a ng-click="DeleteContactItems($event);" class="btn btn-danger">
+                    <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                </a>
+            </div>
+            <div class="form-group">
+                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "customerContactGrid", UiGrid = "customerContactGridOptions", EnablePagination = false }); }
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="button" ng-click="addCustomer()" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            $('#CustomerTypeId').change(function () {
+                if ($('#CustomerTypeId').val() == 1) {
+                    $('#DolphinDiv').show();
+                }else{
+                    $('#DolphinDiv').hide();
+                }
+            });
+
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+
+        var createCustomerContact = '@Url.Action("Create", "CustomerContact")'
+        
+        var contactMethods = @Html.Raw(JsonConvert.SerializeObject(((List<CustomSelectListItem>)ViewBag.ContactMethods)));
+
+        var ContactDetailsGridColumnDefs = [
+           {
+               name: 'DolphinId',
+               displayName :'@Resources.Resource.DolphinIdShortcut',
+               cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                   '<div class="form-group">' +
+                   '<input class="form-control" name="ContactDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DolphinId" />' +
+                   '</div>',
+               enableSorting: false, enableFiltering: false, enableHiding: false,
+               width: 80
+           },
+           {
+               name: 'ContactMethodId',
+               displayName : '@Resources.Adminstration.ContactMethod',
+               cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="form-group">'+
+                    '<select class="form-control row-dropdownlist" ng-change="grid.appScope.validateContactContent(row.entity.ContactMethodId,grid.renderContainers.body.visibleRowCache.indexOf(row))" ng-model="row.entity.ContactMethodId" name="ContactDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ContactMethodId" >' +
+                    '<option ng-repeat="method in row.entity.ContactMethods" value="{{method.Value}}">{{method.Text}}</option>' +
+                    '</select>'+
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+               width: 150
+           },
+           {
+               name: 'ContactContent',
+               displayName : '@Resources.Adminstration.ContactContent',
+               cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                   '<div class="form-group"> ' +
+                   '<input class="form-control" name="ContactDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ContactContent" />' +
+                   ' </div>',
+               enableSorting: false, enableFiltering: false, enableHiding: false,
+               width: '200'
+           },
+           {
+               name: 'IsDefault',
+               displayName: '@Resources.Resource.IsDefault',
+               type: 'boolean',
+               cellTemplate:
+                   '<div class="radio custRadioDiv">'+
+                   '<label>'+
+                   '<input name="ContactDetails.IsDefault" ng-checked="row.entity.IsDefault" class="colored-blue" type="radio">' +
+                   '<span class="text"> '+
+                   '</span></label></div>',
+               enableSorting: false, enableFiltering: false, enableHiding: false,
+               width: 100
+           }
+        ];
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

@@ -556,6 +556,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D_Id.
+        /// </summary>
+        public static string DolphinIdShortcut {
+            get {
+                return ResourceManager.GetString("DolphinIdShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -651,6 +660,15 @@ namespace Resources {
         public static string IsCorrect {
             get {
                 return ResourceManager.GetString("IsCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Default.
+        /// </summary>
+        public static string IsDefault {
+            get {
+                return ResourceManager.GetString("IsDefault", resourceCulture);
             }
         }
         

@@ -40,13 +40,13 @@ namespace Afaqy_Store.Models
     {
     }
 
-    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email")]
+    [Bind(Include = "CustomerId,DolphinId,CustomerName_en,CustomerName_ar,Email,BranchId,CustomerTypeId")]
     public class CustomerCreateBindModel : Customer
     {
 
     }
 
-    [Bind(Include = "CustomerId,CustomerName_en,CustomerName_ar,ContactName,ContactTelephone,Email,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "CustomerId,DolphinId,CustomerName_en,CustomerName_ar,Email,BranchId,CustomerTypeId,CustomerStatusId,IsBlock,CreateUserId,CreateDate")]
     public class CustomerEditBindModel : Customer
     {
     }

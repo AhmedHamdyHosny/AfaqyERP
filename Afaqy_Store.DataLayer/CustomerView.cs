@@ -17,8 +17,6 @@ namespace Afaqy_Store.DataLayer
         public int CustomerId { get; set; }
         public string CustomerName_en { get; set; }
         public string CustomerName_ar { get; set; }
-        public string ContactName { get; set; }
-        public string ContactTelephone { get; set; }
         public string Email { get; set; }
         public Nullable<int> BranchId { get; set; }
         public string BranchName_en { get; set; }

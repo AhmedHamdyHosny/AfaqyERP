@@ -267,4 +267,13 @@
   <data name="CustomerServerStatusTitle" xml:space="preserve">
     <value>Customer Server Status</value>
   </data>
+  <data name="CustomerType" xml:space="preserve">
+    <value>Customer Type</value>
+  </data>
+  <data name="ContactContent" xml:space="preserve">
+    <value>Contact Content</value>
+  </data>
+  <data name="ContactMethod" xml:space="preserve">
+    <value>Contact Method</value>
+  </data>
 </root>

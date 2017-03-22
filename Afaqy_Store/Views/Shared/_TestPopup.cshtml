@@ -1,31 +1,23 @@
-﻿@using System
-@using BeyondThemes.Bootstrap
-@using Afaqy_Store.Models;
+﻿
+@{
+    Layout = null;
+}
+
 <!DOCTYPE html>
-<!--
-BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
-Version: 1.6.0
-Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB06R48S4
--->
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<!-- Head -->
+<html>
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-
+    <meta name="viewport" content="width=device-width" />
     <meta name="description" content="@ViewBag.Description" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    @*<link rel="shortcut icon" href="~/Content/img/favicon.png" type="image/x-icon">*@
 
+    <title>@ViewBag.Title</title>
+   
     <!--Basic Styles-->
     @Styles.Render("~/css/bootstrap")
     <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
-
 
     <!--Fonts-->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300"
@@ -43,15 +35,9 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/grid.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/default.css" />
 
+    <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/popup.css" />
 </head>
-<!-- /Head -->
-
-@{ 
-    UserViewModel user = new UserViewModel().GetUserFromSession();
-    
-}
-<!-- Body -->
-<body ng-app="app">
+<body >
     <!-- Loading Container -->
     <div class="loading-container" id="loadingContainer">
         <div class="loader"></div>
@@ -85,13 +71,13 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                         <img src="/Content/img/avatars/adam-jansen.jpg">
                                     </div>
                                     <section>
-                                        <h2><span class="profile"><span>@user.User_FullName_en</span></span></h2>
+                                        <h2><span class="profile"><span>Shams</span></span></h2>
                                     </section>
                                 </a>
                                 <!--Login Area Dropdown-->
                                 <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
                                     @*<li class="username"><a>David Stevenson</a></li>*@
-                                    <li class="email"><a>@user.UserName</a></li>
+                                    <li class="email"><a>Shams</a></li>
                                     <!--Avatar Area-->
                                     <li>
                                         <div class="avatar-area">
@@ -101,7 +87,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--Avatar Area-->
                                     <li class="edit">
-                                        <a  class="pull-left">Profile</a>
+                                        <a class="pull-left">Profile</a>
                                         <a class="pull-right">Setting</a>
                                     </li>
                                     <!--Theme Selector Area-->
@@ -123,7 +109,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                     </li>
                                     <!--/Theme Selector Area-->
                                     <li class="dropdown-footer">
-                                        <a href="@Url.Action("SignOut", "Account")">
+                                        <a href="#">
                                             @Resources.Resource.SignOut
                                         </a>
                                     </li>
@@ -135,7 +121,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                             no space must be between these elements-->
                             <!-- Settings -->
                         </ul>
-                       
+
                         <!-- Settings -->
                     </div>
                 </div>
@@ -195,18 +181,18 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                 <!-- /Page Body -->
                 <!-- Page Footer -->
                 @*<div class="page-footer">
-                    <div class="footer-copyright">
-                        <span class="copyright-symbol">
-                            ©
-                        </span>
-                        2017 Afaqy
-                    </div>
-                    <div class="footer-buttons">
-                        <a href="#">
-                            <i class="fa fa-external-link"></i>
-                        </a>
-                    </div>
-                </div>*@
+                        <div class="footer-copyright">
+                            <span class="copyright-symbol">
+                                ©
+                            </span>
+                            2017 Afaqy
+                        </div>
+                        <div class="footer-buttons">
+                            <a href="#">
+                                <i class="fa fa-external-link"></i>
+                            </a>
+                        </div>
+                    </div>*@
                 <!-- /Page Footer -->
             </div>
             <!-- /Page Content -->
@@ -216,16 +202,15 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
 
     </div>
 
+    @Scripts.Render("~/bundles/jqueryval")
+
     <!--Basic Scripts-->
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/beyond")*@
 
-    <!--Beyond Scripts-->
-    @Scripts.Render("~/bundles/beyond")
-
-    <script src="~/Content/js/bootbox/bootbox.js"></script>
+    @*<script src="~/Content/js/bootbox/bootbox.js"></script>
     <script src="~/Content/js/1.custom-js/Utilities/Utility.js"></script>
-    <script src="~/Content/js/1.custom-js/Utilities/Classes.js"></script>
 
     <script src="~/Content/js/3.angular/angular.min.js"></script>
     <script src="~/Content/js/3.angular/angular-touch.min.js"></script>
@@ -234,31 +219,24 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <script src="~/Content/js/3.angular/pdfmake.js"></script>
     <script src="~/Content/js/3.angular/vfs_fonts.js"></script>
     <script src="~/Content/js/3.angular/ui-bootstrap-tpls-2.4.0.min.js"></script>
-    <script src="~/Content/js/3.angular/ui-grid.min.js"></script>
-    
+    <script src="~/Content/js/3.angular/ui-grid.min.js"></script>*@
 
-    <script src="~/Content/js/1.custom-js/services/global.js"></script>
+
+    @*<script src="~/Content/js/1.custom-js/services/global.js"></script>
     <script src="~/Content/js/1.custom-js/services/util.js"></script>
-    <script src="~/Content/js/1.custom-js/services/customerContactService.js"></script>
 
     <script src="~/Content/js/1.custom-js/app.js"></script>
     <script src="~/Content/js/1.custom-js/services.js"></script>
     <script src="~/Content/js/1.custom-js/controllers/default.js"></script>
 
-    @*for test*@
     <script src="~/Content/js/1.custom-js/controllers/security.js"></script>
     <script src="~/Content/js/1.custom-js/controllers/admin.js"></script>
     <script src="~/Content/js/1.custom-js/controllers/store.js"></script>
     <script src="~/Content/js/1.custom-js/controllers/server.js"></script>
 
-    <script src="~/Content/js/1.custom-js/directives.js"></script>
-    
-    <script>
-        var loginActionUrl = '@Url.Action("Login", "Account")';
-    </script>
+    <script src="~/Content/js/1.custom-js/directives.js"></script>*@
 
     <!--Page Related Scripts-->
     @RenderSection("scripts", required: false)
 </body>
-<!--  /Body -->
 </html>

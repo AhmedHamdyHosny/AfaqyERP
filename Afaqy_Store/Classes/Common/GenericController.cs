@@ -12,7 +12,7 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller 
     {
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
@@ -51,7 +51,7 @@ namespace Classes.Common
             return delegatePostExecute(ref model);
         }
         
-        public virtual ActionResult Create()
+        public virtual ActionResult Create() 
         {
             DelegatePreInitCreateView delegatePreExecute = new DelegatePreInitCreateView(FuncPreInitCreateView);
             delegatePreExecute();
@@ -345,7 +345,7 @@ namespace Classes.Common
 
         // POST: Controller/getinfo
         [HttpPost]
-        public JsonResult GetInfo(GenericApiController.Utilities.GenericDataFormat Options)
+        public JsonResult GetInfo(GenericDataFormat Options)
         {
             //create instance List of TViewModel
             var model = (List<TViewModel>)Activator.CreateInstance(typeof(List<TViewModel>));

@@ -3,5 +3,4 @@
 .service('global', global)
 .service('gridService', gridService)
 .service('ctrlService', ctrlService)
-
-
+.service('customerContactService', customerContactService)

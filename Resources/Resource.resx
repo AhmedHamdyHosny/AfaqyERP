@@ -282,6 +282,9 @@
   <data name="DeleteConfirmDialogHeader" xml:space="preserve">
     <value>Delete Confirm</value>
   </data>
+  <data name="DolphinIdShortcut" xml:space="preserve">
+    <value>D_Id</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -314,6 +317,9 @@
   </data>
   <data name="IsCorrect" xml:space="preserve">
     <value>Correct</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>Is Default</value>
   </data>
   <data name="ItemsCount" xml:space="preserve">
     <value>Count</value>

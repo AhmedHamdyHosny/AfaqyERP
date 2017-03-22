@@ -287,7 +287,10 @@
     <Compile Include="Classes\Utilities\SiteConfig.cs" />
     <Compile Include="Classes\Utilities\Utility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiContactMethodController.cs" />
+    <Compile Include="Controllers\ApiCustomerContactController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
+    <Compile Include="Controllers\ApiCustomerTypeController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\ApiItemFamilyController.cs" />
@@ -296,6 +299,7 @@
     <Compile Include="Controllers\ApiSystemServiceAccessController.cs" />
     <Compile Include="Controllers\ApiSystemServiceController.cs" />
     <Compile Include="Controllers\BaseSecurityApiController.cs" />
+    <Compile Include="Controllers\CustomerContactController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
     <Compile Include="Controllers\CustomerServerUnitsController.cs" />
     <Compile Include="Controllers\DeliveryRequestController.cs" />
@@ -359,13 +363,16 @@
     <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\BrandServerPortModel.cs" />
+    <Compile Include="Models\ContactMethodModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\CustomerContactModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomerServerAccountModel.cs" />
     <Compile Include="Models\CustomerServerUnitsModel.cs" />
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
+    <Compile Include="Models\CustomerTypeModel.cs" />
     <Compile Include="Models\DeliveryRequestModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
@@ -506,8 +513,10 @@
     <Content Include="Content\js\1.custom-js\controllers\temp.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
     <Content Include="Content\js\1.custom-js\services.js" />
+    <Content Include="Content\js\1.custom-js\services\customerContactService.js" />
     <Content Include="Content\js\1.custom-js\services\global.js" />
     <Content Include="Content\js\1.custom-js\services\util.js" />
+    <Content Include="Content\js\1.custom-js\Utilities\Classes.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.min.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.unobtrusive.js" />
@@ -1030,6 +1039,10 @@
     <Content Include="Views\DeliveryRequest\Details.cshtml" />
     <Content Include="Views\DeliveryRequest\Edit.cshtml" />
     <Content Include="Views\DeliveryRequest\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Shared\_TestLayout.cshtml" />
+    <Content Include="Views\Shared\_TestPopup.cshtml" />
+    <Content Include="Views\CustomerContact\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -143,5 +143,11 @@ namespace Classes.Common
             Approved = 2,
             Reject = 3
         }
+
+        public enum SaleTransactionType
+        {
+            Sales = 1,
+            Demo = 2
+        }
     }
 }

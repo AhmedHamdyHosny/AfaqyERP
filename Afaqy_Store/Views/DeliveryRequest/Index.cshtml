@@ -8,7 +8,6 @@
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
-
 <br />
 <div class="row" ng-controller="DeliveryRequestCtrl">
     <div class="col-xs-12 col-md-12">
@@ -138,6 +137,7 @@
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
+        var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
 
         var itemFamilies = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ItemFamilies)));
         var modelTypes = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ModelTypes)));
@@ -183,15 +183,7 @@
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '20%'
             }
-
-        
-
         ];
 
-        //
-        //ng-model="ModelType[grid.renderContainers.body.visibleRowCache.indexOf(row)].selectedType"
-        //ng-model="selectedItemFamily"
-        //<select class="form-control" ><option ng-repeat="item in itemFamilies track by $index">{{item.Text}}</option></select>
-        
     </script>
 }

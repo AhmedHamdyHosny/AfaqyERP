@@ -327,4 +327,31 @@
   <data name="WorkingUnitsCount" xml:space="preserve">
     <value>Units Count (Working)</value>
   </data>
+  <data name="CreateCustomer" xml:space="preserve">
+    <value>Create Customer</value>
+  </data>
+  <data name="CustomerDolphinId" xml:space="preserve">
+    <value>Customer Dolphin Id</value>
+  </data>
+  <data name="NewCustomer" xml:space="preserve">
+    <value>New Customer</value>
+  </data>
+  <data name="ContactNameAr" xml:space="preserve">
+    <value>Contact Namr(Ar)</value>
+  </data>
+  <data name="ContactNameEn" xml:space="preserve">
+    <value>Contact Name(En)</value>
+  </data>
+  <data name="CreateCustomerContact" xml:space="preserve">
+    <value>Create Customer Contact</value>
+  </data>
+  <data name="CustomerContactPositionAr" xml:space="preserve">
+    <value>Position(Ar)</value>
+  </data>
+  <data name="CustomerContactPositionEn" xml:space="preserve">
+    <value>Position(En)</value>
+  </data>
+  <data name="NewCustomerContact" xml:space="preserve">
+    <value>New Customer Contact</value>
+  </data>
 </root>

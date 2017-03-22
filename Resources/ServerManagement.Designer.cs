@@ -232,6 +232,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Namr(Ar).
+        /// </summary>
+        public static string ContactNameAr {
+            get {
+                return ResourceManager.GetString("ContactNameAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Name(En).
+        /// </summary>
+        public static string ContactNameEn {
+            get {
+                return ResourceManager.GetString("ContactNameEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract No.
         /// </summary>
         public static string ContractId {
@@ -250,11 +268,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Customer.
+        /// </summary>
+        public static string CreateCustomer {
+            get {
+                return ResourceManager.GetString("CreateCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Customer Contact.
+        /// </summary>
+        public static string CreateCustomerContact {
+            get {
+                return ResourceManager.GetString("CreateCustomerContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {
             get {
                 return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position(Ar).
+        /// </summary>
+        public static string CustomerContactPositionAr {
+            get {
+                return ResourceManager.GetString("CustomerContactPositionAr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position(En).
+        /// </summary>
+        public static string CustomerContactPositionEn {
+            get {
+                return ResourceManager.GetString("CustomerContactPositionEn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Dolphin Id.
+        /// </summary>
+        public static string CustomerDolphinId {
+            get {
+                return ResourceManager.GetString("CustomerDolphinId", resourceCulture);
             }
         }
         
@@ -390,6 +453,24 @@ namespace Resources {
         public static string LastConnection {
             get {
                 return ResourceManager.GetString("LastConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Customer.
+        /// </summary>
+        public static string NewCustomer {
+            get {
+                return ResourceManager.GetString("NewCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Customer Contact.
+        /// </summary>
+        public static string NewCustomerContact {
+            get {
+                return ResourceManager.GetString("NewCustomerContact", resourceCulture);
             }
         }
         

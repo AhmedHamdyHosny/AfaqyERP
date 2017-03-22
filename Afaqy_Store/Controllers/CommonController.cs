@@ -19,8 +19,10 @@ namespace Afaqy_Store.Controllers
             return PartialView();
         }
 
-        public PartialViewResult Partial_Grid(bool RowSelection = true, bool EnablePagination = true)
+        public PartialViewResult Partial_Grid(string GridId = "grid",string UiGrid = "gridOptions", bool RowSelection = true, bool EnablePagination = true)
         {
+            ViewBag.GridId = GridId;
+            ViewBag.UiGrid = UiGrid;
             ViewBag.RowSelection = RowSelection;
             ViewBag.EnablePagination = EnablePagination;
             return PartialView();

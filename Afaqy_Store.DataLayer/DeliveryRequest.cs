@@ -27,6 +27,7 @@ namespace Afaqy_Store.DataLayer
         public int DeliveryRequestStatusId { get; set; }
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public Nullable<int> CustomerContactId { get; set; }
         public int SaleTransactionTypeId { get; set; }
         public System.DateTime DeliveryDateTime { get; set; }
         public string Note { get; set; }

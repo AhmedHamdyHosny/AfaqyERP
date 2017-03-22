@@ -31,7 +31,15 @@
 
 //Customer controllers ========
 .controller('CustomerCtrl', CustomerCtrl)
+.controller('CustomerCreateCtrl', CustomerCreateCtrl)
+.controller('CustomerEditCtrl', CustomerEditCtrl)
 .controller('CustomerDetailsCtrl', CustomerDetailsCtrl)
+
+//CustomerContact controllers ========
+//.controller('CustomerContactCtrl', CustomerContactCtrl)
+.controller('CustomerContactCreateCtrl', CustomerContactCreateCtrl)
+.controller('CustomerContactEditCtrl', CustomerContactEditCtrl)
+.controller('CustomerContactDetailsCtrl', CustomerContactDetailsCtrl)
 
 //ServerUnit controllers ========
 .controller('ServerUnitCtrl', ServerUnitCtrl)
@@ -462,6 +470,31 @@ function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ct
     gridService.initGrid($scope);
     gridService.configureExport($scope);
 
+    $scope.create = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl,
+            controller: 'CustomerCreateCtrl',
+            windowClass: 'large-Modal',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'CustomerEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
     $scope.details = function (id) {
         showLoading();
         var modalInstance = $uibModal.open({
@@ -471,12 +504,271 @@ function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ct
             scope: $scope,
             backdrop: false,
         });
+
         modalInstance.result.then(null, function () { });
+    }
+
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.CustomerId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
     }
 
 }
 
+function CustomerCreateCtrl($scope, $uibModalInstance, $uibModal, confirmService, customerContactService) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    //ui-Grid Call
+    $scope.CustomerContactItems = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.customerContactGridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: CustomerContactsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        customerContactService.init();
+        $scope.customerContactGridOptions.data = customerContactService.get();;
+
+    }
+
+    //Default Load
+    $scope.CustomerContactItems();
+
+    $scope.createContact = function () {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createCustomerContact ,
+            controller: 'CustomerContactCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.addCustomer = function () {
+        alert(JSON.stringify(customerContactService.get()));
+    }
+
+    $scope.editContact = function (contact) {
+        
+        alert('edit contatct ' + JSON.stringify(contact))
+    }
+
+    $scope.DeleteContactItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                $scope.customerContactGridOptions.data.pop(item)
+            });
+            hideLoading();
+        });
+    }
+}
+
+function CustomerEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
 function CustomerDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+//CustomerContact functions ========
+//function CustomerContactCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService, customerContactService) {
+
+//    ctrlService.initCtrl($scope);
+
+//    gridService.initGrid($scope);
+
+//    gridService.configureExport($scope);
+
+//    customerContactService.init();
+
+//    $scope.create = function () {
+//        showLoading();
+//        var modalInstance = $uibModal.open({
+//            animation: true,
+//            templateUrl: createActionUrl,
+//            controller: 'CustomerContactCreateCtrl',
+//            scope: $scope,
+//            backdrop: false,
+//        });
+//        modalInstance.result.then(null, function () { });
+
+//        //modalInstance.result.then(function (selectedItem) {
+//        //    alert('hi');
+//        //}, function () {
+//        //    alert('modal-component dismissed at: ' + new Date());
+//        //});
+//    }
+
+//    $scope.edit = function (id) {
+//        showLoading();
+//        var modalInstance = $uibModal.open({
+//            animation: true,
+//            templateUrl: editActionUrl + '/' + id,
+//            controller: 'CustomerContactEditCtrl',
+//            scope: $scope,
+//            backdrop: false,
+//        });
+//        modalInstance.result.then(null, function () { });
+//    }
+
+//    $scope.details = function (id) {
+//        showLoading();
+//        var modalInstance = $uibModal.open({
+//            animation: true,
+//            templateUrl: detailsActionUrl + '/' + id,
+//            controller: 'CustomerContactDetailsCtrl',
+//            scope: $scope,
+//            backdrop: false,
+//        });
+
+//        modalInstance.result.then(null, function () { });
+//    }
+
+//    $scope.DeleteItems = function (ev) {
+//        var modalOptions = deleteModalOptions;
+//        confirmService.showModal({}, modalOptions).then(function (result) {
+//            showLoading();
+//            var selectedIds = [];
+//            //get selected ids from grid
+//            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+//            selectedItems.forEach(function (item) {
+//                selectedIds.push(item.CustomerContactId)
+//            });
+//            //call delete confirm method and pass ids
+//            var url = deleteActionUrl;
+//            var data = { ids: selectedIds };
+//            global.post(url, data, function (resp) {
+//                if (resp) {
+//                    location.reload();
+//                }
+//            }, function (resp) { });
+//            hideLoading();
+//        });
+//    }
+
+//}
+
+function CustomerContactCreateCtrl($scope, $uibModalInstance, confirmService, global, customerContactService) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.contactMethods = contactMethods;
+    //ui-Grid Call
+    $scope.ContactDetialsItems = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.customerDetailsGridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: ContactDetailsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.customerDetailsGridOptions.data = [];
+    }
+    //Default Load
+    $scope.ContactDetialsItems();
+
+    $scope.CreateContactDetials = function () {
+        $scope.customerDetailsGridOptions.data.push(new CustomerContactDetails(null, '', null, $scope.contactMethods[0].Value, '', false, false, $scope.contactMethods));
+    }
+
+    $scope.DeleteContactDetialsItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                $scope.customerDetailsGridOptions.data.pop(item)
+            });
+            hideLoading();
+        });
+    }
+
+    $scope.addCustomerContact = function () {
+        var contact = new CustomerContact(null, $scope.DolphinId, null, $scope.ContactName_en, $scope.ContactName_ar, $scope.Position_en, $scope.Position_ar, $scope.IsDefault, false);
+        console.log(JSON.stringify(contact));
+        customerContactService.add(contact);
+        $scope.customerContactGridOptions.data = customerContactService.get();
+        $uibModalInstance.dismiss('cancel');
+    }
+}
+
+function CustomerContactEditCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+}
+
+function CustomerContactDetailsCtrl($scope, $uibModalInstance) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

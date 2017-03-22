@@ -151,6 +151,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact Content.
+        /// </summary>
+        public static string ContactContent {
+            get {
+                return ResourceManager.GetString("ContactContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Method.
+        /// </summary>
+        public static string ContactMethod {
+            get {
+                return ResourceManager.GetString("ContactMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contract Date.
         /// </summary>
         public static string ContractDate {
@@ -246,6 +264,15 @@ namespace Resources {
         public static string CustomerServerStatusTitle {
             get {
                 return ResourceManager.GetString("CustomerServerStatusTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Type.
+        /// </summary>
+        public static string CustomerType {
+            get {
+                return ResourceManager.GetString("CustomerType", resourceCulture);
             }
         }
         
