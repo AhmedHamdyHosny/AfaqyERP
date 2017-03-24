@@ -149,5 +149,24 @@ namespace Classes.Common
             Sales = 1,
             Demo = 2
         }
-    }
+
+        public enum CustomerStatus
+        {
+            New = 1,
+            Working = 2,
+            Disable = 3,
+            Blocked = 4
+        }
+
+        public enum Department
+        {
+            Management = 1,
+            Accounting = 2,
+            Sales = 3,
+            Technical = 4,
+            Technical_Support = 5,
+            Server = 6,
+            Software_Developement = 7
+        }
+}
 }

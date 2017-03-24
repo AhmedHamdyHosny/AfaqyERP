@@ -53,9 +53,10 @@
                     </div>
                 }
 
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.Bootstrap().CheckBoxFor(model => model.IsDefault).Text(Resources.Resource.IsDefault).HtmlAttributes(new { @class = "colored-danger", data_ng_model = "IsDefault" })
-                </div>
+                </div>*@
+
             </div>
             <div class="table-toolbar">
                 <a ng-click="CreateContactDetials()" class="btn purple" id="addBtn">
@@ -66,12 +67,12 @@
                 </a>
             </div>
             <div class="form-group">
-                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "contactDetailsGrid", UiGrid = "customerDetailsGridOptions", EnablePagination = false }); }
+                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "contactDetailsGrid", UiGrid = "contactDetailsGridOptions", EnablePagination = false }); }
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <input ng-click="addCustomerContact()" type="button" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <input ng-click="saveCustomerContact()" type="button" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
         <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
     </div>
 

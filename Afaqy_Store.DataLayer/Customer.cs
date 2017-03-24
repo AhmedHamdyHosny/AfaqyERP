@@ -30,6 +30,7 @@ namespace Afaqy_Store.DataLayer
         public string CustomerName_en { get; set; }
         public string CustomerName_ar { get; set; }
         public string Email { get; set; }
+        public Nullable<int> EmployeeId { get; set; }
         public Nullable<int> BranchId { get; set; }
         public Nullable<int> CustomerTypeId { get; set; }
         public int CustomerStatusId { get; set; }
@@ -42,6 +43,7 @@ namespace Afaqy_Store.DataLayer
         public virtual Branch Branch { get; set; }
         public virtual CustomerStatus CustomerStatus { get; set; }
         public virtual CustomerType CustomerType { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerContact> CustomerContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

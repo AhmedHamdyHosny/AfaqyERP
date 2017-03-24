@@ -182,15 +182,25 @@ namespace Models
             
             
         }
-        public virtual List<TModel> GetAsDDLst(string includeProperties, string sortByProperty, List<GenericDataFormat.FilterItems> filters = null, GenericDataFormat.SortType sortType = GenericDataFormat.SortType.Asc)
+        public virtual List<TModel> GetAsDDLst(string includeProperties, string sortByProperty, List<GenericDataFormat.FilterItems> filters = null, GenericDataFormat.SortType sortType = GenericDataFormat.SortType.Asc,bool GetByView = false)
         {
             var sorts = new List<GenericDataFormat.SortItems>();
             sorts.Add(new GenericDataFormat.SortItems() { Property = sortByProperty, SortType = sortType});
             //create request body parameters
             GenericDataFormat requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = includeProperties }, Sorts = sorts };
             requestBody.Filters = filters;
-            var lst = this.Get(requestBody);
-            return lst;
+            if (!GetByView)
+            {
+                var lst = this.Get(requestBody);
+                return lst;
+            }
+            else
+            {
+                var lst = this.GetView<TModel>(requestBody).PageItems;
+                return lst;
+            }
+            
+            
         }
     }
 }

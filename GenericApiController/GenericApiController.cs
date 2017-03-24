@@ -141,30 +141,59 @@ namespace GenericApiController
         [HttpPost]
         public virtual IHttpActionResult GetView(GenericDataFormat data)
         {
-            var query = (IQueryable<T>)GetWithOptions(data);
-            dynamic pageItems = query.ToList<T>();
+            var queryItems = GetWithOptions(data);
+            dynamic pageItems = null;
+            if (queryItems is List<Object>)
+            {
+                pageItems = ((List<Object>)queryItems);
+            }
+            else
+            {
+                var query = (IQueryable<T>)queryItems;
+                pageItems = query.ToList<T>();
+            }
+            
+            
             //remove paging
             data.Paging = null;
-            query = (IQueryable<T>)GetWithOptions(data);
-            int TotalItemsCount = query.Count();
+            queryItems = GetWithOptions(data);
+            int TotalItemsCount = 0;
+            if (queryItems is List<Object>)
+            {
+                TotalItemsCount = ((List<Object>)queryItems).Count();
+                var ObjectsResult = new PaginationResult<Object>
+                {
+                    TotalItemsCount = TotalItemsCount,
+                    PageItems = pageItems
+                };
+                return Content(HttpStatusCode.OK, ObjectsResult);
+            }
+            else
+            {
+                var query = (IQueryable<T>)queryItems;
+                TotalItemsCount = query.Count();
+            }
+
             //var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
             //string s = serializer.Serialize(new PaginationResult<T>
             //{
             //    TotalItemsCount = TotalItemsCount,
             //    PageItems = pageItems
             //});
+
             var result = new PaginationResult<T>
             {
                 TotalItemsCount = TotalItemsCount,
                 PageItems = pageItems
             };
+
             //var resp = new HttpResponseMessage()
             //{
             //    Content =
             //            new StringContent(serializer.Serialize(result), System.Text.Encoding.UTF8, "application/json")
-                        
+
             //};
-            
+
             return Content(HttpStatusCode.OK, result);
             //return ResponseMessage(resp);
         }
@@ -358,7 +387,7 @@ namespace GenericApiController
             //include reference
             if (data.Includes != null)
             {
-                includeProperties = data.Includes.Properties != null ?
+                includeProperties = !string.IsNullOrEmpty(data.Includes.Properties) ?
                     data.Includes.Properties.Split(',') :
                     null;
                 includeReference = data.Includes.References;

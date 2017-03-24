@@ -28,22 +28,15 @@
         <div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
-                @{
-                    var customerTypeHtmlAttribute = (object)new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId" };
-                    if (((IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId).Count() < 2)
-                    {
-                        customerTypeHtmlAttribute = new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId", @disabled = "disabled" };
-                    }
-                }
                 <div class="col-xs-4 form-group">
                     @Html.LabelFor(model => model.CustomerTypeId, Resources.Adminstration.CustomerType, htmlAttributes: new { @class = "text-info" })
                     @if (((IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId).Count() < 2)
                     {
-                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, null, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId", @disabled = "disabled" })
+                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, null, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId", @disabled = "disabled"})
                     }
                     else
                     {
-                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId"})
+                        @Html.CustomDropdownListFor(model => model.CustomerTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerTypeId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerTypeId", @id = "CustomerTypeId" })
                     }
                     @Html.ValidationMessageFor(model => model.CustomerTypeId, "", new { @class = "text-danger" })
                 </div>
@@ -52,7 +45,7 @@
                 {
                     <div class="col-xs-4 form-group" id="DolphinDiv">
                         @Html.LabelFor(model => model.DolphinId, Resources.ServerManagement.CustomerDolphinId, htmlAttributes: new { @class = "text-info" })
-                        @Html.EditorFor(model => model.DolphinId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.DolphinId, new { htmlAttributes = new { @class = "form-control", data_ng_model = "DolphinId" } })
                         @Html.ValidationMessageFor(model => model.DolphinId, "", new { @class = "text-danger" })
                     </div>
                 }
@@ -70,21 +63,35 @@
 
                     @Html.ValidationMessageFor(model => model.BranchId, "", new { @class = "text-danger" })
                 </div>
+
+                <div class="col-xs-4 form-group">
+                    @Html.LabelFor(model => model.EmployeeId, Resources.Sales.SalesEmployee, htmlAttributes: new { @class = "text-info" })
+                    @if (((IEnumerable<CustomSelectListItem>)ViewBag.EmployeeId).Count() < 2)
+                    {
+                        @Html.CustomDropdownListFor(model => model.EmployeeId, (IEnumerable<CustomSelectListItem>)ViewBag.EmployeeId, null, null, htmlAttributes: new { @class = "form-control", @name = "EmployeeId", @id = "EmployeeId", @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.CustomDropdownListFor(model => model.EmployeeId, (IEnumerable<CustomSelectListItem>)ViewBag.EmployeeId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "EmployeeId", @id = "EmployeeId" })
+                    }
+
+                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                </div>
             </div>
             <div class="row">
                 <div class="col-xs-4 form-group">
                     @Html.LabelFor(model => model.CustomerName_en, Resources.ServerManagement.CustomerNameEn, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.CustomerName_en, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CustomerName_en, new { htmlAttributes = new { @class = "form-control", data_ng_model = "CustomerName_en" } })
                     @Html.ValidationMessageFor(model => model.CustomerName_en, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-4 form-group">
                     @Html.LabelFor(model => model.CustomerName_ar, Resources.ServerManagement.CustomerNameAr, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.CustomerName_ar, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CustomerName_ar, new { htmlAttributes = new { @class = "form-control", data_ng_model = "CustomerName_ar" } })
                     @Html.ValidationMessageFor(model => model.CustomerName_ar, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-4 form-group">
                     @Html.LabelFor(model => model.Email, Resources.Resource.Email, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", data_ng_model = "Email" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -102,15 +109,13 @@
         </div>
     </div>
     <div class="modal-footer">
-        <input type="button" ng-click="addCustomer()" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <input type="button" ng-click="saveCustomer()" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
         <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
     </div>
 }
 
-
 @section scripts {
     <script>
-
         $(document).ready(function () {
             $('#CustomerTypeId').change(function () {
                 if ($('#CustomerTypeId').val() == 1) {
@@ -128,7 +133,7 @@
         });
 
         var createCustomerContact = '@Url.Action("Create", "CustomerContact")'
-        
+
         var contactMethods = @Html.Raw(JsonConvert.SerializeObject(((List<CustomSelectListItem>)ViewBag.ContactMethods)));
 
         var ContactDetailsGridColumnDefs = [
@@ -151,7 +156,7 @@
                     '<option ng-repeat="method in row.entity.ContactMethods" value="{{method.Value}}">{{method.Text}}</option>' +
                     '</select>'+
                     '</div>',
-                enableSorting: false, enableFiltering: false, enableHiding: false,
+               enableSorting: false, enableFiltering: false, enableHiding: false,
                width: 150
            },
            {
@@ -159,19 +164,18 @@
                displayName : '@Resources.Adminstration.ContactContent',
                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                    '<div class="form-group"> ' +
-                   '<input class="form-control" name="ContactDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ContactContent" />' +
+                   '<input class="form-control" name="ContactDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ContactContent" ng-model="row.entity.ContactContent" />' +
                    ' </div>',
                enableSorting: false, enableFiltering: false, enableHiding: false,
                width: '200'
            },
            {
-               name: 'IsDefault',
+               name:'IsDefault',
                displayName: '@Resources.Resource.IsDefault',
-               type: 'boolean',
                cellTemplate:
                    '<div class="radio custRadioDiv">'+
                    '<label>'+
-                   '<input name="ContactDetails.IsDefault" ng-checked="row.entity.IsDefault" class="colored-blue" type="radio">' +
+                   '<input name="DefaultContactDetails" ng-model="grid.appScope.DefaultContactDetails" value="{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}" type="radio" class="colored-blue" >'+
                    '<span class="text"> '+
                    '</span></label></div>',
                enableSorting: false, enableFiltering: false, enableHiding: false,

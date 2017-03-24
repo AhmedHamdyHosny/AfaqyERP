@@ -123,6 +123,9 @@
   <data name="POS" xml:space="preserve">
     <value>Point of sales</value>
   </data>
+  <data name="SalesEmployee" xml:space="preserve">
+    <value>Sales Employee</value>
+  </data>
   <data name="SaleTransactionType" xml:space="preserve">
     <value>Transaction Type</value>
   </data>

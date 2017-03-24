@@ -480,7 +480,10 @@ function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ct
             scope: $scope,
             backdrop: false,
         });
-        modalInstance.result.then(null, function () { });
+
+        modalInstance.result.then(null, function () {
+            location.reload();
+        });
     }
 
     $scope.edit = function (id) {
@@ -532,7 +535,7 @@ function CustomerCtrl($scope, $uibModal, confirmService, global, gridService, ct
 
 }
 
-function CustomerCreateCtrl($scope, $uibModalInstance, $uibModal, confirmService, customerContactService) {
+function CustomerCreateCtrl($scope, $uibModalInstance, $uibModal, confirmService, global, customerContactService) {
     hideLoading();
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -583,12 +586,41 @@ function CustomerCreateCtrl($scope, $uibModalInstance, $uibModal, confirmService
         modalInstance.result.then(null, function () { });
     }
 
-    $scope.addCustomer = function () {
-        alert(JSON.stringify(customerContactService.get()));
+    $scope.saveCustomer = function () {
+        
+        var customerContacts = customerContactService.get();
+        console.log(JSON.stringify(customerContacts));
+        if (customerContacts != null && customerContacts.length > 0) {
+            var isDefaultIndex = $scope.DefaultCustomerContact;
+            if (isDefaultIndex != null) {
+                customerContacts[0].IsDefault = true;
+            }
+        }
+        //bind customer information
+        var newCustomer = {};
+        newCustomer.CustomerTypeId = $('#CustomerTypeId').val();
+        newCustomer.DolphinId = $scope.DolphinId;
+        newCustomer.BranchId = $('#BranchId').val();
+        newCustomer.EmployeeId = $('#EmployeeId').val();
+        newCustomer.CustomerName_en = $scope.CustomerName_en;
+        newCustomer.CustomerName_ar = $scope.CustomerName_ar;
+        newCustomer.Email = $scope.Email;
+        newCustomer.CustomerContact = customerContacts;
+
+        var url = saveCustomerUrl;
+        var data = newCustomer;
+        console.log(JSON.stringify(data));
+        global.post(url, data, function (resp) {
+            if (resp) {
+                if (resp.data.Status == 1) {
+                    $uibModalInstance.dismiss('cancel');
+                }
+            }
+        }, function (resp) { });
+
     }
 
     $scope.editContact = function (contact) {
-        
         alert('edit contatct ' + JSON.stringify(contact))
     }
 
@@ -620,84 +652,6 @@ function CustomerDetailsCtrl($scope, $uibModalInstance) {
     };
 }
 
-//CustomerContact functions ========
-//function CustomerContactCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService, customerContactService) {
-
-//    ctrlService.initCtrl($scope);
-
-//    gridService.initGrid($scope);
-
-//    gridService.configureExport($scope);
-
-//    customerContactService.init();
-
-//    $scope.create = function () {
-//        showLoading();
-//        var modalInstance = $uibModal.open({
-//            animation: true,
-//            templateUrl: createActionUrl,
-//            controller: 'CustomerContactCreateCtrl',
-//            scope: $scope,
-//            backdrop: false,
-//        });
-//        modalInstance.result.then(null, function () { });
-
-//        //modalInstance.result.then(function (selectedItem) {
-//        //    alert('hi');
-//        //}, function () {
-//        //    alert('modal-component dismissed at: ' + new Date());
-//        //});
-//    }
-
-//    $scope.edit = function (id) {
-//        showLoading();
-//        var modalInstance = $uibModal.open({
-//            animation: true,
-//            templateUrl: editActionUrl + '/' + id,
-//            controller: 'CustomerContactEditCtrl',
-//            scope: $scope,
-//            backdrop: false,
-//        });
-//        modalInstance.result.then(null, function () { });
-//    }
-
-//    $scope.details = function (id) {
-//        showLoading();
-//        var modalInstance = $uibModal.open({
-//            animation: true,
-//            templateUrl: detailsActionUrl + '/' + id,
-//            controller: 'CustomerContactDetailsCtrl',
-//            scope: $scope,
-//            backdrop: false,
-//        });
-
-//        modalInstance.result.then(null, function () { });
-//    }
-
-//    $scope.DeleteItems = function (ev) {
-//        var modalOptions = deleteModalOptions;
-//        confirmService.showModal({}, modalOptions).then(function (result) {
-//            showLoading();
-//            var selectedIds = [];
-//            //get selected ids from grid
-//            var selectedItems = $scope.gridApi.selection.getSelectedRows();
-//            selectedItems.forEach(function (item) {
-//                selectedIds.push(item.CustomerContactId)
-//            });
-//            //call delete confirm method and pass ids
-//            var url = deleteActionUrl;
-//            var data = { ids: selectedIds };
-//            global.post(url, data, function (resp) {
-//                if (resp) {
-//                    location.reload();
-//                }
-//            }, function (resp) { });
-//            hideLoading();
-//        });
-//    }
-
-//}
-
 function CustomerContactCreateCtrl($scope, $uibModalInstance, confirmService, global, customerContactService) {
     hideLoading();
     $scope.cancel = function () {
@@ -715,7 +669,7 @@ function CustomerContactCreateCtrl($scope, $uibModalInstance, confirmService, gl
                 return '';
             }
         };
-        $scope.customerDetailsGridOptions = {
+        $scope.contactDetailsGridOptions = {
             useExternalPagination: false,
             useExternalSorting: false,
             enableFiltering: false,
@@ -730,13 +684,13 @@ function CustomerContactCreateCtrl($scope, $uibModalInstance, confirmService, gl
             },
         };
 
-        $scope.customerDetailsGridOptions.data = [];
+        $scope.contactDetailsGridOptions.data = [];
     }
     //Default Load
     $scope.ContactDetialsItems();
 
     $scope.CreateContactDetials = function () {
-        $scope.customerDetailsGridOptions.data.push(new CustomerContactDetails(null, '', null, $scope.contactMethods[0].Value, '', false, false, $scope.contactMethods));
+        $scope.contactDetailsGridOptions.data.push(new CustomerContactDetails(null, '', null, $scope.contactMethods[0].Value, '', false, false, $scope.contactMethods));
     }
 
     $scope.DeleteContactDetialsItems = function (ev) {
@@ -746,14 +700,25 @@ function CustomerContactCreateCtrl($scope, $uibModalInstance, confirmService, gl
             //get selected ids from grid
             var selectedItems = $scope.gridApi.selection.getSelectedRows();
             selectedItems.forEach(function (item) {
-                $scope.customerDetailsGridOptions.data.pop(item)
+                $scope.contactDetailsGridOptions.data.pop(item)
             });
             hideLoading();
         });
     }
 
-    $scope.addCustomerContact = function () {
-        var contact = new CustomerContact(null, $scope.DolphinId, null, $scope.ContactName_en, $scope.ContactName_ar, $scope.Position_en, $scope.Position_ar, $scope.IsDefault, false);
+    $scope.validateContactContent = function (ContactMethodId, rowIndex) {
+        //alert(ContactMethodId +" in row "+ rowIndex);
+    }
+
+    $scope.saveCustomerContact = function () {
+        var customerContactDetails = $scope.contactDetailsGridOptions.data;
+        if (customerContactDetails != null && customerContactDetails.length > 0) {
+            var isDefaultIndex = $scope.DefaultContactDetails;
+            if (isDefaultIndex != null) {
+                customerContactDetails[isDefaultIndex].IsDefault = true;
+            }
+        }
+        var contact = new CustomerContact(null, $scope.DolphinId, null, $scope.ContactName_en, $scope.ContactName_ar, $scope.Position_en, $scope.Position_ar, false, false, customerContactDetails);
         console.log(JSON.stringify(contact));
         customerContactService.add(contact);
         $scope.customerContactGridOptions.data = customerContactService.get();

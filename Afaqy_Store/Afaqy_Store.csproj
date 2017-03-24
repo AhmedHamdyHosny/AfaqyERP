@@ -282,6 +282,7 @@
     <Compile Include="Classes\Common\Enums.cs" />
     <Compile Include="Classes\Common\GenericController.cs" />
     <Compile Include="Classes\Helper\HtmlHelper.cs" />
+    <Compile Include="Classes\Utilities\JsonResponse.cs" />
     <Compile Include="Classes\Utilities\MyHttpRequestMessage.cs" />
     <Compile Include="Classes\Utilities\SecurityMethods.cs" />
     <Compile Include="Classes\Utilities\SiteConfig.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Controllers\ApiCustomerTypeController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
+    <Compile Include="Controllers\ApiEmployeeController.cs" />
     <Compile Include="Controllers\ApiItemFamilyController.cs" />
     <Compile Include="Controllers\ApiSaleTransactionTypeController.cs" />
     <Compile Include="Controllers\ApiSystemRoleController.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="Models\DeviceSIMModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
     <Compile Include="Models\DeviceStatusModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemFamilyModel.cs" />
@@ -409,6 +412,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\1.custom-style\default.css" />
     <Content Include="Content\css\1.custom-style\grid.css" />
+    <Content Include="Content\css\1.custom-style\AngularDDL.css" />
     <Content Include="Content\css\2.angular\ui-grid.min.css" />
     <Content Include="Content\css\4095-rtl.css" />
     <Content Include="Content\css\4095-rtl.min.css" />
@@ -511,6 +515,7 @@
     <Content Include="Content\js\1.custom-js\controllers\server.js" />
     <Content Include="Content\js\1.custom-js\controllers\store.js" />
     <Content Include="Content\js\1.custom-js\controllers\temp.js" />
+    <Content Include="Content\js\1.custom-js\CustomAngularSelect.js" />
     <Content Include="Content\js\1.custom-js\directives.js" />
     <Content Include="Content\js\1.custom-js\services.js" />
     <Content Include="Content\js\1.custom-js\services\customerContactService.js" />

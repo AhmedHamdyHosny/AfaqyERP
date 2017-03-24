@@ -1,4 +1,5 @@
-﻿using Afaqy_Store.DataLayer;
+﻿using Classes.Utilities;
+using Afaqy_Store.DataLayer;
 using Afaqy_Store.Models;
 using GenericApiController.Utilities;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Classes.Common;
 
 namespace Afaqy_Store.Controllers
 {
@@ -29,16 +31,22 @@ namespace Afaqy_Store.Controllers
             }
             List<CustomerType> CustomerTypes = new CustomerTypeModel<CustomerType>().GetAsDDLst("CustomerTypeId,CustomerTypeName_en", "CustomerTypeName_en", filters);
             ViewBag.CustomerTypeId = CustomerTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerTypeName_en, Value = x.CustomerTypeId.ToString() });
-
-
+            
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             if (Branch != null)
             {
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = (int)Branch, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             }
-            List<Branch> branches = new BranchModel<Branch>().GetAsDDLst("BranchId,BranchName_en", "BranchName_en", filters);
+            List<Branch> branches = new BranchModel<Branch>().GetAsDDLst("BranchId,BranchName_en", "BranchId", filters);
             ViewBag.BranchId = branches.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.BranchName_en, Value = x.BranchId.ToString() });
+
+            //get only sales employee
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "DepartmentId", Operation = GenericDataFormat.FilterOperations.Equal, Value = (int)DBEnums.Department.Sales, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            List<EmployeeView> salesEmployees = new EmployeeModel<EmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en", "Employee_FullName_en", filters,GenericDataFormat.SortType.Asc,true);
+            ViewBag.EmployeeId = salesEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.Employee_FullName_en, Value = x.EmployeeId.ToString() });
 
             //bind customer contact method for add customer contact
             filters = new List<GenericDataFormat.FilterItems>();
@@ -51,7 +59,12 @@ namespace Afaqy_Store.Controllers
         [NonAction]
         public override ActionResult Create()
         {
-            return base.Create();
+            return null;
+        }
+        [NonAction]
+        public override ActionResult Create(CustomerCreateBindModel model)
+        {
+            return null;
         }
 
         [ActionName("Create")]
@@ -71,15 +84,33 @@ namespace Afaqy_Store.Controllers
         }
         public override void FuncPreCreate(ref CustomerCreateBindModel model)
         {
+            model.CustomerStatusId = (int)DBEnums.CustomerStatus.New;
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
+            model.CustomerContact = model.CustomerContact.Select(x => 
+            {
+                x.CreateUserId = User.CreateUserId;
+                x.CreateDate = DateTime.Now;
+                x.CustomerContactDetails = x.CustomerContactDetails.Select(y=> 
+                    {
+                        y.CreateUserId = User.UserId;
+                        y.CreateDate = DateTime.Now;
+                        return y;
+                    }).ToList();
+                return x;
+            }).ToList();
         }
 
-        public override ActionResult Create(CustomerCreateBindModel model)
+        [ActionName("Create")]
+        [HttpPost]
+        public JsonResult CreateCustomer(CustomerCreateBindModel model)
         {
             FuncPreCreate(ref model);
-            return RedirectToAction("index");
+            var result = new CustomerModel<Customer>().Insert(model);
+            JsonResponse response = new JsonResponse() { Status = 1 , Result= result};
+            return Json(response);
         }
+        
         public override void FuncPreInitEditView(object id, ref Customer EditItem, ref CustomerEditModel model)
         {
             if (EditItem == null)

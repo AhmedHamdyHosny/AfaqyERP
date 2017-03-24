@@ -16,6 +16,10 @@
         return customerContactList;
     };
 
+    var getByIndex = function (index) {
+        return customerContactList[index];
+    };
+
     var clear = function () {
         customerContactList = [];
     };

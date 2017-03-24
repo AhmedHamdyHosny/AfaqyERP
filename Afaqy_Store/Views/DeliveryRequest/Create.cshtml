@@ -1,10 +1,13 @@
 ﻿@model Afaqy_Store.DataLayer.DeliveryRequest
 @using Classes.Helper;
+@using Newtonsoft.Json;
 
 @{
     ViewBag.Title = Resources.Store.DeliveryRequestCreate;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
+
+
 
 @*<style>
     #grid.ui-grid-cell div select option:first-child[value=""] {
@@ -12,26 +15,30 @@
     }
 </style>*@
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" />
+<link rel="stylesheet" href="~/Content/css/1.custom-style/AngularDDL.css" />
+
 <style>
+    .row-dropdownlist {
+        height: 22px;
+        padding: 0px 12px;
+    }
     .cust-input-icon {
         position: relative;
     }
-    
     .cust-input-icon > i {
         position: absolute;
         display: block;
         transform: translate(0, -50%);
         top: 50%;
-        /*pointer-events: none;*/
         width: 25px;
         text-align: center;
         font-style: normal;
+        z-index: 10;
     }
-
     .cust-input-icon-right > i {
         right: 0;
     }
-
     .cust-input-icon-right > input {
         text-align: left;
         padding-right: 25px;
@@ -50,35 +57,35 @@
         <div >
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
-                <div class="col-xs-6 form-group">
+                <div class="col-xs-6 form-group"> 
                     @Html.LabelFor(model => model.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
-                    @Html.CustomDropdownListFor(model => model.SaleTransactionTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.SaleTransactionTypeId, null, null, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId", data_ng_model= "SaleTransactionType", data_ng_change= "changeSaleTransactionType(SaleTransactionType)" })
+                    @Html.CustomDropdownListFor(model => model.SaleTransactionTypeId, (IEnumerable<CustomSelectListItem>)ViewBag.SaleTransactionTypeId, null, null, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId" })
                     @Html.ValidationMessageFor(model => model.SaleTransactionTypeId, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-xs-6 form-group" id="SaleForCustomer" ng-show="!ShowDemoTransactionType">
+                <div class="col-xs-6 form-group" id="SaleForCustomer" > 
                     @Html.LabelFor(model => model.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
-                    @Html.CustomDropdownListFor(model => model.CustomerId, (IEnumerable<CustomSelectListItem>)ViewBag.CustomerId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId", data_ng_model = "SelectedCustomer", data_ng_change = "changeCustomerContact(SelectedCustomer)" })
+                    <div custom-select="item.Value as item.Text for item in saleCustomers | filter: $searchTerm" ng-model="selectSaleCustomer" ng-init="bindSaleCustomers()" ng-change="bindCustomerContacts(selectSaleCustomer)" autofocus></div>
+                    @Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { @value = "{{selectSaleCustomer}}" })
                     @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-xs-6 form-group" id="DemoForCustomer" ng-show="ShowDemoTransactionType">
+                <div class="col-xs-6 form-group" id="DemoForCustomer" > 
                     <label class = "text-info">@Resources.ServerManagement.Customer</label> 
                     <div class="cust-input-icon cust-input-icon-right">
                         <i ng-click="addDemoCustomer()" class="fa fa-user-plus"></i>
-                        @Html.HiddenFor(model => model.CustomerId)
-                        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                        <div custom-select="item.Value as item.Text for item in demoCustomers | filter: $searchTerm" ng-model="selectDemoCustomer" ng-init="bindDemoCustomers()" ng-change="bindCustomerContacts(selectDemoCustomer)"  autofocus ></div>
+                        @Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { @value = "{{selectDemoCustomer}}" })
                     </div> 
-                    @*<input class = "form-control" id = "CustomerName" data-ng-model="CustomerName" required/>*@
-                    @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.CustomerContactId, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
-                    <select name="CustomerContactId" id="CustomerContactId" ng-model="CustomerContact" >
-                        <option >@Resources.Resource.SelectItem</option>
-                        <option ng-repeat="contact in CustomerContacts" value="{{contact.Value}}">{{contact.Text}}</option>
-                    </select>
-                    <button ng-click="addCustomerContact()"> <i class="fa fa-user-plus"></i></button>
+                    <div class="cust-input-icon cust-input-icon-right">
+                        <i ng-click="addCustomerContact()" class="fa fa-user-plus"></i>
+                        <div custom-select="item.CustomerContactId as item.ContactName_en for item in customerContacts | filter: $searchTerm" ng-model="selectCustomerContact" ng-init="bindCustomerContacts()" autofocus></div>
+                        @Html.HiddenFor(model => model.CustomerContactId, htmlAttributes: new { @value = "{{selectCustomerContact}}" })
+                    </div>
                     @Html.ValidationMessageFor(model => model.CustomerContactId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -129,20 +136,27 @@
 }
 
 @section scripts {
-    <!--Jquery Select2-->
-    <script src="~/Content/js/select2/select2.js"></script>
     <!--Bootstrap Date Picker-->
     <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
     <!--Bootstrap Time Picker-->
     <script src="~/Content/js/datetime/bootstrap-timepicker.js"></script>
 
+    
     <script>
+        var saleCustomers = @Html.Raw(JsonConvert.SerializeObject((IEnumerable<CustomSelectListItem>)ViewBag.CustomerId).Replace("'", @"\'"));
+        var demoCustomers = @Html.Raw(JsonConvert.SerializeObject((IEnumerable<CustomSelectListItem>)ViewBag.CustomerId).Replace("'", @"\'"));
         $(document).ready(function () {
-            //--Jquery Select2--
-            $("#CustomerId").select2();
-            //$("#SaleTransactionTypeId").select2();
-            //$(".gridSelection").select2();
-            //$("#ddl").select2();
+            $('#DemoForCustomer').hide();
+            $('#SaleTransactionTypeId').on("change", function () {
+                var SaleTransactionType = $('#SaleTransactionTypeId').val()
+                if (SaleTransactionType == 1) { // for Sales transaction type
+                    $('#SaleForCustomer').show();
+                    $('#DemoForCustomer').hide();
+                } else { // for Demo transaction type
+                    $('#SaleForCustomer').hide();
+                    $('#DemoForCustomer').show();
+                }
+            });
 
             //--Bootstrap Date Picker--
             $('.date-picker').datepicker();

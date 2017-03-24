@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sales Employee.
+        /// </summary>
+        public static string SalesEmployee {
+            get {
+                return ResourceManager.GetString("SalesEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction Type.
         /// </summary>
         public static string SaleTransactionType {

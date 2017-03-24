@@ -143,6 +143,7 @@
         var editActionUrl = '@Url.Action("Edit")';
         var detailsActionUrl = '@Url.Action("Details")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
+        var saveCustomerUrl = '@Url.Action("Create")';
 
         var CustomerContactsGridColumnDefs = [
             { field: 'DolphinId', name: '@Resources.Resource.DolphinIdShortcut', width: 50 },
@@ -151,24 +152,24 @@
             { field: 'Position_en', name: '@Resources.ServerManagement.CustomerContactPositionEn', width: 150 },
             { field: 'Position_ar', name: '@Resources.ServerManagement.CustomerContactPositionAr', width: 150 },
             {
-               name: 'IsDefault',
+            name:'IsDefault',
                displayName: '@Resources.Resource.IsDefault',
-               type: 'boolean',
                cellTemplate:
-                   '<div class="radio custRadioDiv">' +
-                   '<label>' +
-                   '<input name="CustomerContact[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].IsDefault" checked="{{row.entity.IsDefault}}" class="colored-blue" name="form-field-radio" type="radio">' +
-                   '<span class="text"> ' +
+                   '<div class="radio custRadioDiv">'+
+                   '<label>'+
+                   '<input name="DefaultCustomerContact" ng-model="grid.appScope.DefaultCustomerContact" value="{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}" type="radio" class="colored-blue" >'+
+                   '<span class="text"> '+
                    '</span></label></div>',
                enableSorting: false, enableFiltering: false, enableHiding: false,
                width: 100
+
             },
             {
-               name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                   '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.editContact(row.entity)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
-                   '</div>',
-               enableSorting: false, enableFiltering: false,
-               width: 100
+                name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.editContact(row.entity)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false,
+                width: 100
             }
         ];
 

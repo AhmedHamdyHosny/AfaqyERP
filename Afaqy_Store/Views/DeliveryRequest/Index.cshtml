@@ -158,7 +158,7 @@
                 name: 'ModelType',
                 cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                     '<div class="form-group"> ' +
-                    '<select class="form-control" ng-model="SelectedModel" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" >' +
+                    '<select class="form-control row-dropdownlist" ng-model="SelectedModel" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" >' +
                     '<option ng-repeat="modelType in row.entity.ModelTypes track by $index" value="{{modelType.Value}}">{{modelType.Text}}</option>' +
                     '</select>'+
                     ' </div>' ,
