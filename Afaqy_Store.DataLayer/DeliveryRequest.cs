@@ -19,6 +19,7 @@ namespace Afaqy_Store.DataLayer
         {
             this.DeliveryNote = new HashSet<DeliveryNote>();
             this.DeliveryRequestDetails = new HashSet<DeliveryRequestDetails>();
+            this.DeliveryRequestTechnician = new HashSet<DeliveryRequestTechnician>();
         }
     
         public int DeliveryRequestId { get; set; }
@@ -28,8 +29,12 @@ namespace Afaqy_Store.DataLayer
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
         public Nullable<int> CustomerContactId { get; set; }
+        public string AlternativeContactName { get; set; }
+        public string AlternativeContactTelephone { get; set; }
         public int SaleTransactionTypeId { get; set; }
-        public System.DateTime DeliveryDateTime { get; set; }
+        public System.DateTime DeliveryRequestDateTime { get; set; }
+        public Nullable<System.DateTime> ActualDeliveryDateTime { get; set; }
+        public Nullable<int> SystemId { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -38,13 +43,17 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Customer Customer { get; set; }
+        public virtual CustomerContact CustomerContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
         public virtual DeliveryRequestStatus DeliveryRequestStatus { get; set; }
         public virtual PointOfSale PointOfSale { get; set; }
         public virtual SaleTransactionType SaleTransactionType { get; set; }
+        public virtual TechniqueSystem TechniqueSystem { get; set; }
         public virtual Warehouse Warehouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
     }
 }

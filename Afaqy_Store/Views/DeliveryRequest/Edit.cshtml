@@ -1,12 +1,34 @@
 ﻿@model Afaqy_Store.Models.DeliveryRequestEditModel
 @using Classes.Helper;
 @using BeyondThemes.Bootstrap;
-
+@using Newtonsoft.Json;
 @{
     ViewBag.Title = Resources.Store.DeliveryRequestEdit;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" />
+<link rel="stylesheet" href="~/Content/css/1.custom-style/AngularDDL.css" />
+
+<style>
+    .row-dropdownlist {
+        height: 22px;
+        padding: 0px 5px;
+    }
+    .gridcustom-select {
+        position: absolute;
+        height: 22px;
+        width: 37%;
+    }
+    .gridcustom-select.open > a.dropdown-toggle {
+            line-height: 22px;
+        }
+    .gridcustom-select > a.dropdown-toggle {
+            height: 22px;
+            line-height: 22px;
+        }
+</style>
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
     <h2 class="modal-title">@Resources.Store.DeliveryRequestEdit</h2>
@@ -15,34 +37,123 @@
 
 @using (Html.BeginForm())
 {
-    <div class="modal-body">
+    <div class="modal-body withVScroll">
         @Html.AntiForgeryToken()
-        <div>
+        <div ng-init="bindGirdData()">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => Model.EditItem.DeliveryRequestId)
-            <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
-                @Html.CustomDropdownListFor(m => m.EditItem.CustomerId, Model.Customer, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId" })
-                @Html.ValidationMessageFor(model => model.EditItem.CustomerId, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.POSId, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
+                    @if (Model.PointOfSale.Count() < 2)
+                    {
+                        @Html.CustomDropdownListFor(model => model.EditItem.POSId, Model.PointOfSale, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
+                    }
+                    else
+                    {
+                        @Html.CustomDropdownListFor(model => model.EditItem.POSId, Model.PointOfSale, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
+                    }
+
+                    @Html.ValidationMessageFor(model => model.EditItem.POSId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.WarehouseId, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
+                    @if (Model.Warehouse.Count() < 2)
+                    {
+                        @Html.CustomDropdownListFor(model => model.EditItem.WarehouseId, Model.Warehouse, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
+                    }
+                    else
+                    {
+                        @Html.CustomDropdownListFor(model => model.EditItem.WarehouseId, Model.Warehouse, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
+                    }
+                    @Html.ValidationMessageFor(model => model.EditItem.WarehouseId, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.EditItem.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
-                @Html.CustomDropdownListFor(m => m.EditItem.SaleTransactionTypeId, Model.SaleTransactionType, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId" })
-                @Html.ValidationMessageFor(model => model.EditItem.SaleTransactionTypeId, "", new { @class = "text-danger" })
+
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
+                    @Html.CustomDropdownListFor(m => m.EditItem.SaleTransactionTypeId, Model.SaleTransactionType, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "SaleTransactionTypeId", @id = "SaleTransactionTypeId" })
+                    @Html.ValidationMessageFor(model => model.EditItem.SaleTransactionTypeId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                    <div custom-select="item.Value as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
+                    @Html.HiddenFor(model => model.EditItem.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer" })
+                    @*@Html.CustomDropdownListFor(m => m.EditItem.CustomerId, Model.Customer, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId" })*@
+                    @Html.ValidationMessageFor(model => model.EditItem.CustomerId, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.EditItem.DeliveryDateTime, Resources.Store.DeliveryDateTime, htmlAttributes: new { @class = "text-info" })
-                <span class="input-icon icon-right">
-                    <input name="DeliveryDateTime" class="form-control date-picker" id="DeliveryDateTime" type="text" data-date-format="dd/mm/yyyy">
-                    <i class="fa fa-calendar"></i>
-                </span>
+            
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.CustomerContactId, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
+                    <div custom-select="item.CustomerContactId as item.ContactName_en for item in customerContacts | filter: $searchTerm" ng-model="selectCustomerContact" ng-init="bindCustomerContacts()" autofocus></div>
+                    @Html.HiddenFor(model => model.EditItem.CustomerContactId, htmlAttributes: new { data_ng_value = "selectCustomerContact" })
+                    @Html.ValidationMessageFor(model => model.EditItem.CustomerContactId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.SystemId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
+                    <div custom-select="item.Value as item.Text for item in systems | filter: $searchTerm" ng-model="selectSystem" ng-init="bindSystems()" autofocus></div>
+                    @Html.HiddenFor(model => model.EditItem.SystemId, htmlAttributes: new { data_ng_value = "selectSystem" })
+                </div>
             </div>
-            <div class="form-group">
-                @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.AlternativeContactName, Resources.Sales.AlternativeContactName, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.EditItem.AlternativeContactName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EditItem.CustomerContactId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.AlternativeContactTelephone, Resources.Sales.AlternativeContactTelephone, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.EditItem.AlternativeContactTelephone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EditItem.AlternativeContactTelephone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3  form-group">
+                    <label class="text-info">@Resources.Store.DeliveryDate</label>
+                    <span class="input-icon icon-right">
+                        <input name="EditItem.DeliveryRequestDate_Str" class="form-control date-picker" id="DeliveryRequestDate_Str" type="text" data-date-format="dd/mm/yyyy" value="@Model.EditItem.DeliveryRequestDateTime.ToShortDateString()">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label class="text-info">@Resources.Store.DeliveryTime</label>
+                    <div class="input-group">
+                        <input class="form-control" name="EditItem.DeliveryRequestTime_Str" id="DeliveryRequestTime_Str"  type="text" value="@Model.EditItem.DeliveryRequestDateTime.ToShortTimeString()">
+                        <span class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.EditItem.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.EditItem.Note, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EditItem.Note, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
+                </div>
             </div>
             <div>
+                @Html.HiddenFor(model => model.EditItem.DeliveryRequestStatusId)
                 @Html.HiddenFor(model => model.EditItem.CreateUserId)
                 @Html.HiddenFor(model => model.EditItem.CreateDate)
+            </div>
+            <div class="table-toolbar">
+                <a ng-click="create()" class="btn purple" id="addBtn">
+                    <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                </a>
+                <a ng-click="DeleteItems($event);" class="btn btn-danger">
+                    <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                </a>
+            </div>
+            <div class="form-group">
+                @{ Html.RenderAction("Partial_Grid", "Common", new { EnablePagination = false }); }
             </div>
         </div>
     </div>
@@ -53,15 +164,27 @@
 }
 
 @section scripts {
-    <!--Jquery Select2-->
-    <script src="~/Content/js/select2/select2.js"></script>
+    <!--Bootstrap Date Picker-->
+    <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
+    <!--Bootstrap Time Picker-->
+    <script src="~/Content/js/datetime/bootstrap-timepicker.js"></script>
+     <!--View JS References-->
+    <script src="~/Content/js/1.custom-js/Views/CustomerContact.js"></script>
     <script>
+        var customers = @Html.Raw(JsonConvert.SerializeObject(Model.Customer).Replace("'", @"\'"));
+        var systems = @Html.Raw(JsonConvert.SerializeObject(Model.TechniqueSystem).Replace("'", @"\'"));
+        var selectCustomerContact = @Model.EditItem.CustomerContactId
+        var itemFamilies = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ItemFamilies)));
+        var modelTypes = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ModelTypes)));
+        var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.EditItem.DeliveryRequestDetails));
+
+        
+
         $(document).ready(function () {
-            //--Jquery Select2--
-            $("#CustomerId").select2();
-            $("#SaleTransactionTypeId").select2();
             //--Bootstrap Date Picker--
             $('.date-picker').datepicker();
+            //--Bootstrap Time Picker--
+            $('#DeliveryRequestTime_Str').timepicker();
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {

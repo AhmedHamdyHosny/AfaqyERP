@@ -129,4 +129,16 @@
   <data name="SaleTransactionType" xml:space="preserve">
     <value>Transaction Type</value>
   </data>
+  <data name="AlternativeContactName" xml:space="preserve">
+    <value>Alternative Contact Name</value>
+  </data>
+  <data name="AlternativeContactTelephone" xml:space="preserve">
+    <value>Alternative Contact Telephone</value>
+  </data>
+  <data name="AltContactName" xml:space="preserve">
+    <value>Alt Contact Name</value>
+  </data>
+  <data name="AltContactTelephone" xml:space="preserve">
+    <value>Alt Contact Telephone</value>
+  </data>
 </root>

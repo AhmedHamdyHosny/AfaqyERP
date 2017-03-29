@@ -602,6 +602,10 @@ namespace GenericApiController
             return null;
         }
 
+        public Expression<Func<T, bool>> GetDataConstrains()
+        {
+            return DataConstrains;
+        }
         /// <summary>
         /// Grant roles to access specific action
         /// </summary>

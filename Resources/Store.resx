@@ -219,7 +219,22 @@
   <data name="DeliveryTime" xml:space="preserve">
     <value>Delivery Time</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
+  <data name="ItemFamily" xml:space="preserve">
+    <value>Family</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="DeliveryRequestAssign" xml:space="preserve">
+    <value>Assign Delivery Request</value>
+  </data>
+  <data name="DeliveryRequestAssignSuccessMessage" xml:space="preserve">
+    <value>Delivery Request Assign Successfully</value>
+  </data>
+  <data name="ActualDeliveryDate" xml:space="preserve">
+    <value>Actual Delivery Date</value>
+  </data>
+  <data name="ActualDeliveryTime" xml:space="preserve">
+    <value>Actual Delivery Time</value>
   </data>
 </root>

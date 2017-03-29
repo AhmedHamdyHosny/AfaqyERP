@@ -19,7 +19,8 @@ namespace Afaqy_Store.DataLayer
         {
             this.Customer = new HashSet<Customer>();
             this.DeliveryDevice = new HashSet<DeliveryDevice>();
-            this.DeliveryNote = new HashSet<DeliveryNote>();
+            this.DeliveryRequestTechnician = new HashSet<DeliveryRequestTechnician>();
+            this.DeliveryTechnician = new HashSet<DeliveryTechnician>();
         }
     
         public int EmployeeId { get; set; }
@@ -50,7 +51,9 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
+        public virtual ICollection<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryTechnician> DeliveryTechnician { get; set; }
         public virtual Department Department { get; set; }
     }
 }

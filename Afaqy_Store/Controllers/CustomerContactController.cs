@@ -11,12 +11,7 @@ namespace Afaqy_Store.Controllers
 {
     public class CustomerContactController : BaseController<CustomerContact, CustomerContactViewModel, CustomerContactIndexViewModel, CustomerContactDetailsViewModel, CustomerContactCreateBindModel, CustomerContactEditBindModel, CustomerContactEditModel, CustomerContact, CustomerContactModel<CustomerContact>, CustomerContactModel<CustomerContactViewModel>>
     {
-        //[HttpPost]
-        //public JsonResult GetCustomerContacts(int customerId)
-        // {
-        //     filters = new List<GenericApiController.Utilities.GenericDataFormat.FilterItems>();
-        //     filters.Add(new GenericApiController.Utilities.GenericDataFormat.FilterItems() { Property = "CustomerId", Operation = GenericApiController.Utilities.GenericDataFormat.FilterOperations.Equal, Value = customerId });
-        // }
+        
 
         public override void FuncPreDetailsView(object id, ref List<CustomerContactDetailsViewModel> items)
         {

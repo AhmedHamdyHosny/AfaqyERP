@@ -385,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign.
+        /// </summary>
+        public static string ButtonAssign {
+            get {
+                return ResourceManager.GetString("ButtonAssign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ButtonCancel {
@@ -426,6 +435,15 @@ namespace Resources {
         public static string ButtonEdit {
             get {
                 return ResourceManager.GetString("ButtonEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string ButtonNext {
+            get {
+                return ResourceManager.GetString("ButtonNext", resourceCulture);
             }
         }
         

@@ -51,3 +51,8 @@ abbr[title], abbr[data-original-title]
     font-size:20px ;
 }
 
+
+.girdRowControl
+{
+    padding-left:5px !important;
+}

@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Delivery Date.
+        /// </summary>
+        public static string ActualDeliveryDate {
+            get {
+                return ResourceManager.GetString("ActualDeliveryDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actual Delivery Time.
+        /// </summary>
+        public static string ActualDeliveryTime {
+            get {
+                return ResourceManager.GetString("ActualDeliveryTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Date.
         /// </summary>
         public static string DeliveryDate {
@@ -84,6 +102,24 @@ namespace Resources {
         public static string DeliveryRequest {
             get {
                 return ResourceManager.GetString("DeliveryRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign Delivery Request.
+        /// </summary>
+        public static string DeliveryRequestAssign {
+            get {
+                return ResourceManager.GetString("DeliveryRequestAssign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request Assign Successfully.
+        /// </summary>
+        public static string DeliveryRequestAssignSuccessMessage {
+            get {
+                return ResourceManager.GetString("DeliveryRequestAssignSuccessMessage", resourceCulture);
             }
         }
         
@@ -367,11 +403,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Family.
         /// </summary>
-        public static string String1 {
+        public static string ItemFamily {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("ItemFamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        public static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
     }

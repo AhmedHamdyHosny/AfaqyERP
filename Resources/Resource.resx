@@ -225,6 +225,9 @@
   <data name="ButtonAdd" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="ButtonAssign" xml:space="preserve">
+    <value>Assign</value>
+  </data>
   <data name="ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -239,6 +242,9 @@
   </data>
   <data name="ButtonEdit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>Next</value>
   </data>
   <data name="ButtonOk" xml:space="preserve">
     <value>Ok</value>

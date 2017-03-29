@@ -61,6 +61,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt Contact Name.
+        /// </summary>
+        public static string AltContactName {
+            get {
+                return ResourceManager.GetString("AltContactName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt Contact Telephone.
+        /// </summary>
+        public static string AltContactTelephone {
+            get {
+                return ResourceManager.GetString("AltContactTelephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternative Contact Name.
+        /// </summary>
+        public static string AlternativeContactName {
+            get {
+                return ResourceManager.GetString("AlternativeContactName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternative Contact Telephone.
+        /// </summary>
+        public static string AlternativeContactTelephone {
+            get {
+                return ResourceManager.GetString("AlternativeContactTelephone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Contact.
         /// </summary>
         public static string CustomerContact {

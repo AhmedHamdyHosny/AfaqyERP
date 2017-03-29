@@ -29,30 +29,35 @@ namespace Afaqy_Store.Models
             }
         }
     }
-    public class DeliveryRequestIndexViewModel : DeliveryRequest
+    public class DeliveryRequestIndexViewModel : DeliveryRequestView
     {
 
     }
     public class DeliveryRequestDetailsViewModel : DeliveryRequestViewModel
     {
-
+        public List<RequestDetails_DetailsViewModel> DeliveryRequestDetails { get; set; }
+        public List<DeliveryRequestTechnician> Technician { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,DeliveryRequestStatusId,CustomerId,SaleTransactionTypeId,DeliveryDate_Str,DeliveryTime_Str,DeliveryDateTime,Note,DeliveryRequestDetails")]
+    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,Note,DeliveryRequestDetails")]
     public class DeliveryRequestCreateBindModel : DeliveryRequest
     {
-        public string DeliveryDate_Str { get; set; }
-        public string DeliveryTime_Str { get; set; }
+        public string DeliveryRequestDate_Str { get; set; }
+        public string DeliveryRequestTime_Str { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,DeliveryRequestStatusId,CustomerId,SaleTransactionTypeId,DeliveryDate_Str,DeliveryTime_Str,DeliveryDateTime,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,DeliveryRequestStatusId,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
     public class DeliveryRequestEditBindModel : DeliveryRequest
     {
-        public string DeliveryDate_Str { get; set; }
-        public string DeliveryTime_Str { get; set; }
+        public string DeliveryRequestDate_Str { get; set; }
+        public string DeliveryRequestTime_Str { get; set; }
     }
     public class DeliveryRequestEditModel
     {
         public DeliveryRequest EditItem { get; set; }
-        public IEnumerable<CustomSelectListItem> Customer { get; set; }
+        public IEnumerable<CustomSelectListItem> PointOfSale { get; set; }
+        public IEnumerable<CustomSelectListItem> Warehouse { get; set; }
         public IEnumerable<CustomSelectListItem> SaleTransactionType { get; set; }
+        public IEnumerable<CustomSelectListItem> Customer { get; set; }
+        public IEnumerable<CustomSelectListItem> TechniqueSystem { get; set; }
+        public IEnumerable<CustomSelectListItem> CustomerContact { get; set; }
     }
 }

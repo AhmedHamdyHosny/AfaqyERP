@@ -17,6 +17,8 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TechniqueSystem()
         {
+            this.DeliveryNote = new HashSet<DeliveryNote>();
+            this.DeliveryRequest = new HashSet<DeliveryRequest>();
             this.SystemServerIP = new HashSet<SystemServerIP>();
         }
     
@@ -29,6 +31,10 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SystemServerIP> SystemServerIP { get; set; }
         public virtual TechniqueCompany TechniqueCompany { get; set; }

@@ -439,6 +439,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Technician.
+        /// </summary>
+        public static string Technician {
+            get {
+                return ResourceManager.GetString("Technician", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technique Company.
         /// </summary>
         public static string TechniqueCompany {
@@ -534,6 +543,15 @@ namespace Resources {
         public static string TechniqueSystemNew {
             get {
                 return ResourceManager.GetString("TechniqueSystemNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warehouse.
+        /// </summary>
+        public static string Warehouse {
+            get {
+                return ResourceManager.GetString("Warehouse", resourceCulture);
             }
         }
     }

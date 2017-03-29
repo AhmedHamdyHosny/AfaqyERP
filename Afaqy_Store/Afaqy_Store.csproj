@@ -293,17 +293,21 @@
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
     <Compile Include="Controllers\ApiCustomerTypeController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
+    <Compile Include="Controllers\ApiDeliveryRequestDetailsController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\ApiEmployeeController.cs" />
     <Compile Include="Controllers\ApiItemFamilyController.cs" />
+    <Compile Include="Controllers\ApiPointOfSaleController.cs" />
     <Compile Include="Controllers\ApiSaleTransactionTypeController.cs" />
     <Compile Include="Controllers\ApiSystemRoleController.cs" />
     <Compile Include="Controllers\ApiSystemServiceAccessController.cs" />
     <Compile Include="Controllers\ApiSystemServiceController.cs" />
+    <Compile Include="Controllers\ApiWarehouseController.cs" />
     <Compile Include="Controllers\BaseSecurityApiController.cs" />
     <Compile Include="Controllers\CustomerContactController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
     <Compile Include="Controllers\CustomerServerUnitsController.cs" />
+    <Compile Include="Controllers\DeliveryNoteController.cs" />
     <Compile Include="Controllers\DeliveryRequestController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
@@ -375,6 +379,7 @@
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\CustomerTypeModel.cs" />
+    <Compile Include="Models\DeliveryRequestDetailsModel.cs" />
     <Compile Include="Models\DeliveryRequestModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
@@ -385,6 +390,7 @@
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemFamilyModel.cs" />
+    <Compile Include="Models\PointOfSaleModel.cs" />
     <Compile Include="Models\SaleTransactionTypeModel.cs" />
     <Compile Include="Models\ServerRoleModel.cs" />
     <Compile Include="Models\ServerUnitModel.cs" />
@@ -401,6 +407,7 @@
     <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\TempDeviceModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\WarehouseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -522,6 +529,7 @@
     <Content Include="Content\js\1.custom-js\services\global.js" />
     <Content Include="Content\js\1.custom-js\services\util.js" />
     <Content Include="Content\js\1.custom-js\Utilities\Classes.js" />
+    <Content Include="Content\js\1.custom-js\Views\CustomerContact.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.min.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.unobtrusive.js" />
@@ -1048,9 +1056,11 @@
     <Content Include="Views\Shared\_TestLayout.cshtml" />
     <Content Include="Views\Shared\_TestPopup.cshtml" />
     <Content Include="Views\CustomerContact\Create.cshtml" />
+    <Content Include="Views\DeliveryRequest\Assign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DeliveryNote\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

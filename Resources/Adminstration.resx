@@ -276,4 +276,10 @@
   <data name="ContactMethod" xml:space="preserve">
     <value>Contact Method</value>
   </data>
+  <data name="Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="Technician" xml:space="preserve">
+    <value>Technician</value>
+  </data>
 </root>

@@ -141,13 +141,25 @@
     <Compile Include="DeliveryRequestDetails.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeliveryRequestDetailsView.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DeliveryRequestStatus.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryRequestStatusHistory.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryRequestTechnician.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeliveryRequestView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeliveryStatus.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeliveryTechnician.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Department.cs">

@@ -141,7 +141,9 @@ namespace Classes.Common
         {
             New = 1,
             Approved = 2,
-            Reject = 3
+            Reject = 3,
+            Technician_Assignation = 4,
+            Technician_Assignation_With_Delay = 5
         }
 
         public enum SaleTransactionType

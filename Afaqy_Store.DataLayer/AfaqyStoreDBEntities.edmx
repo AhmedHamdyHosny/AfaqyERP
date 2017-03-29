@@ -241,7 +241,7 @@
           <Key>
             <PropertyRef Name="DeliveryItemId" />
           </Key>
-          <Property Name="DeliveryItemId" Type="int" Nullable="false" />
+          <Property Name="DeliveryItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeliveryDetailsId" Type="int" Nullable="false" />
           <Property Name="DeviceId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" />
@@ -256,20 +256,23 @@
         </EntityType>
         <EntityType Name="DeliveryNote">
           <Key>
-            <PropertyRef Name="DeliveryId" />
+            <PropertyRef Name="DeliveryNoteId" />
           </Key>
-          <Property Name="DeliveryId" Type="int" Nullable="false" />
+          <Property Name="DeliveryNoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="POSId" Type="int" Nullable="false" />
           <Property Name="WarehouseId" Type="int" Nullable="false" />
           <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerContactId" Type="int" />
+          <Property Name="AlternativeContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlternativeContactTelephone" Type="varchar" MaxLength="15" />
           <Property Name="SaleTransactionTypeId" Type="int" Nullable="false" />
           <Property Name="DeliveryDateTime" Type="datetime" Nullable="false" />
           <Property Name="DeliveryStatusId" Type="int" Nullable="false" />
           <Property Name="DolphinReference" Type="varchar" MaxLength="15" />
           <Property Name="DolphinDeliveryId" Type="int" />
-          <Property Name="EmpoyeeId" Type="int" Nullable="false" />
+          <Property Name="SystemId" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
@@ -281,15 +284,19 @@
           <Key>
             <PropertyRef Name="DeliveryRequestId" />
           </Key>
-          <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="POSId" Type="int" Nullable="false" />
           <Property Name="WarehouseId" Type="int" Nullable="false" />
           <Property Name="DeliveryRequestStatusId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
           <Property Name="CustomerContactId" Type="int" />
+          <Property Name="AlternativeContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlternativeContactTelephone" Type="varchar" MaxLength="15" />
           <Property Name="SaleTransactionTypeId" Type="int" Nullable="false" />
-          <Property Name="DeliveryDateTime" Type="datetime" Nullable="false" />
+          <Property Name="DeliveryRequestDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ActualDeliveryDateTime" Type="datetime" />
+          <Property Name="SystemId" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
@@ -301,7 +308,7 @@
           <Key>
             <PropertyRef Name="DeliveryRequestDetailsId" />
           </Key>
-          <Property Name="DeliveryRequestDetailsId" Type="int" Nullable="false" />
+          <Property Name="DeliveryRequestDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
           <Property Name="DeviceModelTypeId" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
@@ -325,6 +332,30 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="DeliveryRequestStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
+          <Property Name="DeliveryRequestStatusId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeliveryRequestTechnician">
+          <Key>
+            <PropertyRef Name="DeliveryRequestTechnicalId" />
+          </Key>
+          <Property Name="DeliveryRequestTechnicalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="DeliveryStatus">
           <Key>
             <PropertyRef Name="DeliveryStatusId" />
@@ -338,13 +369,26 @@
           <Property Name="ModifyUserId" Type="int" />
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="DeliveryTechnician">
+          <Key>
+            <PropertyRef Name="DeliveryNoteTechnicalId" />
+          </Key>
+          <Property Name="DeliveryNoteTechnicalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeliveryNoteId" Type="int" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="int" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="int" Nullable="false" />
-          <Property Name="DepartmentName_en" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="DepartmentName_ar" Type="nvarchar" MaxLength="20" />
+          <Property Name="DepartmentName_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmentName_ar" Type="nvarchar" MaxLength="50" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
@@ -880,6 +924,26 @@ warning 6002: The table/view 'AfaqyStore.afqy.CustomerView' does not have a prim
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'AfaqyStore.afqy.DeliveryRequestDetailsView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DeliveryRequestDetailsView">
+          <Key>
+            <PropertyRef Name="DeliveryRequestDetailsId" />
+            <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="DeviceModelTypeId" />
+            <PropertyRef Name="DeviceModelTypeName" />
+            <PropertyRef Name="ItemFamilyName_en" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="DeliveryRequestDetailsId" Type="int" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
+          <Property Name="DeviceModelTypeId" Type="int" Nullable="false" />
+          <Property Name="DeviceModelTypeName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ItemFamilyName_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemFamilyName_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'AfaqyStore.afqy.DeliveryRequestView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DeliveryRequestView">
           <Key>
@@ -893,10 +957,14 @@ warning 6002: The table/view 'AfaqyStore.afqy.DeliveryRequestView' does not have
             <PropertyRef Name="SaleTransactionTypeId" />
             <PropertyRef Name="SaleTransactionType_en" />
             <PropertyRef Name="SaleTransactionType_ar" />
-            <PropertyRef Name="DeliveryDateTime" />
+            <PropertyRef Name="DeliveryRequestDateTime" />
             <PropertyRef Name="IsBlock" />
             <PropertyRef Name="CreateUserId" />
             <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="WarehouseId" />
+            <PropertyRef Name="WarehouseName_en" />
+            <PropertyRef Name="ContactName_en" />
+            <PropertyRef Name="SystemName" />
           </Key>
           <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
           <Property Name="POSId" Type="int" Nullable="false" />
@@ -911,7 +979,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.DeliveryRequestView' does not have
           <Property Name="SaleTransactionTypeId" Type="int" Nullable="false" />
           <Property Name="SaleTransactionType_en" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SaleTransactionType_ar" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="DeliveryDateTime" Type="datetime" Nullable="false" />
+          <Property Name="DeliveryRequestDateTime" Type="datetime" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
@@ -930,6 +998,17 @@ warning 6002: The table/view 'AfaqyStore.afqy.DeliveryRequestView' does not have
           <Property Name="ModifyDate" Type="datetime" />
           <Property Name="ModifyUser_FullName_en" Type="varchar" MaxLength="41" />
           <Property Name="ModifyUser_FullName_ar" Type="nvarchar" MaxLength="41" />
+          <Property Name="WarehouseId" Type="int" Nullable="false" />
+          <Property Name="WarehouseName_en" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="WarehouseName_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerContactId" Type="int" />
+          <Property Name="ContactName_en" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactName_ar" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlternativeContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlternativeContactTelephone" Type="varchar" MaxLength="15" />
+          <Property Name="SystemId" Type="int" />
+          <Property Name="SystemName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AfaqyStore.afqy.DeviceSIMView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1463,7 +1542,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <End Role="DeliveryDetails" Type="Self.DeliveryDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryNote">
-              <PropertyRef Name="DeliveryId" />
+              <PropertyRef Name="DeliveryNoteId" />
             </Principal>
             <Dependent Role="DeliveryDetails">
               <PropertyRef Name="DeliveryId" />
@@ -1530,6 +1609,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryNote_CustomerContact">
+          <End Role="CustomerContact" Type="Self.CustomerContact" Multiplicity="0..1" />
+          <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerContact">
+              <PropertyRef Name="CustomerContactId" />
+            </Principal>
+            <Dependent Role="DeliveryNote">
+              <PropertyRef Name="CustomerContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryNote_DeliveryRequest">
           <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="1" />
           <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="*" />
@@ -1551,18 +1642,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Principal>
             <Dependent Role="DeliveryNote">
               <PropertyRef Name="DeliveryStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DeliveryNote_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="DeliveryNote">
-              <PropertyRef Name="EmpoyeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1590,6 +1669,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryNote_TechniqueSystem">
+          <End Role="TechniqueSystem" Type="Self.TechniqueSystem" Multiplicity="0..1" />
+          <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="DeliveryNote">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryNote_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="*" />
@@ -1611,6 +1702,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Principal>
             <Dependent Role="DeliveryRequest">
               <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequest_CustomerContact">
+          <End Role="CustomerContact" Type="Self.CustomerContact" Multiplicity="0..1" />
+          <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerContact">
+              <PropertyRef Name="CustomerContactId" />
+            </Principal>
+            <Dependent Role="DeliveryRequest">
+              <PropertyRef Name="CustomerContactId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1650,6 +1753,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryRequest_TechniqueSystem">
+          <End Role="TechniqueSystem" Type="Self.TechniqueSystem" Multiplicity="0..1" />
+          <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="DeliveryRequest">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryRequest_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="*" />
@@ -1683,6 +1798,66 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Principal>
             <Dependent Role="DeliveryRequestDetails">
               <PropertyRef Name="DeviceModelTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequestStatusHistory_DeliveryRequestStatus">
+          <End Role="DeliveryRequestStatus" Type="Self.DeliveryRequestStatus" Multiplicity="1" />
+          <End Role="DeliveryRequestStatusHistory" Type="Self.DeliveryRequestStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryRequestStatus">
+              <PropertyRef Name="DeliveryRequestStatusId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestStatusHistory">
+              <PropertyRef Name="DeliveryRequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequestTechnician_DeliveryRequest">
+          <End Role="DeliveryRequest" Type="Self.DeliveryRequest" Multiplicity="1" />
+          <End Role="DeliveryRequestTechnician" Type="Self.DeliveryRequestTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryRequest">
+              <PropertyRef Name="DeliveryRequestId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestTechnician">
+              <PropertyRef Name="DeliveryRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequestTechnician_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="DeliveryRequestTechnician" Type="Self.DeliveryRequestTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestTechnician">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryTechnician_DeliveryNote">
+          <End Role="DeliveryNote" Type="Self.DeliveryNote" Multiplicity="1" />
+          <End Role="DeliveryTechnician" Type="Self.DeliveryTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryNote">
+              <PropertyRef Name="DeliveryNoteId" />
+            </Principal>
+            <Dependent Role="DeliveryTechnician">
+              <PropertyRef Name="DeliveryNoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryTechnician_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="DeliveryTechnician" Type="Self.DeliveryTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="DeliveryTechnician">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2068,7 +2243,10 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="DeliveryRequest" EntityType="Self.DeliveryRequest" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeliveryRequestDetails" EntityType="Self.DeliveryRequestDetails" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeliveryRequestStatus" EntityType="Self.DeliveryRequestStatus" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeliveryRequestStatusHistory" EntityType="Self.DeliveryRequestStatusHistory" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeliveryRequestTechnician" EntityType="Self.DeliveryRequestTechnician" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeliveryStatus" EntityType="Self.DeliveryStatus" Schema="afqy" store:Type="Tables" />
+          <EntitySet Name="DeliveryTechnician" EntityType="Self.DeliveryTechnician" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="afqy" store:Type="Tables" />
           <EntitySet Name="DeviceModelType" EntityType="Self.DeviceModelType" Schema="afqy" store:Type="Tables" />
@@ -2219,6 +2397,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
     [CustomerView].[ModifyDate] AS [ModifyDate]
     FROM [afqy].[CustomerView] AS [CustomerView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="DeliveryRequestDetailsView" EntityType="Self.DeliveryRequestDetailsView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [DeliveryRequestDetailsView].[DeliveryRequestDetailsId] AS [DeliveryRequestDetailsId], 
+    [DeliveryRequestDetailsView].[DeliveryRequestId] AS [DeliveryRequestId], 
+    [DeliveryRequestDetailsView].[DeviceModelTypeId] AS [DeviceModelTypeId], 
+    [DeliveryRequestDetailsView].[DeviceModelTypeName] AS [DeviceModelTypeName], 
+    [DeliveryRequestDetailsView].[ItemFamilyName_en] AS [ItemFamilyName_en], 
+    [DeliveryRequestDetailsView].[ItemFamilyName_ar] AS [ItemFamilyName_ar], 
+    [DeliveryRequestDetailsView].[Quantity] AS [Quantity], 
+    [DeliveryRequestDetailsView].[Note] AS [Note]
+    FROM [afqy].[DeliveryRequestDetailsView] AS [DeliveryRequestDetailsView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="DeliveryRequestView" EntityType="Self.DeliveryRequestView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
     [DeliveryRequestView].[DeliveryRequestId] AS [DeliveryRequestId], 
@@ -2234,7 +2424,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
     [DeliveryRequestView].[SaleTransactionTypeId] AS [SaleTransactionTypeId], 
     [DeliveryRequestView].[SaleTransactionType_en] AS [SaleTransactionType_en], 
     [DeliveryRequestView].[SaleTransactionType_ar] AS [SaleTransactionType_ar], 
-    [DeliveryRequestView].[DeliveryDateTime] AS [DeliveryDateTime], 
+    [DeliveryRequestView].[DeliveryRequestDateTime] AS [DeliveryRequestDateTime], 
     [DeliveryRequestView].[Note] AS [Note], 
     [DeliveryRequestView].[IsBlock] AS [IsBlock], 
     [DeliveryRequestView].[CreateUserId] AS [CreateUserId], 
@@ -2252,7 +2442,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
     [DeliveryRequestView].[ModifyUser_LastName_ar] AS [ModifyUser_LastName_ar], 
     [DeliveryRequestView].[ModifyDate] AS [ModifyDate], 
     [DeliveryRequestView].[ModifyUser_FullName_en] AS [ModifyUser_FullName_en], 
-    [DeliveryRequestView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar]
+    [DeliveryRequestView].[ModifyUser_FullName_ar] AS [ModifyUser_FullName_ar], 
+    [DeliveryRequestView].[WarehouseId] AS [WarehouseId], 
+    [DeliveryRequestView].[WarehouseName_en] AS [WarehouseName_en], 
+    [DeliveryRequestView].[WarehouseName_ar] AS [WarehouseName_ar], 
+    [DeliveryRequestView].[CustomerName] AS [CustomerName], 
+    [DeliveryRequestView].[CustomerContactId] AS [CustomerContactId], 
+    [DeliveryRequestView].[ContactName_en] AS [ContactName_en], 
+    [DeliveryRequestView].[ContactName_ar] AS [ContactName_ar], 
+    [DeliveryRequestView].[AlternativeContactName] AS [AlternativeContactName], 
+    [DeliveryRequestView].[AlternativeContactTelephone] AS [AlternativeContactTelephone], 
+    [DeliveryRequestView].[SystemId] AS [SystemId], 
+    [DeliveryRequestView].[SystemName] AS [SystemName]
     FROM [afqy].[DeliveryRequestView] AS [DeliveryRequestView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="DeviceSIMView" EntityType="Self.DeviceSIMView" store:Type="Views" store:Schema="afqy">
@@ -2599,16 +2800,16 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="Customer" EntitySet="Customer" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryNote_CustomerContact" Association="Self.FK_DeliveryNote_CustomerContact">
+            <End Role="CustomerContact" EntitySet="CustomerContact" />
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_DeliveryRequest" Association="Self.FK_DeliveryNote_DeliveryRequest">
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_DeliveryStatus" Association="Self.FK_DeliveryNote_DeliveryStatus">
             <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
-            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliveryNote_Employee" Association="Self.FK_DeliveryNote_Employee">
-            <End Role="Employee" EntitySet="Employee" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_PointOfSale" Association="Self.FK_DeliveryNote_PointOfSale">
@@ -2619,12 +2820,20 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="SaleTransactionType" EntitySet="SaleTransactionType" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryNote_TechniqueSystem" Association="Self.FK_DeliveryNote_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_Warehouse" Association="Self.FK_DeliveryNote_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_Customer" Association="Self.FK_DeliveryRequest_Customer">
             <End Role="Customer" EntitySet="Customer" />
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequest_CustomerContact" Association="Self.FK_DeliveryRequest_CustomerContact">
+            <End Role="CustomerContact" EntitySet="CustomerContact" />
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_DeliveryRequestStatus" Association="Self.FK_DeliveryRequest_DeliveryRequestStatus">
@@ -2639,6 +2848,10 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="SaleTransactionType" EntitySet="SaleTransactionType" />
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequest_TechniqueSystem" Association="Self.FK_DeliveryRequest_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_Warehouse" Association="Self.FK_DeliveryRequest_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
@@ -2650,6 +2863,26 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <AssociationSet Name="FK_DeliveryRequestDetails_DeviceModelType" Association="Self.FK_DeliveryRequestDetails_DeviceModelType">
             <End Role="DeviceModelType" EntitySet="DeviceModelType" />
             <End Role="DeliveryRequestDetails" EntitySet="DeliveryRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestStatusHistory_DeliveryRequestStatus" Association="Self.FK_DeliveryRequestStatusHistory_DeliveryRequestStatus">
+            <End Role="DeliveryRequestStatus" EntitySet="DeliveryRequestStatus" />
+            <End Role="DeliveryRequestStatusHistory" EntitySet="DeliveryRequestStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestTechnician_DeliveryRequest" Association="Self.FK_DeliveryRequestTechnician_DeliveryRequest">
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+            <End Role="DeliveryRequestTechnician" EntitySet="DeliveryRequestTechnician" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestTechnician_Employee" Association="Self.FK_DeliveryRequestTechnician_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="DeliveryRequestTechnician" EntitySet="DeliveryRequestTechnician" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryTechnician_DeliveryNote" Association="Self.FK_DeliveryTechnician_DeliveryNote">
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+            <End Role="DeliveryTechnician" EntitySet="DeliveryTechnician" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryTechnician_Employee" Association="Self.FK_DeliveryTechnician_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="DeliveryTechnician" EntitySet="DeliveryTechnician" />
           </AssociationSet>
           <AssociationSet Name="FK_Device_Branch" Association="Self.FK_Device_Branch">
             <End Role="Branch" EntitySet="Branch" />
@@ -2798,7 +3031,10 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="DeliveryRequest" EntityType="Afaqy_Store.DataLayer.DeliveryRequest" />
           <EntitySet Name="DeliveryRequestDetails" EntityType="Afaqy_Store.DataLayer.DeliveryRequestDetails" />
           <EntitySet Name="DeliveryRequestStatus" EntityType="Afaqy_Store.DataLayer.DeliveryRequestStatus" />
+          <EntitySet Name="DeliveryRequestStatusHistory" EntityType="Afaqy_Store.DataLayer.DeliveryRequestStatusHistory" />
+          <EntitySet Name="DeliveryRequestTechnician" EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnician" />
           <EntitySet Name="DeliveryStatus" EntityType="Afaqy_Store.DataLayer.DeliveryStatus" />
+          <EntitySet Name="DeliveryTechnician" EntityType="Afaqy_Store.DataLayer.DeliveryTechnician" />
           <EntitySet Name="Department" EntityType="Afaqy_Store.DataLayer.Department" />
           <EntitySet Name="Device" EntityType="Afaqy_Store.DataLayer.Device" />
           <EntitySet Name="DeviceModelType" EntityType="Afaqy_Store.DataLayer.DeviceModelType" />
@@ -2830,6 +3066,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <EntitySet Name="CustomerServerUnitsCountView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsCountView" />
           <EntitySet Name="CustomerServerUnitsView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" />
           <EntitySet Name="CustomerView" EntityType="Afaqy_Store.DataLayer.CustomerView" />
+          <EntitySet Name="DeliveryRequestDetailsView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestDetailsView" />
           <EntitySet Name="DeliveryRequestView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" />
           <EntitySet Name="DeviceSIMView" EntityType="Afaqy_Store.DataLayer.DeviceSIMView" />
           <EntitySet Name="DeviceView" EntityType="Afaqy_Store.DataLayer.DeviceView" />
@@ -2942,6 +3179,14 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="CustomerContact" EntitySet="CustomerContact" />
             <End Role="CustomerContactDetails" EntitySet="CustomerContactDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryNote_CustomerContact" Association="Afaqy_Store.DataLayer.FK_DeliveryNote_CustomerContact">
+            <End Role="CustomerContact" EntitySet="CustomerContact" />
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequest_CustomerContact" Association="Afaqy_Store.DataLayer.FK_DeliveryRequest_CustomerContact">
+            <End Role="CustomerContact" EntitySet="CustomerContact" />
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_CustomerServerIP_CustomerServerStatus" Association="Afaqy_Store.DataLayer.FK_CustomerServerIP_CustomerServerStatus">
             <End Role="CustomerServerStatus" EntitySet="CustomerServerStatus" />
             <End Role="CustomerServerAccount" EntitySet="CustomerServerAccount" />
@@ -2990,10 +3235,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="DeliveryStatus" EntitySet="DeliveryStatus" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
-          <AssociationSet Name="FK_DeliveryNote_Employee" Association="Afaqy_Store.DataLayer.FK_DeliveryNote_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
-          </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_PointOfSale" Association="Afaqy_Store.DataLayer.FK_DeliveryNote_PointOfSale">
             <End Role="PointOfSale" EntitySet="PointOfSale" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
@@ -3002,9 +3243,17 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="SaleTransactionType" EntitySet="SaleTransactionType" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryNote_TechniqueSystem" Association="Afaqy_Store.DataLayer.FK_DeliveryNote_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryNote_Warehouse" Association="Afaqy_Store.DataLayer.FK_DeliveryNote_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryTechnician_DeliveryNote" Association="Afaqy_Store.DataLayer.FK_DeliveryTechnician_DeliveryNote">
+            <End Role="DeliveryNote" EntitySet="DeliveryNote" />
+            <End Role="DeliveryTechnician" EntitySet="DeliveryTechnician" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_DeliveryRequestStatus" Association="Afaqy_Store.DataLayer.FK_DeliveryRequest_DeliveryRequestStatus">
             <End Role="DeliveryRequestStatus" EntitySet="DeliveryRequestStatus" />
@@ -3018,6 +3267,10 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="SaleTransactionType" EntitySet="SaleTransactionType" />
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequest_TechniqueSystem" Association="Afaqy_Store.DataLayer.FK_DeliveryRequest_TechniqueSystem">
+            <End Role="TechniqueSystem" EntitySet="TechniqueSystem" />
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequest_Warehouse" Association="Afaqy_Store.DataLayer.FK_DeliveryRequest_Warehouse">
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
@@ -3026,9 +3279,25 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
             <End Role="DeliveryRequestDetails" EntitySet="DeliveryRequestDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestTechnician_DeliveryRequest" Association="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_DeliveryRequest">
+            <End Role="DeliveryRequest" EntitySet="DeliveryRequest" />
+            <End Role="DeliveryRequestTechnician" EntitySet="DeliveryRequestTechnician" />
+          </AssociationSet>
           <AssociationSet Name="FK_DeliveryRequestDetails_DeviceModelType" Association="Afaqy_Store.DataLayer.FK_DeliveryRequestDetails_DeviceModelType">
             <End Role="DeviceModelType" EntitySet="DeviceModelType" />
             <End Role="DeliveryRequestDetails" EntitySet="DeliveryRequestDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestStatusHistory_DeliveryRequestStatus" Association="Afaqy_Store.DataLayer.FK_DeliveryRequestStatusHistory_DeliveryRequestStatus">
+            <End Role="DeliveryRequestStatus" EntitySet="DeliveryRequestStatus" />
+            <End Role="DeliveryRequestStatusHistory" EntitySet="DeliveryRequestStatusHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryRequestTechnician_Employee" Association="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="DeliveryRequestTechnician" EntitySet="DeliveryRequestTechnician" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryTechnician_Employee" Association="Afaqy_Store.DataLayer.FK_DeliveryTechnician_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="DeliveryTechnician" EntitySet="DeliveryTechnician" />
           </AssociationSet>
           <AssociationSet Name="FK_Employee_Department" Association="Afaqy_Store.DataLayer.FK_Employee_Department">
             <End Role="Department" EntitySet="Department" />
@@ -3245,6 +3514,8 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_CustomerContact_Customer" FromRole="CustomerContact" ToRole="Customer" />
           <NavigationProperty Name="CustomerContactDetails" Relationship="Afaqy_Store.DataLayer.FK_CustomerContactDetails_CustomerContact" FromRole="CustomerContact" ToRole="CustomerContactDetails" />
+          <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_CustomerContact" FromRole="CustomerContact" ToRole="DeliveryNote" />
+          <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_CustomerContact" FromRole="CustomerContact" ToRole="DeliveryRequest" />
         </EntityType>
         <EntityType Name="CustomerContactDetails">
           <Key>
@@ -3381,7 +3652,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Key>
             <PropertyRef Name="DeliveryItemId" />
           </Key>
-          <Property Name="DeliveryItemId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeliveryDetailsId" Type="Int32" Nullable="false" />
           <Property Name="DeviceId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" />
@@ -3399,20 +3670,23 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
         </EntityType>
         <EntityType Name="DeliveryNote">
           <Key>
-            <PropertyRef Name="DeliveryId" />
+            <PropertyRef Name="DeliveryNoteId" />
           </Key>
-          <Property Name="DeliveryId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryNoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="POSId" Type="Int32" Nullable="false" />
           <Property Name="WarehouseId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContactId" Type="Int32" />
+          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DeliveryStatusId" Type="Int32" Nullable="false" />
           <Property Name="DolphinReference" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="DolphinDeliveryId" Type="Int32" />
-          <Property Name="EmpoyeeId" Type="Int32" Nullable="false" />
+          <Property Name="SystemId" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
@@ -3420,27 +3694,33 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_Customer" FromRole="DeliveryNote" ToRole="Customer" />
+          <NavigationProperty Name="CustomerContact" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_CustomerContact" FromRole="DeliveryNote" ToRole="CustomerContact" />
           <NavigationProperty Name="DeliveryDetails" Relationship="Afaqy_Store.DataLayer.FK_DeliveryDetails_DeliveryNote" FromRole="DeliveryNote" ToRole="DeliveryDetails" />
           <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_DeliveryRequest" FromRole="DeliveryNote" ToRole="DeliveryRequest" />
           <NavigationProperty Name="DeliveryStatus" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_DeliveryStatus" FromRole="DeliveryNote" ToRole="DeliveryStatus" />
-          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_Employee" FromRole="DeliveryNote" ToRole="Employee" />
           <NavigationProperty Name="PointOfSale" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_PointOfSale" FromRole="DeliveryNote" ToRole="PointOfSale" />
           <NavigationProperty Name="SaleTransactionType" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_SaleTransactionType" FromRole="DeliveryNote" ToRole="SaleTransactionType" />
+          <NavigationProperty Name="TechniqueSystem" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_TechniqueSystem" FromRole="DeliveryNote" ToRole="TechniqueSystem" />
           <NavigationProperty Name="Warehouse" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_Warehouse" FromRole="DeliveryNote" ToRole="Warehouse" />
+          <NavigationProperty Name="DeliveryTechnician" Relationship="Afaqy_Store.DataLayer.FK_DeliveryTechnician_DeliveryNote" FromRole="DeliveryNote" ToRole="DeliveryTechnician" />
         </EntityType>
         <EntityType Name="DeliveryRequest">
           <Key>
             <PropertyRef Name="DeliveryRequestId" />
           </Key>
-          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="POSId" Type="Int32" Nullable="false" />
           <Property Name="WarehouseId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryRequestStatusId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CustomerContactId" Type="Int32" />
+          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliveryRequestDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ActualDeliveryDateTime" Type="DateTime" Precision="3" />
+          <Property Name="SystemId" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
@@ -3448,18 +3728,21 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_Customer" FromRole="DeliveryRequest" ToRole="Customer" />
+          <NavigationProperty Name="CustomerContact" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_CustomerContact" FromRole="DeliveryRequest" ToRole="CustomerContact" />
           <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_DeliveryRequest" FromRole="DeliveryRequest" ToRole="DeliveryNote" />
           <NavigationProperty Name="DeliveryRequestStatus" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_DeliveryRequestStatus" FromRole="DeliveryRequest" ToRole="DeliveryRequestStatus" />
           <NavigationProperty Name="PointOfSale" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_PointOfSale" FromRole="DeliveryRequest" ToRole="PointOfSale" />
           <NavigationProperty Name="SaleTransactionType" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_SaleTransactionType" FromRole="DeliveryRequest" ToRole="SaleTransactionType" />
+          <NavigationProperty Name="TechniqueSystem" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_TechniqueSystem" FromRole="DeliveryRequest" ToRole="TechniqueSystem" />
           <NavigationProperty Name="Warehouse" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_Warehouse" FromRole="DeliveryRequest" ToRole="Warehouse" />
           <NavigationProperty Name="DeliveryRequestDetails" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestDetails_DeliveryRequest" FromRole="DeliveryRequest" ToRole="DeliveryRequestDetails" />
+          <NavigationProperty Name="DeliveryRequestTechnician" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_DeliveryRequest" FromRole="DeliveryRequest" ToRole="DeliveryRequestTechnician" />
         </EntityType>
         <EntityType Name="DeliveryRequestDetails">
           <Key>
             <PropertyRef Name="DeliveryRequestDetailsId" />
           </Key>
-          <Property Name="DeliveryRequestDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
           <Property Name="DeviceModelTypeId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
@@ -3485,6 +3768,34 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_DeliveryRequestStatus" FromRole="DeliveryRequestStatus" ToRole="DeliveryRequest" />
+          <NavigationProperty Name="DeliveryRequestStatusHistory" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestStatusHistory_DeliveryRequestStatus" FromRole="DeliveryRequestStatus" ToRole="DeliveryRequestStatusHistory" />
+        </EntityType>
+        <EntityType Name="DeliveryRequestStatusHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestStatusId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="DeliveryRequestStatus" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestStatusHistory_DeliveryRequestStatus" FromRole="DeliveryRequestStatusHistory" ToRole="DeliveryRequestStatus" />
+        </EntityType>
+        <EntityType Name="DeliveryRequestTechnician">
+          <Key>
+            <PropertyRef Name="DeliveryRequestTechnicalId" />
+          </Key>
+          <Property Name="DeliveryRequestTechnicalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_DeliveryRequest" FromRole="DeliveryRequestTechnician" ToRole="DeliveryRequest" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_Employee" FromRole="DeliveryRequestTechnician" ToRole="Employee" />
         </EntityType>
         <EntityType Name="DeliveryStatus">
           <Key>
@@ -3500,13 +3811,28 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_DeliveryStatus" FromRole="DeliveryStatus" ToRole="DeliveryNote" />
         </EntityType>
+        <EntityType Name="DeliveryTechnician">
+          <Key>
+            <PropertyRef Name="DeliveryNoteTechnicalId" />
+          </Key>
+          <Property Name="DeliveryNoteTechnicalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeliveryNoteId" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryTechnician_DeliveryNote" FromRole="DeliveryTechnician" ToRole="DeliveryNote" />
+          <NavigationProperty Name="Employee" Relationship="Afaqy_Store.DataLayer.FK_DeliveryTechnician_Employee" FromRole="DeliveryTechnician" ToRole="Employee" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentId" />
           </Key>
           <Property Name="DepartmentId" Type="Int32" Nullable="false" />
-          <Property Name="DepartmentName_en" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DepartmentName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -3647,7 +3973,8 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <NavigationProperty Name="Country" Relationship="Afaqy_Store.DataLayer.FK_Employee_Country" FromRole="Employee" ToRole="Country" />
           <NavigationProperty Name="Customer" Relationship="Afaqy_Store.DataLayer.FK_Customer_Employee" FromRole="Employee" ToRole="Customer" />
           <NavigationProperty Name="DeliveryDevice" Relationship="Afaqy_Store.DataLayer.FK_DeliveryDevice_Employee" FromRole="Employee" ToRole="DeliveryDevice" />
-          <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_Employee" FromRole="Employee" ToRole="DeliveryNote" />
+          <NavigationProperty Name="DeliveryRequestTechnician" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_Employee" FromRole="Employee" ToRole="DeliveryRequestTechnician" />
+          <NavigationProperty Name="DeliveryTechnician" Relationship="Afaqy_Store.DataLayer.FK_DeliveryTechnician_Employee" FromRole="Employee" ToRole="DeliveryTechnician" />
           <NavigationProperty Name="Department" Relationship="Afaqy_Store.DataLayer.FK_Employee_Department" FromRole="Employee" ToRole="Department" />
         </EntityType>
         <EntityType Name="ErrorLog">
@@ -3906,6 +4233,8 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DeliveryNote" Relationship="Afaqy_Store.DataLayer.FK_DeliveryNote_TechniqueSystem" FromRole="TechniqueSystem" ToRole="DeliveryNote" />
+          <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequest_TechniqueSystem" FromRole="TechniqueSystem" ToRole="DeliveryRequest" />
           <NavigationProperty Name="SystemServerIP" Relationship="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" FromRole="TechniqueSystem" ToRole="SystemServerIP" />
           <NavigationProperty Name="TechniqueCompany" Relationship="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" FromRole="TechniqueSystem" ToRole="TechniqueCompany" />
         </EntityType>
@@ -4093,6 +4422,24 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="DeliveryRequestDetailsView">
+          <Key>
+            <PropertyRef Name="DeliveryRequestDetailsId" />
+            <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="DeviceModelTypeId" />
+            <PropertyRef Name="DeviceModelTypeName" />
+            <PropertyRef Name="ItemFamilyName_en" />
+            <PropertyRef Name="Quantity" />
+          </Key>
+          <Property Name="DeliveryRequestDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceModelTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DeviceModelTypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ItemFamilyName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemFamilyName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="DeliveryRequestView">
           <Key>
             <PropertyRef Name="DeliveryRequestId" />
@@ -4105,10 +4452,14 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             <PropertyRef Name="SaleTransactionTypeId" />
             <PropertyRef Name="SaleTransactionType_en" />
             <PropertyRef Name="SaleTransactionType_ar" />
-            <PropertyRef Name="DeliveryDateTime" />
+            <PropertyRef Name="DeliveryRequestDateTime" />
             <PropertyRef Name="IsBlock" />
             <PropertyRef Name="CreateUserId" />
             <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="WarehouseId" />
+            <PropertyRef Name="WarehouseName_en" />
+            <PropertyRef Name="ContactName_en" />
+            <PropertyRef Name="SystemName" />
           </Key>
           <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
           <Property Name="POSId" Type="Int32" Nullable="false" />
@@ -4123,7 +4474,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
           <Property Name="SaleTransactionType_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SaleTransactionType_ar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeliveryRequestDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
@@ -4142,6 +4493,17 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
           <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="false" />
+          <Property Name="WarehouseName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WarehouseName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContactId" Type="Int32" />
+          <Property Name="ContactName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SystemId" Type="Int32" />
+          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DeviceSIMView">
           <Key>
@@ -4776,6 +5138,30 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryNote_CustomerContact">
+          <End Type="Afaqy_Store.DataLayer.CustomerContact" Role="CustomerContact" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerContact">
+              <PropertyRef Name="CustomerContactId" />
+            </Principal>
+            <Dependent Role="DeliveryNote">
+              <PropertyRef Name="CustomerContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequest_CustomerContact">
+          <End Type="Afaqy_Store.DataLayer.CustomerContact" Role="CustomerContact" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequest" Role="DeliveryRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerContact">
+              <PropertyRef Name="CustomerContactId" />
+            </Principal>
+            <Dependent Role="DeliveryRequest">
+              <PropertyRef Name="CustomerContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CustomerServerIP_CustomerServerStatus">
           <End Type="Afaqy_Store.DataLayer.CustomerServerStatus" Role="CustomerServerStatus" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.CustomerServerAccount" Role="CustomerServerAccount" Multiplicity="*" />
@@ -4841,7 +5227,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
           <End Type="Afaqy_Store.DataLayer.DeliveryDetails" Role="DeliveryDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliveryNote">
-              <PropertyRef Name="DeliveryId" />
+              <PropertyRef Name="DeliveryNoteId" />
             </Principal>
             <Dependent Role="DeliveryDetails">
               <PropertyRef Name="DeliveryId" />
@@ -4920,18 +5306,6 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DeliveryNote_Employee">
-          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="DeliveryNote">
-              <PropertyRef Name="EmpoyeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DeliveryNote_PointOfSale">
           <End Type="Afaqy_Store.DataLayer.PointOfSale" Role="PointOfSale" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="*" />
@@ -4956,6 +5330,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryNote_TechniqueSystem">
+          <End Type="Afaqy_Store.DataLayer.TechniqueSystem" Role="TechniqueSystem" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="DeliveryNote">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryNote_Warehouse">
           <End Type="Afaqy_Store.DataLayer.Warehouse" Role="Warehouse" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="*" />
@@ -4965,6 +5351,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Principal>
             <Dependent Role="DeliveryNote">
               <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryTechnician_DeliveryNote">
+          <End Type="Afaqy_Store.DataLayer.DeliveryNote" Role="DeliveryNote" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryTechnician" Role="DeliveryTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryNote">
+              <PropertyRef Name="DeliveryNoteId" />
+            </Principal>
+            <Dependent Role="DeliveryTechnician">
+              <PropertyRef Name="DeliveryNoteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5004,6 +5402,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryRequest_TechniqueSystem">
+          <End Type="Afaqy_Store.DataLayer.TechniqueSystem" Role="TechniqueSystem" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequest" Role="DeliveryRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TechniqueSystem">
+              <PropertyRef Name="SystemId" />
+            </Principal>
+            <Dependent Role="DeliveryRequest">
+              <PropertyRef Name="SystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryRequest_Warehouse">
           <End Type="Afaqy_Store.DataLayer.Warehouse" Role="Warehouse" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.DeliveryRequest" Role="DeliveryRequest" Multiplicity="*" />
@@ -5028,6 +5438,18 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DeliveryRequestTechnician_DeliveryRequest">
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequest" Role="DeliveryRequest" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequestTechnician" Role="DeliveryRequestTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryRequest">
+              <PropertyRef Name="DeliveryRequestId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestTechnician">
+              <PropertyRef Name="DeliveryRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DeliveryRequestDetails_DeviceModelType">
           <End Type="Afaqy_Store.DataLayer.DeviceModelType" Role="DeviceModelType" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.DeliveryRequestDetails" Role="DeliveryRequestDetails" Multiplicity="*" />
@@ -5037,6 +5459,42 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
             </Principal>
             <Dependent Role="DeliveryRequestDetails">
               <PropertyRef Name="DeviceModelTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequestStatusHistory_DeliveryRequestStatus">
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequestStatus" Role="DeliveryRequestStatus" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequestStatusHistory" Role="DeliveryRequestStatusHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryRequestStatus">
+              <PropertyRef Name="DeliveryRequestStatusId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestStatusHistory">
+              <PropertyRef Name="DeliveryRequestStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryRequestTechnician_Employee">
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryRequestTechnician" Role="DeliveryRequestTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="DeliveryRequestTechnician">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryTechnician_Employee">
+          <End Type="Afaqy_Store.DataLayer.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.DeliveryTechnician" Role="DeliveryTechnician" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="DeliveryTechnician">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5525,18 +5983,21 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="EmpoyeeId" ColumnName="EmpoyeeId" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
                 <ScalarProperty Name="DolphinDeliveryId" ColumnName="DolphinDeliveryId" />
                 <ScalarProperty Name="DolphinReference" ColumnName="DolphinReference" />
                 <ScalarProperty Name="DeliveryStatusId" ColumnName="DeliveryStatusId" />
                 <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
                 <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
+                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
+                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
+                <ScalarProperty Name="CustomerContactId" ColumnName="CustomerContactId" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
                 <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="POSId" ColumnName="POSId" />
-                <ScalarProperty Name="DeliveryId" ColumnName="DeliveryId" />
+                <ScalarProperty Name="DeliveryNoteId" ColumnName="DeliveryNoteId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5549,8 +6010,12 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="ActualDeliveryDateTime" ColumnName="ActualDeliveryDateTime" />
+                <ScalarProperty Name="DeliveryRequestDateTime" ColumnName="DeliveryRequestDateTime" />
                 <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
+                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
+                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
                 <ScalarProperty Name="CustomerContactId" ColumnName="CustomerContactId" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -5591,6 +6056,32 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryRequestStatusHistory">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestStatusHistory">
+              <MappingFragment StoreEntitySet="DeliveryRequestStatusHistory">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DeliveryRequestStatusId" ColumnName="DeliveryRequestStatusId" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryRequestTechnician">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestTechnician">
+              <MappingFragment StoreEntitySet="DeliveryRequestTechnician">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+                <ScalarProperty Name="DeliveryRequestTechnicalId" ColumnName="DeliveryRequestTechnicalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DeliveryStatus">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryStatus">
               <MappingFragment StoreEntitySet="DeliveryStatus">
@@ -5602,6 +6093,20 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="DeliveryStatus_ar" ColumnName="DeliveryStatus_ar" />
                 <ScalarProperty Name="DeliveryStatus_en" ColumnName="DeliveryStatus_en" />
                 <ScalarProperty Name="DeliveryStatusId" ColumnName="DeliveryStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryTechnician">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryTechnician">
+              <MappingFragment StoreEntitySet="DeliveryTechnician">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DeliveryNoteId" ColumnName="DeliveryNoteId" />
+                <ScalarProperty Name="DeliveryNoteTechnicalId" ColumnName="DeliveryNoteTechnicalId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6137,9 +6642,34 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryRequestDetailsView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestDetailsView">
+              <MappingFragment StoreEntitySet="DeliveryRequestDetailsView">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemFamilyName_ar" ColumnName="ItemFamilyName_ar" />
+                <ScalarProperty Name="ItemFamilyName_en" ColumnName="ItemFamilyName_en" />
+                <ScalarProperty Name="DeviceModelTypeName" ColumnName="DeviceModelTypeName" />
+                <ScalarProperty Name="DeviceModelTypeId" ColumnName="DeviceModelTypeId" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+                <ScalarProperty Name="DeliveryRequestDetailsId" ColumnName="DeliveryRequestDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DeliveryRequestView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestView">
               <MappingFragment StoreEntitySet="DeliveryRequestView">
+                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
+                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
+                <ScalarProperty Name="ContactName_ar" ColumnName="ContactName_ar" />
+                <ScalarProperty Name="ContactName_en" ColumnName="ContactName_en" />
+                <ScalarProperty Name="CustomerContactId" ColumnName="CustomerContactId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="WarehouseName_ar" ColumnName="WarehouseName_ar" />
+                <ScalarProperty Name="WarehouseName_en" ColumnName="WarehouseName_en" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
                 <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
                 <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
                 <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
@@ -6158,7 +6688,7 @@ warning 6002: The table/view 'AfaqyStore.afqy.UserView' does not have a primary 
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
+                <ScalarProperty Name="DeliveryRequestDateTime" ColumnName="DeliveryRequestDateTime" />
                 <ScalarProperty Name="SaleTransactionType_ar" ColumnName="SaleTransactionType_ar" />
                 <ScalarProperty Name="SaleTransactionType_en" ColumnName="SaleTransactionType_en" />
                 <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
