@@ -79,6 +79,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery.
+        /// </summary>
+        public static string ButtonDelivery {
+            get {
+                return ResourceManager.GetString("ButtonDelivery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received.
+        /// </summary>
+        public static string ButtonStoreReceived {
+            get {
+                return ResourceManager.GetString("ButtonStoreReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string DelieryDetails {
+            get {
+                return ResourceManager.GetString("DelieryDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Date.
         /// </summary>
         public static string DeliveryDate {
@@ -93,6 +120,42 @@ namespace Resources {
         public static string DeliveryDateTime {
             get {
                 return ResourceManager.GetString("DeliveryDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dolphin Reference.
+        /// </summary>
+        public static string DeliveryDolphinReference {
+            get {
+                return ResourceManager.GetString("DeliveryDolphinReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Note.
+        /// </summary>
+        public static string DeliveryNote {
+            get {
+                return ResourceManager.GetString("DeliveryNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Delivery Note.
+        /// </summary>
+        public static string DeliveryNoteCreate {
+            get {
+                return ResourceManager.GetString("DeliveryNoteCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Delivery Note.
+        /// </summary>
+        public static string DeliveryNoteNew {
+            get {
+                return ResourceManager.GetString("DeliveryNoteNew", resourceCulture);
             }
         }
         
@@ -169,11 +232,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Request received by store successfully.
+        /// </summary>
+        public static string DeliveryRequestReceivedSuccessMessage {
+            get {
+                return ResourceManager.GetString("DeliveryRequestReceivedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request Status.
         /// </summary>
         public static string DeliveryRequestStatus {
             get {
                 return ResourceManager.GetString("DeliveryRequestStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Status.
+        /// </summary>
+        public static string DeliveryStatus {
+            get {
+                return ResourceManager.GetString("DeliveryStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technician(s).
+        /// </summary>
+        public static string DeliveryTechnician {
+            get {
+                return ResourceManager.GetString("DeliveryTechnician", resourceCulture);
             }
         }
         
@@ -390,6 +480,15 @@ namespace Resources {
         public static string DeviceTitle {
             get {
                 return ResourceManager.GetString("DeviceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dolphin Ref.
+        /// </summary>
+        public static string DolphinReference {
+            get {
+                return ResourceManager.GetString("DolphinReference", resourceCulture);
             }
         }
         

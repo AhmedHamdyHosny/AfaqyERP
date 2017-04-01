@@ -101,6 +101,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="MvcSiteMapProvider, Version=4.6.22.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
       <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.22\lib\net45\MvcSiteMapProvider.dll</HintPath>
       <Private>True</Private>
@@ -244,6 +245,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AfaqyStoreDataSource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AfaqyStoreDataSource.xsd</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -292,8 +298,13 @@
     <Compile Include="Controllers\ApiCustomerContactController.cs" />
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
     <Compile Include="Controllers\ApiCustomerTypeController.cs" />
+    <Compile Include="Controllers\ApiDeliveryDetailsController.cs" />
+    <Compile Include="Controllers\ApiDeliveryDeviceController.cs" />
+    <Compile Include="Controllers\ApiDeliveryNoteController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestDetailsController.cs" />
+    <Compile Include="Controllers\ApiDeliveryRequestTechnicianController.cs" />
+    <Compile Include="Controllers\ApiDeliveryTehnicianController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\ApiEmployeeController.cs" />
     <Compile Include="Controllers\ApiItemFamilyController.cs" />
@@ -379,8 +390,13 @@
     <Compile Include="Models\CustomerServerUserModel.cs" />
     <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\CustomerTypeModel.cs" />
+    <Compile Include="Models\DeliveryDetailsModel.cs" />
+    <Compile Include="Models\DeliveryDeviceModel.cs" />
+    <Compile Include="Models\DeliveryNoteModel.cs" />
     <Compile Include="Models\DeliveryRequestDetailsModel.cs" />
     <Compile Include="Models\DeliveryRequestModel.cs" />
+    <Compile Include="Models\DeliveryRequestTechnicianModel.cs" />
+    <Compile Include="Models\DeliveryTechnicianModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\DeviceModelTypeModel.cs" />
     <Compile Include="Models\DeviceSIMModel.cs" />
@@ -410,6 +426,14 @@
     <Compile Include="Models\WarehouseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Reports\Models\DeliveryDeviceReportModel.cs" />
+    <Compile Include="Reports\Store\DeliveryNoteDeviceReportViewer.aspx.cs">
+      <DependentUpon>DeliveryNoteDeviceReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\Store\DeliveryNoteDeviceReportViewer.aspx.designer.cs">
+      <DependentUpon>DeliveryNoteDeviceReportViewer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -530,6 +554,7 @@
     <Content Include="Content\js\1.custom-js\services\util.js" />
     <Content Include="Content\js\1.custom-js\Utilities\Classes.js" />
     <Content Include="Content\js\1.custom-js\Views\CustomerContact.js" />
+    <Content Include="Content\js\1.custom-js\Views\Device.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.min.js" />
     <Content Include="Content\js\2.jquery-validation\jquery.validate.unobtrusive.js" />
@@ -628,6 +653,17 @@
     <Content Include="Content\js\jquery.min.js" />
     <Content Include="Content\css\2.angular\ui-grid.ttf" />
     <Content Include="Content\css\2.angular\ui-grid.woff" />
+    <Content Include="AfaqyStoreDataSource.xsc">
+      <DependentUpon>AfaqyStoreDataSource.xsd</DependentUpon>
+    </Content>
+    <None Include="AfaqyStoreDataSource.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AfaqyStoreDataSource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AfaqyStoreDataSource.xss">
+      <DependentUpon>AfaqyStoreDataSource.xsd</DependentUpon>
+    </Content>
     <None Include="Content\js\jqueryval\jquery.validate-vsdoc.js" />
     <Content Include="Content\js\jqueryval\jquery.validate.js" />
     <Content Include="Content\js\jqueryval\jquery.validate.min.js" />
@@ -661,6 +697,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Reports\Store\DeliveryNoteDeviceReportViewer.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -1057,10 +1094,11 @@
     <Content Include="Views\Shared\_TestPopup.cshtml" />
     <Content Include="Views\CustomerContact\Create.cshtml" />
     <Content Include="Views\DeliveryRequest\Assign.cshtml" />
+    <Content Include="Views\DeliveryNote\Index.cshtml" />
+    <Content Include="Views\DeliveryNote\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\DeliveryNote\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1087,6 +1125,10 @@
       <Project>{61bde92d-d52c-43d4-a45a-5b01ec2e9f1e}</Project>
       <Name>Security.DataLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Store\DeliveryNoteDevice.rdlc" />
+    <EmbeddedResource Include="Reports\Store\TestReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

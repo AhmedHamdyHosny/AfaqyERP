@@ -77,8 +77,9 @@
                 </div>
                 <div class="col-xs-6 form-group"> 
                     @Html.LabelFor(model => model.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
-                    <div custom-select="item.Value as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
-                    @Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer" })
+                    <div id="customerDiv" custom-select="item as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
+                    @Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer.Value" })
+                    @Html.HiddenFor(model => model.CustomerName, htmlAttributes: new { data_ng_value = "selectCustomer.Text" } )
                     @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
                 </div>
             </div>

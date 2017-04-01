@@ -14,6 +14,7 @@
 {
 
     <div class="modal-body withVScroll" ng-init="bindGirdData()">
+        @Html.HiddenFor(model => model.DeliveryRequestId)
         <div class="row">
             <div class="col-xs-6 form-group">
                 <dl class="dl-horizontal">
@@ -150,7 +151,8 @@
         
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
+        <button class="btn btn-success" ng-show="!showSubmit" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
+        <button class="btn btn-success" ng-show="showSubmit" type="submit" >@Resources.Resource.ButtonSave</button>
     </div>
 }
 

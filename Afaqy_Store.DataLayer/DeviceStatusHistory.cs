@@ -19,8 +19,8 @@ namespace Afaqy_Store.DataLayer
         public int DeviceStatusId { get; set; }
         public Nullable<int> BranchId { get; set; }
         public string Note { get; set; }
-        public int CreateUserId { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
     
         public virtual Branch Branch { get; set; }
         public virtual DeviceStatus DeviceStatus { get; set; }

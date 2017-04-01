@@ -38,8 +38,20 @@ namespace Afaqy_Store.Controllers
             //get all customers
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en", "CustomerName_en", filters);
-            ViewBag.CustomerId = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString() });
+            List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en,CustomerName_ar", "CustomerName_en", filters);
+            //add customer english name
+            var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString() }).ToList();
+            //add customer arabic name
+            customerSelectListItems.AddRange(customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_ar, Value = x.CustomerId.ToString() }));
+            //get all customer server accounts
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            List<CustomerServerAccount> customerServerAccounts = new CustomerServerAccountModel<CustomerServerAccount>().GetAsDDLst("CustomerId,SeverCustomerName,AccountUserName", "SeverCustomerName", filters);
+            //add customer name in server 
+            customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
+            //get distinct value from list
+            customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x=>x.Text).Distinct().ToList();
+            ViewBag.CustomerId = customerSelectListItems;
 
             //get all Points of sale
             filters = new List<GenericDataFormat.FilterItems>();
@@ -89,13 +101,11 @@ namespace Afaqy_Store.Controllers
         {
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
-            model.DeliveryRequestStatusId = (int)Classes.Common.DBEnums.DeliveryRequestStatus.New;
+            model.DeliveryRequestStatusId = (int)Classes.Common.DBEnums.DeliveryRequestStatus.Approved;
             DateTime deliveryDateTime = (DateTime)Classes.Utilities.Utility.ParseDateTime(model.DeliveryRequestDate_Str + " " + model.DeliveryRequestTime_Str);
             model.DeliveryRequestDateTime = deliveryDateTime;
             model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
-
-            var lst = model.DeliveryRequestDetails.ToList();
-            var count = model.DeliveryRequestDetails.Count();
+            
         }
         public override void FuncPreInitEditView(object id, ref DeliveryRequest EditItem, ref DeliveryRequestEditModel model)
         {
@@ -202,7 +212,7 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
             ExportFileName = "DeliveryRequests.xlsx";
-            string properties = "SystemId,SystemName,IsBlock";
+            string properties = string.Join(",", typeof(DeliveryRequestView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar"))); ;
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
 
@@ -262,6 +272,29 @@ namespace Afaqy_Store.Controllers
             var item = instance.Update(EditItem, id);
 
             TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = 1,  MessageContent = Resources.Store.DeliveryRequestAssignSuccessMessage   };
+            return RedirectToAction("Index");
+        }
+        
+
+        [HttpPost]
+        public ActionResult Details(FormCollection fc)
+        {
+            int id = int.Parse(fc.Get("DeliveryRequestId"));
+            //get delivery request
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = id });
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestTechnician" } };
+            DeliveryRequest EditItem = new DeliveryRequestModel<DeliveryRequest>().Get(requestBody).SingleOrDefault();
+            //update status
+            if (EditItem != null)
+            {
+                EditItem.DeliveryRequestStatusId = (int)Classes.Common.DBEnums.DeliveryRequestStatus.Store_Notified;
+            }
+            //update object
+            var instance = new DeliveryRequestModel<DeliveryRequest>();
+            var item = instance.Update(EditItem, id);
+
+            TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = 1, MessageContent = Resources.Store.DeliveryRequestReceivedSuccessMessage };
             return RedirectToAction("Index");
         }
     }

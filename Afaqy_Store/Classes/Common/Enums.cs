@@ -87,12 +87,15 @@ namespace Classes.Common
             Configured_Updated = 3,
             Connted_with_SIM_card = 4,
             Transfered_to_branch = 5,
-            With_technical = 6,
-            Connected_with_server = 7,
-            Disconnected_with_server = 8,
-            In_maintenance = 9,
-            Missing = 10,
-            Damage = 11
+            In_customer_delivery_phase = 6,
+            Spare_to_technician = 7,
+            Connected_with_server = 8,
+            Disconnected_with_server = 9,
+            Disconnected_customer_service = 10,
+            Damage = 11,
+            In_maintenance = 12,
+            Missing = 13
+            
         }
 
         public enum SIMCardStatus
@@ -143,7 +146,17 @@ namespace Classes.Common
             Approved = 2,
             Reject = 3,
             Technician_Assignation = 4,
-            Technician_Assignation_With_Delay = 5
+            Technician_Assignation_With_Delay = 5,
+            Store_Notified = 6,
+            In_the_delivery_phase = 7
+        }
+
+        public enum DeliveryStatus
+        {
+            New = 1,
+            Delivery_To_Technician = 2,
+            Under_Implementation = 3,
+            Delivery_To_Customer = 4
         }
 
         public enum SaleTransactionType

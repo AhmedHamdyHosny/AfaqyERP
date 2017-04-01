@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Afaqy_Store/Reports/Store/TestReport.rdlc

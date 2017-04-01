@@ -29,7 +29,7 @@ namespace Afaqy_Store.Models
             {
                 if (_createUser == null)
                 {
-                    new UserModel<UserViewModel>().Get_Create_Modify_User(this.CreateUserId, null, ref this._createUser,ref this._modifyUser);
+                    new UserModel<UserViewModel>().Get_Create_Modify_User((int)this.CreateUserId, null, ref this._createUser,ref this._modifyUser);
                 }
                 return _createUser;
             }

@@ -282,4 +282,7 @@
   <data name="Technician" xml:space="preserve">
     <value>Technician</value>
   </data>
+  <data name="PointOfSale" xml:space="preserve">
+    <value>Point Of Sale</value>
+  </data>
 </root>

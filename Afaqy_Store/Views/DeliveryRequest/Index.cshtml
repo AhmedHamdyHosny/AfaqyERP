@@ -117,9 +117,11 @@
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showEdit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Resource.ButtonAssign</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showAssign" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Resource.ButtonAssign</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.StoreReceivedPermission" ng-click="grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonStoreReceived</button>' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonDelivery</button>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, width: 200
             }
@@ -139,6 +141,7 @@
         var assignActionUrl = '@Url.Action("Assign")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
         var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
+        var DeliveryNoteUrl = '@Url.Action("Index","DeliveryNote")'
 
 
         var requestDetailsGridColumnDefs = [

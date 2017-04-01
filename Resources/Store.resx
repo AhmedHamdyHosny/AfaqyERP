@@ -237,4 +237,37 @@
   <data name="ActualDeliveryTime" xml:space="preserve">
     <value>Actual Delivery Time</value>
   </data>
+  <data name="DelieryDetails" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="DeliveryDolphinReference" xml:space="preserve">
+    <value>Dolphin Reference</value>
+  </data>
+  <data name="DeliveryNote" xml:space="preserve">
+    <value>Delivery Note</value>
+  </data>
+  <data name="DeliveryNoteCreate" xml:space="preserve">
+    <value>Create Delivery Note</value>
+  </data>
+  <data name="DeliveryNoteNew" xml:space="preserve">
+    <value>New Delivery Note</value>
+  </data>
+  <data name="DeliveryStatus" xml:space="preserve">
+    <value>Delivery Status</value>
+  </data>
+  <data name="DeliveryTechnician" xml:space="preserve">
+    <value>Technician(s)</value>
+  </data>
+  <data name="DolphinReference" xml:space="preserve">
+    <value>Dolphin Ref</value>
+  </data>
+  <data name="ButtonDelivery" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="ButtonStoreReceived" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="DeliveryRequestReceivedSuccessMessage" xml:space="preserve">
+    <value>Delivery Request received by store successfully</value>
+  </data>
 </root>

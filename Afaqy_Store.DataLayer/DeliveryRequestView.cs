@@ -57,5 +57,8 @@ namespace Afaqy_Store.DataLayer
         public string AlternativeContactTelephone { get; set; }
         public Nullable<int> SystemId { get; set; }
         public string SystemName { get; set; }
+        public Nullable<System.DateTime> ActualDeliveryDateTime { get; set; }
+        public Nullable<bool> StoreReceivedPermission { get; set; }
+        public Nullable<bool> DeliveryPermission { get; set; }
     }
 }

@@ -79,9 +79,9 @@
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.EditItem.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
-                    <div custom-select="item.Value as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
-                    @Html.HiddenFor(model => model.EditItem.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer" })
-                    @*@Html.CustomDropdownListFor(m => m.EditItem.CustomerId, Model.Customer, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "CustomerId", @id = "CustomerId" })*@
+                    <div custom-select="item as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
+                    @Html.HiddenFor(model => model.EditItem.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer.Value" })
+                    @Html.HiddenFor(model => model.EditItem.CustomerName, htmlAttributes: new { data_ng_value = "selectCustomer.Text" })
                     @Html.ValidationMessageFor(model => model.EditItem.CustomerId, "", new { @class = "text-danger" })
                 </div>
             </div>

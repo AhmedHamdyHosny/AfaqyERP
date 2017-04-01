@@ -143,6 +143,10 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SIMCardStatusHistory_SIMCardStatus" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_SystemServerIP_TechniqueSystem" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TechniqueSystem_TechniqueCompany" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryDetailsView" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryDeviceView" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryNoteView" Width="1.5" PointX="16.375" PointY="10.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" Width="1.5" PointX="17.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

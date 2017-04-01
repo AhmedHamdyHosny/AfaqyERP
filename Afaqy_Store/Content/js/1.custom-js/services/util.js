@@ -53,7 +53,7 @@ function confirmService($uibModal)
 function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, uiGridExporterService, global) {
     
     return {
-        initGrid: function($scope){
+        initGrid: function ($scope, postBind) {
             var fakeI18n = function (title) {
                 var deferred = $q.defer();
                 $interval(function () {
@@ -207,6 +207,10 @@ function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, ui
                     $scope.gridOptions.data = resp.data.PageItems;
                     //console.log(JSON.stringify(resp.data.PageItems));
                     $scope.gridOptions.selectedItems = [];
+                    if (postBind != null) {
+                        postBind();
+                    }
+                    
                 }, function (resp) {
                     console.log("Error: " + error);
                 }, function () {

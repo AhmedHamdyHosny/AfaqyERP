@@ -1,0 +1,267 @@
+﻿@using BeyondThemes.Bootstrap;
+@using Classes.Utilities;
+@using Classes.Common;
+@using Classes.Helper;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = Resources.Store.DeliveryNote;
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<br />
+<div class="row" ng-controller="DeliveryNoteCtrl">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@Resources.Store.DeliveryNote</span>
+                <div class="widget-buttons">
+                    <a href="javascript:void(0);" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                @{
+                    //check for alert messages
+                    if (ViewBag.AlertMessage != null)
+                    {
+                        var alertMessage = (AlertMessage)ViewBag.AlertMessage;
+                        switch (alertMessage.MessageType)
+                        {
+                            case Enums.AlertMessageType.Success:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id="alert"}).Style(AlertColor.Success).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-check"></i>
+                                    <strong>@Resources.Resource.AlertSuccess</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Error:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Error).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>@Resources.Resource.AlertError</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Warning:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Warning).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-warning"></i>
+                                    <strong>@Resources.Resource.AlertWarning</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.info:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Info).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-info"></i>
+                                    <strong>@Resources.Resource.AlertInfo</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                
+                <div class="table-toolbar">
+                    @*<a  ng-click="create()" class="btn purple" id="addBtn"> 
+                        <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                    </a>*@
+                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
+                        <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportAllDataAsCsv()">@Resources.Resource.ExportAllDataCsv</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportVisibleDataAsCsv()">@Resources.Resource.ExportVisibleDataCsv</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportAllDataAsPdf()">@Resources.Resource.ExportAllDataPdf</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportVisibleDataAsPdf()">@Resources.Resource.ExportVisibleDataPdf</a>
+                            </li> 
+                            <li>
+                                <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var gridColumnDefs = [
+            { field: 'DolphinReference', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
+            { field: 'POSName_en', name: '@Resources.Adminstration.PointOfSale', width: 150 },
+            { field: 'DeliveryStatus_en', name: '@Resources.Store.DeliveryStatus', width: 150 },
+            { field: 'CustomerName_en', name: '@Resources.ServerManagement.Customer', width: 200 },
+            { field: 'SaleTransactionType_en', name: '@Resources.Sales.SaleTransactionType', width: 180 },
+            { field: 'DeliveryDateTime', name: '@Resources.Store.DeliveryDateTime', width: 150 },
+            { field: 'WarehouseName_en', name: '@Resources.Adminstration.Warehouse', width: 150 },
+            { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
+            {
+                name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, width: 200
+            }
+        ];
+
+        var deleteModalOptions = {
+            closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
+            actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
+            headerText: '@Resources.Resource.DeleteConfirmDialogHeader',
+            bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
+        };
+
+        var getViewActionUrl = '@Url.Action("GetView")';
+        var createActionUrl = '@Url.Action("Create")';
+        var editActionUrl = '@Url.Action("Edit")';
+        var detailsActionUrl = '@Url.Action("Details")';
+        var assignActionUrl = '@Url.Action("Assign")';
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
+        var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
+        var deliveryRequestId = '@ViewBag.DeliveryRequestId'
+
+        var deliveryDetailsGridColumnDefs = [
+            {
+                name: 'ItemFamily',
+                displayName: 'Family',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div>' +
+                    '<input type="hidden" data_ng_value = "row.entity.DeliveryRequestDetailsId" />' +
+                    '<input type="hidden"  data_ng_value = "row.entity.DeliveryRequestId" />' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<select class="form-control row-dropdownlist" ng-change="grid.appScope.bindModel(row.entity.ItemFamily,grid.renderContainers.body.visibleRowCache.indexOf(row))" ng-model="row.entity.ItemFamily" >' +
+                    '<option ng-repeat="itemFamily in row.entity.ItemFamilies" value="{{itemFamily.Value}}">{{itemFamily.Text}}</option>' +
+                    '</select>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '22%'
+            },
+            {
+                name: 'ModelType',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<div>' +
+                    '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" ng-change="grid.appScope.setDeviceRows()" class="gridcustom-select"  autofocus></div>' +
+                    '<input type="hidden" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '</div>' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '37%', height: 100
+            },
+            {
+                name: 'Quantity',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<input class="form-control girdRowControl" ng-change="grid.appScope.setDeviceRows()" ng-model="row.entity.Quantity" type="number" min="1" value="1" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Quantity" />' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '16%'
+            },
+            {
+                name: 'Note',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '20%'
+            }
+        ];
+
+        var deliveryDeviceGridColumnDefs = [
+            {
+                name: 'Device',
+                displayName: 'DeviceIMEI',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="form-group">' +
+                    '<input ng-model="row.entity.IMEI" ng-change="grid.appScope.bindDeviceIMEI(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.IMEI)" class="form-control {{row.entity.IMEI_LoadingClass}}" />' +
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceId" ng-value = "row.entity.DeviceId" />' +
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" ng-value = "row.entity.DeviceModelTypeId" />' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 200
+            }
+        ];
+
+        var editDeliveryDetailsGridColumnDefs = [
+            {
+                name: 'ItemFamily',
+                displayName: 'Family',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div>' +
+                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeliveryRequestDetailsId" data_ng_value = "row.entity.DeliveryRequestDetailsId" />' +
+                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeliveryRequestId" data_ng_value = "row.entity.DeliveryRequestId" />' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<select class="form-control row-dropdownlist" ng-change="grid.appScope.bindModel(row.entity.ItemFamily,grid.renderContainers.body.visibleRowCache.indexOf(row))" ng-model="row.entity.ItemFamily" >' +
+                    '<option ng-repeat="itemFamily in row.entity.ItemFamilies" value="{{itemFamily.Value}}">{{itemFamily.Text}}</option>' +
+                    '</select>' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '22%'
+            },
+            {
+                name: 'ModelType',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<div>' +
+                    '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" class="gridcustom-select"  autofocus></div>' +
+                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '</div>' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '37%', height: 100
+            },
+            {
+                name: 'Quantity',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<input class="form-control girdRowControl" ng-model="row.entity.Quantity" type="number" min="1" value="1" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Quantity" />' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '16%'
+            },
+            {
+                name: 'Note',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: '20%'
+            }
+        ];
+
+        var detailsDeliveryDetailsGridColumnDefs = [
+            { field: 'ItemFamilyName_en', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'DeviceModelTypeName', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
+            { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
+        ];
+
+
+    </script>
+}
