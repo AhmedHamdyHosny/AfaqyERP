@@ -107,6 +107,8 @@ namespace Afaqy_Store.Controllers
             model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
             
         }
+
+        
         public override void FuncPreInitEditView(object id, ref DeliveryRequest EditItem, ref DeliveryRequestEditModel model)
         {
             if (EditItem == null)

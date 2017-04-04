@@ -117,6 +117,17 @@ namespace Afaqy_Store.Controllers
                                 context.DeliveryRequestTechnician.Remove(originalChildItem);
                         }
                     }
+
+                    //if delivery request has new status insert it in StatusHistory
+                    var lastStatus = context.DeliveryRequestStatusHistory.Where(x => x.DeliveryRequestId == value.DeliveryRequestId).OrderByDescending(x => x.CreateDate).Take(1).SingleOrDefault();
+                    if(lastStatus == null || lastStatus.DeliveryRequestStatusId != value.DeliveryRequestStatusId)
+                    {
+                        //insert new status in status history
+                        var CurrentUser = new Models.UserViewModel().GetUserFromSession();
+                        var userId = CurrentUser.UserId;
+                        context.DeliveryRequestStatusHistory.Add(new DeliveryRequestStatusHistory() { DeliveryRequestId = value.DeliveryRequestId, DeliveryRequestStatusId = value.DeliveryRequestStatusId, Note = value.Note, CreateUserId = userId, CreateDate = DateTime.Now});
+                    }
+
                     context.SaveChanges();
                 }
                 return Content(HttpStatusCode.OK, value);

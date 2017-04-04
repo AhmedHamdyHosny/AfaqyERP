@@ -74,6 +74,13 @@
                         @Html.DisplayFor(model => model.ModifyUser_FullName_en)
                     </dd>
 
+                    <dt>
+                        @Resources.Store.WithInstallationService
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.InstallationService)
+                    </dd>
+
                 </dl>
             </div>
             <div class="col-xs-6 form-group">
@@ -140,14 +147,14 @@
             <div class="col-xs-3  form-group">
                 <label class="text-info">@Resources.Store.ActualDeliveryDate</label>
                 <span class="input-icon icon-right">
-                    <input name="ActualDeliveryRequestDate_Str" class="form-control date-picker" id="DeliveryRequestDate_Str" type="text" data-date-format="dd/mm/yyyy" value="@Model.DeliveryRequestDateTime.ToShortDateString()">
+                    <input name="ActualDeliveryRequestDate_Str" class="form-control date-picker" id="DeliveryRequestDate_Str" type="text" data-date-format="dd/mm/yyyy" value="@DateTime.Parse(Model.DeliveryRequestDateTime).ToShortDateString()">
                     <i class="fa fa-calendar"></i>
                 </span>
             </div>
             <div class="col-xs-3 form-group">
                 <label class="text-info">@Resources.Store.ActualDeliveryTime</label>
                 <div class="input-group">
-                    <input class="form-control" name="ActualDeliveryRequestTime_Str" id="DeliveryRequestTime_Str" type="text" value="@Model.DeliveryRequestDateTime.ToShortTimeString()">
+                    <input class="form-control" name="ActualDeliveryRequestTime_Str" id="DeliveryRequestTime_Str" type="text" value="@DateTime.Parse(Model.DeliveryRequestDateTime).ToShortTimeString()">
                     <span class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                     </span>

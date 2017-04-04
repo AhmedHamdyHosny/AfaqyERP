@@ -1,6 +1,7 @@
 ﻿@model Afaqy_Store.Models.DeliveryRequestCreateBindModel
 @using Classes.Helper;
 @using Newtonsoft.Json;
+@using BeyondThemes.Bootstrap;
 
 @{
     ViewBag.Title = Resources.Store.DeliveryRequestCreate;
@@ -129,6 +130,11 @@
                     @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
                     @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.Bootstrap().CheckBoxFor(model => model.WithInstallationService).Text(Resources.Store.WithInstallationService).IsChecked(true).HtmlAttributes(new { @class = "colored-danger" })
                 </div>
             </div>
 

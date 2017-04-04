@@ -1096,6 +1096,7 @@
     <Content Include="Views\DeliveryRequest\Assign.cshtml" />
     <Content Include="Views\DeliveryNote\Index.cshtml" />
     <Content Include="Views\DeliveryNote\Create.cshtml" />
+    <Content Include="Views\DeliveryNote\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1128,7 +1129,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\Store\DeliveryNoteDevice.rdlc" />
-    <EmbeddedResource Include="Reports\Store\TestReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

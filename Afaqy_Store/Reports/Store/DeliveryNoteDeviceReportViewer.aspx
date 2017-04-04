@@ -13,7 +13,7 @@
     <div>
     <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+        <asp:Button ID="Button1" runat="server" Visible="false" OnClick="Button1_Click" Text="Button" />
         <rsweb:ReportViewer ID="InvoiceRptViewer" runat="server" Height="1000" Width="99%" ZoomMode="PageWidth" BackColor="White" BorderColor="White" ></rsweb:ReportViewer>
     </div>
     </form>

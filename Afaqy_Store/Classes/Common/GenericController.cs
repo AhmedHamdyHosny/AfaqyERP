@@ -72,10 +72,10 @@ namespace Classes.Common
                 delegatePreExecute(ref model);
                 //create instance to insert object
                 dynamic instance = Activator.CreateInstance(typeof(TModel_TDBModel));
-                var item = instance.Insert(model);
+                TDBModel item = instance.Insert(model);
 
                 DelegatePostCreate delegatePostExecute = new DelegatePostCreate(FuncPostCreate);
-                return delegatePostExecute(ref model);
+                return delegatePostExecute(ref model, ref item);
             }
 
             DelegatePreInitCreateView delegatePreExecuteInitCreateView = new DelegatePreInitCreateView(FuncPreInitCreateView);
@@ -374,7 +374,7 @@ namespace Classes.Common
         public delegate void DelegatePreInitCreateView();
         public delegate ActionResult DelegatePostInitCreateView();
         public delegate void DelegatePreCreate(ref TCreateBindModel model);
-        public delegate ActionResult DelegatePostCreate(ref TCreateBindModel model);
+        public delegate ActionResult DelegatePostCreate(ref TCreateBindModel model, ref TDBModel insertedItem);
         public delegate void DelegatePreCreateGroup(ref TCreateBindModel[] items, FormCollection formCollection);
         public delegate ActionResult DelegatePostCreateGroup(ref TCreateBindModel[] items, FormCollection formCollection);
         public delegate void DelegatePreInitEditView(object id, ref TDBModel EditItem, ref TEditModel model);
@@ -443,7 +443,7 @@ namespace Classes.Common
         {
 
         }
-        public virtual ActionResult FuncPostCreate(ref TCreateBindModel model)
+        public virtual ActionResult FuncPostCreate(ref TCreateBindModel model, ref TDBModel insertedItem)
         {
             //set alerts messages
             TempData["AlertMessage"] = new AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = 1, Transaction = Transactions.Create };

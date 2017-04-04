@@ -27,7 +27,7 @@ namespace Afaqy_Store.DataLayer
         public int SaleTransactionTypeId { get; set; }
         public string SaleTransactionType_en { get; set; }
         public string SaleTransactionType_ar { get; set; }
-        public System.DateTime DeliveryRequestDateTime { get; set; }
+        public string DeliveryRequestDateTime { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -57,8 +57,11 @@ namespace Afaqy_Store.DataLayer
         public string AlternativeContactTelephone { get; set; }
         public Nullable<int> SystemId { get; set; }
         public string SystemName { get; set; }
-        public Nullable<System.DateTime> ActualDeliveryDateTime { get; set; }
+        public string Expr1 { get; set; }
+        public Nullable<bool> EditPermission { get; set; }
+        public Nullable<bool> AssignPermission { get; set; }
         public Nullable<bool> StoreReceivedPermission { get; set; }
         public Nullable<bool> DeliveryPermission { get; set; }
+        public Nullable<bool> WithInstallationService { get; set; }
     }
 }

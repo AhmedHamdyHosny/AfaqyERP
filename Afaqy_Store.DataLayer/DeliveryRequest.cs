@@ -35,6 +35,7 @@ namespace Afaqy_Store.DataLayer
         public System.DateTime DeliveryRequestDateTime { get; set; }
         public Nullable<System.DateTime> ActualDeliveryDateTime { get; set; }
         public Nullable<int> SystemId { get; set; }
+        public Nullable<bool> WithInstallationService { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }

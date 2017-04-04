@@ -8,6 +8,15 @@
     Layout = "~/Views/Shared/_Default.cshtml";
 }
 
+<style>
+    .ui-grid-cell {
+        overflow: visible !important;
+    }
+    .ui-grid-cell-contents {
+        overflow: visible !important;
+    }
+</style>
+
 <br />
 <div class="row" ng-controller="DeliveryRequestCtrl">
     <div class="col-xs-12 col-md-12">
@@ -116,13 +125,33 @@
             { field: 'Note', name: '@Resources.Store.DeliveryRequestNote', width: 180 },
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
             {
-                name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showEdit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
+                name: 'Action', cellTemplate:
+                    '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
+                    '<div class="btn-group">'+
+                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>'+
+                        '<a ng-show="row.entity.showActions" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions <i class="fa fa-angle-down"></i>' + '</a>' +
+                        '<ul class="dropdown-menu">'+
+                            '<li>'+
+                                '<a ng-show="row.entity.EditPermission" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" >@Resources.Resource.ButtonEdit</a>' +
+                            '</li>'+
+                            '<li>'+
+                                '<a ng-show="row.entity.AssignPermission" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)">@Resources.Resource.ButtonAssign</a>' +
+                            '</li>'+
+                            '<li>'+
+                                '<a ng-show="row.entity.StoreReceivedPermission" ng-click="grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)">@Resources.Store.ButtonStoreReceived</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)">@Resources.Store.ButtonDelivery</a>' +
+                            '</li>' +
+                            '</ul></div>'+
+
+                            @*'<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showEdit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
                     '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showAssign" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Resource.ButtonAssign</button>' +
                     '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.StoreReceivedPermission" ng-click="grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonStoreReceived</button>' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonDelivery</button>' +
-                    '</div>',
+                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonDelivery</button>' +*@
+                    '</div>'
+                ,
                 enableSorting: false, enableFiltering: false, width: 200
             }
         ];

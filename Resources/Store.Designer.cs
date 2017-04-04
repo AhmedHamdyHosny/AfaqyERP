@@ -518,5 +518,14 @@ namespace Resources {
                 return ResourceManager.GetString("Quantity", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With Installation Service.
+        /// </summary>
+        public static string WithInstallationService {
+            get {
+                return ResourceManager.GetString("WithInstallationService", resourceCulture);
+            }
+        }
     }
 }

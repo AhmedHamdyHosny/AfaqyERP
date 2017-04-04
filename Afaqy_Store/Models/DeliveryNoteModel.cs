@@ -38,14 +38,26 @@ namespace Afaqy_Store.Models
         public List<DeliveryDetails_DetailsViewModel> DeliveryDetailsView { get; set; }
         public List<DeliveryTechnicianViewModel> TechnicianView { get; set; }
     }
-    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,Note,DolphinReference,DeliveryDetails,DeliveryDevice")]
+    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,Note,DolphinReference,DeliveryDetails,DeliveryDevice")]
     public class DeliveryNoteCreateBindModel : DeliveryNote
     {
-        //public string DeliveryNoteDate_Str { get; set; }
-        //public string DeliveryNoteTime_Str { get; set; }
         public DeliveryRequestViewModel DeliveryRequestView { get; set; }
         public List<DeliveryRequestTechnicianViewModel> DeliveryRequestTechnician { get; set; }
         public DeliveryDeviceView[] DeliveryDevice { get; set; }
+        public string InstallationService
+        {
+            get
+            {
+                if(this.WithInstallationService != null)
+                {
+                    return (bool)this.WithInstallationService ? Resources.Resource.True : Resources.Resource.False;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         internal void ToDeliveryNote(DeliveryRequest deliveryRequest)
         {
             if (deliveryRequest != null)
@@ -60,11 +72,11 @@ namespace Afaqy_Store.Models
                 this.SaleTransactionTypeId = deliveryRequest.SaleTransactionTypeId;
                 this.DeliveryDateTime = (DateTime)deliveryRequest.ActualDeliveryDateTime;
                 this.SystemId = deliveryRequest.SystemId;
-
+                this.WithInstallationService = deliveryRequest.WithInstallationService;
             }
         }
     }
-    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,DeliveryStatusId,Note,DolphinReference,DolphinDeliveryId,DeliveryDetails,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,DeliveryStatusId,Note,DolphinReference,DolphinDeliveryId,DeliveryDetails,IsBlock,CreateUserId,CreateDate")]
     public class DeliveryNoteEditBindModel : DeliveryNote
     {
         //public string DeliveryNoteDate_Str { get; set; }

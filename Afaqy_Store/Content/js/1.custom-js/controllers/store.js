@@ -29,6 +29,7 @@
 .controller('DeliveryNoteCreateCtrl', DeliveryNoteCreateCtrl)
 .controller('DeliveryNoteEditCtrl', DeliveryNoteEditCtrl)
 .controller('DeliveryNoteDetailsCtrl', DeliveryNoteDetailsCtrl)
+.controller('DeliveryNoteReportCtrl', DeliveryNoteReportCtrl)
 
 //Device functions ========
 function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
@@ -252,17 +253,10 @@ function DeliveryRequestCtrl($scope, $uibModal, confirmService, global, gridServ
 
     gridService.initGrid($scope, function () {
         for (var i = 0; i < $scope.gridOptions.data.length; i++) {
-            if ($scope.gridOptions.data[i].DeliveryRequestStatusId > 3) {
-                $scope.gridOptions.data[i].showEdit = false;
-                $scope.gridOptions.data[i].showAssign = true;
-                if ($scope.gridOptions.data[i].DeliveryRequestStatusId == 7) {
-                    $scope.gridOptions.data[i].showAssign = false;
-                }
-            }
-            else {
-                $scope.gridOptions.data[i].showEdit = true;
-                $scope.gridOptions.data[i].showAssign = false;
-            }
+            $scope.gridOptions.data[i].showActions = $scope.gridOptions.data[i].EditPermission ||
+                $scope.gridOptions.data[i].AssignPermission || 
+                $scope.gridOptions.data[i].StoreReceivedPermission || 
+                $scope.gridOptions.data[i].DeliveryPermission;
         }
     });
 
@@ -374,7 +368,6 @@ function DeliveryRequestCtrl($scope, $uibModal, confirmService, global, gridServ
 
     $scope.GotoDelivery = function (id) {
         window.location.href = DeliveryNoteUrl + "/" + id;
-        
     }
 }
 
@@ -683,7 +676,6 @@ function DeliveryNoteCtrl($scope, $uibModal, confirmService, global, gridService
     gridService.configureExport($scope);
 
     $scope.create = function (deliveryRequestId) {
-    
         showLoading();
         var modalInstance = $uibModal.open({
             animation: true,
@@ -755,6 +747,19 @@ function DeliveryNoteCtrl($scope, $uibModal, confirmService, global, gridService
         }
     }
     
+    $scope.report = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: reportActionUrl + '/' + id,
+            controller: 'DeliveryNoteReportCtrl',
+            windowClass: 'large-Modal',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
 
 }
 
@@ -1083,4 +1088,12 @@ function DeliveryNoteDetailsCtrl($scope, $uibModalInstance) {
 
         $scope.gridOptions.data = gridData;
     }
+}
+
+function DeliveryNoteReportCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
 }

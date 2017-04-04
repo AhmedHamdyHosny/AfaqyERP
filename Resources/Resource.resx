@@ -249,6 +249,9 @@
   <data name="ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
+  <data name="ButtonReport" xml:space="preserve">
+    <value>Report</value>
+  </data>
   <data name="ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>

@@ -24,6 +24,7 @@
     <mvcSiteMapNode title="Store" controller="Store" action="UIStore" description="Store">
       <mvcSiteMapNode title="Device" controller="Device" action="Index" description="device"/>
       <mvcSiteMapNode title="Delivery Request" controller="DeliveryRequest" action="Index" description="Delivery request"/>
+      <mvcSiteMapNode title="Delivery Note" controller="DeliveryNote" action="Index" description="Delivery note"/>
     </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Adminstration" controller="Adminstration" action="UIAdminstration" description="Admin">

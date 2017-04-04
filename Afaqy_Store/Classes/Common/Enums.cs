@@ -95,7 +95,7 @@ namespace Classes.Common
             Damage = 11,
             In_maintenance = 12,
             Missing = 13
-            
+
         }
 
         public enum SIMCardStatus
@@ -183,5 +183,15 @@ namespace Classes.Common
             Server = 6,
             Software_Developement = 7
         }
-}
+
+        public enum NotificationType
+        {
+            DeliveryRequest_AssignNotification = 1,
+            DeliveryRequest_DeliveryNotification = 2,
+            DeliveryRequest_AcceptNotification = 3,
+            DeliveryRequest_RejectNotification = 4,
+            DeliveryRequest_ApproveNotification = 5
+        }
+
+    }
 }

@@ -575,7 +575,7 @@
         <DataSetName>DeliveryDeviceDataSet</DataSetName>
         <Top>0.125in</Top>
         <Height>0.5in</Height>
-        <Width>8.32292in</Width>
+        <Width>8.32293in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -586,7 +586,7 @@
     <Height>0.78in</Height>
     <Style />
   </Body>
-  <Width>8.32292in</Width>
+  <Width>8.32293in</Width>
   <Page>
     <PageHeader>
       <Height>2.14188in</Height>
@@ -1686,6 +1686,8 @@
         </Border>
       </Style>
     </PageFooter>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>

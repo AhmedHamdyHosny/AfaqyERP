@@ -43,6 +43,7 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<DeliveryDetails> DeliveryDetails { get; set; }
         public virtual DbSet<DeliveryDevice> DeliveryDevice { get; set; }
         public virtual DbSet<DeliveryNote> DeliveryNote { get; set; }
+        public virtual DbSet<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
         public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
         public virtual DbSet<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
         public virtual DbSet<DeliveryRequestStatus> DeliveryRequestStatus { get; set; }
@@ -60,6 +61,8 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ItemFamily> ItemFamily { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<NotificationType> NotificationType { get; set; }
         public virtual DbSet<PointOfSale> PointOfSale { get; set; }
         public virtual DbSet<SaleTransactionType> SaleTransactionType { get; set; }
         public virtual DbSet<ServerRole> ServerRole { get; set; }
@@ -81,7 +84,11 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
         public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
+        public virtual DbSet<DeliveryDetailsView> DeliveryDetailsView { get; set; }
+        public virtual DbSet<DeliveryDeviceView> DeliveryDeviceView { get; set; }
+        public virtual DbSet<DeliveryNoteView> DeliveryNoteView { get; set; }
         public virtual DbSet<DeliveryRequestDetailsView> DeliveryRequestDetailsView { get; set; }
+        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
         public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
@@ -90,9 +97,5 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
-        public virtual DbSet<DeliveryDetailsView> DeliveryDetailsView { get; set; }
-        public virtual DbSet<DeliveryDeviceView> DeliveryDeviceView { get; set; }
-        public virtual DbSet<DeliveryNoteView> DeliveryNoteView { get; set; }
-        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
     }
 }

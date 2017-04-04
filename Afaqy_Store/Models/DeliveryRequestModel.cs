@@ -28,6 +28,20 @@ namespace Afaqy_Store.Models
                 return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
             }
         }
+        public string InstallationService
+        {
+            get
+            {
+                if (this.WithInstallationService != null)
+                {
+                    return (bool)this.WithInstallationService ? Resources.Resource.True : Resources.Resource.False;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
     public class DeliveryRequestIndexViewModel : DeliveryRequestView
     {
@@ -38,13 +52,13 @@ namespace Afaqy_Store.Models
         public List<RequestDetails_DetailsViewModel> DeliveryRequestDetails { get; set; }
         public List<DeliveryRequestTechnician> Technician { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,Note,DeliveryRequestDetails")]
+    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,Note,DeliveryRequestDetails")]
     public class DeliveryRequestCreateBindModel : DeliveryRequest
     {
         public string DeliveryRequestDate_Str { get; set; }
         public string DeliveryRequestTime_Str { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,DeliveryRequestStatusId,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,DeliveryRequestStatusId,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
     public class DeliveryRequestEditBindModel : DeliveryRequest
     {
         public string DeliveryRequestDate_Str { get; set; }

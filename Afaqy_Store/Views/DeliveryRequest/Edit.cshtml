@@ -136,6 +136,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
+                    @Html.Bootstrap().CheckBoxFor(model => model.EditItem.WithInstallationService).Text(Resources.Store.WithInstallationService).HtmlAttributes(new { @class = "colored-danger" })
+                </div>
+                <div class="col-xs-6 form-group">
                     @Html.Bootstrap().CheckBoxFor(model => model.EditItem.IsBlock).Text(Resources.Resource.Block).HtmlAttributes(new { @class = "colored-danger" })
                 </div>
             </div>

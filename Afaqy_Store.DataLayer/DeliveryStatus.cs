@@ -18,6 +18,7 @@ namespace Afaqy_Store.DataLayer
         public DeliveryStatus()
         {
             this.DeliveryNote = new HashSet<DeliveryNote>();
+            this.DeliveryNoteStatusHistory = new HashSet<DeliveryNoteStatusHistory>();
         }
     
         public int DeliveryStatusId { get; set; }
@@ -31,5 +32,7 @@ namespace Afaqy_Store.DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
     }
 }

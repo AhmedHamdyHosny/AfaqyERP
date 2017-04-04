@@ -270,4 +270,7 @@
   <data name="DeliveryRequestReceivedSuccessMessage" xml:space="preserve">
     <value>Delivery Request received by store successfully</value>
   </data>
+  <data name="WithInstallationService" xml:space="preserve">
+    <value>With Installation Service</value>
+  </data>
 </root>

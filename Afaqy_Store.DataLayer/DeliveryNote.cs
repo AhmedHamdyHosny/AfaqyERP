@@ -18,6 +18,7 @@ namespace Afaqy_Store.DataLayer
         public DeliveryNote()
         {
             this.DeliveryDetails = new HashSet<DeliveryDetails>();
+            this.DeliveryNoteStatusHistory = new HashSet<DeliveryNoteStatusHistory>();
             this.DeliveryTechnician = new HashSet<DeliveryTechnician>();
         }
     
@@ -36,6 +37,7 @@ namespace Afaqy_Store.DataLayer
         public string DolphinReference { get; set; }
         public Nullable<int> DolphinDeliveryId { get; set; }
         public Nullable<int> SystemId { get; set; }
+        public Nullable<bool> WithInstallationService { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -53,6 +55,8 @@ namespace Afaqy_Store.DataLayer
         public virtual SaleTransactionType SaleTransactionType { get; set; }
         public virtual TechniqueSystem TechniqueSystem { get; set; }
         public virtual Warehouse Warehouse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryTechnician> DeliveryTechnician { get; set; }
     }

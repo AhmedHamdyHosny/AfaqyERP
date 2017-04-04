@@ -22,6 +22,18 @@ namespace Afaqy_Store.Controllers
             ViewBag.DeliveryRequestId = id;
             return base.Index();
         }
+
+        public ActionResult DeliveryRequest(int id)
+        {
+            ViewBag.DeliveryRequestId = id;
+            return base.Index();
+        }
+
+        public ActionResult Report(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
         public override void FuncPreDetailsView(object id, ref List<DeliveryNoteDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
@@ -73,7 +85,7 @@ namespace Afaqy_Store.Controllers
                 var instance = new DeliveryNoteModel<DeliveryNote>();
                 var item = instance.Insert(model);
                 
-                return base.FuncPostCreate(ref model);
+                return FuncPostCreate(ref model, ref item);
             }
             
             FuncPreInitCreateView(ref model);
@@ -92,9 +104,7 @@ namespace Afaqy_Store.Controllers
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = model.DeliveryRequestId });
             requestBody = new GenericDataFormat() { Filters = filters};
             var deliveryRequestView = new DeliveryRequestModel<DeliveryRequestViewModel>().GetView<DeliveryRequestViewModel>(requestBody).PageItems.SingleOrDefault();
-
-            //ViewBag.DeliveryRequest = deliveryRequest;
-            //ViewBag.DeliveryRequestView = deliveryRequestView;
+            
 
             model.DeliveryRequest = deliveryRequest;
             model.DeliveryRequestView = deliveryRequestView;

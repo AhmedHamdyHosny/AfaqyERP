@@ -27,7 +27,7 @@ namespace Afaqy_Store.DataLayer
         public int SaleTransactionTypeId { get; set; }
         public string SaleTransactionType_en { get; set; }
         public string SaleTransactionType_ar { get; set; }
-        public System.DateTime DeliveryDateTime { get; set; }
+        public string DeliveryDateTime { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -60,5 +60,6 @@ namespace Afaqy_Store.DataLayer
         public int DeliveryRequestId { get; set; }
         public string DolphinReference { get; set; }
         public Nullable<int> DolphinDeliveryId { get; set; }
+        public Nullable<bool> WithInstallationService { get; set; }
     }
 }
