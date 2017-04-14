@@ -273,4 +273,7 @@
   <data name="WithInstallationService" xml:space="preserve">
     <value>With Installation Service</value>
   </data>
+  <data name="ActualDeliveryDateTime" xml:space="preserve">
+    <value>Actual Delivery DateTime</value>
+  </data>
 </root>

@@ -16,11 +16,18 @@ namespace Afaqy_Store.DataLayer
     {
         public int DeliveryRequestDetailsId { get; set; }
         public int DeliveryRequestId { get; set; }
-        public int DeviceModelTypeId { get; set; }
-        public string DeviceModelTypeName { get; set; }
-        public string ItemFamilyName_en { get; set; }
-        public string ItemFamilyName_ar { get; set; }
+        public Nullable<decimal> ModelType_ia_item_id { get; set; }
+        public string ia_name { get; set; }
+        public string ia_shname { get; set; }
+        public string ia_altname { get; set; }
+        public string ia_shaltname { get; set; }
+        public string fa_name { get; set; }
+        public string fa_shname { get; set; }
+        public string fa_altname { get; set; }
+        public string fa_shaltname { get; set; }
         public int Quantity { get; set; }
         public string Note { get; set; }
+        public string fa_code { get; set; }
+        public string ia_item_code { get; set; }
     }
 }

@@ -23,19 +23,21 @@ namespace Afaqy_Store.DataLayer
         }
     
         public int DeliveryNoteId { get; set; }
-        public int POSId { get; set; }
-        public int WarehouseId { get; set; }
+        public int cmp_seq { get; set; }
+        public string POS_ps_code { get; set; }
+        public string Warehouse_wa_code { get; set; }
         public int DeliveryRequestId { get; set; }
-        public int CustomerId { get; set; }
+        public int Customer_aux_id { get; set; }
         public string CustomerName { get; set; }
-        public Nullable<int> CustomerContactId { get; set; }
+        public Nullable<int> CustomerContact_serial { get; set; }
         public string AlternativeContactName { get; set; }
         public string AlternativeContactTelephone { get; set; }
         public int SaleTransactionTypeId { get; set; }
         public System.DateTime DeliveryDateTime { get; set; }
         public int DeliveryStatusId { get; set; }
-        public string DolphinReference { get; set; }
-        public Nullable<int> DolphinDeliveryId { get; set; }
+        public string DeliveryNoteReference { get; set; }
+        public Nullable<decimal> DolphinDelivery_tra_ref_id { get; set; }
+        public Nullable<int> DolphinDelivery_tra_ref_type { get; set; }
         public Nullable<int> SystemId { get; set; }
         public Nullable<bool> WithInstallationService { get; set; }
         public string Note { get; set; }
@@ -45,16 +47,12 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual CustomerContact CustomerContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryDetails> DeliveryDetails { get; set; }
         public virtual DeliveryRequest DeliveryRequest { get; set; }
         public virtual DeliveryStatus DeliveryStatus { get; set; }
-        public virtual PointOfSale PointOfSale { get; set; }
         public virtual SaleTransactionType SaleTransactionType { get; set; }
         public virtual TechniqueSystem TechniqueSystem { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -52,12 +52,12 @@
             @Html.HiddenFor(model => model.DeliveryRequestId)
             <div class="row">
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.POSId, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.POSName_en, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.POS_ps_code, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.DeliveryRequestView.ps_name, new { @class = "form-control" })
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.WarehouseId, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.WarehouseName_en, new { @class = "form-control" })
+                    @Html.LabelFor(model => model.Warehouse_wa_code, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.DeliveryRequestView.wa_name, new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
@@ -66,14 +66,14 @@
                     @Html.Label(Model.DeliveryRequestView.SaleTransactionType_en, new { @class = "form-control" })
                 </div>
                 <div class="col-xs-6 form-group"> 
-                    @Html.LabelFor(model => model.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.Customer_aux_id, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
                     @Html.Label(Model.DeliveryRequestView.CustomerName ?? " ", new { @class = "form-control" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.CustomerContactId, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.ContactName_en ?? " ", new { @class = "form-control" })
+                    @Html.LabelFor(model => model.CustomerContact_serial, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.DeliveryRequestView.contact_name ?? " ", new { @class = "form-control" })
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.SystemId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.DeliveryTechnician, Resources.Store.DeliveryTechnician, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(string.Join(", ",Model.DeliveryRequestTechnician.Select(x=>x.Employee_FullName_en)), new { @class = "form-control" })
+                    @Html.Label(string.Join(", ",Model.DeliveryRequestTechnician.Select(x=>x.name)))
                 </div>
             </div>
             <div class="row">
@@ -114,7 +114,7 @@
             <div class="row">
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.Note, Resources.Store.DolphinReference, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.DolphinReference,new { htmlAttributes= new { @class = "form-control"} })
+                    @Html.EditorFor(model => model.DeliveryNoteReference,new { htmlAttributes= new { @class = "form-control", @Readonly = "true"} })
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
@@ -177,7 +177,7 @@
 
         var itemFamilies = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ItemFamilies)));
         var modelTypes = @Html.Raw(JsonConvert.SerializeObject(((List<SelectListItem>)ViewBag.ModelTypes)));
-        var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryRequest.DeliveryRequestDetails));
+        var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryRequestDetails));
         var DeviceGetInfoUrl = '@Url.Action("GetInfo","Device")';
 
         $(document).ready(function () {

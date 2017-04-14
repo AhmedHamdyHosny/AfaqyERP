@@ -15,15 +15,19 @@ namespace Afaqy_Store.DataLayer
     public partial class DeliveryRequestView
     {
         public int DeliveryRequestId { get; set; }
-        public int POSId { get; set; }
-        public string POSName_en { get; set; }
-        public string POSName_ar { get; set; }
+        public string POS_ps_code { get; set; }
+        public string ps_name { get; set; }
+        public string ps_shname { get; set; }
+        public string ps_altname { get; set; }
+        public string ps_shaltname { get; set; }
         public int DeliveryRequestStatusId { get; set; }
         public string DeliveryRequestStatus_en { get; set; }
         public string DeliveryRequestStatus_ar { get; set; }
-        public int CustomerId { get; set; }
-        public string CustomerName_en { get; set; }
-        public string CustomerName_ar { get; set; }
+        public int Customer_aux_id { get; set; }
+        public string name { get; set; }
+        public string shortname { get; set; }
+        public string altname { get; set; }
+        public string shortaltname { get; set; }
         public int SaleTransactionTypeId { get; set; }
         public string SaleTransactionType_en { get; set; }
         public string SaleTransactionType_ar { get; set; }
@@ -46,18 +50,19 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public string ModifyUser_FullName_en { get; set; }
         public string ModifyUser_FullName_ar { get; set; }
-        public int WarehouseId { get; set; }
-        public string WarehouseName_en { get; set; }
-        public string WarehouseName_ar { get; set; }
+        public string Warehouse_wa_code { get; set; }
+        public string wa_name { get; set; }
+        public string wa_shname { get; set; }
+        public string wa_altname { get; set; }
+        public string wa_shaltname { get; set; }
         public string CustomerName { get; set; }
-        public Nullable<int> CustomerContactId { get; set; }
-        public string ContactName_en { get; set; }
-        public string ContactName_ar { get; set; }
+        public Nullable<int> CustomerContact_serial { get; set; }
+        public string contact_name { get; set; }
         public string AlternativeContactName { get; set; }
         public string AlternativeContactTelephone { get; set; }
         public Nullable<int> SystemId { get; set; }
         public string SystemName { get; set; }
-        public string Expr1 { get; set; }
+        public string ActualDeliveryDateTime { get; set; }
         public Nullable<bool> EditPermission { get; set; }
         public Nullable<bool> AssignPermission { get; set; }
         public Nullable<bool> StoreReceivedPermission { get; set; }

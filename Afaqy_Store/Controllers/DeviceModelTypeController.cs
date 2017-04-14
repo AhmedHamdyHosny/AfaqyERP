@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeviceModelTypeController : BaseController<DeviceModelType, DeviceModelTypeViewModel, DeviceModelTypeIndexViewModel, DeviceModelTypeDetailsViewModel, DeviceModelTypeCreateBindModel, DeviceModelTypeEditBindModel, DeviceModelTypeEditModel, DeviceModelType, DeviceModelTypeModel<DeviceModelType>, DeviceModelTypeModel<DeviceModelTypeViewModel>>
+    public class DeviceModelTypeController : BaseController<DeviceModelType, DeviceModelTypeViewModel, DeviceModelTypeIndexViewModel, DeviceModelTypeDetailsViewModel, DeviceModelTypeCreateBindModel, DeviceModelTypeEditBindModel, DeviceModelTypeEditModel, DeviceModelType, ModelTypeModel<DeviceModelType>, ModelTypeModel<DeviceModelTypeViewModel>>
     {
         #region Unused Actions
         [NonAction]
@@ -44,7 +44,7 @@ namespace Afaqy_Store.Controllers
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeviceModelTypeId", Operation = GenericDataFormat.FilterOperations.Equal, Value = id });
             var requestBody = new GenericDataFormat() { Filters = filters };
-            items = new DeviceModelTypeModel<DeviceModelTypeDetailsViewModel>().Get(requestBody);
+            items = new ModelTypeModel<DeviceModelTypeDetailsViewModel>().Get(requestBody);
         }
 
         public override void FuncPreCreate(ref DeviceModelTypeCreateBindModel model)
@@ -58,7 +58,7 @@ namespace Afaqy_Store.Controllers
             if (EditItem == null)
             {
                 //get the item by id
-                EditItem = new DeviceModelTypeModel<DeviceModelType>().Get(id);
+                EditItem = new ModelTypeModel<DeviceModelType>().Get(id);
             }
             if (EditItem != null)
             {

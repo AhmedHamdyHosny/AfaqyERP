@@ -19,8 +19,6 @@ namespace Afaqy_Store.Reports.Store
             if (!IsPostBack)
             {
                 string deliveryNoteId = Request.QueryString["DeliveryId"];
-                //for test
-                //string deliveryNoteId = "4";
                 RenderReport(deliveryNoteId);
             }
         }

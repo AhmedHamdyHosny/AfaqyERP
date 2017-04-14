@@ -138,6 +138,16 @@ namespace Classes.Utilities
 
         }
 
+        internal static string GetDDLValue(params object[] pks)
+        {
+            return string.Join("_", pks);
+        }
+
+        internal static string GetDDLText(string text_en, string text_ar)
+        {
+            return text_en;
+        }
+
         public static object ChangeType(object value, Type conversionType)
         {
             var targetType = conversionType;
@@ -205,6 +215,17 @@ namespace Classes.Utilities
                 }
             }
             return null;
+        }
+
+        internal static int GetCompanySequence()
+        {
+            //for test
+            return 1;
+        }
+
+        internal static string[] GetForeignKeyValue(string fk)
+        {
+            return fk.Split('_');
         }
 
         public static DataTable ToDataTable<T>(List<T> items)

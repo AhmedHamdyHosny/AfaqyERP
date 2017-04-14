@@ -134,5 +134,21 @@ namespace Classes.Utilities
             }
            
         }
+
+        public class Connections
+        {
+            private static string _DolphinConnection;
+            public static string DolphinConnection
+            {
+                get
+                {
+                    if (string.IsNullOrEmpty(_DolphinConnection))
+                        _DolphinConnection = System.Configuration.ConfigurationManager.ConnectionStrings["Dolphin"].ConnectionString;
+                    return _DolphinConnection;
+                }
+            }
+        }
+        
+
     }
 }

@@ -16,13 +16,9 @@ namespace Afaqy_Store.DataLayer
     {
         public int DeliveryRequestTechnicalId { get; set; }
         public int DeliveryRequestId { get; set; }
-        public int EmployeeId { get; set; }
-        public string FirstName_en { get; set; }
-        public string FirstName_ar { get; set; }
-        public string LastName_en { get; set; }
-        public string LastName_ar { get; set; }
+        public int Employee_aux_id { get; set; }
+        public string name { get; set; }
+        public string altname { get; set; }
         public bool IsBlock { get; set; }
-        public string Employee_FullName_en { get; set; }
-        public string Employee_FullName_ar { get; set; }
     }
 }

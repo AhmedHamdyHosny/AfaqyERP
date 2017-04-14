@@ -17,15 +17,20 @@ namespace Afaqy_Store.DataLayer
         public int DeviceId { get; set; }
         public string SerialNumber { get; set; }
         public string IMEI { get; set; }
-        public int DeviceModelTypeId { get; set; }
-        public string DeviceModelTypeName { get; set; }
+        public string ModelTypeName { get; set; }
+        public string ModelTypeShortName { get; set; }
+        public string ModelTypeName_en { get; set; }
+        public string ModelTypeShortName_en { get; set; }
+        public Nullable<decimal> ModelTypeId { get; set; }
         public int DeviceStatusId { get; set; }
         public string DeviceStatus_en { get; set; }
         public string DeviceStatus_ar { get; set; }
         public string Firmware { get; set; }
-        public Nullable<int> BranchId { get; set; }
-        public string BranchName_en { get; set; }
-        public string BranchName_ar { get; set; }
+        public string Warehouse_wa_code { get; set; }
+        public string WarehouseName { get; set; }
+        public string WarehouseShortName { get; set; }
+        public string WarehouseName_en { get; set; }
+        public string WarehouseShortName_en { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }

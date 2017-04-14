@@ -119,13 +119,13 @@
 @section scripts{
     <script>
         var gridColumnDefs = [
-            { field: 'DolphinReference', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
-            { field: 'POSName_en', name: '@Resources.Adminstration.PointOfSale', width: 150 },
+            { field: 'DolphinDelivery_tra_ref_id', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
+            { field: 'ps_name', name: '@Resources.Adminstration.PointOfSale', width: 150 },
+            { field: 'wa_name', name: '@Resources.Adminstration.Warehouse', width: 150 },
             { field: 'DeliveryStatus_en', name: '@Resources.Store.DeliveryStatus', width: 150 },
-            { field: 'CustomerName_en', name: '@Resources.ServerManagement.Customer', width: 200 },
+            { field: 'name', name: '@Resources.ServerManagement.Customer', width: 200 },
             { field: 'SaleTransactionType_en', name: '@Resources.Sales.SaleTransactionType', width: 180 },
             { field: 'DeliveryDateTime', name: '@Resources.Store.DeliveryDateTime', width: 150 },
-            { field: 'WarehouseName_en', name: '@Resources.Adminstration.Warehouse', width: 150 },
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
@@ -186,7 +186,7 @@
                     '<div class="form-group"> ' +
                     '<div>' +
                     '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" ng-change="grid.appScope.setDeviceRows()" class="gridcustom-select"  autofocus></div>' +
-                    '<input type="hidden" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '<input type="hidden" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" data_ng_value = "row.entity.ModelType" />' +
                     '</div>' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
@@ -218,9 +218,9 @@
                 displayName: 'DeviceIMEI',
                 cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
                     '<div class="form-group">' +
-                    '<input ng-model="row.entity.IMEI" ng-change="grid.appScope.bindDeviceIMEI(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.IMEI)" class="form-control {{row.entity.IMEI_LoadingClass}}" />' +
+                    '<input name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].IMEI" ng-model="row.entity.IMEI" ng-change="grid.appScope.bindDeviceIMEI(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.IMEI)" class="form-control {{row.entity.IMEI_LoadingClass}}" />' +
                     '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceId" ng-value = "row.entity.DeviceId" />' +
-                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" ng-value = "row.entity.DeviceModelTypeId" />' +
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" ng-value = "row.entity.ModelType_ia_item_id" />' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: 200
@@ -250,7 +250,7 @@
                     '<div class="form-group"> ' +
                     '<div>' +
                     '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" class="gridcustom-select"  autofocus></div>' +
-                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" data_ng_value = "row.entity.ModelType" />' +
                     '</div>' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,

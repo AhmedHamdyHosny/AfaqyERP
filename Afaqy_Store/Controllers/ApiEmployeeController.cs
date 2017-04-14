@@ -5,12 +5,26 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using GenericApiController.Utilities;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiEmployeeController : BaseApiController<Employee>
+    public class ApiEmployeeController : BaseApiController<rpaux>
     {
+        public ApiEmployeeController()
+        {
+            var dataContrains = GetDataConstrains();
+            if (dataContrains == null)
+            {
+                dataContrains = x => x.employee == 1;
+            }
+            else
+            {
+                dataContrains.AndAlso(x => x.employee == 1);
+            }
+            SetDataConstrains(dataContrains);
 
+        }
         public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
         {
             var controller = new ApiEmployeeViewController();

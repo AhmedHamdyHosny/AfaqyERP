@@ -1,4 +1,4 @@
 ﻿function getcustomerContactsFilterData(SelectedCustomer) {
-    var data = { Options: { Filters: [{ Property: 'CustomerId', Operation: 'Equal', Value: SelectedCustomer }] } };
+    var data = { Options: { Filters: [{ Property: 'aux_id', Operation: 'Equal', Value: SelectedCustomer }] } };
     return data;
 }

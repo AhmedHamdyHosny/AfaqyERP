@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AccessTypeId" />
           </Key>
-          <Property Name="AccessTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessTypeId" Type="int" Nullable="false" />
           <Property Name="AccessTypeName_en" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AccessTypeName_ar" Type="nvarchar" MaxLength="50" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
@@ -100,6 +100,7 @@
           <Property Name="LastName_ar" Type="nvarchar" MaxLength="20" />
           <Property Name="CountryId" Type="int" />
           <Property Name="UserTypeId" Type="int" Nullable="false" />
+          <Property Name="DolphinUser" Type="varchar" MaxLength="15" />
           <Property Name="AllowAccess" Type="bit" Nullable="false" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
           <Property Name="CreateUserId" Type="int" Nullable="false" />
@@ -186,7 +187,7 @@
           <Property Name="ModifyDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'dolphin.secuirty.ServiceAccessView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ServiceAccessView">
           <Key>
             <PropertyRef Name="ServiceAccessId" />
@@ -505,6 +506,7 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
           <EntitySet Name="UserService" EntityType="Security.DataLayer.UserService" />
           <EntitySet Name="UserServiceAccess" EntityType="Security.DataLayer.UserServiceAccess" />
           <EntitySet Name="UserType" EntityType="Security.DataLayer.UserType" />
+          <EntitySet Name="ServiceAccessView" EntityType="Security.DataLayer.ServiceAccessView" />
           <AssociationSet Name="FK_ServiceAccess_AccessType" Association="Security.DataLayer.FK_ServiceAccess_AccessType">
             <End Role="AccessType" EntitySet="AccessType" />
             <End Role="ServiceAccess" EntitySet="ServiceAccess" />
@@ -565,13 +567,12 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
             <End Role="UserGroup" EntitySet="UserGroup" />
             <End Role="UserGroupRole" EntitySet="UserGroupRole" />
           </AssociationSet>
-          <EntitySet Name="ServiceAccessView" EntityType="Security.DataLayer.ServiceAccessView" />
         </EntityContainer>
         <EntityType Name="AccessType">
           <Key>
             <PropertyRef Name="AccessTypeId" />
           </Key>
-          <Property Name="AccessTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessTypeId" Type="Int32" Nullable="false" />
           <Property Name="AccessTypeName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AccessTypeName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
@@ -678,6 +679,7 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
           <Property Name="LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CountryId" Type="Int32" />
           <Property Name="UserTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DolphinUser" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="AllowAccess" Type="Boolean" Nullable="false" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
           <Property Name="CreateUserId" Type="Int32" Nullable="false" />
@@ -776,6 +778,33 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Security.DataLayer.FK_User_UserType" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ServiceAccessView">
+          <Key>
+            <PropertyRef Name="ServiceAccessId" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ServiceTag" />
+            <PropertyRef Name="ServiceName_en" />
+            <PropertyRef Name="Service_IsBlock" />
+            <PropertyRef Name="AccessTypeId" />
+            <PropertyRef Name="AccessTypeName_en" />
+            <PropertyRef Name="AccessType_IsBlock" />
+            <PropertyRef Name="ServiceAccess_IsBlock" />
+          </Key>
+          <Property Name="ServiceAccessId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceTag" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceDescription_en" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceDescription_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Service_IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="AccessTypeId" Type="Int32" Nullable="false" />
+          <Property Name="AccessTypeName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccessTypeName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccessType_IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="ControlTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceAccess_IsBlock" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_ServiceAccess_AccessType">
           <End Type="Security.DataLayer.AccessType" Role="AccessType" Multiplicity="1" />
@@ -957,34 +986,7 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ServiceAccessView">
-          <Key>
-            <PropertyRef Name="ServiceAccessId" />
-            <PropertyRef Name="ServiceId" />
-            <PropertyRef Name="ServiceTag" />
-            <PropertyRef Name="ServiceName_en" />
-            <PropertyRef Name="Service_IsBlock" />
-            <PropertyRef Name="AccessTypeId" />
-            <PropertyRef Name="AccessTypeName_en" />
-            <PropertyRef Name="AccessType_IsBlock" />
-            <PropertyRef Name="ServiceAccess_IsBlock" />
-          </Key>
-          <Property Name="ServiceAccessId" Type="Int32" Nullable="false" />
-          <Property Name="ServiceId" Type="Int32" Nullable="false" />
-          <Property Name="ServiceTag" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceName_en" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceName_ar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ServiceDescription_en" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceDescription_ar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Service_IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="AccessTypeId" Type="Int32" Nullable="false" />
-          <Property Name="AccessTypeName_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AccessTypeName_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AccessType_IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="ControlTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ServiceAccess_IsBlock" Type="Boolean" Nullable="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1087,6 +1089,7 @@ warning 6002: The table/view 'AfaqyStore.secuirty.ServiceAccessView' does not ha
                 <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
                 <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
                 <ScalarProperty Name="AllowAccess" ColumnName="AllowAccess" />
+                <ScalarProperty Name="DolphinUser" ColumnName="DolphinUser" />
                 <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
                 <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="LastName_ar" ColumnName="LastName_ar" />

@@ -65,8 +65,6 @@ namespace Afaqy_Store.Controllers
         [ActionName("Create")]
         public ActionResult CreateDelivery(int id)
         {
-            //for test 
-            //int DeliveryRequestId = 2;
             var model = new DeliveryNoteCreateBindModel();
             model.DeliveryRequestId = id;
             FuncPreInitCreateView(ref model);
@@ -97,63 +95,88 @@ namespace Afaqy_Store.Controllers
             //get delivery details info
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = model.DeliveryRequestId });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestTechnician,DeliveryRequestDetails.DeviceModelType" } };
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestTechnician" } };
             var deliveryRequest = new DeliveryRequestModel<DeliveryRequest>().Get(requestBody).SingleOrDefault();
 
+            //get delivery details view info
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = model.DeliveryRequestId });
             requestBody = new GenericDataFormat() { Filters = filters};
             var deliveryRequestView = new DeliveryRequestModel<DeliveryRequestViewModel>().GetView<DeliveryRequestViewModel>(requestBody).PageItems.SingleOrDefault();
-            
 
+            //get delivery request details
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = model.DeliveryRequestId });
+            requestBody = new GenericDataFormat() { Filters = filters };
+            var deliveryRequestDetails = new DeliveryRequestDetailsModel<DeliveryRequestDetailsView>().GetView<DeliveryRequestDetailsView>(requestBody).PageItems;
+            
             model.DeliveryRequest = deliveryRequest;
             model.DeliveryRequestView = deliveryRequestView;
-
+            model.DeliveryRequestDetails = deliveryRequestDetails;
+            
             //get all Item Families
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<ItemFamily> itemFamilies = new ItemFamilyModel<ItemFamily>().GetAsDDLst("ItemFamilyId,ItemFamilyName_en", "ItemFamilyId", filters);
-            ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = x.ItemFamilyName_en, Value = x.ItemFamilyId.ToString() }).ToList();
+            filters = null;
+            List<im_family> itemFamilies = new ItemFamilyModel<im_family>().GetAsDDLst("fa_cmp_seq,fa_code,fa_name,fa_altname", "fa_code", filters);
+            ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.fa_name, x.fa_altname), Value = x.fa_code }).ToList();
 
             //get all model types
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            filters = null;
             var sorts = new List<GenericDataFormat.SortItems>();
-            sorts.Add(new GenericDataFormat.SortItems() { Property = "DeviceModelTypeName" });
-            requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceModelTypeId,DeviceModelTypeName,ItemFamilyId" }, Sorts = sorts };
-            List<DeviceModelType> modelTypes = new DeviceModelTypeModel<DeviceModelType>().Get(requestBody);
-            ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Group = new SelectListGroup() { Name = x.ItemFamilyId.ToString() } }).ToList();
+            sorts.Add(new GenericDataFormat.SortItems() { Property = "ia_item_code" });
+            requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "ia_item_id,ia_item_code,ia_name,ia_altname,ia_cmp_seq,ia_fa_code" }, Sorts = sorts };
+            List<im_itema> modelTypes = new ModelTypeModel<im_itema>().Get(requestBody);
+            ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.ia_item_code, Value = x.ia_item_id.ToString(), Group = new SelectListGroup() { Name = x.ia_fa_code } }).ToList();
 
+            
             //get delivery request technician view
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = model.DeliveryRequestId });
             requestBody = new GenericDataFormat() { Filters = filters };
             model.DeliveryRequestTechnician = new DeliveryRequestTechnicianModel<DeliveryRequestTechnicianViewModel>().GetView<DeliveryRequestTechnicianViewModel>(requestBody).PageItems;
-            
+
+            //get delivery reference
+            model.DeliveryNoteReference = model.GetNewDeliveryReference(model.DeliveryRequest.Warehouse_wa_code);
         }
         public override void FuncPreCreate(ref DeliveryNoteCreateBindModel model)
         {
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = model.DeliveryRequestId });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestTechnician,DeliveryRequestDetails.DeviceModelType" } };
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestTechnician" } };
             var deliveryRequest = new DeliveryRequestModel<DeliveryRequest>().Get(requestBody).SingleOrDefault();
 
             model.ToDeliveryNote(deliveryRequest);
-            model.DeliveryTechnician = deliveryRequest.DeliveryRequestTechnician.Select(x => new DeliveryTechnician() { EmployeeId = x.EmployeeId, CreateUserId = User.UserId, CreateDate = DateTime.Now }).ToList();
+            model.DeliveryTechnician = deliveryRequest.DeliveryRequestTechnician.Select(x => new DeliveryTechnician() { cmp_seq = x.cmp_seq, Employee_aux_id = x.Employee_aux_id, CreateUserId = User.UserId, CreateDate = DateTime.Now }).ToList();
 
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
             model.DeliveryStatusId = (int)Classes.Common.DBEnums.DeliveryStatus.New;
 
-            model.DeliveryDetails = model.DeliveryDetails.Select(x => { x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
+            //get saleman id
+            int? salesmanId = new CustomerModel<rpaux>().Get(model.Customer_aux_id).salecode;
+
+            //set Dolphin Transaction
+            model.DolphinTrans = new it_trans_a()
+            {
+                tra_sal_aux_id = salesmanId, //Saleman Id
+                tra_cura_seq = 1, //Currency id (SAR)
+                tra_status = "0", //initial status
+                tra_user_id = User.DolphinUser, //dolphin user
+                tra_sup_ref = model.DeliveryNoteReference, //Delivery Note Reference
+                tra_ref_type = 5 //5 is delivery note type
+            };
+
+
+            var cmp_seq = model.cmp_seq;
+            model.DeliveryDetails = model.DeliveryDetails.Select(x => { x.cmp_seq = cmp_seq; x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
             foreach (var item in model.DeliveryDetails)
             {
-                item.DeliveryDevice = model.DeliveryDevice.Where(x => x.DeviceModelTypeId != null && x.DeviceModelTypeId  == item.DeviceModelTypeId)
+                item.DeliveryDevice = model.DeliveryDevice.Where(x => x.ModelType_ia_item_id != null && x.ModelType_ia_item_id  == item.ModelType_ia_item_id)
                     .Select(x => new DeliveryDevice()
                     {
+                        cmp_seq = cmp_seq,
                         DeliveryDetailsId = x.DeliveryDetailsId,
                         DeviceId = x.DeviceId,
-                        EmployeeId = x.EmployeeId,
+                        Employee_aux_id = x.Employee_aux_id,
                         CreateUserId = User.UserId,
                         CreateDate = DateTime.Now
                     }).ToList();
@@ -183,12 +206,12 @@ namespace Afaqy_Store.Controllers
             //get delivery request details 
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryNoteId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = id });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestDetails.DeviceModelType" } };
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails" } };
             var deliveryNote = new DeliveryNoteModel<DeliveryNote>().Get(requestBody).SingleOrDefault();
             var originalDeliveryDetails = deliveryNote.DeliveryDetails;
             foreach (var item in EditItem.DeliveryDetails)
             {
-                var originalItem = originalDeliveryDetails.SingleOrDefault(x => x.DeviceModelTypeId == item.DeviceModelTypeId);
+                var originalItem = originalDeliveryDetails.SingleOrDefault(x => x.ModelType_ia_item_id == item.ModelType_ia_item_id);
                 if (originalItem != null)
                 {
                     item.CreateUserId = originalItem.CreateUserId;

@@ -15,8 +15,11 @@ namespace Afaqy_Store.DataLayer
     public partial class SIMCardView
     {
         public int SIMCardId { get; set; }
-        public string BranchName_en { get; set; }
-        public string BranchName_ar { get; set; }
+        public string Warehouse_wa_code { get; set; }
+        public string WarehouseName { get; set; }
+        public string WarehouseShortName { get; set; }
+        public string WarehouseName_en { get; set; }
+        public string WarehouseShortName_en { get; set; }
         public string ProviderName_en { get; set; }
         public string ProviderName_ar { get; set; }
         public string ContractNo { get; set; }

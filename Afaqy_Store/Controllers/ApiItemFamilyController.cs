@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiItemFamilyController : BaseApiController<ItemFamily>
+    public class ApiItemFamilyController : BaseApiController<im_family>
     {
     }
 }

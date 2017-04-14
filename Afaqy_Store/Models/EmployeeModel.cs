@@ -25,7 +25,7 @@ namespace Afaqy_Store.Models
         {
             get
             {
-                return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
+                return this.aux_blocked == 1 ? Resources.Resource.True : Resources.Resource.False;
             }
         }
     }

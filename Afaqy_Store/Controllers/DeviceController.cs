@@ -28,8 +28,8 @@ namespace Afaqy_Store.Controllers
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
-            List<DeviceModelType> deviceModelTypes =  new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("DeviceModelTypeId,DeviceModelTypeName", "DeviceModelTypeName");
-            ViewBag.DeviceModelTypeId = deviceModelTypes.Select(x=> new Classes.Helper.CustomSelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString()});
+            List<im_itema> modelTypes =  new ModelTypeModel<im_itema>().GetAsDDLst("ia_item_id,ia_name", "ia_name");
+            ViewBag.DeviceModelTypeId = modelTypes.Select(x=> new Classes.Helper.CustomSelectListItem() { Text = x.ia_name, Value = x.ia_item_id.ToString()});
         }
         public override void FuncPreCreate(ref DeviceCreateBindModel model)
         {
@@ -37,7 +37,7 @@ namespace Afaqy_Store.Controllers
             model.CreateDate = DateTime.Now;
             model.DeviceStatusId = (int)DBEnums.DeviceStatus.New;
             //for test
-            model.BranchId = 1;
+            model.Warehouse_wa_code = "WHS";
             
         }
         public override void FuncPreInitEditView(object id, ref Device EditItem, ref DeviceEditModel model)
@@ -52,8 +52,8 @@ namespace Afaqy_Store.Controllers
                 model = new DeviceEditModel();
                 model.EditItem = EditItem;
                 var selectedItem = EditItem;
-                List<DeviceModelType> deviceModelTypes = new DeviceModelTypeModel<DeviceModelType>().GetAsDDLst("DeviceModelTypeId,DeviceModelTypeName", "DeviceModelTypeName");
-                model.DeviceModelType = deviceModelTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Selected = (selectedItem.DeviceModelTypeId == x.DeviceModelTypeId) });
+                List<im_itema> modelTypes = new ModelTypeModel<im_itema>().GetAsDDLst("ia_item_id,ia_name", "ia_name");
+                model.ModelType = modelTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.ia_name, Value = x.ia_item_id.ToString(), Selected = (selectedItem.ModelType_ia_item_id == x.ia_item_id) });
             }
         }
         public override void FuncPreEdit(ref object id, ref DeviceEditBindModel EditItem)
@@ -79,7 +79,7 @@ namespace Afaqy_Store.Controllers
 
             //for test
             //int branchId = GetBranch;
-            int branchId = 1;
+            string warehouse = "WHS";
             items = items.Select(x =>
             {
                 x.CreateUserId = User.UserId;
@@ -87,7 +87,7 @@ namespace Afaqy_Store.Controllers
                 x.DeviceStatusId = (int)Classes.Common.DBEnums.DeviceStatus.New;
                 //x.IMEI = x.DeviceSerial.Length > 9 ? x.DeviceSerial : null;
                 //x.SerialNumber = x.DeviceSerial.Length <= 9 ? x.DeviceSerial : null;
-                x.BranchId = branchId;
+                x.Warehouse_wa_code = warehouse;
                 return x;
             }).ToList();
             

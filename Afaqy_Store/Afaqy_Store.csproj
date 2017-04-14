@@ -287,6 +287,7 @@
     <Compile Include="Classes\Common\Constant.cs" />
     <Compile Include="Classes\Common\Enums.cs" />
     <Compile Include="Classes\Common\GenericController.cs" />
+    <Compile Include="Classes\DB UserTypeDefined\DBUserDefined.cs" />
     <Compile Include="Classes\Helper\HtmlHelper.cs" />
     <Compile Include="Classes\Utilities\JsonResponse.cs" />
     <Compile Include="Classes\Utilities\MyHttpRequestMessage.cs" />
@@ -308,12 +309,14 @@
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\ApiEmployeeController.cs" />
     <Compile Include="Controllers\ApiItemFamilyController.cs" />
+    <Compile Include="Controllers\ApiNotificationController.cs" />
     <Compile Include="Controllers\ApiPointOfSaleController.cs" />
     <Compile Include="Controllers\ApiSaleTransactionTypeController.cs" />
     <Compile Include="Controllers\ApiSystemRoleController.cs" />
     <Compile Include="Controllers\ApiSystemServiceAccessController.cs" />
     <Compile Include="Controllers\ApiSystemServiceController.cs" />
     <Compile Include="Controllers\ApiWarehouseController.cs" />
+    <Compile Include="Controllers\ApiWarehouseInfoController.cs" />
     <Compile Include="Controllers\BaseSecurityApiController.cs" />
     <Compile Include="Controllers\CustomerContactController.cs" />
     <Compile Include="Controllers\CustomerServerAccountController.cs" />
@@ -358,7 +361,6 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerServerStatusController.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
-    <Compile Include="Controllers\DeviceModelTypeController.cs" />
     <Compile Include="Controllers\DeviceStatusController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SIMCardContractController.cs" />
@@ -398,7 +400,7 @@
     <Compile Include="Models\DeliveryRequestTechnicianModel.cs" />
     <Compile Include="Models\DeliveryTechnicianModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
-    <Compile Include="Models\DeviceModelTypeModel.cs" />
+    <Compile Include="Models\ModelTypeModel.cs" />
     <Compile Include="Models\DeviceSIMModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
     <Compile Include="Models\DeviceStatusModel.cs" />
@@ -623,6 +625,7 @@
     <Content Include="Content\js\datatable\jquery.dataTables.min.js" />
     <Content Include="Content\js\datatable\ZeroClipboard.js" />
     <Content Include="Content\js\datetime\bootstrap-datepicker.js" />
+    <Content Include="Content\js\datetime\bootstrap-datepicker.min.js" />
     <Content Include="Content\js\datetime\bootstrap-timepicker.js" />
     <Content Include="Content\js\datetime\bootstrap-timepicker.min.js" />
     <Content Include="Content\js\datetime\daterangepicker.js" />
@@ -1029,10 +1032,6 @@
     <Content Include="Views\DeviceStatus\Details.cshtml" />
     <Content Include="Views\DeviceStatus\Edit.cshtml" />
     <Content Include="Views\DeviceStatus\Index.cshtml" />
-    <Content Include="Views\DeviceModelType\Details.cshtml" />
-    <Content Include="Views\DeviceModelType\Edit.cshtml" />
-    <Content Include="Views\DeviceModelType\Index.cshtml" />
-    <Content Include="Views\DeviceModelType\Create.cshtml" />
     <Content Include="Views\Branch\Index.cshtml" />
     <Content Include="Views\Branch\Details.cshtml" />
     <Content Include="Views\Branch\Edit.cshtml" />
@@ -1100,6 +1099,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Store\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

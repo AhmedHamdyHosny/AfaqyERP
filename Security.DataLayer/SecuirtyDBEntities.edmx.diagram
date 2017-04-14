@@ -5,19 +5,20 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="07b836abebaf457cbd0e926978cbbea5" Name="Diagram1">
-        <EntityTypeShape EntityType="Security.DataLayer.AccessType" Width="1.5" PointX="0.75" PointY="18" />
-        <EntityTypeShape EntityType="Security.DataLayer.Role" Width="1.5" PointX="3" PointY="3.5" />
-        <EntityTypeShape EntityType="Security.DataLayer.RoleService" Width="1.5" PointX="8.25" PointY="4.875" />
-        <EntityTypeShape EntityType="Security.DataLayer.RoleServiceAccess" Width="1.5" PointX="5.25" PointY="12.75" />
-        <EntityTypeShape EntityType="Security.DataLayer.Service" Width="1.5" PointX="0.75" PointY="13.5" />
-        <EntityTypeShape EntityType="Security.DataLayer.ServiceAccess" Width="1.5" PointX="3" PointY="15.375" />
-        <EntityTypeShape EntityType="Security.DataLayer.User" Width="1.5" PointX="3" PointY="7.875" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserGroup" Width="1.5" PointX="3" PointY="20.125" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserGroupRole" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserRole" Width="1.5" PointX="5.25" PointY="8.75" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserService" Width="1.5" PointX="8.25" PointY="8.75" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserServiceAccess" Width="1.5" PointX="5.25" PointY="4.75" />
-        <EntityTypeShape EntityType="Security.DataLayer.UserType" Width="1.5" PointX="0.75" PointY="8.875" />
+        <EntityTypeShape EntityType="Security.DataLayer.AccessType" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="Security.DataLayer.Role" Width="1.5" PointX="6" PointY="8.875" />
+        <EntityTypeShape EntityType="Security.DataLayer.RoleService" Width="1.5" PointX="8.25" PointY="14.5" />
+        <EntityTypeShape EntityType="Security.DataLayer.RoleServiceAccess" Width="1.5" PointX="8.25" PointY="10.5" />
+        <EntityTypeShape EntityType="Security.DataLayer.Service" Width="1.5" PointX="0.75" PointY="13.25" />
+        <EntityTypeShape EntityType="Security.DataLayer.ServiceAccess" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="Security.DataLayer.User" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserGroup" Width="1.5" PointX="9" PointY="1.125" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserGroupRole" Width="1.5" PointX="11.25" PointY="9" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserRole" Width="1.5" PointX="8.25" PointY="5" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserService" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserServiceAccess" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="Security.DataLayer.UserType" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="Security.DataLayer.ServiceAccessView" Width="1.5" PointX="11.75" PointY="0.75" />
         <AssociationConnector Association="Security.DataLayer.FK_ServiceAccess_AccessType" />
         <AssociationConnector Association="Security.DataLayer.FK_RoleService_Role" />
         <AssociationConnector Association="Security.DataLayer.FK_RoleServiceAccess_Role" />
@@ -33,7 +34,6 @@
         <AssociationConnector Association="Security.DataLayer.FK_UserService_User" />
         <AssociationConnector Association="Security.DataLayer.FK_UserServiceAccess_User" />
         <AssociationConnector Association="Security.DataLayer.FK_UserGroupRole_UserGroup" />
-        <EntityTypeShape EntityType="Security.DataLayer.ServiceAccessView" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -37,9 +37,9 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DeviceModelTypeId, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
-                @Html.CustomDropdownListFor(model => model.DeviceModelTypeId, (IEnumerable<CustomSelectListItem>)ViewData["DeviceModelTypeId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "DeviceModelTypeId", @id = "DeviceModelTypeId" }) 
-                @Html.ValidationMessageFor(model => model.DeviceModelTypeId, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.ModelType_ia_item_id, Resources.Store.DeviceModelType, htmlAttributes: new { @class = "text-info" })
+                @Html.CustomDropdownListFor(model => model.ModelType_ia_item_id, (IEnumerable<CustomSelectListItem>)ViewData["DeviceModelTypeId"], null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "DeviceModelTypeId", @id = "DeviceModelTypeId" }) 
+                @Html.ValidationMessageFor(model => model.ModelType_ia_item_id, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
     <script>
         $(document).ready(function () {
             //--Jquery Select2--
-            $("#DeviceModelTypeId").select2();
+            $("#ModelType_ia_item_id").select2();
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {

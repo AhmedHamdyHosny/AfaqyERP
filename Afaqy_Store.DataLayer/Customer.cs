@@ -20,8 +20,6 @@ namespace Afaqy_Store.DataLayer
             this.CustomerContact = new HashSet<CustomerContact>();
             this.CustomerServerAccount = new HashSet<CustomerServerAccount>();
             this.CustomerServerUser = new HashSet<CustomerServerUser>();
-            this.DeliveryNote = new HashSet<DeliveryNote>();
-            this.DeliveryRequest = new HashSet<DeliveryRequest>();
             this.DeviceServer = new HashSet<DeviceServer>();
         }
     
@@ -50,10 +48,6 @@ namespace Afaqy_Store.DataLayer
         public virtual ICollection<CustomerServerAccount> CustomerServerAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServerUser> CustomerServerUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceServer> DeviceServer { get; set; }
     }

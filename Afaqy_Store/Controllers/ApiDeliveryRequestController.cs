@@ -92,7 +92,7 @@ namespace Afaqy_Store.Controllers
                         foreach (var childItem in value.DeliveryRequestTechnician)
                         {
                             var originalDetailsItem = originalItem.DeliveryRequestTechnician
-                                .Where(c => c.DeliveryRequestId == childItem.DeliveryRequestId && c.EmployeeId == childItem.EmployeeId)
+                                .Where(c => c.DeliveryRequestId == childItem.DeliveryRequestId && c.Employee_aux_id == childItem.Employee_aux_id)
                                 .SingleOrDefault();
                             // Is original child item with same ID in DB?
                             if (originalDetailsItem != null)

@@ -38,10 +38,12 @@ namespace Afaqy_Store.Models
         public List<DeliveryDetails_DetailsViewModel> DeliveryDetailsView { get; set; }
         public List<DeliveryTechnicianViewModel> TechnicianView { get; set; }
     }
-    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,Note,DolphinReference,DeliveryDetails,DeliveryDevice")]
+    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,Note,DeliveryNoteReference,DeliveryDetails,DeliveryDevice")]
     public class DeliveryNoteCreateBindModel : DeliveryNote
     {
+        public it_trans_a DolphinTrans { get; set; }
         public DeliveryRequestViewModel DeliveryRequestView { get; set; }
+        public List<DeliveryRequestDetailsView> DeliveryRequestDetails { get; set; }
         public List<DeliveryRequestTechnicianViewModel> DeliveryRequestTechnician { get; set; }
         public DeliveryDeviceView[] DeliveryDevice { get; set; }
         public string InstallationService
@@ -62,11 +64,12 @@ namespace Afaqy_Store.Models
         {
             if (deliveryRequest != null)
             {
-                this.POSId = deliveryRequest.POSId;
-                this.WarehouseId = deliveryRequest.WarehouseId;
-                this.CustomerId = deliveryRequest.CustomerId;
+                this.cmp_seq = deliveryRequest.cmp_seq;
+                this.POS_ps_code = deliveryRequest.POS_ps_code;
+                this.Warehouse_wa_code = deliveryRequest.Warehouse_wa_code;
+                this.Customer_aux_id = deliveryRequest.Customer_aux_id;
                 this.CustomerName = deliveryRequest.CustomerName;
-                this.CustomerContactId = deliveryRequest.CustomerContactId;
+                this.CustomerContact_serial = deliveryRequest.CustomerContact_serial;
                 this.AlternativeContactName = deliveryRequest.AlternativeContactName;
                 this.AlternativeContactTelephone = deliveryRequest.AlternativeContactTelephone;
                 this.SaleTransactionTypeId = deliveryRequest.SaleTransactionTypeId;
@@ -74,6 +77,49 @@ namespace Afaqy_Store.Models
                 this.SystemId = deliveryRequest.SystemId;
                 this.WithInstallationService = deliveryRequest.WithInstallationService;
             }
+        }
+
+        internal string GetNewDeliveryReference(string warehouseCode)
+        {
+            string deliveryReference = "";
+            switch (warehouseCode)
+            {
+                case "WHS": //riyadh
+                    deliveryReference = "Riy";
+                    break;
+                case "jed": //jeddah 
+                    deliveryReference = "Jed";
+                    break;
+                case "dam": //dammam
+                    deliveryReference = "Dam";
+                    break;
+                case "05": //Demo
+                    deliveryReference = "Demo";
+                    break;
+                default:
+                    deliveryReference = "None";
+                    break;
+            }
+            var requestBody = new GenericApiController.Utilities.GenericDataFormat();
+            var filters = new List<GenericApiController.Utilities.GenericDataFormat.FilterItems>();
+            filters.Add(new GenericApiController.Utilities.GenericDataFormat.FilterItems() { Property = "Warehouse_wa_code", Operation = GenericApiController.Utilities.GenericDataFormat.FilterOperations.Equal, Value = warehouseCode, LogicalOperation = GenericApiController.Utilities.GenericDataFormat.LogicalOperations.And });
+            requestBody.Filters = filters;
+            requestBody.Paging = new GenericApiController.Utilities.GenericDataFormat.PagingItem() { PageNumber = 1, PageSize = 1 };
+            requestBody.Sorts = new List<GenericApiController.Utilities.GenericDataFormat.SortItems>();
+            requestBody.Sorts.Add(new GenericApiController.Utilities.GenericDataFormat.SortItems() { Property = "DeliveryNoteId", SortType = GenericApiController.Utilities.GenericDataFormat.SortType.Desc });
+            var result = new DeliveryNoteModel<DeliveryNote>().Get(requestBody);
+            if (result != null && result.Count == 1)
+            {
+                int serial = int.Parse(System.Text.RegularExpressions.Regex.Match(result[0].DeliveryNoteReference, @"\d+").Value);
+                serial++;
+                deliveryReference += " " + serial.ToString();
+            }
+            else
+            {
+                deliveryReference += " 20000";
+            }
+
+            return deliveryReference;
         }
     }
     [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,DeliveryStatusId,Note,DolphinReference,DolphinDeliveryId,DeliveryDetails,IsBlock,CreateUserId,CreateDate")]

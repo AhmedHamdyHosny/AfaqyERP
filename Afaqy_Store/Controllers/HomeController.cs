@@ -14,9 +14,9 @@ namespace Afaqy_Store.Controllers
         public ActionResult Index()
         {
             var model = new DeviceEditModel() { EditItem = new DeviceModel<Device>().Get(5) };
-            List<DeviceModelType> deviceModels = new DeviceModelTypeModel<DeviceModelType>().Get();
-            var lstItems = deviceModels.Select(x => new CustomSelectListItem() { Selected = (x.DeviceModelTypeId == model.EditItem.DeviceModelTypeId), Value = x.DeviceModelTypeId.ToString(), Text = x.DeviceModelTypeName });
-            model.DeviceModelType = lstItems;
+            List<im_itema> modelTypes = new ModelTypeModel<im_itema>().Get();
+            var lstItems = modelTypes.Select(x => new CustomSelectListItem() { Selected = (x.ia_item_id == model.EditItem.ModelType_ia_item_id), Value = x.ia_item_id.ToString(), Text = x.ia_name });
+            model.ModelType = lstItems;
             ViewBag.Title = "Home Page";
 
             return View(model);
@@ -25,7 +25,7 @@ namespace Afaqy_Store.Controllers
         [HttpPost]
         public ActionResult Index(DeviceEditBindModel EditItem)
         {
-            var id = EditItem.DeviceModelTypeId;
+            var id = EditItem.ModelType_ia_item_id;
             return Index();
         }
     }

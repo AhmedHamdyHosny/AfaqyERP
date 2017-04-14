@@ -346,7 +346,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!DeviceModelTypeName.Value</Value>
+                              <Value>=Fields!ia_name.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <Color>#4d4d4d</Color>
@@ -451,7 +451,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!FirstName_en.Value</Value>
+                              <Value>=Fields!name.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <Color>#4d4d4d</Color>
@@ -728,7 +728,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!CustomerName.Value, "DeliveryNoteDataSet")</Value>
+                  <Value>=First(Fields!name.Value, "DeliveryNoteDataSet")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -785,38 +785,6 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="CustomerId">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=Sum(Fields!CustomerId.Value, "DeliveryNoteDataSet")</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Left</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>CustomerId</rd:DefaultName>
-          <Top>1.79813in</Top>
-          <Left>1.54736in</Left>
-          <Height>0.25in</Height>
-          <Width>1in</Width>
-          <ZIndex>6</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
         <Textbox Name="Textbox22">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -838,7 +806,7 @@
           <Left>3.92236in</Left>
           <Height>0.25in</Height>
           <Width>0.57291in</Width>
-          <ZIndex>7</ZIndex>
+          <ZIndex>6</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -868,7 +836,7 @@
           <Left>4.62028in</Left>
           <Height>0.25in</Height>
           <Width>1in</Width>
-          <ZIndex>8</ZIndex>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -900,7 +868,7 @@
           <Left>6.02778in</Left>
           <Height>0.25in</Height>
           <Width>0.57291in</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -932,7 +900,7 @@
           <Left>5.87153in</Left>
           <Height>0.25in</Height>
           <Width>0.72916in</Width>
-          <ZIndex>10</ZIndex>
+          <ZIndex>9</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -950,7 +918,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=IIf(IsNothing(First(Fields!AlternativeContactName.Value, "DeliveryNoteDataSet")),First(Fields!ContactName_en.Value, "DeliveryNoteDataSet"),First(Fields!AlternativeContactName.Value, "DeliveryNoteDataSet"))</Value>
+                  <Value>=IIf(IsNothing(First(Fields!AlternativeContactName.Value, "DeliveryNoteDataSet")),First(Fields!contact_name.Value, "DeliveryNoteDataSet"),First(Fields!AlternativeContactName.Value, "DeliveryNoteDataSet"))</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -962,7 +930,7 @@
           <Left>6.78694in</Left>
           <Height>0.25in</Height>
           <Width>1.46875in</Width>
-          <ZIndex>11</ZIndex>
+          <ZIndex>10</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -980,7 +948,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!AlternativeContactTelephone.Value, "DeliveryNoteDataSet")</Value>
+                  <Value>=IIf(IsNothing(First(Fields!AlternativeContactTelephone.Value, "DeliveryNoteDataSet")),First(Fields!phone.Value, "DeliveryNoteDataSet"),First(Fields!AlternativeContactTelephone.Value, "DeliveryNoteDataSet"))</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -992,7 +960,7 @@
           <Left>6.78694in</Left>
           <Height>0.25in</Height>
           <Width>1.46875in</Width>
-          <ZIndex>12</ZIndex>
+          <ZIndex>11</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1010,7 +978,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!DolphinReference.Value, "DeliveryNoteDataSet")</Value>
+                  <Value>=First(Fields!DeliveryNoteReference.Value, "DeliveryNoteDataSet")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>
@@ -1024,10 +992,42 @@
           <Left>3.92236in</Left>
           <Height>0.25in</Height>
           <Width>1.41097in</Width>
-          <ZIndex>13</ZIndex>
+          <ZIndex>12</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Customer_aux_id">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!Customer_aux_id.Value, "DeliveryNoteDataSet")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Customer_aux_id</rd:DefaultName>
+          <Top>1.79813in</Top>
+          <Left>1.54736in</Left>
+          <Height>0.25in</Height>
+          <Width>1in</Width>
+          <ZIndex>13</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
             </Border>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
@@ -1739,24 +1739,16 @@
           <DataField>Firmware</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="EmployeeId">
-          <DataField>EmployeeId</DataField>
+        <Field Name="Employee_aux_id">
+          <DataField>Employee_aux_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="FirstName_en">
-          <DataField>FirstName_en</DataField>
+        <Field Name="name">
+          <DataField>name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="FirstName_ar">
-          <DataField>FirstName_ar</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LastName_en">
-          <DataField>LastName_en</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="LastName_ar">
-          <DataField>LastName_ar</DataField>
+        <Field Name="altname">
+          <DataField>altname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="InstallingDateTime">
@@ -1775,13 +1767,25 @@
           <DataField>IsBlock</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
-        <Field Name="DeviceModelTypeName">
-          <DataField>DeviceModelTypeName</DataField>
+        <Field Name="ia_name">
+          <DataField>ia_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ia_shname">
+          <DataField>ia_shname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ia_altname">
+          <DataField>ia_altname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ia_shaltname">
+          <DataField>ia_shaltname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DeviceModelTypeId">
           <DataField>DeviceModelTypeId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
@@ -1803,16 +1807,28 @@
           <DataField>DeliveryNoteId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="POSId">
-          <DataField>POSId</DataField>
+        <Field Name="cmp_seq">
+          <DataField>cmp_seq</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="POSName_en">
-          <DataField>POSName_en</DataField>
+        <Field Name="POS_ps_code">
+          <DataField>POS_ps_code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="POSName_ar">
-          <DataField>POSName_ar</DataField>
+        <Field Name="ps_name">
+          <DataField>ps_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ps_shname">
+          <DataField>ps_shname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ps_altname">
+          <DataField>ps_altname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ps_shaltname">
+          <DataField>ps_shaltname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DeliveryStatusId">
@@ -1827,16 +1843,24 @@
           <DataField>DeliveryStatus_ar</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CustomerId">
-          <DataField>CustomerId</DataField>
+        <Field Name="Customer_aux_id">
+          <DataField>Customer_aux_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="CustomerName_en">
-          <DataField>CustomerName_en</DataField>
+        <Field Name="name">
+          <DataField>name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CustomerName_ar">
-          <DataField>CustomerName_ar</DataField>
+        <Field Name="shortname">
+          <DataField>shortname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="altname">
+          <DataField>altname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="shortaltname">
+          <DataField>shortaltname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SaleTransactionTypeId">
@@ -1853,7 +1877,7 @@
         </Field>
         <Field Name="DeliveryDateTime">
           <DataField>DeliveryDateTime</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Note">
           <DataField>Note</DataField>
@@ -1927,32 +1951,36 @@
           <DataField>ModifyUser_FullName_ar</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="WarehouseId">
-          <DataField>WarehouseId</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="WarehouseName_en">
-          <DataField>WarehouseName_en</DataField>
+        <Field Name="Warehouse_wa_code">
+          <DataField>Warehouse_wa_code</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="WarehouseName_ar">
-          <DataField>WarehouseName_ar</DataField>
+        <Field Name="wa_name">
+          <DataField>wa_name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="wa_shname">
+          <DataField>wa_shname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="wa_altname">
+          <DataField>wa_altname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="wa_shaltname">
+          <DataField>wa_shaltname</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CustomerName">
           <DataField>CustomerName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CustomerContactId">
-          <DataField>CustomerContactId</DataField>
+        <Field Name="CustomerContact_serial">
+          <DataField>CustomerContact_serial</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ContactName_en">
-          <DataField>ContactName_en</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="ContactName_ar">
-          <DataField>ContactName_ar</DataField>
+        <Field Name="contact_name">
+          <DataField>contact_name</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="AlternativeContactName">
@@ -1975,13 +2003,25 @@
           <DataField>DeliveryRequestId</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="DolphinReference">
-          <DataField>DolphinReference</DataField>
+        <Field Name="DeliveryNoteReference">
+          <DataField>DeliveryNoteReference</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="DolphinDeliveryId">
-          <DataField>DolphinDeliveryId</DataField>
+        <Field Name="DolphinDelivery_tra_ref_id">
+          <DataField>DolphinDelivery_tra_ref_id</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DolphinDelivery_tra_ref_type">
+          <DataField>DolphinDelivery_tra_ref_type</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="WithInstallationService">
+          <DataField>WithInstallationService</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="phone">
+          <DataField>phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

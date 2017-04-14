@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual Delivery DateTime.
+        /// </summary>
+        public static string ActualDeliveryDateTime {
+            get {
+                return ResourceManager.GetString("ActualDeliveryDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actual Delivery Time.
         /// </summary>
         public static string ActualDeliveryTime {

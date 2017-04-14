@@ -34,7 +34,7 @@ namespace Afaqy_Store.Controllers
         {
             var userId = User.UserId;
             //for test
-            var branchId = 1;
+            string warehouse = "WHS";
 
             var purchaseDate = DateTime.Parse(formCollection["PurchaseDate"]);
             var contractId = formCollection["ContractId"];
@@ -45,7 +45,7 @@ namespace Afaqy_Store.Controllers
             foreach (var item in items)
             {
                 item.SIMCardStatusId = (int)DBEnums.SIMCardStatus.New;
-                item.BranchId = branchId;
+                item.Warehouse_wa_code = warehouse;
                 item.ContractId = int.Parse(contractId);
                 item.Cost = cost;
                 item.CurrencyId = currencyId;
@@ -126,7 +126,7 @@ namespace Afaqy_Store.Controllers
         {
             var userId = User.UserId;
             //for test
-            var branchId = 1;
+            string warehouse = "WHS";
             var excelFile = new LinqToExcel.ExcelQueryFactory(fileName);
             IEnumerable<string> workSheetNames = excelFile.GetWorksheetNames();
             List<SIMCardImportModel> sheetData = new List<SIMCardImportModel>();
@@ -143,7 +143,7 @@ namespace Afaqy_Store.Controllers
                     sheetData = data.ToList();
                     sheetData = sheetData.Select(x =>
                     {
-                        x.BranchId = branchId;
+                        x.Warehouse_wa_code = warehouse;
                         x.CreateUserId = userId;
                         x.CreateDate = DateTime.Now;
                         return x;

@@ -15,9 +15,10 @@ namespace Afaqy_Store.DataLayer
     public partial class DeliveryDevice
     {
         public int DeliveryItemId { get; set; }
+        public int cmp_seq { get; set; }
         public int DeliveryDetailsId { get; set; }
         public int DeviceId { get; set; }
-        public Nullable<int> EmployeeId { get; set; }
+        public Nullable<int> Employee_aux_id { get; set; }
         public Nullable<System.DateTime> InstallingDateTime { get; set; }
         public string CarPlateNum { get; set; }
         public string Note { get; set; }
@@ -29,6 +30,5 @@ namespace Afaqy_Store.DataLayer
     
         public virtual DeliveryDetails DeliveryDetails { get; set; }
         public virtual Device Device { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

@@ -12,8 +12,12 @@ using static Classes.Common.Enums;
 
 namespace Classes.Common
 {
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller 
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller
     {
+
+        //where TViewModel : class
+        //where TIndexViewModel : class
+
         public List<GenericDataFormat.FilterItems> filters ;
         public string ExportFileName = typeof(TDBModel).ToString() + ".xlsx";
 
@@ -362,7 +366,7 @@ namespace Classes.Common
     
 
 
-    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel>
+    public partial class GenericContoller<TDBModel, TViewModel, TIndexViewModel, TDetailsViewModel, TCreateBindModel, TEditBindModel, TEditModel, TImportModel, TModel_TDBModel, TModel_TViewModel> : Controller
     {
         #region Delegates
         public delegate void DelegatePreIndexView(ref List<TIndexViewModel> model);

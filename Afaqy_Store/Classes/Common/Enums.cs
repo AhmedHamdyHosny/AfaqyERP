@@ -80,6 +80,7 @@ namespace Classes.Common
 
     public class DBEnums
     {
+
         public enum DeviceStatus
         {
             New = 1,
@@ -192,6 +193,28 @@ namespace Classes.Common
             DeliveryRequest_RejectNotification = 4,
             DeliveryRequest_ApproveNotification = 5
         }
+        
+        public enum UDDeliveryTechnician_DT_ColumnsName
+        {
+            DeliveryNoteTechnicalId, cmp_seq, DeliveryNoteId, Employee_aux_id, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
+        }
+
+        public enum UDDeliveryNote_DT_ColumnsName
+        {
+            DeliveryNoteId, cmp_seq, POS_ps_code, Warehouse_wa_code, DeliveryRequestId, Customer_aux_id, CustomerName, CustomerContact_serial, AlternativeContactName, AlternativeContactTelephone, SaleTransactionTypeId, DeliveryDateTime, DeliveryStatusId, DeliveryNoteReference, DolphinDelivery_tra_ref_id, DolphinDelivery_tra_ref_type, SystemId, WithInstallationService, Note, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
+        }
+
+        public enum UDDeliveryDetails_DT_ColumnsName
+        {
+            DeliveryDetailsId, cmp_seq, DeliveryId,ModelType_ia_item_id,Quantity,Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+        }
+
+        public enum UDDeliveryDevice_DT_ColumnsName
+        {
+            DeliveryItemId, cmp_seq, DeliveryDetailsId,DeviceId, SerialNumber, IMEI, ModelType_ia_item_id, Employee_aux_id,InstallingDateTime,CarPlateNum,Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+        }
+
+        
 
     }
 }

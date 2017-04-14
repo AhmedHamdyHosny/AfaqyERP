@@ -61,7 +61,7 @@ namespace Afaqy_Store.Models
 
     }
 
-    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,AlternativeGSM,SIMCardStatusId,ContractId,PurchaseDate,BranchId,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "SIMCardId,CompanySerialNumber,SerialNumber,GSM,AlternativeGSM,SIMCardStatusId,ContractId,PurchaseDate,Warehouse_wa_code,IsBlock,CreateUserId,CreateDate")]
     public class SIMCardEditBindModel : SIMCard
     {
     }

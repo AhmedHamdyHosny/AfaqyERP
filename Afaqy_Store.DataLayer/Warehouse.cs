@@ -14,14 +14,7 @@ namespace Afaqy_Store.DataLayer
     
     public partial class Warehouse
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Warehouse()
-        {
-            this.DeliveryNote = new HashSet<DeliveryNote>();
-            this.DeliveryRequest = new HashSet<DeliveryRequest>();
-        }
-    
-        public int WarehouseId { get; set; }
+        public string WarehouseId { get; set; }
         public string WarehouseName_en { get; set; }
         public string WarehouseName_ar { get; set; }
         public int BranchId { get; set; }
@@ -32,9 +25,5 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Branch Branch { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
     }
 }

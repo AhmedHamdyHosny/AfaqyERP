@@ -15,8 +15,9 @@ namespace Afaqy_Store.DataLayer
     public partial class DeliveryTechnician
     {
         public int DeliveryNoteTechnicalId { get; set; }
+        public int cmp_seq { get; set; }
         public int DeliveryNoteId { get; set; }
-        public int EmployeeId { get; set; }
+        public int Employee_aux_id { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -24,6 +25,5 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual DeliveryNote DeliveryNote { get; set; }
-        public virtual Employee Employee { get; set; }
     }
 }

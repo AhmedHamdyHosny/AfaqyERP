@@ -21,8 +21,9 @@ namespace Afaqy_Store.DataLayer
         }
     
         public int DeliveryDetailsId { get; set; }
+        public int cmp_seq { get; set; }
         public int DeliveryId { get; set; }
-        public int DeviceModelTypeId { get; set; }
+        public decimal ModelType_ia_item_id { get; set; }
         public int Quantity { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
@@ -32,7 +33,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual DeliveryNote DeliveryNote { get; set; }
-        public virtual DeviceModelType DeviceModelType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
     }

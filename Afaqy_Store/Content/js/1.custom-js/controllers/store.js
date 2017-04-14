@@ -412,7 +412,7 @@ function DeliveryRequestCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridC
         }
     }
     $scope.bindModel = function (SelectedFamily, rowIndex) {
-        $scope.gridOptions.data[rowIndex].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(SelectedFamily) } });
+        $scope.gridOptions.data[rowIndex].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(SelectedFamily) } }, true);
     }
 
     var gridOptions = {}
@@ -487,9 +487,11 @@ function DeliveryRequestEditCtrl($scope, $uibModalInstance, $uibModal, uiGridCon
         
         if (SelectedCustomer != null && SelectedCustomer.Value != null) {
             data = getcustomerContactsFilterData(SelectedCustomer.Value);
+            //console.log(data);
             var url = ContactsGetInfoUrl;
             global.post(url, data, function (resp) {
                 var result = resp.data
+                //console.log(result);
                 $scope.selectCustomerContact = null;
                 $scope.customerContacts = result;
                 if (callBackFunc != null) {
@@ -514,17 +516,14 @@ function DeliveryRequestEditCtrl($scope, $uibModalInstance, $uibModal, uiGridCon
         $scope.GetItems();
         //store Delivery RequestId
         $scope.DeliveryRequestId = gridData[0].DeliveryRequestId;
-
         for (var i = 0; i < gridData.length; i++) {
-            var gridRowData = { DeliveryRequestDetailsId: gridData[i].DeliveryRequestDetailsId, DeliveryRequestId: gridData[i].DeliveryRequestId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].DeviceModelType.ItemFamilyId.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
-            
+            var gridRowData = { DeliveryRequestDetailsId: gridData[i].DeliveryRequestDetailsId, DeliveryRequestId: gridData[i].DeliveryRequestId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].fa_code.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
             if (gridRowData.ItemFamily != null) {
                 gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
             }
-            gridRowData.ModelType = gridData[i].DeviceModelTypeId.toString()
+            gridRowData.ModelType = gridData[i].ModelType_ia_item_id.toFixed(1).toString();
             $scope.gridOptions.data.push(gridRowData);
         }
-
     }
     $scope.bindModel = function (SelectedFamily, rowIndex) {
         $scope.gridOptions.data[rowIndex].ModelType = null;
@@ -776,12 +775,12 @@ function DeliveryNoteCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridCons
         $scope.DeliveryRequestId = gridData[0].DeliveryRequestId;
 
         for (var i = 0; i < gridData.length; i++) {
-            var gridRowData = { DeliveryRequestDetailsId: gridData[i].DeliveryRequestDetailsId, DeliveryRequestId: gridData[i].DeliveryRequestId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].DeviceModelType.ItemFamilyId.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
+            var gridRowData = { DeliveryRequestDetailsId: gridData[i].DeliveryRequestDetailsId, DeliveryRequestId: gridData[i].DeliveryRequestId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].fa_code.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
 
             if (gridRowData.ItemFamily != null) {
                 gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
             }
-            gridRowData.ModelType = gridData[i].DeviceModelTypeId.toString()
+            gridRowData.ModelType = gridData[i].ModelType_ia_item_id.toFixed(1).toString();
             $scope.gridOptions.data.push(gridRowData);
         }
 
@@ -903,7 +902,7 @@ function DeliveryNoteCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridCons
                 if (result.length == 1) {
                     var device = result[0];
                     $scope.deviceGridOptions.data[index].DeviceId = device.DeviceId;
-                    $scope.deviceGridOptions.data[index].DeviceModelTypeId = device.DeviceModelTypeId;
+                    $scope.deviceGridOptions.data[index].ModelType_ia_item_id = device.ModelType_ia_item_id;
                 }
             }
         }, function (resp) {
@@ -993,7 +992,7 @@ function DeliveryNoteEditCtrl($scope, $uibModalInstance, $uibModal, uiGridConsta
             if (gridRowData.ItemFamily != null) {
                 gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
             }
-            gridRowData.ModelType = gridData[i].DeviceModelTypeId.toString()
+            gridRowData.ModelType = gridData[i].ModelType_ia_item_id.toString()
             $scope.gridOptions.data.push(gridRowData);
         }
 

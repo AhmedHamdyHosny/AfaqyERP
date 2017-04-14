@@ -50,23 +50,28 @@ namespace Afaqy_Store.Models
     public class DeliveryRequestDetailsViewModel : DeliveryRequestViewModel
     {
         public List<RequestDetails_DetailsViewModel> DeliveryRequestDetails { get; set; }
-        public List<DeliveryRequestTechnician> Technician { get; set; }
+        public List<DeliveryRequestTechnicianViewModel> DeliveryRequestTechnician { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,Note,DeliveryRequestDetails")]
+    [Bind(Include = "DeliveryRequestId,POS_ps_code,Warehouse_wa_code,SaleTransactionTypeId,Customer_aux_id,CustomerName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,Note,DeliveryRequestDetails")]
     public class DeliveryRequestCreateBindModel : DeliveryRequest
     {
+        //public string POSId { get; set; }
+        //public string WarehouseId { get; set; }
         public string DeliveryRequestDate_Str { get; set; }
         public string DeliveryRequestTime_Str { get; set; }
     }
-    [Bind(Include = "DeliveryRequestId,POSId,WarehouseId,SaleTransactionTypeId,CustomerId,CustomerName,CustomerContactId,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,DeliveryRequestStatusId,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
+    [Bind(Include = "DeliveryRequestId,POS_ps_code,Warehouse_wa_code,SaleTransactionTypeId,Customer_aux_id,CustomerName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,DeliveryRequestStatusId,cmp_seq,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
     public class DeliveryRequestEditBindModel : DeliveryRequest
     {
+        //public string POSId { get; set; }
+        //public string WarehouseId { get; set; }
         public string DeliveryRequestDate_Str { get; set; }
         public string DeliveryRequestTime_Str { get; set; }
     }
     public class DeliveryRequestEditModel
     {
         public DeliveryRequest EditItem { get; set; }
+        public List<DeliveryRequestDetailsView> DeliveryRequestDetails { get; set; }
         public IEnumerable<CustomSelectListItem> PointOfSale { get; set; }
         public IEnumerable<CustomSelectListItem> Warehouse { get; set; }
         public IEnumerable<CustomSelectListItem> SaleTransactionType { get; set; }

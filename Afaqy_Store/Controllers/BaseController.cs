@@ -14,6 +14,8 @@ namespace Afaqy_Store.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            //get notification
+
             ViewBag.NotificationCount = 3;
             base.OnActionExecuting(filterContext);
         }

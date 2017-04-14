@@ -14,15 +14,7 @@ namespace Afaqy_Store.DataLayer
     
     public partial class DeviceModelType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceModelType()
-        {
-            this.DeliveryDetails = new HashSet<DeliveryDetails>();
-            this.DeliveryRequestDetails = new HashSet<DeliveryRequestDetails>();
-            this.Device = new HashSet<Device>();
-        }
-    
-        public int DeviceModelTypeId { get; set; }
+        public decimal DeviceModelTypeId { get; set; }
         public string DeviceModelTypeName { get; set; }
         public Nullable<int> ItemFamilyId { get; set; }
         public bool IsBlock { get; set; }
@@ -31,12 +23,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDetails> DeliveryDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
         public virtual ItemFamily ItemFamily { get; set; }
     }
 }

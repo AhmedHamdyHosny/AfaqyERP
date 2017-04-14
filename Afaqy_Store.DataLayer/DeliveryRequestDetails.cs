@@ -15,8 +15,9 @@ namespace Afaqy_Store.DataLayer
     public partial class DeliveryRequestDetails
     {
         public int DeliveryRequestDetailsId { get; set; }
+        public int cmp_seq { get; set; }
         public int DeliveryRequestId { get; set; }
-        public int DeviceModelTypeId { get; set; }
+        public decimal ModelType_ia_item_id { get; set; }
         public int Quantity { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
@@ -26,6 +27,5 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual DeliveryRequest DeliveryRequest { get; set; }
-        public virtual DeviceModelType DeviceModelType { get; set; }
     }
 }

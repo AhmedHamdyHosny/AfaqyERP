@@ -192,9 +192,9 @@
                     '<div class="form-group"> ' +
                     '<div>' +
                     '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" class="gridcustom-select"  autofocus></div>' +
-                    '<input type="hidden" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '<input type="hidden" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" data_ng_value = "row.entity.ModelType" />' +
                     '</div>' +
-                    //'<select class="form-control row-dropdownlist" ng-model="SelectedModel" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" >' +
+                    //'<select class="form-control row-dropdownlist" ng-model="SelectedModel" name="DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" >' +
                     //'<option ng-repeat="modelType in row.entity.ModelTypes track by $index" value="{{modelType.Value}}">{{modelType.Text}}</option>' +
                     //'</select>'+
                     ' </div>',
@@ -244,7 +244,7 @@
                     '<div class="form-group"> ' +
                     '<div>' +
                     '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" class="gridcustom-select"  autofocus></div>' +
-                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceModelTypeId" data_ng_value = "row.entity.ModelType" />' +
+                    '<input type="hidden" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" data_ng_value = "row.entity.ModelType" />' +
                     '</div>' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
@@ -271,8 +271,8 @@
         ];
 
         var detailsRequestDetailsGridColumnDefs = [
-            { field: 'ItemFamilyName_en', name: '@Resources.Store.ItemFamily', width: 150 },
-            { field: 'DeviceModelTypeName', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'ia_item_code', name: '@Resources.Store.DeviceModelType', width: 200 },
             { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
             { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
         ];

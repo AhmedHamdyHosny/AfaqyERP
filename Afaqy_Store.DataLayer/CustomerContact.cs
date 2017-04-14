@@ -18,8 +18,6 @@ namespace Afaqy_Store.DataLayer
         public CustomerContact()
         {
             this.CustomerContactDetails = new HashSet<CustomerContactDetails>();
-            this.DeliveryNote = new HashSet<DeliveryNote>();
-            this.DeliveryRequest = new HashSet<DeliveryRequest>();
         }
     
         public int CustomerContactId { get; set; }
@@ -39,9 +37,5 @@ namespace Afaqy_Store.DataLayer
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerContactDetails> CustomerContactDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
     }
 }

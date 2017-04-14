@@ -21,16 +21,18 @@ namespace Afaqy_Store.DataLayer
         public string SerialNumber { get; set; }
         public string IMEI { get; set; }
         public string Firmware { get; set; }
-        public Nullable<int> EmployeeId { get; set; }
-        public string FirstName_en { get; set; }
-        public string FirstName_ar { get; set; }
-        public string LastName_en { get; set; }
-        public string LastName_ar { get; set; }
+        public Nullable<int> Employee_aux_id { get; set; }
+        public string name { get; set; }
+        public string altname { get; set; }
         public Nullable<System.DateTime> InstallingDateTime { get; set; }
         public string CarPlateNum { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
-        public string DeviceModelTypeName { get; set; }
-        public Nullable<int> DeviceModelTypeId { get; set; }
+        public string ia_name { get; set; }
+        public string ia_shname { get; set; }
+        public string ia_altname { get; set; }
+        public string ia_shaltname { get; set; }
+        public Nullable<decimal> ModelType_ia_item_id { get; set; }
+        public int DeliveryDevice_cmp_seq { get; set; }
     }
 }

@@ -22,7 +22,7 @@
                         @Resources.Sales.POS
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.POSName_en)
+                        @Html.DisplayFor(model => model.ps_name)
                     </dd>
 
                     <dt>
@@ -36,7 +36,7 @@
                         @Resources.Sales.CustomerContact
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.ContactName_en)
+                        @Html.DisplayFor(model => model.contact_name)
                     </dd>
 
                     <dt>
@@ -89,14 +89,14 @@
                         @Resources.Adminstration.Warehouse
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.WarehouseName_en)
+                        @Html.DisplayFor(model => model.wa_name)
                     </dd>
 
                     <dt>
                         @Resources.ServerManagement.Customer
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.CustomerName_en)
+                        @Html.DisplayFor(model => model.CustomerName)
                     </dd>
 
                     <dt>
@@ -161,10 +161,10 @@
                 </div>
             </div>
             <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.Technician, Resources.Adminstration.Technician, htmlAttributes: new { @class = "text-info" })
-                @*@Html.CustomDropdownListFor(model => model.Technician, (IEnumerable<CustomSelectListItem>)ViewBag.Technician, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control", @name = "Technician", @id = "Technician", @multiple = "multiple" })*@
-                @Html.DropDownListFor(model => model.Technician, (IEnumerable<CustomSelectListItem>)ViewBag.Technician, null, htmlAttributes: new { @class = "form-control", @name = "Technician", @id = "Technician", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.Technician, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.DeliveryRequestTechnician, Resources.Adminstration.Technician, htmlAttributes: new { @class = "text-info" })
+                
+                @Html.DropDownList("RequestTechnician", (IEnumerable<CustomSelectListItem>)ViewBag.Technician, null, htmlAttributes: new { @class = "form-control", @id = "Technician", @multiple = "multiple" })
+                @Html.ValidationMessageFor(model => model.DeliveryRequestTechnician, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">
@@ -185,7 +185,7 @@
     <!--Bootstrap Date Picker-->
     <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
     <!--Bootstrap Time Picker-->
-    <script src="~/Content/js/datetime/bootstrap-timepicker.js"></script>
+    <script src="~/Content/js/datetime/bootstrap-timepicker.min.js"></script>
     <!--Jquery Select2-->
     <script src="~/Content/js/select2/select2.js"></script>
     <script>
@@ -193,7 +193,7 @@
         $(document).ready(function () {
             //--Jquery Select2--
             $("#Technician").select2();
-            $('.date-picker').datepicker();
+            $('.date-picker').datepicker({startDate: new Date()});
 
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {

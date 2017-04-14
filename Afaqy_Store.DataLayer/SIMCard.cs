@@ -30,7 +30,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> PurchaseDate { get; set; }
         public decimal Cost { get; set; }
         public Nullable<int> CurrencyId { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public string Warehouse_wa_code { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -38,7 +38,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Branch Branch { get; set; }
         public virtual Currency Currency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }

@@ -12,6 +12,8 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class AfaqyStoreEntities : DbContext
     {
@@ -79,6 +81,17 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<TechniqueSystem> TechniqueSystem { get; set; }
         public virtual DbSet<TempDevice> TempDevice { get; set; }
         public virtual DbSet<Warehouse> Warehouse { get; set; }
+        public virtual DbSet<fm_c_branch> fm_c_branch { get; set; }
+        public virtual DbSet<im_itema> im_itema { get; set; }
+        public virtual DbSet<im_itemb> im_itemb { get; set; }
+        public virtual DbSet<im_itemc> im_itemc { get; set; }
+        public virtual DbSet<im_points> im_points { get; set; }
+        public virtual DbSet<im_warehouse> im_warehouse { get; set; }
+        public virtual DbSet<it_trans_a> it_trans_a { get; set; }
+        public virtual DbSet<it_trans_b> it_trans_b { get; set; }
+        public virtual DbSet<it_trans_serial> it_trans_serial { get; set; }
+        public virtual DbSet<rpaux> rpaux { get; set; }
+        public virtual DbSet<rpauxname> rpauxname { get; set; }
         public virtual DbSet<BrandServerPortView> BrandServerPortView { get; set; }
         public virtual DbSet<CustomerServerAccountView> CustomerServerAccountView { get; set; }
         public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
@@ -97,5 +110,64 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
+        public virtual DbSet<im_family> im_family { get; set; }
+        public virtual DbSet<WarehouseInfo> WarehouseInfo { get; set; }
+    
+        public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<System.DateTime> trans_datetime, string pos_code, string warehouse_code, Nullable<int> salesmanId, Nullable<int> customerId, Nullable<int> currencyId, string tra_status, string tra_user, string trans_ref, Nullable<int> tra_ref_type, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
+        {
+            var cmp_seqParameter = cmp_seq.HasValue ?
+                new ObjectParameter("cmp_seq", cmp_seq) :
+                new ObjectParameter("cmp_seq", typeof(int));
+    
+            var trans_datetimeParameter = trans_datetime.HasValue ?
+                new ObjectParameter("trans_datetime", trans_datetime) :
+                new ObjectParameter("trans_datetime", typeof(System.DateTime));
+    
+            var pos_codeParameter = pos_code != null ?
+                new ObjectParameter("pos_code", pos_code) :
+                new ObjectParameter("pos_code", typeof(string));
+    
+            var warehouse_codeParameter = warehouse_code != null ?
+                new ObjectParameter("warehouse_code", warehouse_code) :
+                new ObjectParameter("warehouse_code", typeof(string));
+    
+            var salesmanIdParameter = salesmanId.HasValue ?
+                new ObjectParameter("salesmanId", salesmanId) :
+                new ObjectParameter("salesmanId", typeof(int));
+    
+            var customerIdParameter = customerId.HasValue ?
+                new ObjectParameter("customerId", customerId) :
+                new ObjectParameter("customerId", typeof(int));
+    
+            var currencyIdParameter = currencyId.HasValue ?
+                new ObjectParameter("currencyId", currencyId) :
+                new ObjectParameter("currencyId", typeof(int));
+    
+            var tra_statusParameter = tra_status != null ?
+                new ObjectParameter("tra_status", tra_status) :
+                new ObjectParameter("tra_status", typeof(string));
+    
+            var tra_userParameter = tra_user != null ?
+                new ObjectParameter("tra_user", tra_user) :
+                new ObjectParameter("tra_user", typeof(string));
+    
+            var trans_refParameter = trans_ref != null ?
+                new ObjectParameter("trans_ref", trans_ref) :
+                new ObjectParameter("trans_ref", typeof(string));
+    
+            var tra_ref_typeParameter = tra_ref_type.HasValue ?
+                new ObjectParameter("tra_ref_type", tra_ref_type) :
+                new ObjectParameter("tra_ref_type", typeof(int));
+    
+            var device_NewStatusParameter = device_NewStatus.HasValue ?
+                new ObjectParameter("device_NewStatus", device_NewStatus) :
+                new ObjectParameter("device_NewStatus", typeof(int));
+    
+            var deliveryRequest_NewStatusParameter = deliveryRequest_NewStatus.HasValue ?
+                new ObjectParameter("deliveryRequest_NewStatus", deliveryRequest_NewStatus) :
+                new ObjectParameter("deliveryRequest_NewStatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertDolphinDeliveryNote", cmp_seqParameter, trans_datetimeParameter, pos_codeParameter, warehouse_codeParameter, salesmanIdParameter, customerIdParameter, currencyIdParameter, tra_statusParameter, tra_userParameter, trans_refParameter, tra_ref_typeParameter, device_NewStatusParameter, deliveryRequest_NewStatusParameter);
+        }
     }
 }

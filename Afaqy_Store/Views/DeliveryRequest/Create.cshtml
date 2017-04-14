@@ -45,29 +45,29 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="row">
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.POSId, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.POS_ps_code, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
                     @if (((IEnumerable<CustomSelectListItem>)ViewBag.POSId).Count() < 2)
                     {
-                        @Html.CustomDropdownListFor(model => model.POSId, (IEnumerable<CustomSelectListItem>)ViewBag.POSId, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
+                        @Html.CustomDropdownListFor(model => model.POS_ps_code, (IEnumerable<CustomSelectListItem>)ViewBag.POSId, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
                     }
                     else
                     {
-                        @Html.CustomDropdownListFor(model => model.POSId, (IEnumerable<CustomSelectListItem>)ViewBag.POSId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
+                        @Html.CustomDropdownListFor(model => model.POS_ps_code, (IEnumerable<CustomSelectListItem>)ViewBag.POSId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
                     }
                     
-                    @Html.ValidationMessageFor(model => model.POSId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.POS_ps_code, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.WarehouseId, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.Warehouse_wa_code, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
                     @if (((IEnumerable<CustomSelectListItem>)ViewBag.WarehouseId).Count() < 2)
                     {
-                        @Html.CustomDropdownListFor(model => model.WarehouseId, (IEnumerable<CustomSelectListItem>)ViewBag.WarehouseId, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
+                        @Html.CustomDropdownListFor(model => model.Warehouse_wa_code, (IEnumerable<CustomSelectListItem>)ViewBag.WarehouseId, null, null, htmlAttributes: new { @class = "form-control", @readOnly = "true" })
                     }
                     else
                     {
-                        @Html.CustomDropdownListFor(model => model.WarehouseId, (IEnumerable<CustomSelectListItem>)ViewBag.WarehouseId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
+                        @Html.CustomDropdownListFor(model => model.Warehouse_wa_code, (IEnumerable<CustomSelectListItem>)ViewBag.WarehouseId, null, Resources.Resource.SelectItem, htmlAttributes: new { @class = "form-control" })
                     }
-                    @Html.ValidationMessageFor(model => model.WarehouseId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Warehouse_wa_code, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
@@ -77,19 +77,19 @@
                     @Html.ValidationMessageFor(model => model.SaleTransactionTypeId, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group"> 
-                    @Html.LabelFor(model => model.CustomerId, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                    @Html.LabelFor(model => model.Customer_aux_id, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
                     <div id="customerDiv" custom-select="item as item.Text for item in customers | filter: $searchTerm" ng-model="selectCustomer" ng-init="bindCustomers()" ng-change="bindCustomerContacts(selectCustomer)" autofocus></div>
-                    @Html.HiddenFor(model => model.CustomerId, htmlAttributes: new { data_ng_value = "selectCustomer.Value" })
+                    @Html.HiddenFor(model => model.Customer_aux_id, htmlAttributes: new { data_ng_value = "selectCustomer.Value" })
                     @Html.HiddenFor(model => model.CustomerName, htmlAttributes: new { data_ng_value = "selectCustomer.Text" } )
-                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Customer_aux_id, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.CustomerContactId, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
-                    <div custom-select="item.CustomerContactId as item.ContactName_en for item in customerContacts | filter: $searchTerm" ng-model="selectCustomerContact" ng-init="bindCustomerContacts()" autofocus></div>
-                    @Html.HiddenFor(model => model.CustomerContactId, htmlAttributes: new { data_ng_value = "selectCustomerContact" })
-                    @Html.ValidationMessageFor(model => model.CustomerContactId, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.CustomerContact_serial, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
+                    <div custom-select="item.serial as item.contact_name for item in customerContacts | filter: $searchTerm" ng-model="selectCustomerContact" ng-init="bindCustomerContacts()" autofocus></div>
+                    @Html.HiddenFor(model => model.CustomerContact_serial, htmlAttributes: new { data_ng_value = "selectCustomerContact" })
+                    @Html.ValidationMessageFor(model => model.CustomerContact_serial, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.SystemId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
@@ -101,7 +101,7 @@
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.AlternativeContactName, Resources.Sales.AlternativeContactName, htmlAttributes: new { @class = "text-info" })
                     @Html.EditorFor(model => model.AlternativeContactName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CustomerContactId, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.AlternativeContactName, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6 form-group">
                     @Html.LabelFor(model => model.AlternativeContactTelephone, Resources.Sales.AlternativeContactTelephone, htmlAttributes: new { @class = "text-info" })
@@ -174,7 +174,7 @@
 
         $(document).ready(function () {
             //--Bootstrap Date Picker--
-            $('.date-picker').datepicker();
+            $('.date-picker').datepicker({startDate: new Date()});
             //--Bootstrap Time Picker--
             $('#DeliveryRequestTime_Str').timepicker();
 

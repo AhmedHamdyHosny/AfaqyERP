@@ -21,9 +21,14 @@ namespace Afaqy_Store.Controllers
             foreach (var item in items)
             {
                 filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = item.DeliveryRequestId });
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = item.DeliveryRequestId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
                 var detailsRequestBody = new GenericDataFormat() { Filters = filters };
-                item.DeliveryRequestDetails = new DeliveryRequestDetailsModel<RequestDetails_DetailsViewModel>().GetView<RequestDetails_DetailsViewModel>(requestBody).PageItems;
+                item.DeliveryRequestDetails = new DeliveryRequestDetailsModel<RequestDetails_DetailsViewModel>().GetView<RequestDetails_DetailsViewModel>(detailsRequestBody).PageItems;
+
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = item.DeliveryRequestId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                var technicianRequestBody = new GenericDataFormat() { Filters = filters };
+                item.DeliveryRequestTechnician = new DeliveryRequestTechnicianModel<DeliveryRequestTechnicianViewModel>().GetView<DeliveryRequestTechnicianViewModel>(technicianRequestBody).PageItems;
             }
 
         }
@@ -37,12 +42,12 @@ namespace Afaqy_Store.Controllers
             
             //get all customers
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en,CustomerName_ar", "CustomerName_en", filters);
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
+            List<rpaux> customers = new CustomerModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
             //add customer english name
-            var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString() }).ToList();
+            var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.name, Value = x.aux_id.ToString() }).ToList();
             //add customer arabic name
-            customerSelectListItems.AddRange(customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_ar, Value = x.CustomerId.ToString() }));
+            customerSelectListItems.AddRange(customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.altname, Value = x.aux_id.ToString() }));
             //get all customer server accounts
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
@@ -54,26 +59,25 @@ namespace Afaqy_Store.Controllers
             ViewBag.CustomerId = customerSelectListItems;
 
             //get all Points of sale
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             //filter by branch 
-            if(User.BranchId != null)
-            {
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-            }
-            List<PointOfSale> pos = new PointOfSaleModel<PointOfSale>().GetAsDDLst("POSId,POSName_en", "POSId", filters);
-            ViewBag.POSId = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.POSName_en, Value = x.POSId.ToString() });
+            filters = null;
+            //if(User.BranchId != null)
+            //{
+            //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
+            //}
+            List<im_points> pos = new PointOfSaleModel<im_points>().GetAsDDLst("ps_cmp_seq,ps_code,ps_name,ps_altname", "ps_code", filters);
+            ViewBag.POSId = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name,x.ps_altname) , Value =x.ps_code });
 
             //get all Warehouse
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "wa_inactive", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
             //filter by branch 
-            if (User.BranchId != null)
-            {
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-            }
-            List<Warehouse> warehouse = new WarehouseModel<Warehouse>().GetAsDDLst("WarehouseId,WarehouseName_en", "WarehouseId", filters);
-            ViewBag.WarehouseId = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.WarehouseName_en, Value = x.WarehouseId.ToString() });
+            //if (User.BranchId != null)
+            //{
+            //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
+            //}
+            List<im_warehouse> warehouse = new WarehouseModel<im_warehouse>().GetAsDDLst("wa_cmp_seq,wa_code,wa_name,wa_altname", "wa_code", filters);
+            ViewBag.WarehouseId = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.wa_name, x.wa_altname), Value = x.wa_code });
 
 
             //get all technique systems
@@ -83,31 +87,33 @@ namespace Afaqy_Store.Controllers
             ViewBag.SystemId = systems.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SystemName, Value = x.SystemId.ToString() });
 
             //get all Item Families
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-            List<ItemFamily> itemFamilies = new ItemFamilyModel<ItemFamily>().GetAsDDLst("ItemFamilyId,ItemFamilyName_en", "ItemFamilyId", filters);
-            ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = x.ItemFamilyName_en, Value = x.ItemFamilyId.ToString() }).ToList();
+            filters = null;
+            List<im_family> itemFamilies = new ItemFamilyModel<im_family>().GetAsDDLst("fa_cmp_seq,fa_code,fa_name,fa_altname", "fa_code", filters);
+            ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.fa_name, x.fa_altname), Value = x.fa_code }).ToList();
 
             //get all model types
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            filters = null;
             var sorts = new List<GenericDataFormat.SortItems>();
-            sorts.Add(new GenericDataFormat.SortItems() { Property = "DeviceModelTypeName" });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceModelTypeId,DeviceModelTypeName,ItemFamilyId" }, Sorts = sorts };
-            List<DeviceModelType> modelTypes = new DeviceModelTypeModel<DeviceModelType>().Get(requestBody);
-            ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Group = new SelectListGroup() { Name = x.ItemFamilyId.ToString() } }).ToList();
+            sorts.Add(new GenericDataFormat.SortItems() { Property = "ia_item_code" });
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "ia_item_id,ia_item_code,ia_name,ia_altname,ia_cmp_seq,ia_fa_code" }, Sorts = sorts };
+            List<im_itema> modelTypes = new ModelTypeModel<im_itema>().Get(requestBody);
+            ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.ia_item_code, Value = x.ia_item_id.ToString(), Group = new SelectListGroup() { Name = x.ia_fa_code } }).ToList();
         }
         public override void FuncPreCreate(ref DeliveryRequestCreateBindModel model)
         {
+            //string[] posFK = Classes.Utilities.Utility.GetForeignKeyValue(model.POSId);
+            //model.POS_ps_code = posFK[1];
+            //model.Warehouse_wa_code = Classes.Utilities.Utility.GetForeignKeyValue(model.WarehouseId)[1];
+            var companySequence = Classes.Utilities.Utility.GetCompanySequence();
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
+            model.cmp_seq = companySequence;
             model.DeliveryRequestStatusId = (int)Classes.Common.DBEnums.DeliveryRequestStatus.Approved;
             DateTime deliveryDateTime = (DateTime)Classes.Utilities.Utility.ParseDateTime(model.DeliveryRequestDate_Str + " " + model.DeliveryRequestTime_Str);
             model.DeliveryRequestDateTime = deliveryDateTime;
-            model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
+            model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.cmp_seq = companySequence; x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
             
         }
-
         
         public override void FuncPreInitEditView(object id, ref DeliveryRequest EditItem, ref DeliveryRequestEditModel model)
         {
@@ -116,14 +122,21 @@ namespace Afaqy_Store.Controllers
                 //get the item by id
                 filters = new List<GenericDataFormat.FilterItems>();
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = id });
-                var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestDetails.DeviceModelType" } };
+                var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails" } };
                 EditItem = new DeliveryRequestModel<DeliveryRequest>().Get(requestBody).SingleOrDefault();
+
             }
             if (EditItem != null)
             {
                 model = new DeliveryRequestEditModel();
                 model.EditItem = EditItem;
+                //get delivery request details
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = EditItem.DeliveryRequestId });
+                var requestBody = new GenericDataFormat(){Filters = filters};
+                model.DeliveryRequestDetails = new DeliveryRequestDetailsModel<DeliveryRequestDetailsView>().GetView<DeliveryRequestDetailsView>(requestBody).PageItems;
                 var selectedItem = EditItem;
+
                 //prepare dropdown list for item references
                 filters = new List<GenericDataFormat.FilterItems>();
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
@@ -131,32 +144,42 @@ namespace Afaqy_Store.Controllers
                 model.SaleTransactionType = SaleTransactionTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SaleTransactionType_en, Value = x.SaleTransactionTypeId.ToString(), Selected = (x.SaleTransactionTypeId == selectedItem.SaleTransactionTypeId) });
 
                 //get all customers
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-                List<Customer> customers = new CustomerModel<Customer>().GetAsDDLst("CustomerId,CustomerName_en", "CustomerName_en", filters);
-                model.Customer = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.CustomerName_en, Value = x.CustomerId.ToString(), Selected = (x.CustomerId == selectedItem.CustomerId) });
-
+                filters = null;
+                List<rpaux> customers = new CustomerModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
+                //add customer english name
+                var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.name, Value = x.aux_id.ToString() }).ToList();
+                //add customer arabic name
+                customerSelectListItems.AddRange(customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.altname, Value = x.aux_id.ToString() }));
+                //get all customer server accounts
+                filters = null;
+                List<CustomerServerAccount> customerServerAccounts = new CustomerServerAccountModel<CustomerServerAccount>().GetAsDDLst("CustomerId,SeverCustomerName,AccountUserName", "SeverCustomerName", filters);
+                //add customer name in server 
+                customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
+                //get distinct value from list
+                customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x => x.Text).Distinct().ToList();
+                model.Customer = customerSelectListItems.Distinct().Select(x=> { x.Selected = (x.Value == selectedItem.Customer_aux_id.ToString() && x.Text == selectedItem.CustomerName); return x; } );
+                
                 //get all Points of sale
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
                 //filter by branch 
-                if (User.BranchId != null)
-                {
-                    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-                }
-                List<PointOfSale> pos = new PointOfSaleModel<PointOfSale>().GetAsDDLst("POSId,POSName_en", "POSId", filters);
-                model.PointOfSale = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.POSName_en, Value = x.POSId.ToString(), Selected = (x.POSId == selectedItem.POSId) });
+                filters = null;
+                //if (User.BranchId != null)
+                //{
+                //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
+                //}
+
+                List<im_points> pos = new PointOfSaleModel<im_points>().GetAsDDLst("ps_cmp_seq,ps_code,ps_name,ps_altname", "ps_code", filters);
+                model.PointOfSale = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name, x.ps_altname), Value = x.ps_code, Selected = (x.ps_code == selectedItem.POS_ps_code && x.ps_cmp_seq == selectedItem.cmp_seq) });
 
                 //get all Warehouse
                 filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "wa_inactive", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
                 //filter by branch 
-                if (User.BranchId != null)
-                {
-                    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-                }
-                List<Warehouse> warehouse = new WarehouseModel<Warehouse>().GetAsDDLst("WarehouseId,WarehouseName_en", "WarehouseId", filters);
-                model.Warehouse = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.WarehouseName_en, Value = x.WarehouseId.ToString(), Selected = (x.WarehouseId == selectedItem.WarehouseId) });
+                //if (User.BranchId != null)
+                //{
+                //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
+                //}
+                List<im_warehouse> warehouse = new WarehouseModel<im_warehouse>().GetAsDDLst("wa_cmp_seq,wa_code,wa_name,wa_altname", "wa_code", filters);
+                model.Warehouse = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.wa_name, x.wa_altname), Value = x.wa_code, Selected = (x.wa_code == selectedItem.Warehouse_wa_code && x.wa_cmp_seq == selectedItem.cmp_seq) });
                 
                 //get all technique systems
                 filters = new List<GenericDataFormat.FilterItems>();
@@ -164,20 +187,20 @@ namespace Afaqy_Store.Controllers
                 List<TechniqueSystem> systems = new TechniqueSystemModel<TechniqueSystem>().GetAsDDLst("SystemId,SystemName", "SystemName", filters);
                 model.TechniqueSystem = systems.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SystemName, Value = x.SystemId.ToString(), Selected = (x.SystemId == selectedItem.SystemId) });
 
+
                 //get all Item Families
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
-                List<ItemFamily> itemFamilies = new ItemFamilyModel<ItemFamily>().GetAsDDLst("ItemFamilyId,ItemFamilyName_en", "ItemFamilyId", filters);
-                ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = x.ItemFamilyName_en, Value = x.ItemFamilyId.ToString() }).ToList();
+                filters = null;
+                List<im_family> itemFamilies = new ItemFamilyModel<im_family>().GetAsDDLst("fa_cmp_seq,fa_code,fa_name,fa_altname", "fa_code", filters);
+                ViewBag.ItemFamilies = itemFamilies.Select(x => new SelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.fa_name, x.fa_altname), Value = x.fa_code }).ToList();
 
                 //get all model types
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                filters = null;
                 var sorts = new List<GenericDataFormat.SortItems>();
-                sorts.Add(new GenericDataFormat.SortItems() { Property = "DeviceModelTypeName" });
-                var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "DeviceModelTypeId,DeviceModelTypeName,ItemFamilyId" }, Sorts = sorts };
-                List<DeviceModelType> modelTypes = new DeviceModelTypeModel<DeviceModelType>().Get(requestBody);
-                ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.DeviceModelTypeName, Value = x.DeviceModelTypeId.ToString(), Group = new SelectListGroup() { Name = x.ItemFamilyId.ToString() } }).ToList();
+                sorts.Add(new GenericDataFormat.SortItems() { Property = "ia_item_code" });
+                requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "ia_item_id,ia_item_code,ia_name,ia_altname,ia_cmp_seq,ia_fa_code" }, Sorts = sorts };
+                List<im_itema> modelTypes = new ModelTypeModel<im_itema>().Get(requestBody);
+                ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.ia_item_code, Value = x.ia_item_id.ToString(), Group = new SelectListGroup() { Name = x.ia_fa_code } }).ToList();
+                
             }
         }
         public override void FuncPreEdit(ref object id, ref DeliveryRequestEditBindModel EditItem)
@@ -188,12 +211,13 @@ namespace Afaqy_Store.Controllers
             //get delivery request details 
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, LogicalOperation = GenericDataFormat.LogicalOperations.And, Value = id });
-            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails,DeliveryRequestDetails.DeviceModelType" } };
+            var requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { References = "DeliveryRequestDetails" } };
             var deliveryRequest = new DeliveryRequestModel<DeliveryRequest>().Get(requestBody).SingleOrDefault();
             var originalDeliveryRequestDetails = deliveryRequest.DeliveryRequestDetails;
             foreach (var item in EditItem.DeliveryRequestDetails)
             {
-                var originalItem = originalDeliveryRequestDetails.SingleOrDefault(x => x.DeviceModelTypeId == item.DeviceModelTypeId);
+                var originalItem = originalDeliveryRequestDetails.SingleOrDefault(x => x.ModelType_ia_item_id == item.ModelType_ia_item_id);
+                item.cmp_seq = EditItem.cmp_seq;
                 if (originalItem != null)
                 {
                     item.CreateUserId = originalItem.CreateUserId;
@@ -234,12 +258,10 @@ namespace Afaqy_Store.Controllers
             //get all technicians 
             //for test get all employee
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
-            List<EmployeeView> salesEmployees = new EmployeeModel<EmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en", "Employee_FullName_en", filters, GenericDataFormat.SortType.Asc, true);
-            ViewBag.Technician = salesEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.Employee_FullName_en, Value = x.EmployeeId.ToString() });
-
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
+            List<rpaux> technicianEmployees = new EmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
+            ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.name, x.altname), Value = x.aux_id.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.aux_id)) });
             return View(model);
-            //return View();
         }
 
         [HttpPost]
@@ -267,8 +289,7 @@ namespace Afaqy_Store.Controllers
             }
             EditItem.ActualDeliveryDateTime = actualDeliveryDateTime;
             //set assign technician
-            string[] techicians = fc.GetValues("Technician");
-            EditItem.DeliveryRequestTechnician = techicians.Select(x => new DeliveryRequestTechnician() { DeliveryRequestId = EditItem.DeliveryRequestId, EmployeeId = int.Parse(x), CreateUserId = User.UserId, CreateDate = DateTime.Now }).ToList();
+            EditItem.DeliveryRequestTechnician = fc.GetValues("RequestTechnician").Select(x => new DeliveryRequestTechnician() { cmp_seq = EditItem.cmp_seq,  DeliveryRequestId = EditItem.DeliveryRequestId, Employee_aux_id = int.Parse(x), CreateUserId = User.UserId, CreateDate = DateTime.Now }).ToList();
             //create instance to update object
             var instance = new DeliveryRequestModel<DeliveryRequest>();
             var item = instance.Update(EditItem, id);

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiCustomerContactController : BaseApiController<CustomerContact>
+    public class ApiCustomerContactController : BaseApiController<rpauxname>
     {
        
     }

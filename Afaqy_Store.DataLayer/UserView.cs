@@ -60,5 +60,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
         public string ModifyUser_FullName_en { get; set; }
         public string ModifyUser_FullName_ar { get; set; }
+        public string DolphinUser { get; set; }
     }
 }

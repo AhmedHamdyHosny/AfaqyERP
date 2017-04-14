@@ -22,7 +22,7 @@
                         @Resources.Sales.POS
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.POSName_en)
+                        @Html.DisplayFor(model => model.ps_name)
                     </dd>
 
                     <dt>
@@ -36,7 +36,7 @@
                         @Resources.Sales.CustomerContact
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.ContactName_en)
+                        @Html.DisplayFor(model => model.contact_name)
                     </dd>
 
                     <dt>
@@ -54,10 +54,24 @@
                     </dd>
 
                     <dt>
+                        @Resources.Store.DeliveryTechnician
+                    </dt>
+                    <dd>
+                        @string.Join(", ",Model.DeliveryRequestTechnician.Select(x=>x.name))
+                    </dd>
+
+                    <dt>
                         @Resources.Resource.IsBlock
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.Block)
+                    </dd>
+
+                    <dt>
+                        @Resources.Store.DeliveryRequestNote
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Note)
                     </dd>
 
                     <dt>
@@ -74,13 +88,6 @@
                         @Html.DisplayFor(model => model.ModifyUser_FullName_en)
                     </dd>
 
-                    <dt>
-                        @Resources.Store.DeliveryRequestNote
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.Note)
-                    </dd>
-
                 </dl>
             </div>
             <div class="col-xs-6 form-group">
@@ -89,14 +96,14 @@
                         @Resources.Adminstration.Warehouse
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.WarehouseName_en)
+                        @Html.DisplayFor(model => model.wa_name)
                     </dd>
 
                     <dt>
                         @Resources.ServerManagement.Customer
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.CustomerName_en)
+                        @Html.DisplayFor(model => model.CustomerName)
                     </dd>
 
                     <dt>
@@ -114,16 +121,23 @@
                     </dd>
 
                     <dt>
-                        @Resources.Store.DeliveryDateTime
+                        @Resources.Store.ActualDeliveryDateTime
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.DeliveryRequestDateTime)
+                        @Html.DisplayFor(model => model.ActualDeliveryDateTime)
                     </dd>
                     <dt>
                         @Resources.Store.DeliveryRequestStatus
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.DeliveryRequestStatus_en)
+                    </dd>
+
+                    <dt>
+                        @Resources.Store.WithInstallationService
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.InstallationService)
                     </dd>
 
                     <dt>
@@ -140,12 +154,6 @@
                         @Html.DisplayFor(model => model.ModifyDate)
                     </dd>
 
-                    <dt>
-                        @Resources.Store.WithInstallationService
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.InstallationService)
-                    </dd>
                 </dl>
             </div>
         </div>
