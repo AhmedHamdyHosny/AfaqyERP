@@ -165,9 +165,17 @@
         
         
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-success" ng-show="!showSubmit" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button>
-        <button class="btn btn-success" ng-show="showSubmit" type="submit" >@Resources.Resource.ButtonSave</button>
+    <div class="modal-footer"> 
+        @if ((bool)ViewBag.ShowStoreReceivedBtn)
+        {
+            <button class="btn btn-success" type="submit">@Resources.Resource.ButtonSave</button> @*ng-show="showSubmit"*@
+        }
+        else
+        {
+            <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button> @*ng-show="!showSubmit"*@
+        }
+        
+        
     </div>
 }
 
@@ -175,5 +183,11 @@
     
     <script>
         var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryRequestDetails));
+        var detailsRequestDetailsGridColumnDefs = [
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'ia_item_code', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
+            { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
+        ];
     </script>
 }

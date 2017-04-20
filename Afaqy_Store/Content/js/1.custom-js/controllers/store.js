@@ -30,6 +30,7 @@
 .controller('DeliveryNoteEditCtrl', DeliveryNoteEditCtrl)
 .controller('DeliveryNoteDetailsCtrl', DeliveryNoteDetailsCtrl)
 .controller('DeliveryNoteReportCtrl', DeliveryNoteReportCtrl)
+.controller('DeliveryNoteServerAddCtrl', DeliveryNoteServerAddCtrl)
 
 //Device functions ========
 function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
@@ -301,9 +302,9 @@ function DeliveryRequestCtrl($scope, $uibModal, confirmService, global, gridServ
             backdrop: false,
         });
 
-        modalInstance.opened.then(function () {
-            $scope.showSubmit = false;
-        });
+        //modalInstance.opened.then(function () {
+        //    $scope.showSubmit = false;
+        //});
 
         modalInstance.result.then(null, function () { });
     }
@@ -359,9 +360,9 @@ function DeliveryRequestCtrl($scope, $uibModal, confirmService, global, gridServ
             backdrop: false,
         });
 
-        modalInstance.opened.then(function () {
-            $scope.showSubmit = true;
-        });
+        //modalInstance.opened.then(function () {
+        //    $scope.showSubmit = true;
+        //});
 
         modalInstance.result.then(null, function () { });
     }
@@ -650,19 +651,7 @@ function DeliveryRequestAssignCtrl($scope, $uibModalInstance) {
 
         $scope.gridOptions.data = gridData;
     }
-    //set default show
-    //$scope.showDetails = true;
-    //$scope.showAssign = false;
-
-    //$scope.next = function () {
-    //    $scope.showDetails = false;
-    //    $scope.showAssign = true;
-    //}
-    //$scope.back = function () {
-    //    $scope.showDetails = true;
-    //    $scope.showAssign = false;
-    //}
-
+   
 }
 
 //DeliveryNote functions ========
@@ -753,6 +742,20 @@ function DeliveryNoteCtrl($scope, $uibModal, confirmService, global, gridService
             templateUrl: reportActionUrl + '/' + id,
             controller: 'DeliveryNoteReportCtrl',
             windowClass: 'large-Modal',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.serverAdd = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: serverAddActionUrl + '/' + id,
+            controller: 'DeliveryNoteServerAddCtrl',
+            windowClass: 'meduim-Modal',
             scope: $scope,
             backdrop: false,
         });
@@ -1095,4 +1098,67 @@ function DeliveryNoteReportCtrl($scope, $uibModalInstance) {
         $uibModalInstance.dismiss('cancel');
     };
 
+}
+
+function DeliveryNoteServerAddCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    //var gridOptions = {}
+    //ui-Grid Call
+    $scope.bindDeliveryDetailsGirdData = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.deliveryDetailsGridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: deliveryDetailsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.deliveryDetailsGridOptions.data = deliveryDetailsData;
+    }
+
+    $scope.bindDeliveryDevicesGirdData = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.deliveryDevicesGridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: false,
+            enableSelectAll: false,
+            columnDefs: deliveryDeviceGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.deliveryDevicesGridOptions.data = deliveryDevicesData;
+    }
 }

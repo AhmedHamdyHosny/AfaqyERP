@@ -45,7 +45,7 @@ namespace Afaqy_Store.Controllers
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             filters.Add(new GenericDataFormat.FilterItems() { Property = "DepartmentId", Operation = GenericDataFormat.FilterOperations.Equal, Value = (int)DBEnums.Department.Sales, LogicalOperation = GenericDataFormat.LogicalOperations.And });
-            List<EmployeeView> salesEmployees = new EmployeeModel<EmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en", "Employee_FullName_en", filters,GenericDataFormat.SortType.Asc,true);
+            List<RpauxEmployeeView> salesEmployees = new RpauxEmployeeModel<RpauxEmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en", "Employee_FullName_en", filters,GenericDataFormat.SortType.Asc,true);
             ViewBag.EmployeeId = salesEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.name, Value = x.aux_id.ToString() });
 
             //bind customer contact method for add customer contact

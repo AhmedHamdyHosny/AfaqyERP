@@ -28,6 +28,20 @@ namespace Afaqy_Store.Models
                 return this.IsBlock ? Resources.Resource.True : Resources.Resource.False;
             }
         }
+        public string InstallationService
+        {
+            get
+            {
+                if (this.WithInstallationService != null)
+                {
+                    return (bool)this.WithInstallationService ? Resources.Resource.True : Resources.Resource.False;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
     public class DeliveryNoteIndexViewModel : DeliveryNoteView
     {
@@ -35,8 +49,9 @@ namespace Afaqy_Store.Models
     }
     public class DeliveryNoteDetailsViewModel : DeliveryNoteViewModel
     {
-        public List<DeliveryDetails_DetailsViewModel> DeliveryDetailsView { get; set; }
-        public List<DeliveryTechnicianViewModel> TechnicianView { get; set; }
+        public List<DeliveryDetails_DetailsViewModel> DeliveryDetails { get; set; }
+        public List<DeliveryTechnicianViewModel> DeliveryTechnicians { get; set; }
+        public List<DeliveryDeviceViewModel> DeliveryDevices { get; set; }
     }
     [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,Note,DeliveryNoteReference,DeliveryDetails,DeliveryDevice")]
     public class DeliveryNoteCreateBindModel : DeliveryNote

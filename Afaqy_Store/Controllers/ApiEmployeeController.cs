@@ -9,9 +9,9 @@ using GenericApiController.Utilities;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiEmployeeController : BaseApiController<rpaux>
+    public class ApiRpauxEmployeeController : BaseApiController<rpaux>
     {
-        public ApiEmployeeController()
+        public ApiRpauxEmployeeController()
         {
             var dataContrains = GetDataConstrains();
             if (dataContrains == null)
@@ -25,25 +25,41 @@ namespace Afaqy_Store.Controllers
             SetDataConstrains(dataContrains);
 
         }
-        public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
+        public override IHttpActionResult GetView(GenericDataFormat data)
         {
-            var controller = new ApiEmployeeViewController();
+            var controller = new ApiRpauxEmployeeViewController();
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
             return controller.GetView(data);
         }
 
-        public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
+        public override IHttpActionResult Export(GenericDataFormat data)
         {
-            var controller = new ApiEmployeeViewController();
+            var controller = new ApiRpauxEmployeeViewController();
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
             return controller.Export(data);
         }
     }
 
-    public class ApiEmployeeViewController : BaseApiController<EmployeeView>
+    public class ApiRpauxEmployeeViewController : BaseApiController<RpauxEmployeeView>
     {
 
+    }
+
+    public class ApiEmployeeController : BaseApiController<Employee>
+    {
+
+    }
+
+    public class ApiEmployeeViewController : BaseApiController<EmployeeView>
+    {
+        public override IHttpActionResult GetView(GenericDataFormat data)
+        {
+            var controller = new ApiEmployeeViewController();
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            return controller.GetView(data);
+        }
     }
 }

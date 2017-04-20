@@ -32,6 +32,31 @@ namespace Afaqy_Store.Controllers
             }
 
         }
+
+        public override ActionResult FuncPostDetailsView(ref DeliveryRequestDetailsViewModel model)
+        {
+            bool showStoreReceivedBtn = false;
+            //get warehouse employee
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems { Property = "Warehouse_wa_code", Operation = GenericDataFormat.FilterOperations.Equal, Value = model.Warehouse_wa_code, LogicalOperation = GenericDataFormat.LogicalOperations.And});
+            var warehouse = new WarehouseInfoModel<WarehouseInfo>().Get(new GenericDataFormat() { Filters = filters }).SingleOrDefault();
+            if (warehouse != null )
+            {
+                showStoreReceivedBtn = true;
+                //check if user received this request before
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = model.DeliveryRequestId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestStatusId", Operation = GenericDataFormat.FilterOperations.Equal, Value = Classes.Common.DBEnums.DeliveryRequestStatus.Store_Notified, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "CreateUserId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.UserId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                var history = new DeliveryRequestStatusHistoryModel<DeliveryRequestStatusHistory>().Get(new GenericDataFormat() { Filters = filters });
+                if(history != null && history.Count > 0)
+                {
+                    showStoreReceivedBtn = false;
+                }
+            }
+            ViewBag.ShowStoreReceivedBtn = showStoreReceivedBtn;
+            return View(model);
+        }
         public override void FuncPreInitCreateView()
         {
             //prepare dropdown list for item references
@@ -55,7 +80,7 @@ namespace Afaqy_Store.Controllers
             //add customer name in server 
             customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
             //get distinct value from list
-            customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x=>x.Text).Distinct().ToList();
+            customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x=>x.Text).GroupBy(x => new { x.Text }).Select(x => x.FirstOrDefault()).ToList();
             ViewBag.CustomerId = customerSelectListItems;
 
             //get all Points of sale
@@ -114,7 +139,14 @@ namespace Afaqy_Store.Controllers
             model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.cmp_seq = companySequence; x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
             
         }
-        
+        public override ActionResult FuncPostCreate(ref DeliveryRequestCreateBindModel model, ref DeliveryRequest insertedItem)
+        {
+            if(DeliveryRequestCreateBindModel.SendAfterApproveDeliveryRequestNotification(insertedItem, Url.Action("Details"), Url.Action("Assign"), User.UserId))
+            {
+                //do nothing
+            }
+            return base.FuncPostCreate(ref model, ref insertedItem);
+        }
         public override void FuncPreInitEditView(object id, ref DeliveryRequest EditItem, ref DeliveryRequestEditModel model)
         {
             if (EditItem == null)
@@ -241,7 +273,6 @@ namespace Afaqy_Store.Controllers
             string properties = string.Join(",", typeof(DeliveryRequestView).GetProperties().Select(x => x.Name).Where(x => !x.Contains("_ar"))); ;
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties, } };
         }
-
         public ActionResult Assign(object id)
         {
             if (id == null)
@@ -259,11 +290,10 @@ namespace Afaqy_Store.Controllers
             //for test get all employee
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
-            List<rpaux> technicianEmployees = new EmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
+            List<rpaux> technicianEmployees = new RpauxEmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
             ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.name, x.altname), Value = x.aux_id.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.aux_id)) });
             return View(model);
         }
-
         [HttpPost]
         public ActionResult Assign(FormCollection fc)
         {
@@ -297,8 +327,6 @@ namespace Afaqy_Store.Controllers
             TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = 1,  MessageContent = Resources.Store.DeliveryRequestAssignSuccessMessage   };
             return RedirectToAction("Index");
         }
-        
-
         [HttpPost]
         public ActionResult Details(FormCollection fc)
         {

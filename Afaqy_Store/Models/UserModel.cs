@@ -80,7 +80,11 @@ namespace Afaqy_Store.Models
             System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserName, rememberMe);
             System.Web.Security.FormsAuthentication.SetAuthCookie(this.UserId.ToString(), rememberMe);
             //for test
-            //HttpContext.Current.Session[UserViewModel.SessionName] = this;
+            if(HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session[UserViewModel.SessionName] = this;
+            }
+            
         }
 
         public UserViewModel GetUserFromSession()

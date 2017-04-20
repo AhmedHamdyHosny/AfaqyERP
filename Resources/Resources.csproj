@@ -76,6 +76,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Store.resx</DependentUpon>
     </Compile>
+    <Compile Include="Technician.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Technician.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Adminstration.resx">
@@ -105,6 +110,10 @@
     <EmbeddedResource Include="Store.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Store.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Technician.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Technician.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

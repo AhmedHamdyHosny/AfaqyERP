@@ -1,6 +1,8 @@
 ﻿@using System
 @using BeyondThemes.Bootstrap
 @using Afaqy_Store.Models;
+@using Classes.Common;
+@using Newtonsoft.Json;
 <!DOCTYPE html>
 <!--
 BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
@@ -43,6 +45,10 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
     <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/grid.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/css/1.custom-style/default.css" />
 
+
+    <script>
+        var notifications = @Html.Raw(JsonConvert.SerializeObject((List<NotificationViewModel>)ViewBag.Notifications).Replace("'", @"\'")); 
+    </script>
 </head>
 <!-- /Head -->
 
@@ -82,75 +88,57 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                             <li>
                                 <a class="dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
                                     <i class="icon fa fa-bell" ></i>
-                                    <span class="badge">@ViewBag.NotificationCount</span>
+                                    @if (@ViewBag.NotificationCount > 0)
+                                    {
+                                        <span class="badge">@ViewBag.NotificationCount</span>
+                                    }
                                 </a>
                                 <!--Notification Dropdown-->
-                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
-                                    <li>
-                                        <a href="#">
+                                <ul ng-controller="NotificationCtrl" class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
+                                    
+                                    <li ng-repeat="notification in notifications">
+                                        <a href="javascript:void(0);" ng-click="openNotification(notification)">
                                             <div class="clearfix">
                                                 <div class="notification-icon">
-                                                    <i class="fa fa-phone bg-themeprimary white"></i>
+                                                    <i ng-class="notification.StyleClass"></i>
                                                 </div>
                                                 <div class="notification-body">
-                                                    <span class="title">Skype meeting with Patty</span>
-                                                    <span class="description">01:00 pm</span>
+                                                    <span class="title">{{notification.NotificationTitle}}</span>
+                                                    <span class="description">{{notification.NotificationContent}}</span>
+                                                    <span class="description">{{notification.CreateDate}}</span>
                                                 </div>
-                                                <div class="notification-extra">
+                                                @*<div class="notification-extra">
                                                     <i class="fa fa-clock-o themeprimary"></i>
                                                     <span class="description">office</span>
-                                                </div>
+                                                </div>*@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="clearfix">
-                                                <div class="notification-icon">
-                                                    <i class="fa fa-check bg-darkorange white"></i>
+                                    @*@foreach (var notification in (List<NotificationViewModel>)ViewBag.Notifications)
+                                    {
+                                        <li ng-repeat="">
+                                            <a href="@notification.ReferenceLink">
+                                                <div class="clearfix">
+                                                    <div class="notification-icon">
+                                                        <i class="@notification.StyleClass"></i>
+                                                    </div>
+                                                    <div class="notification-body">
+                                                        <span class="title">@notification.NotificationTitle</span>
+                                                        <span class="description">@notification.NotificationContent</span>
+                                                        <span class="description">@(((DateTime)notification.CreateDate).ToString(Constant.DateTimeFormat))</span>
+                                                    </div>
+                                                    <div class="notification-extra">
+                                                        <i class="fa fa-clock-o themeprimary"></i>
+                                                        <span class="description">office</span>
+                                                    </div>
                                                 </div>
-                                                <div class="notification-body">
-                                                    <span class="title">Uncharted break</span>
-                                                    <span class="description">03:30 pm - 05:15 pm</span>
-                                                </div>
-                                                <div class="notification-extra">
-                                                    <i class="fa fa-clock-o darkorange"></i>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="clearfix">
-                                                <div class="notification-icon">
-                                                    <i class="fa fa-gift bg-warning white"></i>
-                                                </div>
-                                                <div class="notification-body">
-                                                    <span class="title">Kate birthday party</span>
-                                                    <span class="description">08:30 pm</span>
-                                                </div>
-                                                <div class="notification-extra">
-                                                    <i class="fa fa-calendar warning"></i>
-                                                    <i class="fa fa-clock-o warning"></i>
-                                                    <span class="description">at home</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="clearfix">
-                                                <div class="notification-icon">
-                                                    <i class="fa fa-glass bg-success white"></i>
-                                                </div>
-                                                <div class="notification-body">
-                                                    <span class="title">Dinner with friends</span>
-                                                    <span class="description">10:30 pm</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-footer ">
+                                            </a>
+                                        </li>
+
+                                        
+                                    }*@
+                                    
+                                    @*<li class="dropdown-footer ">
                                         <span>
                                             Today, March 28
                                         </span>
@@ -158,7 +146,9 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                             10°c
                                             <i class="wi wi-cloudy"></i>
                                         </span>
-                                    </li>
+                                    </li>*@
+                                    
+                                    
                                 </ul>
                                 <!--/Notification Dropdown-->
                             </li>

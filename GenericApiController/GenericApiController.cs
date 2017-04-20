@@ -153,7 +153,6 @@ namespace GenericApiController
                 pageItems = query.ToList<T>();
             }
             
-            
             //remove paging
             data.Paging = null;
             queryItems = GetWithOptions(data);
@@ -197,7 +196,9 @@ namespace GenericApiController
             return Content(HttpStatusCode.OK, result);
             //return ResponseMessage(resp);
         }
-        // POST api/controller/put
+        
+        // POST api/controller/PutGroup
+        [HttpPost]
         public virtual IHttpActionResult put(List<UpdateItemFormat<T>> newItems)
         {
             GetAuthorization();
@@ -223,9 +224,7 @@ namespace GenericApiController
 
             repo.Save();
             return Content(HttpStatusCode.OK, newItems.Select(x=>x.newValue));
-
-
-
+            
         }
         // POST api/controller/delete
         [HttpPost]

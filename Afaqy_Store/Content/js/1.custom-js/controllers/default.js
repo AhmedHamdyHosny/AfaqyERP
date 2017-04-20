@@ -3,6 +3,7 @@
 //Default Master Page controllers ========
 //.controller('defaultCtrl', defaultCtrl)
 .controller('accountCtrl', accountCtrl)
+.controller('NotificationCtrl',NotificationCtrl)
 
 
 function accountCtrl($scope) {
@@ -17,6 +18,26 @@ function accountCtrl($scope) {
     //    });
     //    modalInstance.result.then(null, function () { });
     //}
+}
+
+function NotificationCtrl($scope, $uibModal) {
+    $scope.notifications = notifications
+    $scope.openNotification = function (notification) {
+        if (notification.PopupWindow) {
+            showLoading();
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: notification.ReferenceLink,
+                controller: 'DeliveryRequestDetailsCtrl',
+                windowClass: notification.PopupWindowClass,
+                scope: $scope,
+                backdrop: false,
+            });
+            modalInstance.result.then(null, function () { });
+        } else {
+            window.location = notification.ReferenceLink;
+        }
+    }
 }
 
 //function loginCtrl($scope, $uibModalInstance, global) {

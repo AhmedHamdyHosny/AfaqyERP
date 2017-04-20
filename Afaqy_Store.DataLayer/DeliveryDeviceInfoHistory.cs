@@ -12,37 +12,25 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryDeviceView
+    public partial class DeliveryDeviceInfoHistory
     {
+        public int HistoryId { get; set; }
         public int DeliveryItemId { get; set; }
+        public int cmp_seq { get; set; }
         public int DeliveryDetailsId { get; set; }
-        public int DeliveryNoteId { get; set; }
         public int DeviceId { get; set; }
-        public string SerialNumber { get; set; }
-        public string IMEI { get; set; }
-        public string Firmware { get; set; }
         public Nullable<int> Employee_aux_id { get; set; }
-        public string name { get; set; }
-        public string altname { get; set; }
         public Nullable<System.DateTime> InstallingDateTime { get; set; }
         public string DeviceNaming { get; set; }
         public Nullable<int> DeviceNamingTypeId { get; set; }
-        public string DeviceNamingType_en { get; set; }
-        public string DeviceNamingType_ar { get; set; }
         public Nullable<bool> AddToServer { get; set; }
         public Nullable<bool> TrackWithTechnician { get; set; }
         public Nullable<bool> ServerUpdated { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
-        public string ia_name { get; set; }
-        public string ia_shname { get; set; }
-        public string ia_altname { get; set; }
-        public string ia_shaltname { get; set; }
-        public Nullable<decimal> ModelType_ia_item_id { get; set; }
-        public int DeliveryDevice_cmp_seq { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> ModifyUserId { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
+    
+        public virtual DeliveryDevice DeliveryDevice { get; set; }
     }
 }

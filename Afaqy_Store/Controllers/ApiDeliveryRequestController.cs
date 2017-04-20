@@ -26,7 +26,7 @@ namespace Afaqy_Store.Controllers
             controller.Configuration = new HttpConfiguration();
             return controller.Export(data);
         }
-
+        
         public override IHttpActionResult Put(int id, [FromBody] DeliveryRequest value)
         {
             GetAuthorization();

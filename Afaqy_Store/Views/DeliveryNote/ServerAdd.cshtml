@@ -1,0 +1,267 @@
+﻿@model Afaqy_Store.Models.DeliveryNoteDetailsViewModel
+@using BeyondThemes.Bootstrap;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = Resources.ServerManagement.DeliveryDeviceServerAdd;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+@*.ui-grid-category {
+  text-align: center;border-right: 0px;box-shadow: -1px 1px #d4d4d4
+}*@
+
+@*<style>
+.autoHeightUIGrid,
+.autoHeightUIGrid .ui-grid-viewport{
+	height: auto !important;
+}
+.ui-grid-spilt-header-main{
+	 /* padding-top: 75px; */ /* added top padding dynamically by Js */
+  line-height: 30px;
+	text-align: center;
+}
+.ui-grid-split-merge-header{
+  border-left: 2px solid transparent;
+	position: absolute;
+	background: #f3f3f3;
+	text-align: center;
+	line-height: 30px;
+	z-index: 1;
+	top: 0px;
+	left:0px;
+}
+.ui-grid-header-table{
+  width:100%;
+  padding:0px;
+  border:none;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+.ui-grid-header-table tr td{
+  border-bottom:1px solid #ccc;
+  border-right:1px solid #ccc;
+}
+.ui-grid-header-table tr td:last-child{
+  border-right:none;
+}
+</style>*@
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.ServerManagement.DeliveryDeviceServerAdd</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body withVScroll">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.DeliveryRequestId)
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.POS_ps_code, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.ps_name, new { @class = "form-control" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.Warehouse_wa_code, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.wa_name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.SaleTransactionType_en, new { @class = "form-control" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.Customer_aux_id, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.CustomerName ?? " ", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.CustomerContact_serial, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.contact_name ?? " ", new { @class = "form-control" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.SystemId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
+                    <label class="form-control">@(Model.SystemName ?? " ")</label>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.AlternativeContactName, Resources.Sales.AlternativeContactName, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.AlternativeContactName ?? " ", new { @class = "form-control" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.AlternativeContactTelephone, Resources.Sales.AlternativeContactTelephone, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.AlternativeContactTelephone ?? " ", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3  form-group">
+                    <label class="text-info">@Resources.Store.DeliveryDate</label>
+                    @Html.Label(DateTime.Parse(Model.DeliveryDateTime).ToShortDateString(), new { @class = "form-control" })
+                </div>
+                <div class="col-xs-3 form-group">
+                    <label class="text-info">@Resources.Store.DeliveryTime</label>
+                    @Html.Label(DateTime.Parse(Model.DeliveryDateTime).ToShortTimeString(), new { @class = "form-control" })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.DeliveryTechnicians, Resources.Store.DeliveryTechnician, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(string.Join(", ", Model.DeliveryTechnicians.Select(x => x.name)))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.WithInstallationService, Resources.Store.WithInstallationService, htmlAttributes: new { @class = "text-info" })
+                    @Html.Label(Model.InstallationService , new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.Note, Resources.Store.DolphinReference, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.DeliveryNoteReference, new { htmlAttributes = new { @class = "form-control", @Readonly = "true" } })
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
+                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
+                    {
+                        tabs.Tab(Resources.Store.DelieryDetails, BootstrapColors.Danger);
+                        tabs.Tab(Resources.Store.Devices, BootstrapColors.Success);
+
+                        using (tabs.BeginPanel())
+                        {
+                            <div class="form-group" ng-init="bindDeliveryDetailsGirdData()">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDetailsGrid", UiGrid = "deliveryDetailsGridOptions", EnablePagination = false, RowSelection = false }); }
+                            </div>
+                        }
+                        using (tabs.BeginPanel())
+                        {
+                             <div class="form-group" ng-init="bindDeliveryDevicesGirdData()">
+                                    @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDevicesGrid", UiGrid = "deliveryDevicesGridOptions", EnablePagination = false, RowSelection = false }); }
+                                </div>
+                        }
+                     }
+                </div>
+            </div>
+            <div class="row">
+                @Html.HiddenFor(model => model.DeliveryNoteId);
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+
+@section scripts {
+
+    <script>
+        var deliveryDetailsData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryDetails));
+        var deliveryDevicesData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryDevices));
+
+        var deliveryDetailsGridColumnDefs = [
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'ia_name', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
+            { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
+        ];
+
+        var deliveryDeviceGridColumnDefs = [
+            { field: 'IMEI', name: '@Resources.Store.DeviceIMEI',
+                //headerCellTemplate: "<div class='ui-grid-spilt-header-main'>"+
+                //    "<div class='ui-grid-split-merge-header' style='width:300%'>"+
+                //    "<table class='ui-grid-header-table'>"+
+                //    "<tbody>"+
+                //    "<tr><td width='60%'>Device</td><td>Accessors</td></tr>"+
+                //    "</tbody>"+
+                //    "</table>"+
+                //    "</div>"+"IMEI"+"</div>",
+                width: 200
+            },
+            {
+                name: 'AddToServer',
+                displayName: '@Resources.ServerManagement.AddToServer',
+                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.AddToServer'</div>",*@
+                cellTemplate:
+                    '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="checkbox custCheckDiv">'+
+                    '<label>'+
+                    '<input class="colored-blue" id="form-field-checkbox" type="checkbox" ng-model="row.entity.AddToServer">'+
+                    '<input type="hidden" ng-value="row.entity.AddToServer" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].AddToServer"  >'+
+                    '<span class="text"></span>'+
+                    '</label>'+
+                    '</div>'+
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeliveryItemId" ng-value="row.entity.DeliveryItemId" />' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 100
+            },
+            {
+                name:'TrackWithTechnician',
+                displayName: '@Resources.ServerManagement.TrackWithTechnician',
+                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.TrackWithTechnician'</div>",*@
+                cellTemplate:
+                    '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="checkbox custCheckDiv">'+
+                    '<label>'+
+                    '<input class="colored-blue" id="form-field-checkbox" type="checkbox" ng-model="row.entity.TrackWithTechnician">'+
+                    '<input type="hidden" ng-value="row.entity.TrackWithTechnician" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].TrackWithTechnician"  >'+
+                    '<span class="text"></span>'+
+                    '</label>'+
+                    '</div>'+
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 100
+            },
+            {
+                name:'ServerUpdated',
+                displayName: '@Resources.ServerManagement.ServerUpdated',
+                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.ServerUpdated'</div>",*@
+                cellTemplate:
+                     '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="checkbox custCheckDiv">'+
+                    '<label>'+
+                    '<input class="colored-blue" id="form-field-checkbox" type="checkbox" ng-model="row.entity.ServerUpdated">'+
+                    '<input type="hidden" ng-value="row.entity.ServerUpdated" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ServerUpdated"  >'+
+                    '<span class="text"></span>'+
+                    '</label>'+
+                    '</div>'+
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 100
+            },
+            {
+                name: 'Note',
+                displayName: '@Resources.Resource.Note',
+                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.Resource.Note'</div>",*@
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                    '<div class="form-group"> ' +
+                    '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                    ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 200
+            }
+        ];
+
+        $(document).ready(function () {
+
+            //$(".ui-grid-spilt-header-main").css('padding-top', $(".ui-grid-header-table").height());
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}

@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiNotificationController : BaseApiController<Notification>
+    public class ApiDeliveryRequestStatusHistoryController : BaseApiController<DeliveryRequestStatusHistory>
     {
     }
 }

@@ -140,6 +140,9 @@
                             '<li>' +
                                 '<a ng-click="grid.appScope.report(row.entity.DeliveryNoteId)">@Resources.Resource.ButtonReport</a>' +
                             '</li>' +
+                            '<li>' +
+                                '<a ng-click="grid.appScope.serverAdd(row.entity.DeliveryNoteId)">@Resources.ServerManagement.ButtonDeliveryDeviceServerAdd</a>' +
+                            '</li>' +
                             '</ul></div>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, width: 200
@@ -160,6 +163,7 @@
         var assignActionUrl = '@Url.Action("Assign")';
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
         var reportActionUrl = '@Url.Action("Report")';
+        var serverAddActionUrl = '@Url.Action("ServerAdd")';
         var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
         var deliveryRequestId = '@ViewBag.DeliveryRequestId'
 
@@ -205,7 +209,7 @@
                 name: 'Note',
                 cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                     '<div class="form-group"> ' +
-                    '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="EditItem.DeliveryRequestDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                    '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '20%'

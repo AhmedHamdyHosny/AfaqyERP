@@ -135,6 +135,9 @@
     <Compile Include="DeliveryDevice.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeliveryDeviceInfoHistory.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DeliveryDeviceView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
@@ -177,6 +180,9 @@
     <Compile Include="DeliveryTechnician.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DeliveryTechnicianView.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
@@ -184,6 +190,9 @@
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeviceModelType.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceNamingType.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DeviceServer.cs">
@@ -246,6 +255,9 @@
     <Compile Include="it_trans_serial.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="JobTitle.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Notification.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
@@ -257,6 +269,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rpaux.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RpauxEmployeeView.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="rpauxname.cs">

@@ -75,11 +75,37 @@ namespace Classes.Common
             Active = 7
         }
 
+        public class PopupWindowClass
+        {
+            public const string Meduim_Model = "meduim-Modal";
+            public const string Large_Model = "large-Modal";
+        }
         
     }
 
     public class DBEnums
     {
+        //public enum UserType
+        //{
+        //    System_Adminstrator = 1
+        //        ,
+        //    Technicians_Supervisior = 2,
+        //    Warehouse_Supervisior = 3,
+        //    Sales_Manager = 4,
+        //    Server_Managment_Manager = 5,
+        //    Sales_Man = 6
+        //}
+
+        public enum Department
+        {
+            Management = 1,
+            Accounting = 2,
+            Sales = 3,
+            Technical = 4,
+            Technical_Support = 5,
+            Server_Management = 6,
+            Software_Developement = 7
+        }
 
         public enum DeviceStatus
         {
@@ -174,15 +200,16 @@ namespace Classes.Common
             Blocked = 4
         }
 
-        public enum Department
+        public enum JobTitle
         {
-            Management = 1,
-            Accounting = 2,
-            Sales = 3,
-            Technical = 4,
-            Technical_Support = 5,
-            Server = 6,
-            Software_Developement = 7
+            Server_Management_Engineer = 1,
+            Server_Managment_Manager = 2,
+            Storekeeper = 3,
+            Sales_Man = 4,
+            Branch_Sales_Manager = 5,
+            Technician = 6,
+            Technicians_General_Manager = 8,
+            Branch_Technicians_Manager = 9
         }
 
         public enum NotificationType
@@ -191,7 +218,13 @@ namespace Classes.Common
             DeliveryRequest_DeliveryNotification = 2,
             DeliveryRequest_AcceptNotification = 3,
             DeliveryRequest_RejectNotification = 4,
-            DeliveryRequest_ApproveNotification = 5
+            DeliveryRequest_ApproveNotification = 5,
+            DeliveryRequest_StoreReceviedNotification = 6,
+            DeliveryRequest_InDeliveryPhaseNotification = 7,
+            DeliveryNote_AddedNotification = 8,
+            DeliveryNote_ServerReceviedNotification = 9,
+            DeliveryNote_ServerAddedNotification = 10,
+            DeliveryNote_ServerNamedNotification = 11
         }
         
         public enum UDDeliveryTechnician_DT_ColumnsName
@@ -211,10 +244,13 @@ namespace Classes.Common
 
         public enum UDDeliveryDevice_DT_ColumnsName
         {
-            DeliveryItemId, cmp_seq, DeliveryDetailsId,DeviceId, SerialNumber, IMEI, ModelType_ia_item_id, Employee_aux_id,InstallingDateTime,CarPlateNum,Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+            DeliveryItemId, cmp_seq, DeliveryDetailsId,DeviceId, SerialNumber, IMEI, ModelType_ia_item_id, Employee_aux_id,InstallingDateTime, DeviceNaming, DeviceNamingTypeId, AddToServer, TrackWithTechnician, ServerUpdated, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
         }
 
-        
+        //public enum UDNotification_DT_ColumnsName
+        //{
+        //    NotificationId,NotificationTitle,NotificationContent,StyleClass,ToUserId,CreateDate,IsRead,NotificationTypeId,ReferenceId,ReferenceLink
+        //}
 
     }
 }

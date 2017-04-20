@@ -17,7 +17,7 @@ namespace Afaqy_Store.Models
         {
         }
     }
-
+    /*
     public class BranchViewModel : Branch
     {
         private UserViewModel _createUser = null;
@@ -60,30 +60,26 @@ namespace Afaqy_Store.Models
             var tempUser = this.CreateUser;
         }
     }
-
     public class BranchIndexViewModel : Branch
     {
 
     }
-
     public class BranchDetailsViewModel : BranchViewModel
     {
 
     }
-
     [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId")]
     public class BranchCreateBindModel : Branch
     {
     }
-
     [Bind(Include = "BranchId,BranchName_en,BranchName_ar,CountryId,IsBlock,CreateUserId,CreateDate")]
     public class BranchEditBindModel : Branch
     {
     }
-
     public class BranchEditModel
     {
         public Branch EditItem { get; set; }
         public IEnumerable<SelectListItem> Country { get; set; }
     }
+    */
 }

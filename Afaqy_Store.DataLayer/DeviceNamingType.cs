@@ -12,35 +12,23 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class DeviceNamingType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Device()
+        public DeviceNamingType()
         {
-            this.DeviceServer = new HashSet<DeviceServer>();
-            this.DeviceSIM = new HashSet<DeviceSIM>();
             this.DeliveryDevice = new HashSet<DeliveryDevice>();
         }
     
-        public int DeviceId { get; set; }
-        public string SerialNumber { get; set; }
-        public string IMEI { get; set; }
-        public decimal ModelType_ia_item_id { get; set; }
-        public int DeviceStatusId { get; set; }
-        public string Firmware { get; set; }
-        public string Warehouse_wa_code { get; set; }
-        public string Note { get; set; }
+        public int DeviceNamingTypeId { get; set; }
+        public string DeviceNamingType_en { get; set; }
+        public string DeviceNamingType_ar { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual DeviceStatus DeviceStatus { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceServer> DeviceServer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeviceSIM> DeviceSIM { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
     }

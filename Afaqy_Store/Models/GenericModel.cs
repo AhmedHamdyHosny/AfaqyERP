@@ -66,7 +66,7 @@ namespace Models
             task.Wait();
             return task.Result;
         }
-        public virtual List<TModel> Update(UpdateItemFormat<TModel> newItems)
+        public virtual List<TModel> Update(List<UpdateItemFormat<TModel>> newItems)
         {
             string url = ApiServerUrl + ControllerRoute + "put";
             MyHttpRequestMessage request = new MyHttpRequestMessage(url, HttpMethod.Post) { RequestBody = new StringContent(JsonConvert.SerializeObject(newItems), System.Text.Encoding.UTF8, "application/json") };

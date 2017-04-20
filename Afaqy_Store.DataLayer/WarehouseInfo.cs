@@ -15,6 +15,6 @@ namespace Afaqy_Store.DataLayer
     public partial class WarehouseInfo
     {
         public string Warehouse_wa_code { get; set; }
-        public int ResponsibleUserId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

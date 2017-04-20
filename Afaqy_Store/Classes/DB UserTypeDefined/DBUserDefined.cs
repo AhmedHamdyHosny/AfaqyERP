@@ -14,6 +14,7 @@ namespace Classes.DB_UserTypeDefined
         public UDDeliveryTechnician()
         {
             dataTable = new DataTable();
+            dataTable.Columns.Add(DBEnums.UDDeliveryTechnician_DT_ColumnsName.DeliveryNoteTechnicalId.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryTechnician_DT_ColumnsName.cmp_seq.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryTechnician_DT_ColumnsName.DeliveryNoteId.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryTechnician_DT_ColumnsName.Employee_aux_id.ToString());
@@ -93,7 +94,11 @@ namespace Classes.DB_UserTypeDefined
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.ModelType_ia_item_id.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.Employee_aux_id.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.InstallingDateTime.ToString());
-            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.CarPlateNum.ToString());
+            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNaming.ToString());
+            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNamingTypeId.ToString());
+            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.AddToServer.ToString());
+            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.TrackWithTechnician.ToString());
+            dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.ServerUpdated.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.Note.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.IsBlock.ToString());
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateUserId.ToString());
@@ -102,4 +107,23 @@ namespace Classes.DB_UserTypeDefined
             dataTable.Columns.Add(DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyDate.ToString());
         }
     }
+
+    //public class UDNotification
+    //{
+    //    public DataTable dataTable { get; set; }
+    //    public UDNotification()
+    //    {
+    //        dataTable = new DataTable();
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.NotificationId.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.NotificationTitle.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.NotificationContent.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.StyleClass.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.ToUserId.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.CreateDate.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.IsRead.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.NotificationTypeId.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.ReferenceId.ToString());
+    //        dataTable.Columns.Add(DBEnums.UDNotification_DT_ColumnsName.ReferenceLink.ToString());
+    //    }
+    //}
 }

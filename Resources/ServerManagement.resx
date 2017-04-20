@@ -354,4 +354,28 @@
   <data name="NewCustomerContact" xml:space="preserve">
     <value>New Customer Contact</value>
   </data>
+  <data name="NewDeliveryNoteNotificationContent" xml:space="preserve">
+    <value>New Delivery Note has been added</value>
+  </data>
+  <data name="NewDeliveryNoteNotificationTitle" xml:space="preserve">
+    <value>New Delivery Note</value>
+  </data>
+  <data name="DeliveryDeviceAddedToServerSuccessMessage" xml:space="preserve">
+    <value>Delivery devices added to server successfully</value>
+  </data>
+  <data name="DeliveryDeviceServerAdd" xml:space="preserve">
+    <value>DeliveryDeviceAddToServer</value>
+  </data>
+  <data name="ButtonDeliveryDeviceServerAdd" xml:space="preserve">
+    <value>Add to server</value>
+  </data>
+  <data name="AddToServer" xml:space="preserve">
+    <value>Ser.Add</value>
+  </data>
+  <data name="ServerUpdated" xml:space="preserve">
+    <value>Ser.Updated</value>
+  </data>
+  <data name="TrackWithTechnician" xml:space="preserve">
+    <value>Tech.Track</value>
+  </data>
 </root>

@@ -27,7 +27,6 @@ namespace Afaqy_Store.DataLayer
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Branch> Branch { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<BrandServerPort> BrandServerPort { get; set; }
         public virtual DbSet<ContactMethod> ContactMethod { get; set; }
@@ -43,7 +42,6 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerStatus> CustomerStatus { get; set; }
         public virtual DbSet<CustomerType> CustomerType { get; set; }
         public virtual DbSet<DeliveryDetails> DeliveryDetails { get; set; }
-        public virtual DbSet<DeliveryDevice> DeliveryDevice { get; set; }
         public virtual DbSet<DeliveryNote> DeliveryNote { get; set; }
         public virtual DbSet<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
         public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
@@ -60,10 +58,8 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<DeviceSIM> DeviceSIM { get; set; }
         public virtual DbSet<DeviceStatus> DeviceStatus { get; set; }
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ItemFamily> ItemFamily { get; set; }
-        public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<NotificationType> NotificationType { get; set; }
         public virtual DbSet<PointOfSale> PointOfSale { get; set; }
         public virtual DbSet<SaleTransactionType> SaleTransactionType { get; set; }
@@ -98,20 +94,29 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
         public virtual DbSet<DeliveryDetailsView> DeliveryDetailsView { get; set; }
-        public virtual DbSet<DeliveryDeviceView> DeliveryDeviceView { get; set; }
         public virtual DbSet<DeliveryNoteView> DeliveryNoteView { get; set; }
         public virtual DbSet<DeliveryRequestDetailsView> DeliveryRequestDetailsView { get; set; }
         public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
         public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
-        public virtual DbSet<EmployeeView> EmployeeView { get; set; }
         public virtual DbSet<SIMCardContractView> SIMCardContractView { get; set; }
         public virtual DbSet<SIMCardView> SIMCardView { get; set; }
         public virtual DbSet<SystemServerIPView> SystemServerIPView { get; set; }
-        public virtual DbSet<UserView> UserView { get; set; }
         public virtual DbSet<im_family> im_family { get; set; }
+        public virtual DbSet<RpauxEmployeeView> RpauxEmployeeView { get; set; }
+        public virtual DbSet<JobTitle> JobTitle { get; set; }
+        public virtual DbSet<DeliveryDevice> DeliveryDevice { get; set; }
+        public virtual DbSet<DeliveryDeviceInfoHistory> DeliveryDeviceInfoHistory { get; set; }
+        public virtual DbSet<DeviceNamingType> DeviceNamingType { get; set; }
+        public virtual DbSet<DeliveryDeviceView> DeliveryDeviceView { get; set; }
+        public virtual DbSet<DeliveryTechnicianView> DeliveryTechnicianView { get; set; }
+        public virtual DbSet<Branch> Branch { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<WarehouseInfo> WarehouseInfo { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<EmployeeView> EmployeeView { get; set; }
+        public virtual DbSet<UserView> UserView { get; set; }
     
         public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<System.DateTime> trans_datetime, string pos_code, string warehouse_code, Nullable<int> salesmanId, Nullable<int> customerId, Nullable<int> currencyId, string tra_status, string tra_user, string trans_ref, Nullable<int> tra_ref_type, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
         {

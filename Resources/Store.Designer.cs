@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Request has been Approved.
+        /// </summary>
+        public static string ApprovedDeliveryRequestNotificationContent {
+            get {
+                return ResourceManager.GetString("ApprovedDeliveryRequestNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approve Delivery Request.
+        /// </summary>
+        public static string ApprovedDeliveryRequestNotificationTitle {
+            get {
+                return ResourceManager.GetString("ApprovedDeliveryRequestNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery.
         /// </summary>
         public static string ButtonDelivery {

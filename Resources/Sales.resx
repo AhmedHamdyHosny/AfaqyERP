@@ -141,4 +141,16 @@
   <data name="AltContactTelephone" xml:space="preserve">
     <value>Alt Contact Telephone</value>
   </data>
+  <data name="DeliveryRequestInDeliveryPhaseNotificationContent" xml:space="preserve">
+    <value>Your delivery request for customer(@customer) transfer to delivery phase</value>
+  </data>
+  <data name="DeliveryRequestInDeliveryPhaseNotificationTitle" xml:space="preserve">
+    <value>Delivery request transfer to delivery phase</value>
+  </data>
+  <data name="ApprovedDeliveryRequestNotificationContent" xml:space="preserve">
+    <value>Delivery Request has been Approved</value>
+  </data>
+  <data name="ApprovedDeliveryRequestNotificationTitle" xml:space="preserve">
+    <value>Approve Delivery Request</value>
+  </data>
 </root>

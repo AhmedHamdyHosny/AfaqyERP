@@ -38,10 +38,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Branch Branch { get; set; }
         public virtual CustomerStatus CustomerStatus { get; set; }
         public virtual CustomerType CustomerType { get; set; }
-        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerContact> CustomerContact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,5 +48,7 @@ namespace Afaqy_Store.DataLayer
         public virtual ICollection<CustomerServerUser> CustomerServerUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceServer> DeviceServer { get; set; }
+        public virtual Branch Branch { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

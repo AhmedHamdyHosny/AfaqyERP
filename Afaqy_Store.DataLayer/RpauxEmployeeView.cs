@@ -12,15 +12,16 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class ErrorLog
+    public partial class RpauxEmployeeView
     {
-        public int ErrorId { get; set; }
-        public string ErrorMessage { get; set; }
-        public string ErrorProc { get; set; }
-        public Nullable<int> ErrorLine { get; set; }
-        public Nullable<int> ErrorNumber { get; set; }
-        public Nullable<int> ErrorSeverity { get; set; }
-        public Nullable<int> ErrorState { get; set; }
-        public System.DateTime CreateDate { get; set; }
+        public int aux_id { get; set; }
+        public string name { get; set; }
+        public string altname { get; set; }
+        public string country { get; set; }
+        public string co_name { get; set; }
+        public string co_shname { get; set; }
+        public string co_altname { get; set; }
+        public string co_shaltname { get; set; }
+        public Nullable<int> aux_blocked { get; set; }
     }
 }

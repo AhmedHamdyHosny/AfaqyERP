@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ser.Add.
+        /// </summary>
+        public static string AddToServer {
+            get {
+                return ResourceManager.GetString("AddToServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alternative GSM Prefix.
         /// </summary>
         public static string AltGSMPrefix {
@@ -201,6 +210,15 @@ namespace Resources {
         public static string BrandServerPortNew {
             get {
                 return ResourceManager.GetString("BrandServerPortNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to server.
+        /// </summary>
+        public static string ButtonDeliveryDeviceServerAdd {
+            get {
+                return ResourceManager.GetString("ButtonDeliveryDeviceServerAdd", resourceCulture);
             }
         }
         
@@ -403,6 +421,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery devices added to server successfully.
+        /// </summary>
+        public static string DeliveryDeviceAddedToServerSuccessMessage {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceAddedToServerSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DeliveryDeviceAddToServer.
+        /// </summary>
+        public static string DeliveryDeviceServerAdd {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceServerAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Configuration.
         /// </summary>
         public static string DeviceConfiguration {
@@ -475,6 +511,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Delivery Note has been added.
+        /// </summary>
+        public static string NewDeliveryNoteNotificationContent {
+            get {
+                return ResourceManager.GetString("NewDeliveryNoteNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Delivery Note.
+        /// </summary>
+        public static string NewDeliveryNoteNotificationTitle {
+            get {
+                return ResourceManager.GetString("NewDeliveryNoteNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port Number.
         /// </summary>
         public static string PortNumber {
@@ -516,6 +570,15 @@ namespace Resources {
         public static string ServerUnit {
             get {
                 return ResourceManager.GetString("ServerUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ser.Updated.
+        /// </summary>
+        public static string ServerUpdated {
+            get {
+                return ResourceManager.GetString("ServerUpdated", resourceCulture);
             }
         }
         
@@ -750,6 +813,15 @@ namespace Resources {
         public static string TotalUnitsCount {
             get {
                 return ResourceManager.GetString("TotalUnitsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tech.Track.
+        /// </summary>
+        public static string TrackWithTechnician {
+            get {
+                return ResourceManager.GetString("TrackWithTechnician", resourceCulture);
             }
         }
         

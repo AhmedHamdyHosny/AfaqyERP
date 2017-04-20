@@ -190,6 +190,12 @@
     <script src="~/Content/js/select2/select2.js"></script>
     <script>
         var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryRequestDetails));
+        var detailsRequestDetailsGridColumnDefs = [
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'ia_item_code', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
+            { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
+        ];
         $(document).ready(function () {
             //--Jquery Select2--
             $("#Technician").select2();

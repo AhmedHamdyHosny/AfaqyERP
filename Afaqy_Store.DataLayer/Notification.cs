@@ -18,14 +18,15 @@ namespace Afaqy_Store.DataLayer
         public string NotificationTitle { get; set; }
         public string NotificationContent { get; set; }
         public string StyleClass { get; set; }
-        public string NotificationType { get; set; }
         public Nullable<int> ToUserId { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<bool> IsRead { get; set; }
         public Nullable<int> NotificationTypeId { get; set; }
-        public Nullable<int> ReferenceId { get; set; }
+        public string ReferenceId { get; set; }
         public string ReferenceLink { get; set; }
+        public Nullable<bool> PopupWindow { get; set; }
+        public string PopupWindowClass { get; set; }
     
-        public virtual NotificationType NotificationType1 { get; set; }
+        public virtual NotificationType NotificationType { get; set; }
     }
 }

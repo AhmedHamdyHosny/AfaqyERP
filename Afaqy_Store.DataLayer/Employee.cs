@@ -18,9 +18,11 @@ namespace Afaqy_Store.DataLayer
         public Employee()
         {
             this.Customer = new HashSet<Customer>();
+            this.Employee1 = new HashSet<Employee>();
         }
     
         public int EmployeeId { get; set; }
+        public int cmp_seq { get; set; }
         public string FirstName_en { get; set; }
         public string FirstName_ar { get; set; }
         public string LastName_en { get; set; }
@@ -30,9 +32,11 @@ namespace Afaqy_Store.DataLayer
         public string ResidencyNumber { get; set; }
         public Nullable<int> CountryId { get; set; }
         public Nullable<decimal> Salary { get; set; }
+        public Nullable<int> JobTitleId { get; set; }
         public Nullable<int> DepartmentId { get; set; }
+        public Nullable<bool> IsManager { get; set; }
         public Nullable<int> ManagerId { get; set; }
-        public Nullable<int> BranchId { get; set; }
+        public string Branch_br_code { get; set; }
         public Nullable<System.DateTime> JoinDate { get; set; }
         public Nullable<int> UserId { get; set; }
         public bool IsBlock { get; set; }
@@ -41,10 +45,13 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Branch Branch { get; set; }
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
         public virtual Department Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee1 { get; set; }
+        public virtual Employee Employee2 { get; set; }
+        public virtual JobTitle JobTitle { get; set; }
     }
 }

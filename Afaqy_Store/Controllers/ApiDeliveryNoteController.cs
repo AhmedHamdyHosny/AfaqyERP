@@ -1,5 +1,7 @@
 ﻿using Afaqy_Store.DataLayer;
+using Afaqy_Store.Models;
 using Classes.Common;
+using GenericApiController.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,14 +27,17 @@ namespace Afaqy_Store.Controllers
             return base.Post(value);
         }
         [ActionName("Post")]
-        public IHttpActionResult PostDelivery(Models.DeliveryNoteCreateBindModel value)
+        public IHttpActionResult PostDelivery(DeliveryNoteCreateBindModel value)
         {
-
             GetAuthorization();
             if (!IsAuthorize(GenericApiController.Utilities.Actions.Post))
             {
                 return Content(HttpStatusCode.Unauthorized, "Unauthorized");
             }
+
+            const string SqlServerDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            //List<GenericDataFormat.FilterItems> filters = null;
+            //GenericDataFormat requestBody = null;
 
             //map delivery note to user defined dataTable 
             Classes.DB_UserTypeDefined.UDDeliveryNote delivery = new Classes.DB_UserTypeDefined.UDDeliveryNote();
@@ -48,7 +53,7 @@ namespace Afaqy_Store.Controllers
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.AlternativeContactName.ToString()] = value.AlternativeContactName;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.AlternativeContactTelephone.ToString()] = value.AlternativeContactTelephone;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.SaleTransactionTypeId.ToString()] = value.SaleTransactionTypeId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryDateTime.ToString()] = value.DeliveryDateTime;
+            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryDateTime.ToString()] = value.DeliveryDateTime.ToString(SqlServerDateTimeFormat);
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryStatusId.ToString()] = value.DeliveryStatusId;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryNoteReference.ToString()] = value.DeliveryNoteReference;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DolphinDelivery_tra_ref_id.ToString()] = value.DolphinDelivery_tra_ref_id;
@@ -58,9 +63,9 @@ namespace Afaqy_Store.Controllers
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.Note.ToString()] = value.Note;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.IsBlock.ToString()] = value.IsBlock;
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CreateUserId.ToString()] = value.CreateUserId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate;
+            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate.ToString(SqlServerDateTimeFormat);
             deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.ModifyUserId.ToString()] = value.ModifyUserId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.ModifyDate.ToString()] = value.ModifyDate;
+            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.ModifyDate.ToString()] =  value.ModifyDate != null ? ((DateTime)value.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
             delivery.dataTable.Rows.Add(deliveryRow);
             
             //map delivery technician to user defined dataTable
@@ -73,9 +78,9 @@ namespace Afaqy_Store.Controllers
                 row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.Employee_aux_id.ToString()] = technician.Employee_aux_id;
                 row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.IsBlock.ToString()] = technician.IsBlock;
                 row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.CreateUserId.ToString()] = technician.CreateUserId;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.CreateDate.ToString()] = technician.CreateDate;
+                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.CreateDate.ToString()] = technician.CreateDate.ToString(SqlServerDateTimeFormat);
                 row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.ModifyUserId.ToString()] = technician.ModifyUserId;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.ModifyDate.ToString()] = technician.ModifyDate;
+                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.ModifyDate.ToString()] = technician.ModifyDate != null ? ((DateTime)technician.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
                 technicians.dataTable.Rows.Add(row);
             }
 
@@ -92,9 +97,9 @@ namespace Afaqy_Store.Controllers
                 row[DBEnums.UDDeliveryDetails_DT_ColumnsName.Note.ToString()] = details.Note;
                 row[DBEnums.UDDeliveryDetails_DT_ColumnsName.IsBlock.ToString()] = details.IsBlock;
                 row[DBEnums.UDDeliveryDetails_DT_ColumnsName.CreateUserId.ToString()] = details.CreateUserId;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.CreateDate.ToString()] = details.CreateDate;
+                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.CreateDate.ToString()] = details.CreateDate.ToString(SqlServerDateTimeFormat);
                 row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModifyUserId.ToString()] = details.ModifyUserId;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModifyDate.ToString()] = details.ModifyDate;
+                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModifyDate.ToString()] = details.ModifyDate != null ? ((DateTime)details.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
                 deliveryDetails.dataTable.Rows.Add(row);
                 detialsRowSerial++;
             }
@@ -111,18 +116,121 @@ namespace Afaqy_Store.Controllers
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.IMEI.ToString()] = device.IMEI;
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModelType_ia_item_id.ToString()] = device.ModelType_ia_item_id;
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.Employee_aux_id.ToString()] = device.Employee_aux_id;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.InstallingDateTime.ToString()] = device.InstallingDateTime;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CarPlateNum.ToString()] = device.CarPlateNum;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.InstallingDateTime.ToString()] = device.InstallingDateTime != null ? ((DateTime)device.InstallingDateTime).ToString(SqlServerDateTimeFormat) : null;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNaming.ToString()] = device.DeviceNaming;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNamingTypeId.ToString()] = device.DeviceNamingTypeId;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.AddToServer.ToString()] = device.AddToServer;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.TrackWithTechnician.ToString()] = device.TrackWithTechnician;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ServerUpdated.ToString()] = device.ServerUpdated;
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.Note.ToString()] = device.Note;
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.IsBlock.ToString()] = device.IsBlock;
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateUserId.ToString()] = value.CreateUserId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate.ToString(SqlServerDateTimeFormat);
                 row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyUserId.ToString()] = value.ModifyUserId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyDate.ToString()] = value.ModifyDate;
+                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyDate.ToString()] = value.ModifyDate != null ? ((DateTime)value.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
                 deliveryDevices.dataTable.Rows.Add(row);
             }
 
+            ////send notifications to users
+            ////send delivery request new status
+            //Classes.DB_UserTypeDefined.UDNotification notification = null;
+            //List<int> UserIds = new List<int>();
+            ////1. send notification to delivery request user and his manager
+            //var deliveryRequest = new DeliveryRequestModel<DeliveryRequest>().Get(value.DeliveryRequestId);
+            ////add delivery request creator user
+            //UserIds.Add(deliveryRequest.CreateUserId);
+            ////add delivery request modifier user  if exist
+            //if(deliveryRequest.ModifyUserId != null)
+            //{
+            //    UserIds.Add((int)deliveryRequest.ModifyUserId);
+            //}
+            ////add delivery request creator user manager
+            //filters = new List<GenericDataFormat.FilterItems>();
+            //filters.Add(new GenericDataFormat.FilterItems()
+            //{
+            //    Property = "UserId",
+            //    Operation = GenericDataFormat.FilterOperations.Equal,
+            //    Value = deliveryRequest.CreateUserId,
+            //    LogicalOperation = GenericDataFormat.LogicalOperations.And
+            //});
+            //requestBody = new GenericDataFormat() { Filters = filters };
+            //var creatorEmp = new EmployeeModel<Employee>().Get(requestBody).SingleOrDefault();
+            //if(creatorEmp != null && creatorEmp.IsManager == false && creatorEmp.ManagerId != null)
+            //{
+            //    var managerEmp = new EmployeeModel<Employee>().Get(creatorEmp.ManagerId);
+            //    if(managerEmp != null && managerEmp.UserId != null)
+            //    {
+            //        UserIds.Add((int)managerEmp.UserId);
+            //    }
+            //}
+            
+            ////add notification to table
+            ////map notification to user defined dataTable
+            //notification = new Classes.DB_UserTypeDefined.UDNotification();
+            //DataRow notificationRow = null;
+            //foreach (var userId in UserIds.Distinct())
+            //{
+            //    notificationRow = notification.dataTable.NewRow();
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationId.ToString()] = 0;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationTitle.ToString()] = Resources.Sales.DeliveryRequestInDeliveryPhaseNotificationTitle;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationContent.ToString()] = Resources.Sales.DeliveryRequestInDeliveryPhaseNotificationContent.Replace("@customer",deliveryRequest.CustomerName);
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.StyleClass.ToString()] = Constant.NotificationStyleClass.DeliveryRequest_DefaultStyleClass;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationType.ToString()] = null;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.ToUserId.ToString()] = userId;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.CreateDate.ToString()] = DateTime.Now.ToString(SqlServerDateTimeFormat);
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.IsRead.ToString()] = false;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationTypeId.ToString()] = (int)DBEnums.NotificationType.DeliveryRequest_InDeliveryPhaseNotification;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.ReferenceId.ToString()] = deliveryRequest.DeliveryRequestId;
+            //    notificationRow[DBEnums.UDNotification_DT_ColumnsName.ReferenceLink.ToString()] = Classes.Utilities.SiteConfig.ApiUrl + "DeliveryRequest/Details/"+ deliveryRequest.DeliveryRequestId;
+            //    notification.dataTable.Rows.Add(notificationRow);
+            //}
 
+            ////send new delivery note notification
+            ////get all employee in Server management Department
+            //filters = new List<GenericDataFormat.FilterItems>();
+            //filters.Add(new GenericDataFormat.FilterItems()
+            //{
+            //    Property = "DepartmentId",
+            //    Operation = GenericDataFormat.FilterOperations.Equal,
+            //    Value = (int)DBEnums.Department.Server_Management,
+            //    LogicalOperation = GenericDataFormat.LogicalOperations.And
+            //});
+            //filters.Add(new GenericDataFormat.FilterItems()
+            //{
+            //    Property = "IsBlock",
+            //    Operation = GenericDataFormat.FilterOperations.Equal,
+            //    Value = false,
+            //    LogicalOperation = GenericDataFormat.LogicalOperations.And
+            //});
+            //requestBody = new GenericDataFormat()
+            //{ Filters = filters };
+            
+            //var serverEmployees = new EmployeeModel<Employee>().Get(requestBody);
+            //if(serverEmployees != null)
+            //{
+            //    foreach (var employee in serverEmployees)
+            //    {
+            //        if(employee.UserId != null)
+            //        {
+            //            //map notification to user defined dataTable
+            //            notificationRow = notification.dataTable.NewRow();
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationId.ToString()] = 0;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationTitle.ToString()] = Resources.ServerManagement.NewDeliveryNoteNotificationTitle;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationContent.ToString()] = Resources.ServerManagement.NewDeliveryNoteNotificationContent;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.StyleClass.ToString()] = Constant.NotificationStyleClass.DeliveryNote_DefaultStyleClass;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationType.ToString()] = null;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.ToUserId.ToString()] = employee.UserId;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.CreateDate.ToString()] = DateTime.Now.ToString(SqlServerDateTimeFormat);
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.IsRead.ToString()] = false;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.NotificationTypeId.ToString()] = (int)DBEnums.NotificationType.DeliveryNote_AddedNotification;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.ReferenceId.ToString()] = 0;
+            //            notificationRow[DBEnums.UDNotification_DT_ColumnsName.ReferenceLink.ToString()] = Classes.Utilities.SiteConfig.ApiUrl + "DeliveryNote/ServerRecevied/";
+            //            notification.dataTable.Rows.Add(notificationRow);
+            //        }
+            //    }
+            //}
+            
+            
             var sqlParams = new List<System.Data.SqlClient.SqlParameter>();
             sqlParams.Add(new System.Data.SqlClient.SqlParameter()
             {
@@ -266,6 +374,17 @@ namespace Afaqy_Store.Controllers
                 Direction = ParameterDirection.Input,
                 Value = technicians.dataTable
             });
+
+            //if (notification != null)
+            //{
+            //    sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //    {
+            //        ParameterName = "@tbl_Notification",
+            //        SqlDbType = SqlDbType.Structured,
+            //        Direction = ParameterDirection.Input,
+            //        Value = notification.dataTable
+            //    });
+            //}
             
             using (var context = new AfaqyStoreEntities())
             {

@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiBranchController : BaseApiController<Branch>
+    public class ApiBranchController : BaseApiController<fm_c_branch>
     {
         public ApiBranchController()
         {

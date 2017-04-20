@@ -38,9 +38,11 @@ namespace Afaqy_Store.DataLayer
         public string DepartmentName_en { get; set; }
         public string DepartmentName_ar { get; set; }
         public Nullable<int> ManagerId { get; set; }
-        public Nullable<int> BranchId { get; set; }
-        public string BranchName_en { get; set; }
-        public string BranchName_ar { get; set; }
+        public string Branch_br_code { get; set; }
+        public string br_name { get; set; }
+        public string br_alt_name { get; set; }
+        public string BranchShortName_en { get; set; }
+        public string BranchShortAltName_ar { get; set; }
         public Nullable<System.DateTime> JoinDate { get; set; }
         public Nullable<int> Employee_UserId { get; set; }
         public Nullable<bool> Employee_IsBlock { get; set; }

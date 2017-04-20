@@ -11,16 +11,10 @@ using static Classes.Common.Enums;
 
 namespace Afaqy_Store.Controllers
 {
-    public class BranchController : BaseController<Branch,BranchViewModel, BranchIndexViewModel, BranchDetailsViewModel, BranchCreateBindModel,BranchEditBindModel,BranchEditModel, Branch, BranchModel<Branch>,BranchModel<BranchViewModel>>
+    public class BranchController : BaseController<fm_c_branch, fm_c_branch, fm_c_branch, fm_c_branch, fm_c_branch, fm_c_branch, fm_c_branch, fm_c_branch, BranchModel<fm_c_branch>,BranchModel<fm_c_branch>>
     {
-        //public override bool DeactiveGroupConfirmed(object[] ids)
-        //{
-        //    var instance = new BranchModel<Branch>();
-        //    instance.Deactive(ids);
-        //    TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = AlertMessageType.Success, TransactionCount = ids.Count(), Transaction = Transactions.Deactive };
-        //    return true;
-        //}
-
+        //BaseController<Branch, BranchViewModel, BranchIndexViewModel, BranchDetailsViewModel, BranchCreateBindModel, BranchEditBindModel, BranchEditModel, Branch, BranchModel<Branch>, BranchModel<BranchViewModel>>
+        /*
         public override void FuncPreIndexView(ref List<BranchIndexViewModel> model)
         {
             var requestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { References = "Country" } };
@@ -75,5 +69,6 @@ namespace Afaqy_Store.Controllers
             string properties = "BranchId,BranchName_en,BranchName_ar,IsBlock";
             ExportRequestBody = new GenericDataFormat() { Includes = new GenericDataFormat.IncludeItems() { Properties = properties } };
         }
+        */
     }
 }
