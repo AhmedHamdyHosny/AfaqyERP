@@ -12,10 +12,10 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryDetailsView
+    public partial class TransactionDetailsView
     {
-        public int DeliveryDetailsId { get; set; }
-        public int DeliveryId { get; set; }
+        public int TransactionDetailsId { get; set; }
+        public int TransactionId { get; set; }
         public decimal ModelType_ia_item_id { get; set; }
         public string ia_name { get; set; }
         public string ia_shname { get; set; }

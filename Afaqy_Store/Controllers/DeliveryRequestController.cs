@@ -64,10 +64,45 @@ namespace Afaqy_Store.Controllers
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             List<SaleTransactionType> SaleTransactionTypes = new SaleTransactionTypeModel<SaleTransactionType>().GetAsDDLst("SaleTransactionTypeId,SaleTransactionType_en", "SaleTransactionTypeId", filters);
             ViewBag.SaleTransactionTypeId = SaleTransactionTypes.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SaleTransactionType_en, Value = x.SaleTransactionTypeId.ToString(), Selected = (x.SaleTransactionTypeId == (int)Classes.Common.DBEnums.SaleTransactionType.Sales) });
-            
-            //get all customers
+
+            //get customers
+            //set unblock customers
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            //if user is sales man then get sales man customer
+            //and if user is sales man manager then get all customer of sales under this manager
+            //else get all customers
+            EmployeeViewModel emp = null;
+            if (User.EmployeeId != null)
+            {
+                emp = new EmployeeModel<EmployeeViewModel>().Get(User.EmployeeId);
+                if (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager)
+                {
+                    //get sales men under this manager
+                    List<GenericDataFormat.FilterItems> salesFilters = new List<GenericDataFormat.FilterItems>();
+                    salesFilters.Add(new GenericDataFormat.FilterItems() {
+                        Property = "ManagerId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = emp.EmployeeId,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    List<Employee> sales_men = new EmployeeModel<Employee>().Get(new GenericDataFormat() { Filters = salesFilters });
+                    foreach (var salesMan in sales_men)
+                    {
+                        filters.Add(new GenericDataFormat.FilterItems() {
+                            Property = "salecode",
+                            Operation = GenericDataFormat.FilterOperations.Equal,
+                            Value = salesMan.EmployeeId,
+                            LogicalOperation = GenericDataFormat.LogicalOperations.Or
+                        });
+                    }
+                }
+                else if (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man)
+                {
+                    filters.Add(new GenericDataFormat.FilterItems() { Property = "salecode", Operation = GenericDataFormat.FilterOperations.Equal, Value = emp.EmployeeId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+                }
+            }
+            
             List<rpaux> customers = new CustomerModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
             //add customer english name
             var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.name, Value = x.aux_id.ToString() }).ToList();
@@ -77,6 +112,11 @@ namespace Afaqy_Store.Controllers
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             List<CustomerServerAccount> customerServerAccounts = new CustomerServerAccountModel<CustomerServerAccount>().GetAsDDLst("CustomerId,SeverCustomerName,AccountUserName", "SeverCustomerName", filters);
+            //filter cusromer server accounts by exist in customers list
+            if(emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
+            {
+                customerServerAccounts = customerServerAccounts.Where(x => customers.Any(y => y.aux_id == x.CustomerId)).ToList();
+            }
             //add customer name in server 
             customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
             //get distinct value from list
@@ -85,22 +125,25 @@ namespace Afaqy_Store.Controllers
 
             //get all Points of sale
             //filter by branch 
-            filters = null;
-            //if(User.BranchId != null)
-            //{
-            //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-            //}
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "ps_branch",
+                Operation = GenericDataFormat.FilterOperations.NotEqual,
+                Value = null,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            if(emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
+            {
+                string branchCode = string.IsNullOrEmpty(emp.Branch_br_code) ? emp.Branch_br_code : User.Branch_br_code;
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "ps_branch", Operation = GenericDataFormat.FilterOperations.Equal, Value = branchCode, LogicalOperation = GenericDataFormat.LogicalOperations.And });
+            }
             List<im_points> pos = new PointOfSaleModel<im_points>().GetAsDDLst("ps_cmp_seq,ps_code,ps_name,ps_altname", "ps_code", filters);
             ViewBag.POSId = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name,x.ps_altname) , Value =x.ps_code });
 
             //get all Warehouse
             filters = new List<GenericDataFormat.FilterItems>();
             filters.Add(new GenericDataFormat.FilterItems() { Property = "wa_inactive", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
-            //filter by branch 
-            //if (User.BranchId != null)
-            //{
-            //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-            //}
             List<im_warehouse> warehouse = new WarehouseModel<im_warehouse>().GetAsDDLst("wa_cmp_seq,wa_code,wa_name,wa_altname", "wa_code", filters);
             ViewBag.WarehouseId = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.wa_name, x.wa_altname), Value = x.wa_code });
 
@@ -286,12 +329,49 @@ namespace Afaqy_Store.Controllers
                 return HttpNotFound();
             }
             var model = (DeliveryRequestDetailsViewModel)items.ElementAt(0);
-            //get all technicians 
-            //for test get all employee
+            //get branch technicians 
+            //filter by technician is not block
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
-            List<rpaux> technicianEmployees = new RpauxEmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
-            ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.name, x.altname), Value = x.aux_id.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.aux_id)) });
+            filters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "IsBlock",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = false,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            //get warehouse branch
+            List<GenericDataFormat.FilterItems> warehouseFilters = new List<GenericDataFormat.FilterItems>();
+            warehouseFilters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "wa_code",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = model.Warehouse_wa_code,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+
+            var branchCode = new WarehouseModel<im_warehouse>().Get(new GenericDataFormat() { Filters = warehouseFilters }).SingleOrDefault().wa_costcenter;
+            //filter by branch technicians
+            filters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "Branch_br_code",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = branchCode,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            //get technician only
+            filters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "JobTitleId",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = (int)Classes.Common.DBEnums.JobTitle.Technician,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            List<EmployeeView> technicianEmployees = new EmployeeModel<EmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en,Employee_FullName_ar", "Employee_FullName_en", filters, GenericDataFormat.SortType.Asc, true);
+            ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.Employee_FullName_en, x.Employee_FullName_ar), Value = x.EmployeeId.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.EmployeeId)) });
+            //for test get all employee
+            //filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 })
+            //List<rpaux> technicianEmployees = new RpauxEmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
+            //ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.name, x.altname), Value = x.aux_id.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.aux_id)) });
             return View(model);
         }
         [HttpPost]
@@ -323,6 +403,11 @@ namespace Afaqy_Store.Controllers
             //create instance to update object
             var instance = new DeliveryRequestModel<DeliveryRequest>();
             var item = instance.Update(EditItem, id);
+
+            if(DeliveryRequestEditBindModel.SendAfterAssignDeliveryRequestNotification(item, Url.Action("Details"),Url.Action("Index","DeliveryNote"),User.UserId))
+            {
+                //do nothing
+            }
 
             TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = 1,  MessageContent = Resources.Store.DeliveryRequestAssignSuccessMessage   };
             return RedirectToAction("Index");

@@ -41,18 +41,10 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerServerUser> CustomerServerUser { get; set; }
         public virtual DbSet<CustomerStatus> CustomerStatus { get; set; }
         public virtual DbSet<CustomerType> CustomerType { get; set; }
-        public virtual DbSet<DeliveryDetails> DeliveryDetails { get; set; }
-        public virtual DbSet<DeliveryNote> DeliveryNote { get; set; }
-        public virtual DbSet<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
-        public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
         public virtual DbSet<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
         public virtual DbSet<DeliveryRequestStatus> DeliveryRequestStatus { get; set; }
         public virtual DbSet<DeliveryRequestStatusHistory> DeliveryRequestStatusHistory { get; set; }
-        public virtual DbSet<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
-        public virtual DbSet<DeliveryStatus> DeliveryStatus { get; set; }
-        public virtual DbSet<DeliveryTechnician> DeliveryTechnician { get; set; }
         public virtual DbSet<Department> Department { get; set; }
-        public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<DeviceModelType> DeviceModelType { get; set; }
         public virtual DbSet<DeviceServer> DeviceServer { get; set; }
         public virtual DbSet<DeviceSIM> DeviceSIM { get; set; }
@@ -93,10 +85,7 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerServerUnitsCountView> CustomerServerUnitsCountView { get; set; }
         public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
-        public virtual DbSet<DeliveryDetailsView> DeliveryDetailsView { get; set; }
-        public virtual DbSet<DeliveryNoteView> DeliveryNoteView { get; set; }
         public virtual DbSet<DeliveryRequestDetailsView> DeliveryRequestDetailsView { get; set; }
-        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
         public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
@@ -106,43 +95,39 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<im_family> im_family { get; set; }
         public virtual DbSet<RpauxEmployeeView> RpauxEmployeeView { get; set; }
         public virtual DbSet<JobTitle> JobTitle { get; set; }
-        public virtual DbSet<DeliveryDevice> DeliveryDevice { get; set; }
-        public virtual DbSet<DeliveryDeviceInfoHistory> DeliveryDeviceInfoHistory { get; set; }
         public virtual DbSet<DeviceNamingType> DeviceNamingType { get; set; }
-        public virtual DbSet<DeliveryDeviceView> DeliveryDeviceView { get; set; }
-        public virtual DbSet<DeliveryTechnicianView> DeliveryTechnicianView { get; set; }
         public virtual DbSet<Branch> Branch { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<WarehouseInfo> WarehouseInfo { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
-        public virtual DbSet<EmployeeView> EmployeeView { get; set; }
         public virtual DbSet<UserView> UserView { get; set; }
+        public virtual DbSet<EmployeeView> EmployeeView { get; set; }
+        public virtual DbSet<TransactionStatusHistory> TransactionStatusHistory { get; set; }
+        public virtual DbSet<TransactionTechnician> TransactionTechnician { get; set; }
+        public virtual DbSet<TransactionDetailsView> TransactionDetailsView { get; set; }
+        public virtual DbSet<TransactionTechnicianView> TransactionTechnicianView { get; set; }
+        public virtual DbSet<TransactionView> TransactionView { get; set; }
+        public virtual DbSet<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
+        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
+        public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
+        public virtual DbSet<TransactionStatus> TransactionStatus { get; set; }
+        public virtual DbSet<TransactionType> TransactionType { get; set; }
+        public virtual DbSet<Device> Device { get; set; }
+        public virtual DbSet<TransactionItem> TransactionItem { get; set; }
+        public virtual DbSet<TransactionItemInfoHistory> TransactionItemInfoHistory { get; set; }
+        public virtual DbSet<TransactionItemView> TransactionItemView { get; set; }
+        public virtual DbSet<Transaction> Transaction { get; set; }
+        public virtual DbSet<TransactionDetails> TransactionDetails { get; set; }
     
-        public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<System.DateTime> trans_datetime, string pos_code, string warehouse_code, Nullable<int> salesmanId, Nullable<int> customerId, Nullable<int> currencyId, string tra_status, string tra_user, string trans_ref, Nullable<int> tra_ref_type, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
+        public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<int> salesmanId, Nullable<int> currencyId, string tra_status, string tra_user, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
         {
             var cmp_seqParameter = cmp_seq.HasValue ?
                 new ObjectParameter("cmp_seq", cmp_seq) :
                 new ObjectParameter("cmp_seq", typeof(int));
     
-            var trans_datetimeParameter = trans_datetime.HasValue ?
-                new ObjectParameter("trans_datetime", trans_datetime) :
-                new ObjectParameter("trans_datetime", typeof(System.DateTime));
-    
-            var pos_codeParameter = pos_code != null ?
-                new ObjectParameter("pos_code", pos_code) :
-                new ObjectParameter("pos_code", typeof(string));
-    
-            var warehouse_codeParameter = warehouse_code != null ?
-                new ObjectParameter("warehouse_code", warehouse_code) :
-                new ObjectParameter("warehouse_code", typeof(string));
-    
             var salesmanIdParameter = salesmanId.HasValue ?
                 new ObjectParameter("salesmanId", salesmanId) :
                 new ObjectParameter("salesmanId", typeof(int));
-    
-            var customerIdParameter = customerId.HasValue ?
-                new ObjectParameter("customerId", customerId) :
-                new ObjectParameter("customerId", typeof(int));
     
             var currencyIdParameter = currencyId.HasValue ?
                 new ObjectParameter("currencyId", currencyId) :
@@ -156,14 +141,6 @@ namespace Afaqy_Store.DataLayer
                 new ObjectParameter("tra_user", tra_user) :
                 new ObjectParameter("tra_user", typeof(string));
     
-            var trans_refParameter = trans_ref != null ?
-                new ObjectParameter("trans_ref", trans_ref) :
-                new ObjectParameter("trans_ref", typeof(string));
-    
-            var tra_ref_typeParameter = tra_ref_type.HasValue ?
-                new ObjectParameter("tra_ref_type", tra_ref_type) :
-                new ObjectParameter("tra_ref_type", typeof(int));
-    
             var device_NewStatusParameter = device_NewStatus.HasValue ?
                 new ObjectParameter("device_NewStatus", device_NewStatus) :
                 new ObjectParameter("device_NewStatus", typeof(int));
@@ -172,7 +149,7 @@ namespace Afaqy_Store.DataLayer
                 new ObjectParameter("deliveryRequest_NewStatus", deliveryRequest_NewStatus) :
                 new ObjectParameter("deliveryRequest_NewStatus", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertDolphinDeliveryNote", cmp_seqParameter, trans_datetimeParameter, pos_codeParameter, warehouse_codeParameter, salesmanIdParameter, customerIdParameter, currencyIdParameter, tra_statusParameter, tra_userParameter, trans_refParameter, tra_ref_typeParameter, device_NewStatusParameter, deliveryRequest_NewStatusParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertDolphinDeliveryNote", cmp_seqParameter, salesmanIdParameter, currencyIdParameter, tra_statusParameter, tra_userParameter, device_NewStatusParameter, deliveryRequest_NewStatusParameter);
         }
     }
 }

@@ -167,5 +167,23 @@ namespace Resources {
                 return ResourceManager.GetString("SaleTransactionType", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request has been assigned to technicians.
+        /// </summary>
+        public static string TechnicianAssignedDeliveryRequestNotificationContent {
+            get {
+                return ResourceManager.GetString("TechnicianAssignedDeliveryRequestNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request Tech. Assigned.
+        /// </summary>
+        public static string TechnicianAssignedDeliveryRequestNotificationTitle {
+            get {
+                return ResourceManager.GetString("TechnicianAssignedDeliveryRequestNotificationTitle", resourceCulture);
+            }
+        }
     }
 }

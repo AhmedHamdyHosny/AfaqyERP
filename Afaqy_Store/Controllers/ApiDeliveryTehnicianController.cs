@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiDeliveryTechnicianController : BaseApiController<DeliveryTechnician>
+    public class ApiDeliveryTechnicianController : BaseApiController<TransactionTechnician>
     {
         public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
         {
@@ -26,7 +26,7 @@ namespace Afaqy_Store.Controllers
             return controller.Export(data);
         }
     }
-    public class ApiDeliveryTechnicianViewController : BaseApiController<DeliveryTechnicianView>
+    public class ApiDeliveryTechnicianViewController : BaseApiController<TransactionTechnicianView>
     {
 
     }

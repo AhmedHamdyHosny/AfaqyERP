@@ -23,7 +23,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual Device Device { get; set; }
         public virtual SIMCard SIMCard { get; set; }
+        public virtual Device Device { get; set; }
     }
 }

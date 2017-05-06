@@ -12,18 +12,18 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryNoteView
+    public partial class TransactionView
     {
-        public int DeliveryNoteId { get; set; }
+        public int TransactionId { get; set; }
         public int cmp_seq { get; set; }
         public string POS_ps_code { get; set; }
         public string ps_name { get; set; }
         public string ps_shname { get; set; }
         public string ps_altname { get; set; }
         public string ps_shaltname { get; set; }
-        public int DeliveryStatusId { get; set; }
-        public string DeliveryStatus_en { get; set; }
-        public string DeliveryStatus_ar { get; set; }
+        public int TransactionStatusId { get; set; }
+        public string TransactionStatus_en { get; set; }
+        public string TransactionStatus_ar { get; set; }
         public int Customer_aux_id { get; set; }
         public string name { get; set; }
         public string shortname { get; set; }
@@ -64,10 +64,12 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> SystemId { get; set; }
         public string SystemName { get; set; }
         public int DeliveryRequestId { get; set; }
-        public string DeliveryNoteReference { get; set; }
-        public Nullable<decimal> DolphinDelivery_tra_ref_id { get; set; }
-        public Nullable<int> DolphinDelivery_tra_ref_type { get; set; }
+        public string TransactionReference { get; set; }
+        public Nullable<decimal> DolphinTrans_tra_ref_id { get; set; }
+        public Nullable<int> DolphinTrans_tra_ref_type { get; set; }
         public Nullable<bool> WithInstallationService { get; set; }
         public string phone { get; set; }
+        public string DolphinCustomerName { get; set; }
+        public string CustomerAccountName { get; set; }
     }
 }

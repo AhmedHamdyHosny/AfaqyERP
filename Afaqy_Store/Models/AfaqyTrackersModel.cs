@@ -17,6 +17,7 @@ namespace Afaqy_Store.Models
             public string ssid { get; set; }
             public string eid { get; set; }
         }
+        
         public class AfaqySearchItem
         {
             public class SearchSpec
@@ -102,6 +103,22 @@ namespace Afaqy_Store.Models
                     return this;
                     //Account account = new Account() { , , ,  };
                     //return account;
+                }
+            }
+            public class AccountUser
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+                public int CreatorId { get; set; }
+                public int AccountId { get; set; }
+
+                public AccountUser ToUser(AfaqyInfo.AfaqySearchItem.Item infoItem)
+                {
+                    this.Id = int.Parse(infoItem.id);
+                    this.Name = infoItem.nm;
+                    this.CreatorId = int.Parse(infoItem.crt);
+                    this.AccountId = int.Parse(infoItem.bact);
+                    return this;
                 }
             }
 
@@ -217,7 +234,7 @@ namespace Afaqy_Store.Models
                     return unit;
                 }
 
-                public DataLayer.ServerUnit ToServerUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts)
+                public DataLayer.ServerUnit ToServerUnit(List<Afaqy_Info_Me.AfaqySearchItem.Account> accounts, string serverIp = null, List<AccountUser> accountUsers = null)
                 {
                     DataLayer.ServerUnit unit = null;
 
@@ -232,12 +249,24 @@ namespace Afaqy_Store.Models
                         unit.IsDeleted = false;
                         unit.DeviceServerName = this.nm;
                         unit.LastConnection = this.pos != null ? Classes.Utilities.Utility.ParseDateTime(this.pos.t) : (DateTime?)null;
-                        //unit.server_ip_address = 
-                        unit.ClientId = int.Parse(this.bact); 
+                        unit.ServerIP = serverIp;
+                        unit.ClientId = int.Parse(this.bact);
+                        unit.IsCorrect = true; //by default
+                        if (unit.ClientId == 0 && accountUsers != null)
+                        {
+                            //get account id from creator user id
+                            string creatorUserId = this.crt;
+                            unit.ClientId = accountUsers.Where(x => x.Id.ToString() == this.crt).Select(x => x.AccountId).FirstOrDefault();
+                            if(unit.ClientId == null || unit.ClientId == 0)
+                            {
+
+                            }
+                            unit.IsCorrect = false; // for test to monitor
+                        }
                         var account = accounts.SingleOrDefault(x => x.Id == (int)unit.ClientId);
                         unit.ClientName = account != null ? account.Name : null;
                         unit.ClientStatus = 1;
-                        unit.IsCorrect = true; //by default
+                        
 
                     }
                     return unit;
@@ -489,7 +518,7 @@ namespace Afaqy_Store.Models
                 SIMSerial = this.sim_serial,
                 GSMNumber = this.gsm_number,
                 DeviceStatus = string.IsNullOrEmpty(this.device_status) ? (int?)null : int.Parse(this.device_status),
-                IsDeleted = string.IsNullOrEmpty(this.device_deleted) ? (bool?)null : Classes.Utilities.Utility.ParseBool(this.device_deleted),
+                IsDeleted = string.IsNullOrEmpty(this.device_deleted) ? false : Classes.Utilities.Utility.ParseBool(this.device_deleted),
                 DeviceServerName = this.device_name_at_Server,
                 LastConnection = Classes.Utilities.Utility.ParseDateTime(this.lastConnection),
                 ServerIP = this.server_ip_address,

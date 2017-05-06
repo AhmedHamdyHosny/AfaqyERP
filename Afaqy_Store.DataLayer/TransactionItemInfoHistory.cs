@@ -12,25 +12,29 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryDeviceInfoHistory
+    public partial class TransactionItemInfoHistory
     {
         public int HistoryId { get; set; }
-        public int DeliveryItemId { get; set; }
+        public int TransactionItemId { get; set; }
         public int cmp_seq { get; set; }
-        public int DeliveryDetailsId { get; set; }
-        public int DeviceId { get; set; }
+        public int TransactionDetailsId { get; set; }
+        public Nullable<decimal> ModelType_ia_item_id { get; set; }
+        public Nullable<int> DeviceId { get; set; }
         public Nullable<int> Employee_aux_id { get; set; }
         public Nullable<System.DateTime> InstallingDateTime { get; set; }
-        public string DeviceNaming { get; set; }
+        public string DeviceNaming_en { get; set; }
+        public string DeviceNaming_ar { get; set; }
         public Nullable<int> DeviceNamingTypeId { get; set; }
         public Nullable<bool> AddToServer { get; set; }
         public Nullable<bool> TrackWithTechnician { get; set; }
         public Nullable<bool> ServerUpdated { get; set; }
+        public Nullable<bool> TechnicalApproval { get; set; }
+        public Nullable<bool> IsReturn { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
     
-        public virtual DeliveryDevice DeliveryDevice { get; set; }
+        public virtual TransactionItem TransactionItem { get; set; }
     }
 }

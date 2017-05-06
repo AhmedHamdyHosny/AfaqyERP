@@ -17,8 +17,8 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeliveryRequestStatus()
         {
-            this.DeliveryRequest = new HashSet<DeliveryRequest>();
             this.DeliveryRequestStatusHistory = new HashSet<DeliveryRequestStatusHistory>();
+            this.DeliveryRequest = new HashSet<DeliveryRequest>();
         }
     
         public int DeliveryRequestStatusId { get; set; }
@@ -31,8 +31,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryRequestStatusHistory> DeliveryRequestStatusHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
     }
 }

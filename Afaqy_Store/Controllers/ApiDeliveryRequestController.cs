@@ -97,22 +97,22 @@ namespace Afaqy_Store.Controllers
                             // Is original child item with same ID in DB?
                             if (originalDetailsItem != null)
                             {
-                                childItem.DeliveryRequestTechnicalId = originalDetailsItem.DeliveryRequestTechnicalId;
+                                childItem.DeliveryRequestTechnicianId = originalDetailsItem.DeliveryRequestTechnicianId;
                                 context.Entry(originalDetailsItem).CurrentValues.SetValues(childItem);
                             }
                             else
                             {
-                                childItem.DeliveryRequestTechnicalId = 0;
+                                childItem.DeliveryRequestTechnicianId = 0;
                                 originalItem.DeliveryRequestTechnician.Add(childItem);
                             }
                         }
 
                         foreach (var originalChildItem in
-                                     originalItem.DeliveryRequestTechnician.Where(c => c.DeliveryRequestTechnicalId != 0).ToList())
+                                     originalItem.DeliveryRequestTechnician.Where(c => c.DeliveryRequestTechnicianId != 0).ToList())
                         {
                             // Are there child items in the DB which are NOT in the
                             // new child item collection anymore?
-                            if (!value.DeliveryRequestTechnician.Any(c => c.DeliveryRequestTechnicalId == originalChildItem.DeliveryRequestTechnicalId))
+                            if (!value.DeliveryRequestTechnician.Any(c => c.DeliveryRequestTechnicianId == originalChildItem.DeliveryRequestTechnicianId))
                                 // Yes -> It's a deleted child item -> Delete
                                 context.DeliveryRequestTechnician.Remove(originalChildItem);
                         }

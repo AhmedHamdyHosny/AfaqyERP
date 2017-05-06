@@ -12,24 +12,18 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class SaleTransactionType
+    public partial class TransactionType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SaleTransactionType()
+        public TransactionType()
         {
-            this.DeliveryRequest = new HashSet<DeliveryRequest>();
+            this.Transaction = new HashSet<Transaction>();
         }
     
-        public int SaleTransactionTypeId { get; set; }
-        public string SaleTransactionType_en { get; set; }
-        public string SaleTransactionType_ar { get; set; }
-        public bool IsBlock { get; set; }
-        public int CreateUserId { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public Nullable<int> ModifyUserId { get; set; }
-        public Nullable<System.DateTime> ModifyDate { get; set; }
+        public int TransactionTypeId { get; set; }
+        public string TransactionType1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryRequest> DeliveryRequest { get; set; }
+        public virtual ICollection<Transaction> Transaction { get; set; }
     }
 }

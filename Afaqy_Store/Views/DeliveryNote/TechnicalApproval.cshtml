@@ -1,0 +1,128 @@
+﻿@model Afaqy_Store.Models.DeliveryNoteDetailsViewModel
+@using BeyondThemes.Bootstrap;
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = Resources.Technician.DeliveryTechnicalApproval;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Technician.DeliveryTechnicalApproval</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body withVScroll">
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @{Html.RenderAction("Partial_DeliveryNoteDetails", "DeliveryNote", new { deliveryNote = Model });}
+            @*@Html.HiddenFor(model => model.DeliveryRequestId)*@
+            <div class="row" ng-init="bindDeliveryDetailsAndDevicesGirdData()">
+                <div class="col-xs-12 form-group">
+                    @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
+                    {
+                        tabs.Tab(Resources.Store.DelieryDetails, BootstrapColors.Danger);
+                        tabs.Tab(Resources.Store.Devices, BootstrapColors.Success);
+
+                        using (tabs.BeginPanel())
+                        {
+                            <div class="form-group">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDetailsGrid", UiGrid = "deliveryDetailsGridOptions", EnablePagination = false, RowSelection = false }); }
+                            </div>
+                        }
+                        using (tabs.BeginPanel())
+                        {
+                            <div class="form-group">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDevicesGrid", UiGrid = "deliveryDevicesGridOptions", EnablePagination = false, RowSelection = false }); }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                @Html.HiddenFor(model => model.DeliveryNoteId);
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()">@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+
+@section scripts {
+
+    <script>
+        var deliveryDetailsData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryDetails));
+        var deliveryDevicesData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryDevices));
+
+        var deliveryDetailsGridColumnDefs = [
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'ia_name', name: '@Resources.Store.DeviceModelType', width: 200 },
+            { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
+            { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
+        ];
+
+        var deliveryDeviceGridColumnDefs = [
+            { field: 'IMEI', name: '@Resources.Store.DeviceIMEI',
+                //headerCellTemplate: "<div class='ui-grid-spilt-header-main'>"+
+                //    "<div class='ui-grid-split-merge-header' style='width:300%'>"+
+                //    "<table class='ui-grid-header-table'>"+
+                //    "<tbody>"+
+                //    "<tr><td width='60%'>Device</td><td>Accessors</td></tr>"+
+                //    "</tbody>"+
+                //    "</table>"+
+                //    "</div>"+"IMEI"+"</div>",
+                width: 200
+            },
+            {
+                name: 'TechnicalApproval',
+                displayName: '@Resources.Technician.DeliveryDeviceTechnicalApproval',
+                headerCellTemplate: "<div class='ui-grid-spilt-header-main'>@Resources.Technician.DeliveryDeviceTechnicalApproval<div class='checkbox custCheckDiv'>"+
+                    "<label>"+
+                    "<input class='colored-blue' type='checkbox' ng-model='TechnicalApprovalSelectAll' ng-change='grid.appScope.selectAll(TechnicalApprovalSelectAll)' >"+
+                    //'<input type="hidden" ng-value="TechnicalApprovalSelectAll" >'+
+                    "<span class='text'></span></label>"+
+                    "</div></div>",
+                cellTemplate:
+                    '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="checkbox custCheckDiv">'+
+                    '<label>'+
+                    '<input class="colored-blue" id="form-field-checkbox" type="checkbox" ng-model="row.entity.TechnicalApproval">'+
+                    '<input type="hidden" ng-value="row.entity.TechnicalApproval" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].TechnicalApproval"  >'+
+                    '<span class="text"></span>'+
+                    '</label>'+
+                    '</div>'+
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeliveryItemId" ng-value="row.entity.DeliveryItemId" />' +
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 150
+            },
+            {
+                name: 'Note',
+                displayName: '@Resources.Resource.Note',
+                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.Resource.Note'</div>",*@
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                        '<div class="form-group"> ' +
+                        '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                        ' </div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 200
+            }
+        ];
+
+        $(document).ready(function () {
+            //$(".ui-grid-spilt-header-main").css('padding-top', $(".ui-grid-header-table").height());
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}

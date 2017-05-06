@@ -25,7 +25,7 @@ namespace Afaqy_Store.Controllers
                 if (user != null)
                 {
                     user.SaveUserToLocalStorage(model.RememberMe);
-                    return RedirectToAction("Index", "Device");
+                    return RedirectToAction("Index", "DeliveryRequest");
                 }
                 else
                 {

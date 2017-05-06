@@ -10,6 +10,35 @@ namespace Afaqy_Store.Controllers
 {
     public class ApiServerUnitController : BaseApiController<ServerUnit>
     {
+        public override IHttpActionResult Import(List<ServerUnit> entities)
+        {
+            try
+            {
+                int count = 0;
+                do
+                {
+                    var items = entities.Skip(count).Take(100);
+                    count += 100;
+                    // This is optional
+                    using (AfaqyStoreEntities context = new AfaqyStoreEntities())
+                    {
+                        context.Configuration.AutoDetectChangesEnabled = false;
+                        //context.Configuration.ValidateOnSaveEnabled = false;
+                        context.Set<ServerUnit>().AddRange(items);
+                        context.SaveChanges();
+                        context.Dispose();
+                    }
+
+                } while (count < entities.Count);
+                return Content(HttpStatusCode.OK, "Success");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
+            
+        }
         [HttpGet]
         public IHttpActionResult Clear()
         {

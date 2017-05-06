@@ -123,4 +123,19 @@
   <data name="ApprovedDeliveryRequestNotificationTitle" xml:space="preserve">
     <value>Approve Delivery Request</value>
   </data>
+  <data name="ButtonDeliveryDeviceTechnicalApproval" xml:space="preserve">
+    <value>Technical Approval</value>
+  </data>
+  <data name="DeliveryDeviceTechnicalApproval" xml:space="preserve">
+    <value>Technical Approve</value>
+  </data>
+  <data name="DeliveryNoteTechnicalApprovedNotificationContent" xml:space="preserve">
+    <value>Delivery Note has been Technical Approved successfully</value>
+  </data>
+  <data name="DeliveryNoteTechnicalApprovedNotificationTitle" xml:space="preserve">
+    <value>Delivery Note Technical Approved</value>
+  </data>
+  <data name="DeliveryTechnicalApproval" xml:space="preserve">
+    <value>Delivery Technical Approval</value>
+  </data>
 </root>

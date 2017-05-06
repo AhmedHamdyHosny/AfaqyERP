@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Afaqy_Store.Reports.Models
 {
-    public class DeliveryDeviceReportModel : Afaqy_Store.Models.DeliveryDeviceViewModel
+    public class DeliveryDeviceReportModel : Afaqy_Store.Models.DeliveryItemViewModel
     {
     }
 }

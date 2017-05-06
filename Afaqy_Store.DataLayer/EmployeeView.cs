@@ -60,5 +60,9 @@ namespace Afaqy_Store.DataLayer
         public string ModifyUser_LastName_ar { get; set; }
         public string ModifyUser_FullName_en { get; set; }
         public string ModifyUser_FullName_ar { get; set; }
+        public Nullable<int> JobTitleId { get; set; }
+        public Nullable<bool> IsManager { get; set; }
+        public string JobTitle_en { get; set; }
+        public string JobTitle_ar { get; set; }
     }
 }

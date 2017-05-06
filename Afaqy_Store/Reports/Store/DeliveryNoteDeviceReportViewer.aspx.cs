@@ -47,20 +47,20 @@ namespace Afaqy_Store.Reports.Store
         {
             //bind Delivery Device DataSet
             List<GenericDataFormat.FilterItems> filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryNoteId", Operation = GenericDataFormat.FilterOperations.Equal, Value = deliveryNoteId });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "TransactionId", Operation = GenericDataFormat.FilterOperations.Equal, Value = deliveryNoteId });
             GenericDataFormat requestBody = new GenericDataFormat() { Filters = filters };
-            List<DeliveryDeviceView> deliveryDevice = new DeliveryDeviceModel<DeliveryDeviceView>().GetView<DeliveryDeviceView>(requestBody).PageItems;
-            return Classes.Utilities.Utility.ToDataTable<DeliveryDeviceView>(deliveryDevice);
+            List<TransactionItemView> deliveryDevice = new DeliveryItemModel<TransactionItemView>().GetView<TransactionItemView>(requestBody).PageItems;
+            return Classes.Utilities.Utility.ToDataTable<TransactionItemView>(deliveryDevice);
         }
 
         private DataTable GetDeliveryNoteDataTable(string deliveryNoteId)
         {
             //bind Delivery Note DataSet
             List<GenericDataFormat.FilterItems> filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryNoteId", Operation = GenericDataFormat.FilterOperations.Equal, Value = deliveryNoteId });
+            filters.Add(new GenericDataFormat.FilterItems() { Property = "TransactionId", Operation = GenericDataFormat.FilterOperations.Equal, Value = deliveryNoteId });
             GenericDataFormat requestBody = new GenericDataFormat() { Filters = filters };
-            List<DeliveryNoteView> deliveryNote = new DeliveryNoteModel<DeliveryNoteView>().GetView<DeliveryNoteView>(requestBody).PageItems;
-            return Classes.Utilities.Utility.ToDataTable<DeliveryNoteView>(deliveryNote);
+            List<TransactionView> deliveryNote = new DeliveryNoteModel<TransactionView>().GetView<TransactionView>(requestBody).PageItems;
+            return Classes.Utilities.Utility.ToDataTable<TransactionView>(deliveryNote);
         }
 
         protected void Button1_Click(object sender, EventArgs e)

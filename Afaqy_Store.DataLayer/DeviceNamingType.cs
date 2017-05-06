@@ -14,12 +14,6 @@ namespace Afaqy_Store.DataLayer
     
     public partial class DeviceNamingType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeviceNamingType()
-        {
-            this.DeliveryDevice = new HashSet<DeliveryDevice>();
-        }
-    
         public int DeviceNamingTypeId { get; set; }
         public string DeviceNamingType_en { get; set; }
         public string DeviceNamingType_ar { get; set; }
@@ -28,8 +22,5 @@ namespace Afaqy_Store.DataLayer
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
     }
 }

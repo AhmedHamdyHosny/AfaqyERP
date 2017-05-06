@@ -14,7 +14,7 @@ namespace Afaqy_Store.DataLayer
     
     public partial class DeliveryRequestTechnician
     {
-        public int DeliveryRequestTechnicalId { get; set; }
+        public int DeliveryRequestTechnicianId { get; set; }
         public int cmp_seq { get; set; }
         public int DeliveryRequestId { get; set; }
         public int Employee_aux_id { get; set; }

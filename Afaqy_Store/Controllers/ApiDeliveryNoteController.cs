@@ -12,8 +12,22 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiDeliveryNoteController : BaseApiController<DeliveryNote>
+    public class ApiDeliveryNoteController : BaseApiController<Transaction>
     {
+        public ApiDeliveryNoteController()
+        {
+            var dataContrains = GetDataConstrains();
+            if (dataContrains == null)
+            {
+                dataContrains = x => x.TransactionTypeId == (int)DBEnums.TransactionType.Delivery_Note;
+            }
+            else
+            {
+                dataContrains.AndAlso(x => x.TransactionTypeId == (int)DBEnums.TransactionType.Delivery_Note);
+            }
+            SetDataConstrains(dataContrains);
+
+        }
         public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
         {
             var controller = new ApiDeliveryNoteViewController();
@@ -22,7 +36,7 @@ namespace Afaqy_Store.Controllers
             return controller.GetView(data);
         }
         [NonAction]
-        public override IHttpActionResult Post(DeliveryNote value)
+        public override IHttpActionResult Post(Transaction value)
         {
             return base.Post(value);
         }
@@ -36,99 +50,33 @@ namespace Afaqy_Store.Controllers
             }
 
             const string SqlServerDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-            //List<GenericDataFormat.FilterItems> filters = null;
-            //GenericDataFormat requestBody = null;
 
             //map delivery note to user defined dataTable 
-            Classes.DB_UserTypeDefined.UDDeliveryNote delivery = new Classes.DB_UserTypeDefined.UDDeliveryNote();
-            DataRow deliveryRow = delivery.dataTable.NewRow();
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryNoteId.ToString()] = value.DeliveryNoteId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.cmp_seq.ToString()] = value.cmp_seq;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.POS_ps_code.ToString()] = value.POS_ps_code;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.Warehouse_wa_code.ToString()] = value.Warehouse_wa_code;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryRequestId.ToString()] = value.DeliveryRequestId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.Customer_aux_id.ToString()] = value.Customer_aux_id;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CustomerName.ToString()] = value.CustomerName;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CustomerContact_serial.ToString()] = value.CustomerContact_serial;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.AlternativeContactName.ToString()] = value.AlternativeContactName;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.AlternativeContactTelephone.ToString()] = value.AlternativeContactTelephone;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.SaleTransactionTypeId.ToString()] = value.SaleTransactionTypeId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryDateTime.ToString()] = value.DeliveryDateTime.ToString(SqlServerDateTimeFormat);
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryStatusId.ToString()] = value.DeliveryStatusId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DeliveryNoteReference.ToString()] = value.DeliveryNoteReference;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DolphinDelivery_tra_ref_id.ToString()] = value.DolphinDelivery_tra_ref_id;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.DolphinDelivery_tra_ref_type.ToString()] = value.DolphinDelivery_tra_ref_type;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.SystemId.ToString()] = value.SystemId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.WithInstallationService.ToString()] = value.WithInstallationService;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.Note.ToString()] = value.Note;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.IsBlock.ToString()] = value.IsBlock;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CreateUserId.ToString()] = value.CreateUserId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate.ToString(SqlServerDateTimeFormat);
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.ModifyUserId.ToString()] = value.ModifyUserId;
-            deliveryRow[DBEnums.UDDeliveryNote_DT_ColumnsName.ModifyDate.ToString()] =  value.ModifyDate != null ? ((DateTime)value.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
-            delivery.dataTable.Rows.Add(deliveryRow);
+            Classes.DB_UserTypeDefined.UDTransaction delivery = new Classes.DB_UserTypeDefined.UDTransaction();
+            //DataRow deliveryRow = delivery.dataTable.NewRow();
+            delivery.dataTable.Rows.Add(delivery.BindDataRow(value, SqlServerDateTimeFormat));
             
             //map delivery technician to user defined dataTable
             Classes.DB_UserTypeDefined.UDDeliveryTechnician technicians = new Classes.DB_UserTypeDefined.UDDeliveryTechnician();
-            foreach (var technician in value.DeliveryTechnician)
+            foreach (var technician in value.TransactionTechnician)
             {
-                DataRow row = technicians.dataTable.NewRow();
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.DeliveryNoteTechnicalId.ToString()] = technician.DeliveryNoteTechnicalId;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.cmp_seq.ToString()] = technician.cmp_seq;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.Employee_aux_id.ToString()] = technician.Employee_aux_id;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.IsBlock.ToString()] = technician.IsBlock;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.CreateUserId.ToString()] = technician.CreateUserId;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.CreateDate.ToString()] = technician.CreateDate.ToString(SqlServerDateTimeFormat);
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.ModifyUserId.ToString()] = technician.ModifyUserId;
-                row[DBEnums.UDDeliveryTechnician_DT_ColumnsName.ModifyDate.ToString()] = technician.ModifyDate != null ? ((DateTime)technician.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
-                technicians.dataTable.Rows.Add(row);
+                technicians.dataTable.Rows.Add(technicians.BindDataRow(technician, SqlServerDateTimeFormat));
             }
 
             //map delivery details to user defined dataTable
             Classes.DB_UserTypeDefined.UDDeliveryDetails deliveryDetails = new Classes.DB_UserTypeDefined.UDDeliveryDetails();
             int detialsRowSerial = 1;
-            foreach (var details in value.DeliveryDetails)
+            foreach (var details in value.TransactionDetails)
             {
-                DataRow row = deliveryDetails.dataTable.NewRow();
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.DeliveryDetailsId.ToString()] = detialsRowSerial;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.cmp_seq.ToString()] = details.cmp_seq;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModelType_ia_item_id.ToString()] = details.ModelType_ia_item_id;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.Quantity.ToString()] = details.Quantity;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.Note.ToString()] = details.Note;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.IsBlock.ToString()] = details.IsBlock;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.CreateUserId.ToString()] = details.CreateUserId;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.CreateDate.ToString()] = details.CreateDate.ToString(SqlServerDateTimeFormat);
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModifyUserId.ToString()] = details.ModifyUserId;
-                row[DBEnums.UDDeliveryDetails_DT_ColumnsName.ModifyDate.ToString()] = details.ModifyDate != null ? ((DateTime)details.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
-                deliveryDetails.dataTable.Rows.Add(row);
+                deliveryDetails.dataTable.Rows.Add(deliveryDetails.BindDataRow(details, SqlServerDateTimeFormat, detialsRowSerial));
                 detialsRowSerial++;
             }
 
-            //map delivery devices to user defined dataTable
-            Classes.DB_UserTypeDefined.UDDeliveryDevice deliveryDevices = new Classes.DB_UserTypeDefined.UDDeliveryDevice();
+            //map delivery items to user defined dataTable
+            Classes.DB_UserTypeDefined.UDDeliveryItem deliveryItems = new Classes.DB_UserTypeDefined.UDDeliveryItem();
             foreach (var device in value.DeliveryDevice)
             {
-                DataRow row = deliveryDevices.dataTable.NewRow();
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeliveryItemId.ToString()] = device.DeliveryItemId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.cmp_seq.ToString()] = value.cmp_seq;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceId.ToString()] = device.DeviceId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.SerialNumber.ToString()] = device.SerialNumber;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.IMEI.ToString()] = device.IMEI;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModelType_ia_item_id.ToString()] = device.ModelType_ia_item_id;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.Employee_aux_id.ToString()] = device.Employee_aux_id;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.InstallingDateTime.ToString()] = device.InstallingDateTime != null ? ((DateTime)device.InstallingDateTime).ToString(SqlServerDateTimeFormat) : null;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNaming.ToString()] = device.DeviceNaming;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.DeviceNamingTypeId.ToString()] = device.DeviceNamingTypeId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.AddToServer.ToString()] = device.AddToServer;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.TrackWithTechnician.ToString()] = device.TrackWithTechnician;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ServerUpdated.ToString()] = device.ServerUpdated;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.Note.ToString()] = device.Note;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.IsBlock.ToString()] = device.IsBlock;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateUserId.ToString()] = value.CreateUserId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.CreateDate.ToString()] = value.CreateDate.ToString(SqlServerDateTimeFormat);
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyUserId.ToString()] = value.ModifyUserId;
-                row[DBEnums.UDDeliveryDevice_DT_ColumnsName.ModifyDate.ToString()] = value.ModifyDate != null ? ((DateTime)value.ModifyDate).ToString(SqlServerDateTimeFormat) : null;
-                deliveryDevices.dataTable.Rows.Add(row);
+                deliveryItems.dataTable.Rows.Add(deliveryItems.BindDataRow(device, value.cmp_seq, value.CreateUserId, value.CreateDate, value.ModifyUserId, value.ModifyDate, SqlServerDateTimeFormat));
             }
 
             ////send notifications to users
@@ -240,31 +188,31 @@ namespace Afaqy_Store.Controllers
                 Value = value.cmp_seq
             });
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@trans_datetime",
-                SqlDbType = SqlDbType.DateTime,
-                Direction = ParameterDirection.Input,
-                Value = value.DeliveryDateTime
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@trans_datetime",
+            //    SqlDbType = SqlDbType.DateTime,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.TransactionDateTime
+            //});
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@pos_code",
-                SqlDbType = SqlDbType.Char,
-                Size = 3,
-                Direction = ParameterDirection.Input,
-                Value = value.POS_ps_code
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@pos_code",
+            //    SqlDbType = SqlDbType.Char,
+            //    Size = 3,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.POS_ps_code
+            //});
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@warehouse_code",
-                SqlDbType = SqlDbType.Char,
-                Size = 3,
-                Direction = ParameterDirection.Input,
-                Value = value.Warehouse_wa_code
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@warehouse_code",
+            //    SqlDbType = SqlDbType.Char,
+            //    Size = 3,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.Warehouse_wa_code
+            //});
 
             sqlParams.Add(new System.Data.SqlClient.SqlParameter()
             {
@@ -274,13 +222,13 @@ namespace Afaqy_Store.Controllers
                 Value = value.DolphinTrans.tra_sal_aux_id
             });
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@customerId",
-                SqlDbType = SqlDbType.Int,
-                Direction = ParameterDirection.Input,
-                Value = value.Customer_aux_id
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@customerId",
+            //    SqlDbType = SqlDbType.Int,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.Customer_aux_id
+            //});
 
             sqlParams.Add(new System.Data.SqlClient.SqlParameter()
             {
@@ -308,23 +256,23 @@ namespace Afaqy_Store.Controllers
                 Value = value.DolphinTrans.tra_user_id
             });
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@trans_ref",
-                SqlDbType = SqlDbType.VarChar,
-                Size = 15,
-                Direction = ParameterDirection.Input,
-                Value = value.DolphinTrans.tra_sup_ref
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@trans_ref",
+            //    SqlDbType = SqlDbType.VarChar,
+            //    Size = 15,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.DolphinTrans.tra_sup_ref
+            //});
 
-            sqlParams.Add(new System.Data.SqlClient.SqlParameter()
-            {
-                ParameterName = "@tra_ref_type",
-                SqlDbType = SqlDbType.VarChar,
-                Size = 15,
-                Direction = ParameterDirection.Input,
-                Value = value.DolphinTrans.tra_ref_type
-            });
+            //sqlParams.Add(new System.Data.SqlClient.SqlParameter()
+            //{
+            //    ParameterName = "@tra_ref_type",
+            //    SqlDbType = SqlDbType.VarChar,
+            //    Size = 15,
+            //    Direction = ParameterDirection.Input,
+            //    Value = value.DolphinTrans.tra_ref_type
+            //});
 
             sqlParams.Add(new System.Data.SqlClient.SqlParameter()
             {
@@ -360,10 +308,10 @@ namespace Afaqy_Store.Controllers
 
             sqlParams.Add(new System.Data.SqlClient.SqlParameter()
             {
-                ParameterName = "@tbl_DeliveryDevice",
+                ParameterName = "@tbl_DeliveryItem",
                 SqlDbType = SqlDbType.Structured,
                 Direction = ParameterDirection.Input,
-                Value = deliveryDevices.dataTable
+                Value = deliveryItems.dataTable
             });
 
             
@@ -476,64 +424,10 @@ namespace Afaqy_Store.Controllers
         }
     }
 
-    public class ApiDeliveryNoteViewController : BaseApiController<DeliveryNoteView>
+    public class ApiDeliveryNoteViewController : BaseApiController<TransactionView>
     {
 
     }
 
-    public static class MultipleResultSets
-    {
-        public static MultipleResultSetWrapper MultipleResults(this System.Data.Entity.DbContext db, string storedProcedure)
-        {
-            return new MultipleResultSetWrapper(db, storedProcedure);
-        }
 
-        public class MultipleResultSetWrapper
-        {
-            private readonly System.Data.Entity.DbContext _db;
-            private readonly string _storedProcedure;
-            public List<Func<System.Data.Entity.Infrastructure.IObjectContextAdapter, System.Data.Common.DbDataReader, System.Collections.IEnumerable>> _resultSets;
-
-            public MultipleResultSetWrapper(System.Data.Entity.DbContext db, string storedProcedure)
-            {
-                _db = db;
-                _storedProcedure = storedProcedure;
-                _resultSets = new List<Func<System.Data.Entity.Infrastructure.IObjectContextAdapter, System.Data.Common.DbDataReader, System.Collections.IEnumerable>>();
-            }
-
-            public MultipleResultSetWrapper With<TResult>()
-            {
-                _resultSets.Add((adapter, reader) => adapter
-                    .ObjectContext
-                    .Translate<TResult>(reader)
-                    .ToList());
-
-                return this;
-            }
-
-            public List<System.Collections.IEnumerable> Execute()
-            {
-                var results = new List<System.Collections.IEnumerable>();
-
-                using (var connection = _db.Database.Connection)
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandText = "EXEC " + _storedProcedure;
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        var adapter = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)_db);
-                        foreach (var resultSet in _resultSets)
-                        {
-                            results.Add(resultSet(adapter, reader));
-                            reader.NextResult();
-                        }
-                    }
-
-                    return results;
-                }
-            }
-        }
-    }
 }

@@ -129,26 +129,40 @@
                     @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
-                    {
-                        tabs.Tab(Resources.Store.DelieryDetails, BootstrapColors.Danger);
-                        tabs.Tab(Resources.Store.Devices, BootstrapColors.Success);
-
-                        using (tabs.BeginPanel())
-                        {
-                            <div class="form-group" ng-init="bindDeliveryDetailsGirdData()">
+            <div class="row" ng-init="bindDeliveryDetailsAndDevicesGirdData()">
+                @*<div class="col-xs-12 form-group">
+                    <uib-tabset active="activeForm">
+                        <uib-tab index="1" heading="Tab One">
+                            <div class="form-group" >
                                 @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDetailsGrid", UiGrid = "deliveryDetailsGridOptions", EnablePagination = false, RowSelection = false }); }
                             </div>
-                        }
-                        using (tabs.BeginPanel())
+                        </uib-tab>
+                        <uib-tab index="2" heading="Tab Two">
+                            <div class="form-group" ng-init="bindDeliveryDetailsGirdData()">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDevicesGrid", UiGrid = "deliveryDevicesGridOptions", EnablePagination = false, RowSelection = false }); }
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>*@
+                    <div class="col-xs-12 form-group">
+                        @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
                         {
-                             <div class="form-group" ng-init="bindDeliveryDevicesGirdData()">
-                                    @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDevicesGrid", UiGrid = "deliveryDevicesGridOptions", EnablePagination = false, RowSelection = false }); }
+                            tabs.Tab(Resources.Store.DelieryDetails, BootstrapColors.Danger);
+                            tabs.Tab(Resources.Store.Devices, BootstrapColors.Success);
+
+                            using (tabs.BeginPanel())
+                            {
+                                <div class="form-group" >
+                                    @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDetailsGrid", UiGrid = "deliveryDetailsGridOptions", EnablePagination = false, RowSelection = false }); }
                                 </div>
+                            }
+                            using (tabs.BeginPanel())
+                            {
+                                <div class="form-group" >
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId = "deliveryDevicesGrid", UiGrid = "deliveryDevicesGridOptions", EnablePagination = false, RowSelection = false }); }
+                                </div>
+                            }
                         }
-                     }
                 </div>
             </div>
             <div class="row">
@@ -192,7 +206,7 @@
             {
                 name: 'AddToServer',
                 displayName: '@Resources.ServerManagement.AddToServer',
-                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.AddToServer'</div>",*@
+                headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.AddToServer'</div>",
                 cellTemplate:
                     '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
                     '<div class="checkbox custCheckDiv">'+
@@ -210,7 +224,7 @@
             {
                 name:'TrackWithTechnician',
                 displayName: '@Resources.ServerManagement.TrackWithTechnician',
-                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.TrackWithTechnician'</div>",*@
+                headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.TrackWithTechnician'</div>",
                 cellTemplate:
                     '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
                     '<div class="checkbox custCheckDiv">'+
@@ -227,7 +241,7 @@
             {
                 name:'ServerUpdated',
                 displayName: '@Resources.ServerManagement.ServerUpdated',
-                @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.ServerUpdated'</div>",*@
+                headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.ServerManagement.ServerUpdated'</div>",
                 cellTemplate:
                      '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
                     '<div class="checkbox custCheckDiv">'+
@@ -245,17 +259,16 @@
                 name: 'Note',
                 displayName: '@Resources.Resource.Note',
                 @*headerCellTemplate: "<div class='ui-grid-spilt-header-main'>'@Resources.Resource.Note'</div>",*@
-                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+            cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                     '<div class="form-group"> ' +
                     '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
                     ' </div>',
-                enableSorting: false, enableFiltering: false, enableHiding: false,
-                width: 200
-            }
+            enableSorting: false, enableFiltering: false, enableHiding: false,
+        width: 200
+        }
         ];
 
         $(document).ready(function () {
-
             //$(".ui-grid-spilt-header-main").css('padding-top', $(".ui-grid-header-table").height());
             $('#form').submit(function (event) {
                 if (!$(this).valid()) {

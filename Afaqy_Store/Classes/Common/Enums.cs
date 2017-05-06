@@ -178,7 +178,13 @@ namespace Classes.Common
             In_the_delivery_phase = 7
         }
 
-        public enum DeliveryStatus
+        public enum TransactionType
+        {
+            Delivery_Note = 5,
+            Delivery_Return = 12
+        }
+
+        public enum TransactionStatus
         {
             New = 1,
             Delivery_To_Technician = 2,
@@ -214,7 +220,7 @@ namespace Classes.Common
 
         public enum NotificationType
         {
-            DeliveryRequest_AssignNotification = 1,
+            DeliveryRequest_TechnicianAssignedNotification = 1,
             DeliveryRequest_DeliveryNotification = 2,
             DeliveryRequest_AcceptNotification = 3,
             DeliveryRequest_RejectNotification = 4,
@@ -224,27 +230,32 @@ namespace Classes.Common
             DeliveryNote_AddedNotification = 8,
             DeliveryNote_ServerReceviedNotification = 9,
             DeliveryNote_ServerAddedNotification = 10,
-            DeliveryNote_ServerNamedNotification = 11
-        }
-        
-        public enum UDDeliveryTechnician_DT_ColumnsName
-        {
-            DeliveryNoteTechnicalId, cmp_seq, DeliveryNoteId, Employee_aux_id, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
-        }
-
-        public enum UDDeliveryNote_DT_ColumnsName
-        {
-            DeliveryNoteId, cmp_seq, POS_ps_code, Warehouse_wa_code, DeliveryRequestId, Customer_aux_id, CustomerName, CustomerContact_serial, AlternativeContactName, AlternativeContactTelephone, SaleTransactionTypeId, DeliveryDateTime, DeliveryStatusId, DeliveryNoteReference, DolphinDelivery_tra_ref_id, DolphinDelivery_tra_ref_type, SystemId, WithInstallationService, Note, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
+            DeliveryNote_TechnicalApprovedNotification = 11,
+            DeliveryNote_StoreDeviceNamingNotification = 12,
+            DeliveryNote_StoreDeviceNamedNotification = 13,
+            DeliveryNote_DeliveryReturnNotification = 14,
+            DeliveryNote_ServerNamedNotification = 15,
+            DeliveryNote_InvoicedNotification = 16
         }
 
-        public enum UDDeliveryDetails_DT_ColumnsName
+        public enum UDTransactionTechnician_DT_ColumnsName
         {
-            DeliveryDetailsId, cmp_seq, DeliveryId,ModelType_ia_item_id,Quantity,Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+            TransactionTechnicianId, cmp_seq, TransactionId, Employee_aux_id, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
         }
 
-        public enum UDDeliveryDevice_DT_ColumnsName
+        public enum UDTransaction_DT_ColumnsName
         {
-            DeliveryItemId, cmp_seq, DeliveryDetailsId,DeviceId, SerialNumber, IMEI, ModelType_ia_item_id, Employee_aux_id,InstallingDateTime, DeviceNaming, DeviceNamingTypeId, AddToServer, TrackWithTechnician, ServerUpdated, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+            TransactionId, cmp_seq, POS_ps_code, Warehouse_wa_code, DeliveryRequestId, Customer_aux_id, CustomerName, DolphinCustomerName, CustomerAccountName, CustomerContact_serial, AlternativeContactName, AlternativeContactTelephone, SaleTransactionTypeId, TransactionDateTime, TransactionStatusId, TransactionReference, DolphinTrans_tra_ref_id, DolphinTrans_tra_ref_type, SystemId, WithInstallationService, ReferenceTransactionId, Note, IsBlock, CreateUserId, CreateDate, ModifyUserId, ModifyDate
+        }
+
+        public enum UDTransactionDetails_DT_ColumnsName
+        {
+            TransactionDetailsId, cmp_seq, TransactionId, ModelType_ia_item_id,Quantity, DolphinTransB_trb_serial_id, ReferenceTransactionDetailsId, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+        }
+
+        public enum UDTransactionItem_DT_ColumnsName
+        {
+            TransactionItemId, cmp_seq, TransactionDetailsId, DeviceId, SerialNumber,IMEI, ModelType_ia_item_id, Employee_aux_id, InstallingDateTime, DeviceNaming_en, DeviceNaming_ar, DeviceNamingTypeId, AddToServer, TrackWithTechnician, ServerUpdated, TechnicalApproval, IsReturn, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
         }
 
         //public enum UDNotification_DT_ColumnsName

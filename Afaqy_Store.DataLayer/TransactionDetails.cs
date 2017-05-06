@@ -12,25 +12,22 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryDevice
+    public partial class TransactionDetails
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeliveryDevice()
+        public TransactionDetails()
         {
-            this.DeliveryDeviceInfoHistory = new HashSet<DeliveryDeviceInfoHistory>();
+            this.TransactionDetails1 = new HashSet<TransactionDetails>();
+            this.TransactionItem = new HashSet<TransactionItem>();
         }
     
-        public int DeliveryItemId { get; set; }
+        public int TransactionDetailsId { get; set; }
         public int cmp_seq { get; set; }
-        public int DeliveryDetailsId { get; set; }
-        public int DeviceId { get; set; }
-        public Nullable<int> Employee_aux_id { get; set; }
-        public Nullable<System.DateTime> InstallingDateTime { get; set; }
-        public string DeviceNaming { get; set; }
-        public Nullable<int> DeviceNamingTypeId { get; set; }
-        public Nullable<bool> AddToServer { get; set; }
-        public Nullable<bool> TrackWithTechnician { get; set; }
-        public Nullable<bool> ServerUpdated { get; set; }
+        public int TransactionId { get; set; }
+        public decimal ModelType_ia_item_id { get; set; }
+        public int Quantity { get; set; }
+        public Nullable<decimal> DolphinTransB_trb_serial_id { get; set; }
+        public Nullable<int> ReferenceTransactionDetailsId { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -38,10 +35,11 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual DeliveryDetails DeliveryDetails { get; set; }
-        public virtual Device Device { get; set; }
-        public virtual DeviceNamingType DeviceNamingType { get; set; }
+        public virtual Transaction Transaction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDeviceInfoHistory> DeliveryDeviceInfoHistory { get; set; }
+        public virtual ICollection<TransactionDetails> TransactionDetails1 { get; set; }
+        public virtual TransactionDetails TransactionDetails2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionItem> TransactionItem { get; set; }
     }
 }

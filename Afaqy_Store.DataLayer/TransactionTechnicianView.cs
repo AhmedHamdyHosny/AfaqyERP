@@ -12,11 +12,11 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryTechnicianView
+    public partial class TransactionTechnicianView
     {
-        public int DeliveryNoteTechnicalId { get; set; }
+        public int TransactionTechnicianId { get; set; }
         public int cmp_seq { get; set; }
-        public int DeliveryNoteId { get; set; }
+        public int TransactionId { get; set; }
         public int Employee_aux_id { get; set; }
         public string name { get; set; }
         public string shortname { get; set; }

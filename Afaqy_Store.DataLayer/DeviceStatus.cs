@@ -17,8 +17,8 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeviceStatus()
         {
-            this.Device = new HashSet<Device>();
             this.DeviceStatusHistory = new HashSet<DeviceStatusHistory>();
+            this.Device = new HashSet<Device>();
         }
     
         public int DeviceStatusId { get; set; }
@@ -31,8 +31,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> Device { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeviceStatusHistory> DeviceStatusHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Device> Device { get; set; }
     }
 }

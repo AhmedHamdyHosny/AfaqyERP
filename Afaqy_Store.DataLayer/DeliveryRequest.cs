@@ -17,9 +17,9 @@ namespace Afaqy_Store.DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeliveryRequest()
         {
-            this.DeliveryNote = new HashSet<DeliveryNote>();
             this.DeliveryRequestDetails = new HashSet<DeliveryRequestDetails>();
             this.DeliveryRequestTechnician = new HashSet<DeliveryRequestTechnician>();
+            this.Transaction = new HashSet<Transaction>();
         }
     
         public int DeliveryRequestId { get; set; }
@@ -44,8 +44,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
         public virtual DeliveryRequestStatus DeliveryRequestStatus { get; set; }
         public virtual SaleTransactionType SaleTransactionType { get; set; }
         public virtual TechniqueSystem TechniqueSystem { get; set; }
@@ -53,5 +51,7 @@ namespace Afaqy_Store.DataLayer
         public virtual ICollection<DeliveryRequestDetails> DeliveryRequestDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transaction { get; set; }
     }
 }

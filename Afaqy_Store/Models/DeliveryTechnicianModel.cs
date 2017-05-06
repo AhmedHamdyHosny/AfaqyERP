@@ -17,7 +17,7 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class DeliveryTechnicianViewModel : DeliveryTechnicianView
+    public class DeliveryTechnicianViewModel : TransactionTechnicianView
     {
 
     }

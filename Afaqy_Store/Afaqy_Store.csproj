@@ -300,12 +300,13 @@
     <Compile Include="Controllers\ApiCustomerServerUnitsViewController.cs" />
     <Compile Include="Controllers\ApiCustomerTypeController.cs" />
     <Compile Include="Controllers\ApiDeliveryDetailsController.cs" />
-    <Compile Include="Controllers\ApiDeliveryDeviceController.cs" />
+    <Compile Include="Controllers\ApiDeliveryItemController.cs" />
     <Compile Include="Controllers\ApiDeliveryNoteController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestDetailsController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestStatusHistoryController.cs" />
     <Compile Include="Controllers\ApiDeliveryRequestTechnicianController.cs" />
+    <Compile Include="Controllers\ApiDeliveryReturnController.cs" />
     <Compile Include="Controllers\ApiDeliveryTehnicianController.cs" />
     <Compile Include="Controllers\ApiDeviceSIMController.cs" />
     <Compile Include="Controllers\ApiEmployeeController.cs" />
@@ -324,6 +325,7 @@
     <Compile Include="Controllers\CustomerServerUnitsController.cs" />
     <Compile Include="Controllers\DeliveryNoteController.cs" />
     <Compile Include="Controllers\DeliveryRequestController.cs" />
+    <Compile Include="Controllers\DeliveryReturnController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
@@ -394,12 +396,13 @@
     <Compile Include="Models\CustomerServerStatusModel.cs" />
     <Compile Include="Models\CustomerTypeModel.cs" />
     <Compile Include="Models\DeliveryDetailsModel.cs" />
-    <Compile Include="Models\DeliveryDeviceModel.cs" />
+    <Compile Include="Models\DeliveryItemModel.cs" />
     <Compile Include="Models\DeliveryNoteModel.cs" />
     <Compile Include="Models\DeliveryRequestDetailsModel.cs" />
     <Compile Include="Models\DeliveryRequestModel.cs" />
     <Compile Include="Models\DeliveryRequestStatusHistoryModel.cs" />
     <Compile Include="Models\DeliveryRequestTechnicianModel.cs" />
+    <Compile Include="Models\DeliveryReturnModel.cs" />
     <Compile Include="Models\DeliveryTechnicianModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
     <Compile Include="Models\ModelTypeModel.cs" />
@@ -993,7 +996,6 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Templates\Confirm.html" />
-    <Content Include="Templates\headerTemplate.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1102,10 +1104,14 @@
     <Content Include="Views\DeliveryNote\Create.cshtml" />
     <Content Include="Views\DeliveryNote\Report.cshtml" />
     <Content Include="Views\DeliveryNote\ServerAdd.cshtml" />
+    <Content Include="Views\DeliveryNote\TechnicalApproval.cshtml" />
+    <Content Include="Views\DeliveryNote\StoreDeviceNaming.cshtml" />
+    <Content Include="Views\DeliveryNote\Partial_DeliveryNoteDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Store\" />
+    <Folder Include="Views\DeliveryReturn\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

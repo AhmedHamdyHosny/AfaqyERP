@@ -166,7 +166,13 @@ namespace Afaqy_Store.Models
             var accountsInfoTask = request.Execute<AfaqyInfo.AfaqySearchItem>();
             accountsInfoTask.Wait();
             var accounts = accountsInfoTask.Result.items.Select(x=> new Afaqy_Info_Me.AfaqySearchItem.Account().ToAccount(x)).ToList();
-
+            //get all users
+            url = SiteConfig.AfaqyInfo.Url;
+            url += "/ajax.html?ssid=" + sessionId + "&svc=core/search_items&params={\"spec\":{\"itemsType\":\"user\",\"propName\":\"sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\"},\"force\":1,\"flags\":5,\"from\":0,\"to\":0xffffffff}";
+            request = new MyHttpRequestMessage(url, HttpMethod.Get);
+            var accountUsersInfoTask = request.Execute<AfaqyInfo.AfaqySearchItem>();
+            accountUsersInfoTask.Wait();
+            var accountUsers = accountUsersInfoTask.Result.items.Select(x => new Afaqy_Info_Me.AfaqySearchItem.AccountUser().ToUser(x)).ToList();
             //get units
             url = SiteConfig.AfaqyInfo.Url;
             url = url + "/ajax.html?ssid=" + sessionId + "&svc=core/search_items&params={\"spec\":{\"itemsType\":\"avl_unit\",\"propName\":\"sys_name\",\"propValueMask\":\"*\",\"sortType\":\"sys_name\"},\"force\":0,\"flags\":1301,\"from\":0,\"to\":0xffffffff}";
@@ -183,8 +189,8 @@ namespace Afaqy_Store.Models
             }
             else
             {
-                result = ((IEnumerable<T>)data.Select(x => x.ToServerUnit(accounts))).ToList<T>();
-                result = ((IEnumerable<ServerUnit>)result).Select(x => { x.ServerIP = serverIp; return x; }).ToList();
+                result = ((IEnumerable<T>)data.Select(x => x.ToServerUnit(accounts, serverIp, accountUsers))).ToList<T>();
+                //result = ((IEnumerable<ServerUnit>)result).Select(x => { x.ServerIP = serverIp; return x; }).ToList();
             }
             return result;
         }
@@ -248,17 +254,19 @@ namespace Afaqy_Store.Models
                     items = result.Select(x => x.ToServerUnit()).ToList();
                     //insert result
                     new ServerUnitModel<ServerUnit>().Import(items.ToArray());
+                    
 
                     //afaqy.info
                     items = GetAllUnitsFromServerInfo<ServerUnit>();
                     //insert result
                     new ServerUnitModel<ServerUnit>().Import(items.ToArray());
 
+                    
                     //afaqy.me
                     items = GetAllUnitsFromServerMe<ServerUnit>();
                     //insert result
                     new ServerUnitModel<ServerUnit>().Import(items.ToArray());
-
+                    
                     return true;
                 }
             }

@@ -282,4 +282,28 @@
   <data name="ApprovedDeliveryRequestNotificationTitle" xml:space="preserve">
     <value>Approve Delivery Request</value>
   </data>
+  <data name="DolphinCustomerName" xml:space="preserve">
+    <value>Dolphin Customer Name</value>
+  </data>
+  <data name="TechnicianAssignedDeliveryRequestNotificationContent" xml:space="preserve">
+    <value>Delivery Request has been assigned to technicians</value>
+  </data>
+  <data name="TechnicianAssignedDeliveryRequestNotificationTitle" xml:space="preserve">
+    <value>Delivery Request Tech. Assigned</value>
+  </data>
+  <data name="DeliveryNoteStoreDeviceNamingNotificationContent" xml:space="preserve">
+    <value>New Delivery Note ready for naming</value>
+  </data>
+  <data name="DeliveryNoteStoreDeviceNamingNotificationTitle" xml:space="preserve">
+    <value>Delivery Note Naming</value>
+  </data>
+  <data name="DeliveryDeviceNaming" xml:space="preserve">
+    <value>Delivery Device Naming</value>
+  </data>
+  <data name="DeliveryDeviceNaming_ar" xml:space="preserve">
+    <value>Device Name (Ar)</value>
+  </data>
+  <data name="DeliveryDeviceNaming_en" xml:space="preserve">
+    <value>Device Name (En)</value>
+  </data>
 </root>

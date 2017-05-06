@@ -12,28 +12,18 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryDetails
+    public partial class TransactionTechnician
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeliveryDetails()
-        {
-            this.DeliveryDevice = new HashSet<DeliveryDevice>();
-        }
-    
-        public int DeliveryDetailsId { get; set; }
+        public int TransactionTechnicianId { get; set; }
         public int cmp_seq { get; set; }
-        public int DeliveryId { get; set; }
-        public decimal ModelType_ia_item_id { get; set; }
-        public int Quantity { get; set; }
-        public string Note { get; set; }
+        public int TransactionId { get; set; }
+        public int Employee_aux_id { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        public virtual DeliveryNote DeliveryNote { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDevice> DeliveryDevice { get; set; }
+        public virtual Transaction Transaction { get; set; }
     }
 }

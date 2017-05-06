@@ -28,7 +28,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual Device Device { get; set; }
         public virtual SystemServerIP SystemServerIP { get; set; }
+        public virtual Device Device { get; set; }
     }
 }

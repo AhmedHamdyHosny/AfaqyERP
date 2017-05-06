@@ -173,7 +173,34 @@ namespace GenericApiController.Utilities
         {
             return DbSet.AddRange(entities);
         }
-       
+        public bool BulkInsert(List<TEntity> entities, int batchSize)
+        {
+            try
+            {
+                int count = 0;
+                do
+                {
+                    var items = entities.Skip(count).Take(batchSize);
+                    count += batchSize;
+                    // This is optional
+                    _context.Configuration.AutoDetectChangesEnabled = false;
+                    _context.Set<TEntity>().AddRange(items);
+                    _context.SaveChanges();
+                    System.Data.Entity.Core.Objects.ObjectContext objectContext = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)_context).ObjectContext;
+                    //_context.Dispose();
+                    _context = new DbContext(objectContext, false);
+
+                } while (count < entities.Count);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+            return true;
+        }
+
         public virtual void Delete(int id)
         {
             TEntity entityToDelete = DbSet.Find(id);

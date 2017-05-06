@@ -509,10 +509,19 @@ namespace GenericApiController
             }
 
         }
+        
         private bool Save(List<T> values)
         {
-            IEnumerable<T> result = repo.Repo.Insert(values);
-            repo.Save();
+            if(values.Count > 1000)
+            {
+                repo.Repo.BulkInsert(values, 100);
+            }
+            else
+            {
+                IEnumerable<T> result = repo.Repo.Insert(values);
+                repo.Save();
+            }
+            
             return true;
 
         }

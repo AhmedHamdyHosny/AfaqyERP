@@ -378,4 +378,10 @@
   <data name="TrackWithTechnician" xml:space="preserve">
     <value>Tech.Track</value>
   </data>
+  <data name="DeliveryNoteServerAddedNotificationContent" xml:space="preserve">
+    <value>A new delivery note has been added to server successfully</value>
+  </data>
+  <data name="DeliveryNoteServerAddedNotificationTitle" xml:space="preserve">
+    <value>Delivery Note Added to Server</value>
+  </data>
 </root>

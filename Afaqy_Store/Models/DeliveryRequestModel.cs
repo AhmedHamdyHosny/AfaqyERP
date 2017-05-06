@@ -154,6 +154,7 @@ namespace Afaqy_Store.Models
 
             return new NotificationModel<Notification>().Import(notifications.ToArray());
         }
+        
     }
     [Bind(Include = "DeliveryRequestId,POS_ps_code,Warehouse_wa_code,SaleTransactionTypeId,Customer_aux_id,CustomerName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,DeliveryRequestDate_Str,DeliveryRequestTime_Str,SystemId,WithInstallationService,DeliveryRequestStatusId,cmp_seq,Note,DeliveryRequestDetails,IsBlock,CreateUserId,CreateDate")]
     public class DeliveryRequestEditBindModel : DeliveryRequest
@@ -162,6 +163,67 @@ namespace Afaqy_Store.Models
         //public string WarehouseId { get; set; }
         public string DeliveryRequestDate_Str { get; set; }
         public string DeliveryRequestTime_Str { get; set; }
+
+        internal static bool SendAfterAssignDeliveryRequestNotification(DeliveryRequest deliveryRequest, string detailsReferenceURL, string createDeliveryNoteReferenceLnk, int userId)
+        {
+            List<Notification> notifications = new List<Notification>();
+            //Notify Warehouse Employee
+            WarehouseInfo warehouseInfo = new WarehouseInfoModel<WarehouseInfo>().GetById(deliveryRequest.Warehouse_wa_code);
+            if (warehouseInfo != null)
+            {
+                int? empUserId = null;
+                int? empManagerUserId = null;
+                new EmployeeModel<Employee>().GetEmployeeUserWithManager(warehouseInfo.EmployeeId, ref empUserId, ref empManagerUserId);
+                //add notification to store employee
+                notifications.Add(new Notification()
+                {
+                    NotificationTitle = Resources.Store.TechnicianAssignedDeliveryRequestNotificationTitle,
+                    NotificationContent = Resources.Store.TechnicianAssignedDeliveryRequestNotificationContent,
+                    StyleClass = Classes.Common.Constant.NotificationStyleClass.DeliveryRequest_DefaultStyleClass,
+                    ToUserId = (int)empUserId,
+                    CreateDate = DateTime.Now,
+                    IsRead = false,
+                    NotificationTypeId = (int)Classes.Common.DBEnums.NotificationType.DeliveryRequest_TechnicianAssignedNotification,
+                    ReferenceId = deliveryRequest.DeliveryRequestId.ToString(),
+                    ReferenceLink = createDeliveryNoteReferenceLnk + "/" + deliveryRequest.DeliveryRequestId,
+                    PopupWindow = true,
+                    PopupWindowClass = Classes.Common.Enums.PopupWindowClass.Meduim_Model
+                });
+            }
+
+            List<int?> Users = new List<int?>();
+            //Notifiy customer sales man and sales man manager
+            rpaux customer = new CustomerModel<rpaux>().Get(deliveryRequest.Customer_aux_id);
+            if (customer.salecode != null)
+            {
+                int? salesUserId = null;
+                int? salesManagerUserId = null;
+                new EmployeeModel<Employee>().GetEmployeeUserWithManager((int)customer.salecode, ref salesUserId, ref salesManagerUserId);
+                Users.Add(salesUserId);
+                Users.Add(salesManagerUserId);
+            }
+            Users = Users.Where(x => x != null && x != userId).Distinct().ToList();
+            if (Users.Count > 0)
+            {
+                //Add Notifications
+                notifications.AddRange(Users.Select(x => new Notification()
+                {
+                    NotificationTitle = Resources.Sales.TechnicianAssignedDeliveryRequestNotificationTitle,
+                    NotificationContent = Resources.Sales.TechnicianAssignedDeliveryRequestNotificationContent,
+                    StyleClass = Classes.Common.Constant.NotificationStyleClass.DeliveryRequest_DefaultStyleClass,
+                    ToUserId = x,
+                    CreateDate = DateTime.Now,
+                    IsRead = false,
+                    NotificationTypeId = (int)Classes.Common.DBEnums.NotificationType.DeliveryRequest_TechnicianAssignedNotification,
+                    ReferenceId = deliveryRequest.DeliveryRequestId.ToString(),
+                    ReferenceLink = detailsReferenceURL + "/" + deliveryRequest.DeliveryRequestId,
+                    PopupWindow = true,
+                    PopupWindowClass = Classes.Common.Enums.PopupWindowClass.Meduim_Model
+                }));
+            }
+
+            return new NotificationModel<Notification>().Import(notifications.ToArray());
+        }
     }
     public class DeliveryRequestEditModel
     {

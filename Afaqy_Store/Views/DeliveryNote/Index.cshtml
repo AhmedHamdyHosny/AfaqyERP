@@ -119,7 +119,7 @@
 @section scripts{
     <script>
         var gridColumnDefs = [
-            { field: 'DolphinDelivery_tra_ref_id', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
+            { field: 'DolphinTrans_tra_ref_id', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
             { field: 'ps_name', name: '@Resources.Adminstration.PointOfSale', width: 150 },
             { field: 'wa_name', name: '@Resources.Adminstration.Warehouse', width: 150 },
             { field: 'DeliveryStatus_en', name: '@Resources.Store.DeliveryStatus', width: 150 },
@@ -143,6 +143,12 @@
                             '<li>' +
                                 '<a ng-click="grid.appScope.serverAdd(row.entity.DeliveryNoteId)">@Resources.ServerManagement.ButtonDeliveryDeviceServerAdd</a>' +
                             '</li>' +
+                            '<li>' +
+                                '<a ng-click="grid.appScope.technicalApproval(row.entity.DeliveryNoteId)">@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a ng-click="grid.appScope.storeDeviceNaming(row.entity.DeliveryNoteId)">Store Device Naming</a>' + @*@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval*@
+                            '</li>' +
                             '</ul></div>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, width: 200
@@ -164,6 +170,8 @@
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
         var reportActionUrl = '@Url.Action("Report")';
         var serverAddActionUrl = '@Url.Action("ServerAdd")';
+        var technicalApprovalActionUrl = '@Url.Action("TechnicalApproval")';
+        var storeDeviceNamingActionUrl = '@Url.Action("StoreDeviceNaming")';
         var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
         var deliveryRequestId = '@ViewBag.DeliveryRequestId'
 

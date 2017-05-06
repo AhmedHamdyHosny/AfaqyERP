@@ -49,11 +49,6 @@ namespace Afaqy_Store.Controllers
 
     public class ApiEmployeeController : BaseApiController<Employee>
     {
-
-    }
-
-    public class ApiEmployeeViewController : BaseApiController<EmployeeView>
-    {
         public override IHttpActionResult GetView(GenericDataFormat data)
         {
             var controller = new ApiEmployeeViewController();
@@ -61,5 +56,18 @@ namespace Afaqy_Store.Controllers
             controller.Configuration = new HttpConfiguration();
             return controller.GetView(data);
         }
+
+        public override IHttpActionResult Export(GenericDataFormat data)
+        {
+            var controller = new ApiEmployeeViewController();
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+            return controller.Export(data);
+        }
+    }
+
+    public class ApiEmployeeViewController : BaseApiController<EmployeeView>
+    {
+        
     }
 }

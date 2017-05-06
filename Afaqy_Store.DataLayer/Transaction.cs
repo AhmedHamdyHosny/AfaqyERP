@@ -12,34 +12,39 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryNote
+    public partial class Transaction
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeliveryNote()
+        public Transaction()
         {
-            this.DeliveryDetails = new HashSet<DeliveryDetails>();
-            this.DeliveryNoteStatusHistory = new HashSet<DeliveryNoteStatusHistory>();
-            this.DeliveryTechnician = new HashSet<DeliveryTechnician>();
+            this.Transaction1 = new HashSet<Transaction>();
+            this.TransactionDetails = new HashSet<TransactionDetails>();
+            this.TransactionStatusHistory = new HashSet<TransactionStatusHistory>();
+            this.TransactionTechnician = new HashSet<TransactionTechnician>();
         }
     
-        public int DeliveryNoteId { get; set; }
+        public int TransactionId { get; set; }
+        public Nullable<int> TransactionTypeId { get; set; }
         public int cmp_seq { get; set; }
         public string POS_ps_code { get; set; }
         public string Warehouse_wa_code { get; set; }
         public int DeliveryRequestId { get; set; }
         public int Customer_aux_id { get; set; }
         public string CustomerName { get; set; }
+        public string DolphinCustomerName { get; set; }
+        public string CustomerAccountName { get; set; }
         public Nullable<int> CustomerContact_serial { get; set; }
         public string AlternativeContactName { get; set; }
         public string AlternativeContactTelephone { get; set; }
         public int SaleTransactionTypeId { get; set; }
-        public System.DateTime DeliveryDateTime { get; set; }
-        public int DeliveryStatusId { get; set; }
-        public string DeliveryNoteReference { get; set; }
-        public Nullable<decimal> DolphinDelivery_tra_ref_id { get; set; }
-        public Nullable<int> DolphinDelivery_tra_ref_type { get; set; }
+        public System.DateTime TransactionDateTime { get; set; }
+        public int TransactionStatusId { get; set; }
+        public string TransactionReference { get; set; }
+        public Nullable<decimal> DolphinTrans_tra_ref_id { get; set; }
+        public Nullable<int> DolphinTrans_tra_ref_type { get; set; }
         public Nullable<int> SystemId { get; set; }
         public Nullable<bool> WithInstallationService { get; set; }
+        public Nullable<int> ReferenceTransactionId { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
@@ -47,15 +52,17 @@ namespace Afaqy_Store.DataLayer
         public Nullable<int> ModifyUserId { get; set; }
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDetails> DeliveryDetails { get; set; }
         public virtual DeliveryRequest DeliveryRequest { get; set; }
-        public virtual DeliveryStatus DeliveryStatus { get; set; }
-        public virtual SaleTransactionType SaleTransactionType { get; set; }
-        public virtual TechniqueSystem TechniqueSystem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
+        public virtual ICollection<Transaction> Transaction1 { get; set; }
+        public virtual Transaction Transaction2 { get; set; }
+        public virtual TransactionStatus TransactionStatus { get; set; }
+        public virtual TransactionType TransactionType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryTechnician> DeliveryTechnician { get; set; }
+        public virtual ICollection<TransactionDetails> TransactionDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionStatusHistory> TransactionStatusHistory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionTechnician> TransactionTechnician { get; set; }
     }
 }

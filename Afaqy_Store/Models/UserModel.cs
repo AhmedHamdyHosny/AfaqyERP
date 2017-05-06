@@ -96,7 +96,7 @@ namespace Afaqy_Store.Models
             }
 
             //for test 
-            if(cUser == null)
+            if (cUser == null)
             {
                 var requestBody = new GenericDataFormat();
                 requestBody.Filters = new List<GenericDataFormat.FilterItems>();

@@ -77,5 +77,50 @@ namespace Resources {
                 return ResourceManager.GetString("ApprovedDeliveryRequestNotificationTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical Approval.
+        /// </summary>
+        public static string ButtonDeliveryDeviceTechnicalApproval {
+            get {
+                return ResourceManager.GetString("ButtonDeliveryDeviceTechnicalApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical Approve.
+        /// </summary>
+        public static string DeliveryDeviceTechnicalApproval {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceTechnicalApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Note has been Technical Approved successfully.
+        /// </summary>
+        public static string DeliveryNoteTechnicalApprovedNotificationContent {
+            get {
+                return ResourceManager.GetString("DeliveryNoteTechnicalApprovedNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Note Technical Approved.
+        /// </summary>
+        public static string DeliveryNoteTechnicalApprovedNotificationTitle {
+            get {
+                return ResourceManager.GetString("DeliveryNoteTechnicalApprovedNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Technical Approval.
+        /// </summary>
+        public static string DeliveryTechnicalApproval {
+            get {
+                return ResourceManager.GetString("DeliveryTechnicalApproval", resourceCulture);
+            }
+        }
     }
 }

@@ -17,12 +17,12 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class DeliveryDetailsViewModel : DeliveryDetailsView
+    public class DeliveryDetailsViewModel : TransactionDetailsView
     {
 
     }
 
-    public class DeliveryDetails_DetailsViewModel : DeliveryDetailsView
+    public class DeliveryDetails_DetailsViewModel : TransactionDetailsView
     {
 
     }

@@ -8,11 +8,11 @@ using System.Web.Http;
 
 namespace Afaqy_Store.Controllers
 {
-    public class ApiDeliveryDeviceController : BaseApiController<DeliveryDevice>
+    public class ApiDeliveryItemController : BaseApiController<TransactionItem>
     {
         public override IHttpActionResult GetView(GenericApiController.Utilities.GenericDataFormat data)
         {
-            var controller = new ApiDeliveryDeviceViewController();
+            var controller = new ApiDeliveryItemViewController();
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
             return controller.GetView(data);
@@ -20,14 +20,14 @@ namespace Afaqy_Store.Controllers
 
         public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
         {
-            var controller = new ApiDeliveryDeviceViewController();
+            var controller = new ApiDeliveryItemViewController();
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
             return controller.Export(data);
         }
     }
 
-    public class ApiDeliveryDeviceViewController : BaseApiController<DeliveryDeviceView>
+    public class ApiDeliveryItemViewController : BaseApiController<TransactionItemView>
     {
 
     }

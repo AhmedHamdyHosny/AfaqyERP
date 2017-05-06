@@ -153,4 +153,10 @@
   <data name="ApprovedDeliveryRequestNotificationTitle" xml:space="preserve">
     <value>Approve Delivery Request</value>
   </data>
+  <data name="TechnicianAssignedDeliveryRequestNotificationContent" xml:space="preserve">
+    <value>Delivery Request has been assigned to technicians</value>
+  </data>
+  <data name="TechnicianAssignedDeliveryRequestNotificationTitle" xml:space="preserve">
+    <value>Delivery Request Tech. Assigned</value>
+  </data>
 </root>

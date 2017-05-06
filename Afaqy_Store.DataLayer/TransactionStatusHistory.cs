@@ -12,16 +12,16 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryNoteStatusHistory
+    public partial class TransactionStatusHistory
     {
         public int HistoryId { get; set; }
-        public int DeliveryNoteId { get; set; }
-        public int DeliveryStatusId { get; set; }
+        public int TransactionId { get; set; }
+        public int TransactionStatusId { get; set; }
         public string Note { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
     
-        public virtual DeliveryNote DeliveryNote { get; set; }
-        public virtual DeliveryStatus DeliveryStatus { get; set; }
+        public virtual TransactionStatus TransactionStatus { get; set; }
+        public virtual Transaction Transaction { get; set; }
     }
 }

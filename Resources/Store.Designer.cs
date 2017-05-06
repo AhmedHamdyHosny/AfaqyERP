@@ -151,6 +151,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delivery Device Naming.
+        /// </summary>
+        public static string DeliveryDeviceNaming {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceNaming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Name (Ar).
+        /// </summary>
+        public static string DeliveryDeviceNaming_ar {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceNaming_ar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device Name (En).
+        /// </summary>
+        public static string DeliveryDeviceNaming_en {
+            get {
+                return ResourceManager.GetString("DeliveryDeviceNaming_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dolphin Reference.
         /// </summary>
         public static string DeliveryDolphinReference {
@@ -183,6 +210,24 @@ namespace Resources {
         public static string DeliveryNoteNew {
             get {
                 return ResourceManager.GetString("DeliveryNoteNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Delivery Note ready for naming.
+        /// </summary>
+        public static string DeliveryNoteStoreDeviceNamingNotificationContent {
+            get {
+                return ResourceManager.GetString("DeliveryNoteStoreDeviceNamingNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Note Naming.
+        /// </summary>
+        public static string DeliveryNoteStoreDeviceNamingNotificationTitle {
+            get {
+                return ResourceManager.GetString("DeliveryNoteStoreDeviceNamingNotificationTitle", resourceCulture);
             }
         }
         
@@ -511,6 +556,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dolphin Customer Name.
+        /// </summary>
+        public static string DolphinCustomerName {
+            get {
+                return ResourceManager.GetString("DolphinCustomerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dolphin Ref.
         /// </summary>
         public static string DolphinReference {
@@ -543,6 +597,24 @@ namespace Resources {
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request has been assigned to technicians.
+        /// </summary>
+        public static string TechnicianAssignedDeliveryRequestNotificationContent {
+            get {
+                return ResourceManager.GetString("TechnicianAssignedDeliveryRequestNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request Tech. Assigned.
+        /// </summary>
+        public static string TechnicianAssignedDeliveryRequestNotificationTitle {
+            get {
+                return ResourceManager.GetString("TechnicianAssignedDeliveryRequestNotificationTitle", resourceCulture);
             }
         }
         

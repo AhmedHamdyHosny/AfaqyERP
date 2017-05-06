@@ -12,18 +12,18 @@ namespace Afaqy_Store.DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class DeliveryStatus
+    public partial class TransactionStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeliveryStatus()
+        public TransactionStatus()
         {
-            this.DeliveryNote = new HashSet<DeliveryNote>();
-            this.DeliveryNoteStatusHistory = new HashSet<DeliveryNoteStatusHistory>();
+            this.TransactionStatusHistory = new HashSet<TransactionStatusHistory>();
+            this.Transaction = new HashSet<Transaction>();
         }
     
-        public int DeliveryStatusId { get; set; }
-        public string DeliveryStatus_en { get; set; }
-        public string DeliveryStatus_ar { get; set; }
+        public int TransactionStatusId { get; set; }
+        public string TransactionStatus_en { get; set; }
+        public string TransactionStatus_ar { get; set; }
         public bool IsBlock { get; set; }
         public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -31,8 +31,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNote> DeliveryNote { get; set; }
+        public virtual ICollection<TransactionStatusHistory> TransactionStatusHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryNoteStatusHistory> DeliveryNoteStatusHistory { get; set; }
+        public virtual ICollection<Transaction> Transaction { get; set; }
     }
 }

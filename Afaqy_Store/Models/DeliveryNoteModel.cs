@@ -19,7 +19,7 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class DeliveryNoteViewModel : DeliveryNoteView
+    public class DeliveryNoteViewModel : TransactionView
     {
         public string Block
         {
@@ -43,7 +43,7 @@ namespace Afaqy_Store.Models
             }
         }
     }
-    public class DeliveryNoteIndexViewModel : DeliveryNoteView
+    public class DeliveryNoteIndexViewModel : TransactionView
     {
 
     }
@@ -51,16 +51,16 @@ namespace Afaqy_Store.Models
     {
         public List<DeliveryDetails_DetailsViewModel> DeliveryDetails { get; set; }
         public List<DeliveryTechnicianViewModel> DeliveryTechnicians { get; set; }
-        public List<DeliveryDeviceViewModel> DeliveryDevices { get; set; }
+        public List<DeliveryItemViewModel> DeliveryDevices { get; set; }
     }
-    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,Note,DeliveryNoteReference,DeliveryDetails,DeliveryDevice")]
-    public class DeliveryNoteCreateBindModel : DeliveryNote
+    [Bind(Include = "TransactionId,TransactionTypeId,cmp_seq,POS_ps_code,Warehouse_wa_code,DeliveryRequestId,Customer_aux_id,CustomerName,DolphinCustomerName,CustomerAccountName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,SaleTransactionTypeId,TransactionDateTime,TransactionStatusId,TransactionReference,DolphinTrans_tra_ref_id,DolphinTrans_tra_ref_type,SystemId,WithInstallationService,Note,TransactionDetails,TransactionDevice")]
+    public class DeliveryNoteCreateBindModel : Transaction
     {
         public it_trans_a DolphinTrans { get; set; }
         public DeliveryRequestViewModel DeliveryRequestView { get; set; }
         public List<DeliveryRequestDetailsView> DeliveryRequestDetails { get; set; }
         public List<DeliveryRequestTechnicianViewModel> DeliveryRequestTechnician { get; set; }
-        public DeliveryDeviceView[] DeliveryDevice { get; set; }
+        public TransactionItemView[] DeliveryDevice { get; set; }
         public string InstallationService
         {
             get
@@ -88,7 +88,7 @@ namespace Afaqy_Store.Models
                 this.AlternativeContactName = deliveryRequest.AlternativeContactName;
                 this.AlternativeContactTelephone = deliveryRequest.AlternativeContactTelephone;
                 this.SaleTransactionTypeId = deliveryRequest.SaleTransactionTypeId;
-                this.DeliveryDateTime = (DateTime)deliveryRequest.ActualDeliveryDateTime;
+                this.TransactionDateTime = (DateTime)deliveryRequest.ActualDeliveryDateTime;
                 this.SystemId = deliveryRequest.SystemId;
                 this.WithInstallationService = deliveryRequest.WithInstallationService;
             }
@@ -122,10 +122,10 @@ namespace Afaqy_Store.Models
             requestBody.Paging = new GenericApiController.Utilities.GenericDataFormat.PagingItem() { PageNumber = 1, PageSize = 1 };
             requestBody.Sorts = new List<GenericApiController.Utilities.GenericDataFormat.SortItems>();
             requestBody.Sorts.Add(new GenericApiController.Utilities.GenericDataFormat.SortItems() { Property = "DeliveryNoteId", SortType = GenericApiController.Utilities.GenericDataFormat.SortType.Desc });
-            var result = new DeliveryNoteModel<DeliveryNote>().Get(requestBody);
+            var result = new DeliveryNoteModel<Transaction>().Get(requestBody);
             if (result != null && result.Count == 1)
             {
-                int serial = int.Parse(System.Text.RegularExpressions.Regex.Match(result[0].DeliveryNoteReference, @"\d+").Value);
+                int serial = int.Parse(System.Text.RegularExpressions.Regex.Match(result[0].TransactionReference, @"\d+").Value);
                 serial++;
                 deliveryReference += " " + serial.ToString();
             }
@@ -137,15 +137,15 @@ namespace Afaqy_Store.Models
             return deliveryReference;
         }
     }
-    [Bind(Include = "DeliveryNoteId,POSId,WarehouseId,SaleTransactionTypeId,DeliveryRequestId,CustomerId,CustomerContactId,CustomerName,AlternativeContactName,AlternativeContactTelephone,DeliveryDateTime,SystemId,WithInstallationService,DeliveryStatusId,Note,DolphinReference,DolphinDeliveryId,DeliveryDetails,IsBlock,CreateUserId,CreateDate")]
-    public class DeliveryNoteEditBindModel : DeliveryNote
+    [Bind(Include = "TransactionId,TransactionTypeId,cmp_seq,POS_ps_code,Warehouse_wa_code,DeliveryRequestId,Customer_aux_id,CustomerName,DolphinCustomerName,CustomerAccountName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,SaleTransactionTypeId,TransactionDateTime,TransactionStatusId,TransactionReference,DolphinTrans_tra_ref_id,DolphinTrans_tra_ref_type,SystemId,WithInstallationService,Note,IsBlock,CreateUserId,CreateDate,TransactionDetails,TransactionDevice")]
+    public class DeliveryNoteEditBindModel : Transaction
     {
         //public string DeliveryNoteDate_Str { get; set; }
         //public string DeliveryNoteTime_Str { get; set; }
     }
     public class DeliveryNoteEditModel
     {
-        public DeliveryNote EditItem { get; set; }
+        public Transaction EditItem { get; set; }
         public IEnumerable<CustomSelectListItem> PointOfSale { get; set; }
         public IEnumerable<CustomSelectListItem> Warehouse { get; set; }
         public IEnumerable<CustomSelectListItem> SaleTransactionType { get; set; }
