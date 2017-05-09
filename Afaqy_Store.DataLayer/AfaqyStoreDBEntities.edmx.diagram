@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="405a28d3d02c4e22a79aec7dc3bf2cfb" Name="Diagram1" ZoomLevel="28" ShowGrid="false">
+      <Diagram DiagramId="405a28d3d02c4e22a79aec7dc3bf2cfb" Name="Diagram1" ZoomLevel="26" ShowGrid="false">
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.Brand" Width="1.5" PointX="25.25" PointY="3.375" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.BrandServerPort" Width="1.5" PointX="27.5" PointY="7.25" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.ContactMethod" Width="1.5" PointX="24.5" PointY="29.5" />
@@ -64,7 +64,6 @@
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" Width="1.5" PointX="15.75" PointY="1.5" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.CustomerView" Width="1.5" PointX="16.75" PointY="5.5" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestDetailsView" Width="1.5" PointX="20.75" PointY="1.5" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" Width="1.5" PointX="31.75" PointY="1.5" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceSIMView" Width="1.5" PointX="17.75" PointY="29.5" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeviceView" Width="1.5" PointX="0.75" PointY="32.5" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.SIMCardContractView" Width="1.5" PointX="7.75" PointY="32.5" />
@@ -145,11 +144,8 @@
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.EmployeeView" Width="1.5" PointX="36.375" PointY="33.75" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionStatusHistory" Width="1.5" PointX="39.625" PointY="12.375" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionTechnician" Width="1.5" PointX="36.625" PointY="10" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionDetailsView" Width="1.5" PointX="24.375" PointY="16.75" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionTechnicianView" Width="1.5" PointX="27.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionView" Width="1.5" PointX="7.375" PointY="39.75" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnician" Width="1.5" PointX="34.25" PointY="22.875" />
-        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" Width="1.5" PointX="30.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnician" Width="2.25" PointX="34.25" PointY="22.875" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequest" Width="1.5" PointX="32" PointY="21.375" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionStatus" Width="1.5" PointX="37" PointY="5.875" />
         <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionType" Width="1.5" PointX="37" PointY="22.625" />
@@ -179,6 +175,10 @@
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TransactionTechnician_Transaction" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TransactionDetails_TransactionDetails" />
         <AssociationConnector Association="Afaqy_Store.DataLayer.FK_TransactionDevice_TransactionDetails" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" Width="1.5" PointX="18.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionView" Width="1.5" PointX="38.375" PointY="29.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" Width="1.5" PointX="30.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Afaqy_Store.DataLayer.TransactionDetailsView" Width="1.5" PointX="24.375" PointY="16.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

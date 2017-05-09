@@ -50,87 +50,7 @@
         <div >
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.DeliveryRequestId)
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.POS_ps_code, Resources.Sales.POS, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.ps_name, new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.Warehouse_wa_code, Resources.Adminstration.Warehouse, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.wa_name, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group"> 
-                    @Html.LabelFor(model => model.SaleTransactionTypeId, Resources.Sales.SaleTransactionType, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.SaleTransactionType_en, new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group"> 
-                    @Html.LabelFor(model => model.Customer_aux_id, Resources.ServerManagement.Customer, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.CustomerName ?? " ", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.DolphinCustomerName, Resources.Store.DolphinCustomerName, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DolphinCustomerName ?? " ", new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.CustomerAccountName, Resources.ServerManagement.ServerCustomerName, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.CustomerAccountName ?? " ", new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.CustomerContact_serial, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.contact_name ?? " ", new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.SystemId, Resources.ServerManagement.System, htmlAttributes: new { @class = "text-info" })
-                    <label class = "form-control">@(Model.DeliveryRequestView.SystemName ?? " ")</label>
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.AlternativeContactName, Resources.Sales.AlternativeContactName, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.AlternativeContactName ?? " ", new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.AlternativeContactTelephone, Resources.Sales.AlternativeContactTelephone, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.AlternativeContactTelephone ?? " " , new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-3  form-group">
-                    <label class="text-info" >@Resources.Store.DeliveryDate</label>
-                    @Html.Label(DateTime.Parse(Model.DeliveryRequestView.DeliveryRequestDateTime).ToShortDateString(), new { @class = "form-control" })
-                </div>
-                <div class="col-xs-3 form-group">
-                    <label class="text-info" >@Resources.Store.DeliveryTime</label>
-                    @Html.Label(DateTime.Parse(Model.DeliveryRequestView.DeliveryRequestDateTime).ToShortTimeString(), new { @class = "form-control" })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.DeliveryTechnician, Resources.Store.DeliveryTechnician, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(string.Join(", ",Model.DeliveryRequestTechnician.Select(x=>x.name)))
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.WithInstallationService, Resources.Store.WithInstallationService, htmlAttributes: new { @class = "text-info" })
-                    @Html.Label(Model.DeliveryRequestView.InstallationService, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.Note, Resources.Store.DolphinReference, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.DeliveryNoteReference,new { htmlAttributes= new { @class = "form-control", @Readonly = "true"} })
-                </div>
-                <div class="col-xs-6 form-group">
-                    @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })
-                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
+            @{Html.RenderAction("Partial_DeliveryDetails", "DeliveryNote", new { deliveryNote = ViewBag.DeliveryNote });}
             <div class="row">
                 <div class="col-xs-12 form-group">
                     @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
@@ -170,7 +90,6 @@
                 </div>
                 
             </div>
-            
         </div>
     </div>
     <div class="modal-footer">

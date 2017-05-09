@@ -86,7 +86,6 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<CustomerServerUnitsView> CustomerServerUnitsView { get; set; }
         public virtual DbSet<CustomerView> CustomerView { get; set; }
         public virtual DbSet<DeliveryRequestDetailsView> DeliveryRequestDetailsView { get; set; }
-        public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<DeviceSIMView> DeviceSIMView { get; set; }
         public virtual DbSet<DeviceView> DeviceView { get; set; }
         public virtual DbSet<SIMCardContractView> SIMCardContractView { get; set; }
@@ -104,11 +103,8 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<EmployeeView> EmployeeView { get; set; }
         public virtual DbSet<TransactionStatusHistory> TransactionStatusHistory { get; set; }
         public virtual DbSet<TransactionTechnician> TransactionTechnician { get; set; }
-        public virtual DbSet<TransactionDetailsView> TransactionDetailsView { get; set; }
         public virtual DbSet<TransactionTechnicianView> TransactionTechnicianView { get; set; }
-        public virtual DbSet<TransactionView> TransactionView { get; set; }
         public virtual DbSet<DeliveryRequestTechnician> DeliveryRequestTechnician { get; set; }
-        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
         public virtual DbSet<DeliveryRequest> DeliveryRequest { get; set; }
         public virtual DbSet<TransactionStatus> TransactionStatus { get; set; }
         public virtual DbSet<TransactionType> TransactionType { get; set; }
@@ -118,6 +114,10 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<TransactionItemView> TransactionItemView { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<TransactionDetails> TransactionDetails { get; set; }
+        public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
+        public virtual DbSet<TransactionView> TransactionView { get; set; }
+        public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
+        public virtual DbSet<TransactionDetailsView> TransactionDetailsView { get; set; }
     
         public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<int> salesmanId, Nullable<int> currencyId, string tra_status, string tra_user, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
         {

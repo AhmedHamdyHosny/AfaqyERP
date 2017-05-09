@@ -121,7 +121,7 @@ namespace Afaqy_Store.Models
             requestBody.Filters = filters;
             requestBody.Paging = new GenericApiController.Utilities.GenericDataFormat.PagingItem() { PageNumber = 1, PageSize = 1 };
             requestBody.Sorts = new List<GenericApiController.Utilities.GenericDataFormat.SortItems>();
-            requestBody.Sorts.Add(new GenericApiController.Utilities.GenericDataFormat.SortItems() { Property = "DeliveryNoteId", SortType = GenericApiController.Utilities.GenericDataFormat.SortType.Desc });
+            requestBody.Sorts.Add(new GenericApiController.Utilities.GenericDataFormat.SortItems() { Property = "TransactionId", SortType = GenericApiController.Utilities.GenericDataFormat.SortType.Desc });
             var result = new DeliveryNoteModel<Transaction>().Get(requestBody);
             if (result != null && result.Count == 1)
             {

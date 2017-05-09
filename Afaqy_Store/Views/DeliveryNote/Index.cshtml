@@ -122,34 +122,35 @@
             { field: 'DolphinTrans_tra_ref_id', name: '@Resources.Store.DeliveryDolphinReference', width: 180 },
             { field: 'ps_name', name: '@Resources.Adminstration.PointOfSale', width: 150 },
             { field: 'wa_name', name: '@Resources.Adminstration.Warehouse', width: 150 },
-            { field: 'DeliveryStatus_en', name: '@Resources.Store.DeliveryStatus', width: 150 },
+            { field: 'TransactionStatus_en', name: '@Resources.Store.DeliveryStatus', width: 150 },
             { field: 'name', name: '@Resources.ServerManagement.Customer', width: 200 },
             { field: 'SaleTransactionType_en', name: '@Resources.Sales.SaleTransactionType', width: 180 },
-            { field: 'DeliveryDateTime', name: '@Resources.Store.DeliveryDateTime', width: 150 },
+            { field: 'TransactionDateTime', name: '@Resources.Store.DeliveryDateTime', width: 150 },
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
             {
                 name: 'Action', cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
 
                     '<div class="btn-group">' +
-                    @*'<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryNoteId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +*@
-                        '<a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions<i class="fa fa-angle-down"></i>' + '</a>' +
+                    @*'<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.TransactionId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +*@
+                        '<a  class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">@Resources.Resource.Actions<i class="fa fa-angle-down"></i>' + '</a>' +
                         '<ul class="dropdown-menu">' +
                             '<li>' +
-                                '<a ng-click="grid.appScope.edit(row.entity.DeliveryNoteId)" >@Resources.Resource.ButtonEdit</a>' +
+                                '<a ng-click="grid.appScope.edit(row.entity.TransactionId)" >@Resources.Resource.ButtonEdit</a>' +
                             '</li>' +
                             '<li>' +
-                                '<a ng-click="grid.appScope.report(row.entity.DeliveryNoteId)">@Resources.Resource.ButtonReport</a>' +
+                                '<a ng-click="grid.appScope.report(row.entity.TransactionId)">@Resources.Resource.ButtonReport</a>' +
                             '</li>' +
                             '<li>' +
-                                '<a ng-click="grid.appScope.serverAdd(row.entity.DeliveryNoteId)">@Resources.ServerManagement.ButtonDeliveryDeviceServerAdd</a>' +
+                                '<a ng-click="grid.appScope.serverAdd(row.entity.TransactionId)">@Resources.ServerManagement.ButtonDeliveryDeviceServerAdd</a>' +
                             '</li>' +
                             '<li>' +
-                                '<a ng-click="grid.appScope.technicalApproval(row.entity.DeliveryNoteId)">@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval</a>' +
+                                '<a ng-click="grid.appScope.technicalApproval(row.entity.TransactionId)">@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval</a>' +
                             '</li>' +
                             '<li>' +
-                                '<a ng-click="grid.appScope.storeDeviceNaming(row.entity.DeliveryNoteId)">Store Device Naming</a>' + @*@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval*@
+                                '<a ng-click="grid.appScope.storeDeviceNaming(row.entity.TransactionId)">Store Device Naming</a>' + @*@Resources.Technician.ButtonDeliveryDeviceTechnicalApproval*@
                             '</li>' +
-                            '</ul></div>' +
+                            '</ul>' +
+                        '</div>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, width: 200
             }
@@ -188,6 +189,7 @@
                     '<select class="form-control row-dropdownlist" ng-change="grid.appScope.bindModel(row.entity.ItemFamily,grid.renderContainers.body.visibleRowCache.indexOf(row))" ng-model="row.entity.ItemFamily" >' +
                     '<option ng-repeat="itemFamily in row.entity.ItemFamilies" value="{{itemFamily.Value}}">{{itemFamily.Text}}</option>' +
                     '</select>' +
+                    '</div>' +
                     '</div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '22%'
@@ -200,6 +202,7 @@
                     '<div custom-select="item.Value as item.Text for item in row.entity.ModelTypes | filter: $searchTerm" ng-model="row.entity.ModelType" ng-change="grid.appScope.setDeviceRows()" class="gridcustom-select"  autofocus></div>' +
                     '<input type="hidden" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" data_ng_value = "row.entity.ModelType" />' +
                     '</div>' +
+                    '</div>' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '37%', height: 100
@@ -209,6 +212,7 @@
                 cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                     '<div class="form-group"> ' +
                     '<input class="form-control girdRowControl" ng-change="grid.appScope.setDeviceRows()" ng-model="row.entity.Quantity" type="number" min="1" value="1" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Quantity" />' +
+                    '</div>' +
                     ' </div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '16%'
@@ -218,7 +222,8 @@
                 cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
                     '<div class="form-group"> ' +
                     '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
-                    ' </div>',
+                    '</div>' +
+                    '</div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: '20%'
             }
@@ -233,6 +238,7 @@
                     '<input name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].IMEI" ng-model="row.entity.IMEI" ng-change="grid.appScope.bindDeviceIMEI(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.IMEI)" class="form-control {{row.entity.IMEI_LoadingClass}}" />' +
                     '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceId" ng-value = "row.entity.DeviceId" />' +
                     '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" ng-value = "row.entity.ModelType_ia_item_id" />' +
+                    '</div>'+
                     '</div>',
                 enableSorting: false, enableFiltering: false, enableHiding: false,
                 width: 200

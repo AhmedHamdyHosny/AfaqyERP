@@ -68,5 +68,6 @@ namespace Afaqy_Store.DataLayer
         public Nullable<bool> StoreReceivedPermission { get; set; }
         public Nullable<bool> DeliveryPermission { get; set; }
         public Nullable<bool> WithInstallationService { get; set; }
+        public int cmp_seq { get; set; }
     }
 }

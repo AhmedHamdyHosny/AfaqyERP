@@ -258,8 +258,8 @@
   <data name="DeliveryTechnician" xml:space="preserve">
     <value>Technician(s)</value>
   </data>
-  <data name="DolphinReference" xml:space="preserve">
-    <value>Dolphin Ref</value>
+  <data name="TransactionReference" xml:space="preserve">
+    <value>Transaction Ref</value>
   </data>
   <data name="ButtonDelivery" xml:space="preserve">
     <value>Delivery</value>
@@ -305,5 +305,23 @@
   </data>
   <data name="DeliveryDeviceNaming_en" xml:space="preserve">
     <value>Device Name (En)</value>
+  </data>
+  <data name="DeliveryNamingType" xml:space="preserve">
+    <value>Naming Type</value>
+  </data>
+  <data name="DeliveryReturn" xml:space="preserve">
+    <value>Delivery Return</value>
+  </data>
+  <data name="DeliveryReturnCreate" xml:space="preserve">
+    <value>Create Delivery Return</value>
+  </data>
+  <data name="DeliveryReturnNew" xml:space="preserve">
+    <value>New Delivery Return</value>
+  </data>
+  <data name="DeliveryRequestInDeliveryPhaseNotificationContent" xml:space="preserve">
+    <value>New Delivery Request Approved by Store and in Delivery Phase</value>
+  </data>
+  <data name="DeliveryRequestInDeliveryPhaseNotificationTitle" xml:space="preserve">
+    <value>Delivery Request in Delivery Phase Execution</value>
   </data>
 </root>

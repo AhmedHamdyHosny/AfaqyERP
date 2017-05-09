@@ -28,5 +28,8 @@ namespace Afaqy_Store.DataLayer
         public int Quantity { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
+        public string fa_code { get; set; }
+        public Nullable<decimal> DolphinTransB_trb_serial_id { get; set; }
+        public Nullable<int> ReferenceTransactionDetailsId { get; set; }
     }
 }

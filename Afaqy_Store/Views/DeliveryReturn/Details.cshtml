@@ -1,20 +1,20 @@
 ﻿@model Afaqy_Store.Models.DeliveryRequestDetailsViewModel
-@using Classes.Helper;
 @using Newtonsoft.Json;
 @{
-    ViewBag.Title = Resources.Store.DeliveryRequestAssign;
+    ViewBag.Title = Resources.Store.DeliveryRequestDetails;
     Layout = "~/Views/Shared/_Popup.cshtml";
 }
 
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-    <h2 class="modal-title">@Resources.Adminstration.TechniqueSystemNew</h2>
+    <h2 class="modal-title">@Resources.Store.DeliveryRequestDetails</h2>
 </div>
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+@using (Html.BeginForm())
 {
+
     <div class="modal-body withVScroll" ng-init="bindGirdData()">
-        @Html.HiddenFor(model => model.DeliveryRequestId);
+        @Html.HiddenFor(model => model.DeliveryRequestId)
         <div class="row">
             <div class="col-xs-6 form-group">
                 <dl class="dl-horizontal">
@@ -54,10 +54,24 @@
                     </dd>
 
                     <dt>
+                        @Resources.Store.DeliveryTechnician
+                    </dt>
+                    <dd>
+                        @string.Join(", ",Model.DeliveryRequestTechnician.Select(x=>x.name))
+                    </dd>
+
+                    <dt>
                         @Resources.Resource.IsBlock
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.Block)
+                    </dd>
+
+                    <dt>
+                        @Resources.Store.DeliveryRequestNote
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Note)
                     </dd>
 
                     <dt>
@@ -72,13 +86,6 @@
                     </dt>
                     <dd>
                         @Html.DisplayFor(model => model.ModifyUser_FullName_en)
-                    </dd>
-
-                    <dt>
-                        @Resources.Store.WithInstallationService
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.InstallationService)
                     </dd>
 
                 </dl>
@@ -114,6 +121,12 @@
                     </dd>
 
                     <dt>
+                        @Resources.Store.ActualDeliveryDateTime
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ActualDeliveryDateTime)
+                    </dd>
+                    <dt>
                         @Resources.Store.DeliveryRequestStatus
                     </dt>
                     <dd>
@@ -121,10 +134,10 @@
                     </dd>
 
                     <dt>
-                        @Resources.Store.DeliveryRequestNote
+                        @Resources.Store.WithInstallationService
                     </dt>
                     <dd>
-                        @Html.DisplayFor(model => model.Note)
+                        @Html.DisplayFor(model => model.InstallationService)
                     </dd>
 
                     <dt>
@@ -140,31 +153,8 @@
                     <dd>
                         @Html.DisplayFor(model => model.ModifyDate)
                     </dd>
+
                 </dl>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3  form-group">
-                <label class="text-info">@Resources.Store.ActualDeliveryDate</label>
-                <span class="input-icon icon-right">
-                    <input name="ActualDeliveryRequestDate_Str" class="form-control date-picker" id="DeliveryRequestDate_Str" type="text" data-date-format="dd/mm/yyyy" value="@(DateTime.Parse(Model.DeliveryRequestDateTime) >= DateTime.Now ?  DateTime.Parse(Model.DeliveryRequestDateTime).ToShortDateString() : "")">
-                    <i class="fa fa-calendar"></i>
-                </span>
-            </div>
-            <div class="col-xs-3 form-group">
-                <label class="text-info">@Resources.Store.ActualDeliveryTime</label>
-                <div class="input-group">
-                    <input class="form-control" name="ActualDeliveryRequestTime_Str" id="DeliveryRequestTime_Str" type="text" value="@DateTime.Parse(Model.DeliveryRequestDateTime).ToShortTimeString()">
-                    <span class="input-group-addon">
-                        <i class="fa fa-clock-o"></i>
-                    </span>
-                </div>
-            </div>
-            <div class="col-xs-6 form-group">
-                @Html.LabelFor(model => model.DeliveryRequestTechnician, Resources.Adminstration.Technician, htmlAttributes: new { @class = "text-info" })
-                
-                @Html.DropDownList("RequestTechnician", (IEnumerable<CustomSelectListItem>)ViewBag.Technician, null, htmlAttributes: new { @class = "form-control", @id = "Technician", @multiple = "multiple" })
-                @Html.ValidationMessageFor(model => model.DeliveryRequestTechnician, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">
@@ -172,44 +162,32 @@
                 @{ Html.RenderAction("Partial_Grid", "Common", new { EnablePagination = false }); }
             </div>
         </div>
+        
+        
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-success" type="submit">@Resources.Resource.ButtonAssign</button>
-        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    <div class="modal-footer"> 
+        @if ((bool)ViewBag.ShowStoreReceivedBtn)
+        {
+            <button class="btn btn-success" type="submit">@Resources.Resource.ButtonSave</button> @*ng-show="showSubmit"*@
+        }
+        else
+        {
+            <button class="btn btn-success" type="button" ng-click="cancel()">@Resources.Resource.ButtonOk</button> @*ng-show="!showSubmit"*@
+        }
+        
+        
     </div>
-
 }
 
-
-@section scripts {
-    <!--Bootstrap Date Picker-->
-    <script src="~/Content/js/datetime/bootstrap-datepicker.js"></script>
-    <!--Bootstrap Time Picker-->
-    <script src="~/Content/js/datetime/bootstrap-timepicker.min.js"></script>
-    <!--Jquery Select2-->
-    <script src="~/Content/js/select2/select2.js"></script>
+@section scripts{
+    
     <script>
         var gridData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryRequestDetails));
-        var detailsRequestDetailsGridColumnDefs = [
-            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 },
-            { field: 'ia_item_code', name: '@Resources.Store.DeviceModelType', width: 200 },
+        var detailsDeliveryDetailsGridColumnDefs = [
+            { field: 'ItemFamilyName_en', name: '@Resources.Store.ItemFamily', width: 150 },
+            { field: 'DeviceModelTypeName', name: '@Resources.Store.DeviceModelType', width: 200 },
             { field: 'Quantity', name: '@Resources.Store.Quantity', width: 100 },
             { field: 'Note', name: '@Resources.Resource.Note', width: 290 }
         ];
-        $(document).ready(function () {
-            //--Jquery Select2--
-            $("#Technician").select2();
-            $('.date-picker').datepicker({startDate: new Date()});
-
-            $('#form').submit(function (event) {
-                if (!$(this).valid()) {
-                    event.preventDefault();
-                }
-            });
-        });
     </script>
 }
-
-
-
-

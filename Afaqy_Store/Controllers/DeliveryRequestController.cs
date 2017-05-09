@@ -1,5 +1,6 @@
 ﻿using Afaqy_Store.DataLayer;
 using Afaqy_Store.Models;
+using Classes.Common;
 using GenericApiController.Utilities;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,43 @@ using System.Web.Mvc;
 
 namespace Afaqy_Store.Controllers
 {
-    public class DeliveryRequestController : BaseController<DeliveryRequest,DeliveryRequestViewModel,DeliveryRequestIndexViewModel,DeliveryRequestDetailsViewModel,DeliveryRequestCreateBindModel,DeliveryRequestEditBindModel,DeliveryRequestEditModel,DeliveryRequest,DeliveryRequestModel<DeliveryRequest>,DeliveryRequestModel<DeliveryRequestViewModel>>
+    public class DeliveryRequestController : BaseController<DeliveryRequest, DeliveryRequestViewModel, DeliveryRequestIndexViewModel, DeliveryRequestDetailsViewModel, DeliveryRequestCreateBindModel, DeliveryRequestEditBindModel, DeliveryRequestEditModel, DeliveryRequest, DeliveryRequestModel<DeliveryRequest>, DeliveryRequestModel<DeliveryRequestViewModel>>
     {
+        public override void FuncPreIndexView(ref List<DeliveryRequestIndexViewModel> model)
+        {
+            Classes.Utilities.DeliveryRequestAccessRole permssions = new Classes.Utilities.DeliveryRequestAccessRole() { CreatePremission = true, DetailsPremission = true, EditPremission = true };
+            if(User.UserTypeId == (int)DBEnums.UserType.System_Adminstrator)
+            {
+                permssions.DeliveryPremission = true;
+                permssions.AssignPremission = true;
+                permssions.RececivedPremission = true;
+                permssions.DeletePremission = true;
+            }
+            else
+            {
+                //get user employee info
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "UserId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = User.UserId,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                var userEmp = new EmployeeModel<Employee>().Get(new GenericDataFormat() { Filters = filters }).SingleOrDefault();
+                if(userEmp.JobTitleId == (int)DBEnums.JobTitle.Storekeeper)
+                {
+                    permssions.RececivedPremission = true;
+                    permssions.DeliveryPremission = true;
+                }
+                else if(userEmp.JobTitleId == (int)DBEnums.JobTitle.Technicians_General_Manager || userEmp.JobTitleId == (int)DBEnums.JobTitle.Branch_Technicians_Manager)
+                {
+                    permssions.AssignPremission = true;
+                }
+            }
+            ViewBag.Permissions = permssions;
+            base.FuncPreIndexView(ref model);
+        }
         public override void FuncPreDetailsView(object id, ref List<DeliveryRequestDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
@@ -32,15 +68,14 @@ namespace Afaqy_Store.Controllers
             }
 
         }
-
         public override ActionResult FuncPostDetailsView(ref DeliveryRequestDetailsViewModel model)
         {
             bool showStoreReceivedBtn = false;
             //get warehouse employee
             filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems { Property = "Warehouse_wa_code", Operation = GenericDataFormat.FilterOperations.Equal, Value = model.Warehouse_wa_code, LogicalOperation = GenericDataFormat.LogicalOperations.And});
+            filters.Add(new GenericDataFormat.FilterItems { Property = "Warehouse_wa_code", Operation = GenericDataFormat.FilterOperations.Equal, Value = model.Warehouse_wa_code, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             var warehouse = new WarehouseInfoModel<WarehouseInfo>().Get(new GenericDataFormat() { Filters = filters }).SingleOrDefault();
-            if (warehouse != null )
+            if (warehouse != null)
             {
                 showStoreReceivedBtn = true;
                 //check if user received this request before
@@ -49,7 +84,7 @@ namespace Afaqy_Store.Controllers
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestStatusId", Operation = GenericDataFormat.FilterOperations.Equal, Value = Classes.Common.DBEnums.DeliveryRequestStatus.Store_Notified, LogicalOperation = GenericDataFormat.LogicalOperations.And });
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "CreateUserId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.UserId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
                 var history = new DeliveryRequestStatusHistoryModel<DeliveryRequestStatusHistory>().Get(new GenericDataFormat() { Filters = filters });
-                if(history != null && history.Count > 0)
+                if (history != null && history.Count > 0)
                 {
                     showStoreReceivedBtn = false;
                 }
@@ -102,7 +137,7 @@ namespace Afaqy_Store.Controllers
                     filters.Add(new GenericDataFormat.FilterItems() { Property = "salecode", Operation = GenericDataFormat.FilterOperations.Equal, Value = emp.EmployeeId, LogicalOperation = GenericDataFormat.LogicalOperations.And });
                 }
             }
-            
+
             List<rpaux> customers = new CustomerModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
             //add customer english name
             var customerSelectListItems = customers.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.name, Value = x.aux_id.ToString() }).ToList();
@@ -113,14 +148,14 @@ namespace Afaqy_Store.Controllers
             filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
             List<CustomerServerAccount> customerServerAccounts = new CustomerServerAccountModel<CustomerServerAccount>().GetAsDDLst("CustomerId,SeverCustomerName,AccountUserName", "SeverCustomerName", filters);
             //filter cusromer server accounts by exist in customers list
-            if(emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
+            if (emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
             {
                 customerServerAccounts = customerServerAccounts.Where(x => customers.Any(y => y.aux_id == x.CustomerId)).ToList();
             }
             //add customer name in server 
             customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
             //get distinct value from list
-            customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x=>x.Text).GroupBy(x => new { x.Text }).Select(x => x.FirstOrDefault()).ToList();
+            customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x => x.Text).GroupBy(x => new { x.Text }).Select(x => x.FirstOrDefault()).ToList();
             ViewBag.CustomerId = customerSelectListItems;
 
             //get all Points of sale
@@ -133,13 +168,13 @@ namespace Afaqy_Store.Controllers
                 Value = null,
                 LogicalOperation = GenericDataFormat.LogicalOperations.And
             });
-            if(emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
+            if (emp != null && (emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Branch_Sales_Manager || emp.JobTitleId == (int)Classes.Common.DBEnums.JobTitle.Sales_Man))
             {
                 string branchCode = string.IsNullOrEmpty(emp.Branch_br_code) ? emp.Branch_br_code : User.Branch_br_code;
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "ps_branch", Operation = GenericDataFormat.FilterOperations.Equal, Value = branchCode, LogicalOperation = GenericDataFormat.LogicalOperations.And });
             }
             List<im_points> pos = new PointOfSaleModel<im_points>().GetAsDDLst("ps_cmp_seq,ps_code,ps_name,ps_altname", "ps_code", filters);
-            ViewBag.POSId = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name,x.ps_altname) , Value =x.ps_code });
+            ViewBag.POSId = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name, x.ps_altname), Value = x.ps_code });
 
             //get all Warehouse
             filters = new List<GenericDataFormat.FilterItems>();
@@ -169,9 +204,6 @@ namespace Afaqy_Store.Controllers
         }
         public override void FuncPreCreate(ref DeliveryRequestCreateBindModel model)
         {
-            //string[] posFK = Classes.Utilities.Utility.GetForeignKeyValue(model.POSId);
-            //model.POS_ps_code = posFK[1];
-            //model.Warehouse_wa_code = Classes.Utilities.Utility.GetForeignKeyValue(model.WarehouseId)[1];
             var companySequence = Classes.Utilities.Utility.GetCompanySequence();
             model.CreateUserId = User.UserId;
             model.CreateDate = DateTime.Now;
@@ -180,11 +212,11 @@ namespace Afaqy_Store.Controllers
             DateTime deliveryDateTime = (DateTime)Classes.Utilities.Utility.ParseDateTime(model.DeliveryRequestDate_Str + " " + model.DeliveryRequestTime_Str);
             model.DeliveryRequestDateTime = deliveryDateTime;
             model.DeliveryRequestDetails = model.DeliveryRequestDetails.Select(x => { x.cmp_seq = companySequence; x.CreateUserId = User.UserId; x.CreateDate = DateTime.Now; return x; }).ToList();
-            
+
         }
         public override ActionResult FuncPostCreate(ref DeliveryRequestCreateBindModel model, ref DeliveryRequest insertedItem)
         {
-            if(DeliveryRequestCreateBindModel.SendAfterApproveDeliveryRequestNotification(insertedItem, Url.Action("Details"), Url.Action("Assign"), User.UserId))
+            if (DeliveryRequestCreateBindModel.SendAfterApproveDeliveryRequestNotification(insertedItem, Url.Action("Details"), Url.Action("Assign"), User.UserId))
             {
                 //do nothing
             }
@@ -208,7 +240,7 @@ namespace Afaqy_Store.Controllers
                 //get delivery request details
                 filters = new List<GenericDataFormat.FilterItems>();
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "DeliveryRequestId", Operation = GenericDataFormat.FilterOperations.Equal, Value = EditItem.DeliveryRequestId });
-                var requestBody = new GenericDataFormat(){Filters = filters};
+                var requestBody = new GenericDataFormat() { Filters = filters };
                 model.DeliveryRequestDetails = new DeliveryRequestDetailsModel<DeliveryRequestDetailsView>().GetView<DeliveryRequestDetailsView>(requestBody).PageItems;
                 var selectedItem = EditItem;
 
@@ -232,36 +264,26 @@ namespace Afaqy_Store.Controllers
                 customerSelectListItems.AddRange(customerServerAccounts.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SeverCustomerName, Value = x.CustomerId.ToString() }));
                 //get distinct value from list
                 customerSelectListItems = customerSelectListItems.Where(x => !string.IsNullOrEmpty(x.Text)).OrderBy(x => x.Text).Distinct().ToList();
-                model.Customer = customerSelectListItems.Distinct().Select(x=> { x.Selected = (x.Value == selectedItem.Customer_aux_id.ToString() && x.Text == selectedItem.CustomerName); return x; } );
-                
+                model.Customer = customerSelectListItems.Distinct().Select(x => { x.Selected = (x.Value == selectedItem.Customer_aux_id.ToString() && x.Text == selectedItem.CustomerName); return x; });
+
                 //get all Points of sale
                 //filter by branch 
                 filters = null;
-                //if (User.BranchId != null)
-                //{
-                //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-                //}
-
+                filters.Add(new GenericDataFormat.FilterItems() { Property = "ps_code", Operation = GenericDataFormat.FilterOperations.Equal, Value = EditItem.POS_ps_code });
                 List<im_points> pos = new PointOfSaleModel<im_points>().GetAsDDLst("ps_cmp_seq,ps_code,ps_name,ps_altname", "ps_code", filters);
                 model.PointOfSale = pos.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.ps_name, x.ps_altname), Value = x.ps_code, Selected = (x.ps_code == selectedItem.POS_ps_code && x.ps_cmp_seq == selectedItem.cmp_seq) });
 
                 //get all Warehouse
                 filters = new List<GenericDataFormat.FilterItems>();
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "wa_inactive", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 });
-                //filter by branch 
-                //if (User.BranchId != null)
-                //{
-                //    filters.Add(new GenericDataFormat.FilterItems() { Property = "BranchId", Operation = GenericDataFormat.FilterOperations.Equal, Value = User.BranchId });
-                //}
                 List<im_warehouse> warehouse = new WarehouseModel<im_warehouse>().GetAsDDLst("wa_cmp_seq,wa_code,wa_name,wa_altname", "wa_code", filters);
                 model.Warehouse = warehouse.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.wa_name, x.wa_altname), Value = x.wa_code, Selected = (x.wa_code == selectedItem.Warehouse_wa_code && x.wa_cmp_seq == selectedItem.cmp_seq) });
-                
+
                 //get all technique systems
                 filters = new List<GenericDataFormat.FilterItems>();
                 filters.Add(new GenericDataFormat.FilterItems() { Property = "IsBlock", Operation = GenericDataFormat.FilterOperations.Equal, Value = false });
                 List<TechniqueSystem> systems = new TechniqueSystemModel<TechniqueSystem>().GetAsDDLst("SystemId,SystemName", "SystemName", filters);
                 model.TechniqueSystem = systems.Select(x => new Classes.Helper.CustomSelectListItem() { Text = x.SystemName, Value = x.SystemId.ToString(), Selected = (x.SystemId == selectedItem.SystemId) });
-
 
                 //get all Item Families
                 filters = null;
@@ -275,12 +297,15 @@ namespace Afaqy_Store.Controllers
                 requestBody = new GenericDataFormat() { Filters = filters, Includes = new GenericDataFormat.IncludeItems() { Properties = "ia_item_id,ia_item_code,ia_name,ia_altname,ia_cmp_seq,ia_fa_code" }, Sorts = sorts };
                 List<im_itema> modelTypes = new ModelTypeModel<im_itema>().Get(requestBody);
                 ViewBag.ModelTypes = modelTypes.Select(x => new SelectListItem() { Text = x.ia_item_code, Value = x.ia_item_id.ToString(), Group = new SelectListGroup() { Name = x.ia_fa_code } }).ToList();
-                
+
             }
         }
         public override void FuncPreEdit(ref object id, ref DeliveryRequestEditBindModel EditItem)
         {
             id = EditItem.DeliveryRequestId;
+            var originalRequest = new DeliveryRequestModel<DeliveryRequest>().Get(id);
+            //if (originalRequest.DeliveryRequestStatusId == (int)Classes.Common.DBEnums.DeliveryRequestStatus.New || originalRequest.DeliveryRequestStatusId == (int)Classes.Common.DBEnums.DeliveryRequestStatus.Approved)
+            //{
             DateTime deliveryDateTime = (DateTime)Classes.Utilities.Utility.ParseDateTime(EditItem.DeliveryRequestDate_Str + " " + EditItem.DeliveryRequestTime_Str);
             EditItem.DeliveryRequestDateTime = deliveryDateTime;
             //get delivery request details 
@@ -306,9 +331,11 @@ namespace Afaqy_Store.Controllers
                     item.CreateDate = DateTime.Now;
                 }
             }
-            
+
             EditItem.ModifyUserId = User.UserId;
             EditItem.ModifyDate = DateTime.Now;
+            //}
+
         }
         public override void FuncPreExport(ref GenericDataFormat ExportRequestBody, ref string ExportFileName)
         {
@@ -368,10 +395,6 @@ namespace Afaqy_Store.Controllers
             });
             List<EmployeeView> technicianEmployees = new EmployeeModel<EmployeeView>().GetAsDDLst("EmployeeId,Employee_FullName_en,Employee_FullName_ar", "Employee_FullName_en", filters, GenericDataFormat.SortType.Asc, true);
             ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.Employee_FullName_en, x.Employee_FullName_ar), Value = x.EmployeeId.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.EmployeeId)) });
-            //for test get all employee
-            //filters.Add(new GenericDataFormat.FilterItems() { Property = "aux_blocked", Operation = GenericDataFormat.FilterOperations.NotEqual, Value = 1 })
-            //List<rpaux> technicianEmployees = new RpauxEmployeeModel<rpaux>().GetAsDDLst("aux_id,name,altname", "name", filters);
-            //ViewBag.Technician = technicianEmployees.Select(x => new Classes.Helper.CustomSelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.name, x.altname), Value = x.aux_id.ToString(), Selected = (model.DeliveryRequestTechnician.Any(y => y.Employee_aux_id == x.aux_id)) });
             return View(model);
         }
         [HttpPost]
@@ -402,9 +425,9 @@ namespace Afaqy_Store.Controllers
             EditItem.DeliveryRequestTechnician = fc.GetValues("RequestTechnician").Select(x => new DeliveryRequestTechnician() { cmp_seq = EditItem.cmp_seq,  DeliveryRequestId = EditItem.DeliveryRequestId, Employee_aux_id = int.Parse(x), CreateUserId = User.UserId, CreateDate = DateTime.Now }).ToList();
             //create instance to update object
             var instance = new DeliveryRequestModel<DeliveryRequest>();
-            var item = instance.Update(EditItem, id);
+            instance.Update(EditItem, id);
 
-            if(DeliveryRequestEditBindModel.SendAfterAssignDeliveryRequestNotification(item, Url.Action("Details"),Url.Action("Index","DeliveryNote"),User.UserId))
+            if(DeliveryRequestEditBindModel.SendAfterAssignDeliveryRequestNotification(EditItem, Url.Action("Details"),Url.Action("Index","DeliveryNote"),User.UserId))
             {
                 //do nothing
             }

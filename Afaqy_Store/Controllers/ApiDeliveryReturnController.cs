@@ -194,6 +194,18 @@ namespace Afaqy_Store.Controllers
 
     public class ApiDeliveryReturnViewController : BaseApiController<TransactionView>
     {
-
+        public ApiDeliveryReturnViewController()
+        {
+            var dataContrains = GetDataConstrains();
+            if (dataContrains == null)
+            {
+                dataContrains = x => x.TransactionTypeId == (int)DBEnums.TransactionType.Delivery_Return;
+            }
+            else
+            {
+                dataContrains.AndAlso(x => x.TransactionTypeId == (int)DBEnums.TransactionType.Delivery_Return);
+            }
+            SetDataConstrains(dataContrains);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Afaqy_Store.DataLayer;
 using Classes.Helper;
 using Classes.Utilities;
+using GenericApiController.Utilities;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -88,7 +89,15 @@ namespace Afaqy_Store.Models
             List<int?> Users = new List<int?>();
             //Notifiy branch technician manager and tecnician general manager
             //get delivery request warehouse branch
-            im_warehouse warehouse = new WarehouseModel<im_warehouse>().Get(deliveryRequest.Warehouse_wa_code);
+            List<GenericDataFormat.FilterItems> warehouseFilters = new List<GenericDataFormat.FilterItems>();
+            warehouseFilters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "wa_code",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = deliveryRequest.Warehouse_wa_code,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            im_warehouse warehouse = new WarehouseModel<im_warehouse>().Get(new GenericDataFormat() { Filters = warehouseFilters}).SingleOrDefault();
             //warehouse.wa_costcenter (BranchId)
             List<Employee> emps = new EmployeeModel<Employee>().GetBranchEmployee(warehouse.wa_costcenter, withManager: false, jobTitleId: (int)Classes.Common.DBEnums.JobTitle.Branch_Technicians_Manager);
             if (emps != null && emps.Count > 0)
@@ -223,6 +232,7 @@ namespace Afaqy_Store.Models
             }
 
             return new NotificationModel<Notification>().Import(notifications.ToArray());
+            return true;
         }
     }
     public class DeliveryRequestEditModel

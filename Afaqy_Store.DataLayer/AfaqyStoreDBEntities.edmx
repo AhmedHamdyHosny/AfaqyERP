@@ -1636,13 +1636,13 @@ warning 6002: The table/view 'dolphin.afqy.DeliveryRequestDetailsView' does not 
 warning 6002: The table/view 'dolphin.afqy.DeliveryRequestTechnicianView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DeliveryRequestTechnicianView">
           <Key>
-            <PropertyRef Name="DeliveryRequestTechnicalId" />
+            <PropertyRef Name="DeliveryRequestTechnicianId" />
             <PropertyRef Name="DeliveryRequestId" />
             <PropertyRef Name="Employee_aux_id" />
             <PropertyRef Name="name" />
             <PropertyRef Name="IsBlock" />
           </Key>
-          <Property Name="DeliveryRequestTechnicalId" Type="int" Nullable="false" />
+          <Property Name="DeliveryRequestTechnicianId" Type="int" Nullable="false" />
           <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
           <Property Name="Employee_aux_id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
@@ -1673,6 +1673,7 @@ warning 6002: The table/view 'dolphin.afqy.DeliveryRequestView' does not have a 
             <PropertyRef Name="wa_shname" />
             <PropertyRef Name="contact_name" />
             <PropertyRef Name="SystemName" />
+            <PropertyRef Name="cmp_seq" />
           </Key>
           <Property Name="DeliveryRequestId" Type="int" Nullable="false" />
           <Property Name="POS_ps_code" Type="char" MaxLength="3" Nullable="false" />
@@ -1728,6 +1729,7 @@ warning 6002: The table/view 'dolphin.afqy.DeliveryRequestView' does not have a 
           <Property Name="StoreReceivedPermission" Type="bit" />
           <Property Name="DeliveryPermission" Type="bit" />
           <Property Name="WithInstallationService" Type="bit" />
+          <Property Name="cmp_seq" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dolphin.afqy.DeviceSIMView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2048,6 +2050,7 @@ warning 6002: The table/view 'dolphin.afqy.TransactionDetailsView' does not have
             <PropertyRef Name="fa_shname" />
             <PropertyRef Name="Quantity" />
             <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="fa_code" />
           </Key>
           <Property Name="TransactionDetailsId" Type="int" Nullable="false" />
           <Property Name="TransactionId" Type="int" Nullable="false" />
@@ -2063,6 +2066,9 @@ warning 6002: The table/view 'dolphin.afqy.TransactionDetailsView' does not have
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
+          <Property Name="fa_code" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="DolphinTransB_trb_serial_id" Type="numeric" Precision="13" Scale="0" />
+          <Property Name="ReferenceTransactionDetailsId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dolphin.afqy.TransactionItemView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2159,6 +2165,7 @@ warning 6002: The table/view 'dolphin.afqy.TransactionView' does not have a prim
             <PropertyRef Name="contact_name" />
             <PropertyRef Name="SystemName" />
             <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="TransactionDateTime" />
           </Key>
           <Property Name="TransactionId" Type="int" Nullable="false" />
           <Property Name="cmp_seq" Type="int" Nullable="false" />
@@ -2217,6 +2224,9 @@ warning 6002: The table/view 'dolphin.afqy.TransactionView' does not have a prim
           <Property Name="phone" Type="varchar" MaxLength="15" />
           <Property Name="DolphinCustomerName" Type="nvarchar" MaxLength="100" />
           <Property Name="CustomerAccountName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TransactionTypeId" Type="int" />
+          <Property Name="TransactionDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ReferenceTransactionId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3557,7 +3567,7 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           </EntitySet>
           <EntitySet Name="DeliveryRequestTechnicianView" EntityType="Self.DeliveryRequestTechnicianView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
-    [DeliveryRequestTechnicianView].[DeliveryRequestTechnicalId] AS [DeliveryRequestTechnicalId], 
+    [DeliveryRequestTechnicianView].[DeliveryRequestTechnicianId] AS [DeliveryRequestTechnicianId], 
     [DeliveryRequestTechnicianView].[DeliveryRequestId] AS [DeliveryRequestId], 
     [DeliveryRequestTechnicianView].[Employee_aux_id] AS [Employee_aux_id], 
     [DeliveryRequestTechnicianView].[name] AS [name], 
@@ -3620,7 +3630,8 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
     [DeliveryRequestView].[AssignPermission] AS [AssignPermission], 
     [DeliveryRequestView].[StoreReceivedPermission] AS [StoreReceivedPermission], 
     [DeliveryRequestView].[DeliveryPermission] AS [DeliveryPermission], 
-    [DeliveryRequestView].[WithInstallationService] AS [WithInstallationService]
+    [DeliveryRequestView].[WithInstallationService] AS [WithInstallationService], 
+    [DeliveryRequestView].[cmp_seq] AS [cmp_seq]
     FROM [afqy].[DeliveryRequestView] AS [DeliveryRequestView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="DeviceSIMView" EntityType="Self.DeviceSIMView" store:Type="Views" store:Schema="afqy">
@@ -3871,7 +3882,10 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
     [TransactionDetailsView].[fa_shaltname] AS [fa_shaltname], 
     [TransactionDetailsView].[Quantity] AS [Quantity], 
     [TransactionDetailsView].[Note] AS [Note], 
-    [TransactionDetailsView].[IsBlock] AS [IsBlock]
+    [TransactionDetailsView].[IsBlock] AS [IsBlock], 
+    [TransactionDetailsView].[fa_code] AS [fa_code], 
+    [TransactionDetailsView].[DolphinTransB_trb_serial_id] AS [DolphinTransB_trb_serial_id], 
+    [TransactionDetailsView].[ReferenceTransactionDetailsId] AS [ReferenceTransactionDetailsId]
     FROM [afqy].[TransactionDetailsView] AS [TransactionDetailsView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TransactionItemView" EntityType="Self.TransactionItemView" store:Type="Views" store:Schema="afqy">
@@ -3983,7 +3997,10 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
     [TransactionView].[WithInstallationService] AS [WithInstallationService], 
     [TransactionView].[phone] AS [phone], 
     [TransactionView].[DolphinCustomerName] AS [DolphinCustomerName], 
-    [TransactionView].[CustomerAccountName] AS [CustomerAccountName]
+    [TransactionView].[CustomerAccountName] AS [CustomerAccountName], 
+    [TransactionView].[TransactionTypeId] AS [TransactionTypeId], 
+    [TransactionView].[TransactionDateTime] AS [TransactionDateTime], 
+    [TransactionView].[ReferenceTransactionId] AS [ReferenceTransactionId]
     FROM [afqy].[TransactionView] AS [TransactionView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="afqy">
@@ -4445,7 +4462,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <EntitySet Name="CustomerServerUnitsView" EntityType="Afaqy_Store.DataLayer.CustomerServerUnitsView" />
           <EntitySet Name="CustomerView" EntityType="Afaqy_Store.DataLayer.CustomerView" />
           <EntitySet Name="DeliveryRequestDetailsView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestDetailsView" />
-          <EntitySet Name="DeliveryRequestView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" />
           <EntitySet Name="DeviceSIMView" EntityType="Afaqy_Store.DataLayer.DeviceSIMView" />
           <EntitySet Name="DeviceView" EntityType="Afaqy_Store.DataLayer.DeviceView" />
           <EntitySet Name="SIMCardContractView" EntityType="Afaqy_Store.DataLayer.SIMCardContractView" />
@@ -4715,11 +4731,8 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <EntitySet Name="EmployeeView" EntityType="Afaqy_Store.DataLayer.EmployeeView" />
           <EntitySet Name="TransactionStatusHistory" EntityType="Afaqy_Store.DataLayer.TransactionStatusHistory" />
           <EntitySet Name="TransactionTechnician" EntityType="Afaqy_Store.DataLayer.TransactionTechnician" />
-          <EntitySet Name="TransactionDetailsView" EntityType="Afaqy_Store.DataLayer.TransactionDetailsView" />
           <EntitySet Name="TransactionTechnicianView" EntityType="Afaqy_Store.DataLayer.TransactionTechnicianView" />
-          <EntitySet Name="TransactionView" EntityType="Afaqy_Store.DataLayer.TransactionView" />
           <EntitySet Name="DeliveryRequestTechnician" EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnician" />
-          <EntitySet Name="DeliveryRequestTechnicianView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" />
           <EntitySet Name="DeliveryRequest" EntityType="Afaqy_Store.DataLayer.DeliveryRequest" />
           <EntitySet Name="TransactionStatus" EntityType="Afaqy_Store.DataLayer.TransactionStatus" />
           <EntitySet Name="TransactionType" EntityType="Afaqy_Store.DataLayer.TransactionType" />
@@ -4809,6 +4822,10 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             <End Role="TransactionDetails" EntitySet="TransactionDetails" />
             <End Role="TransactionItem" EntitySet="TransactionItem" />
           </AssociationSet>
+          <EntitySet Name="DeliveryRequestTechnicianView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" />
+          <EntitySet Name="TransactionView" EntityType="Afaqy_Store.DataLayer.TransactionView" />
+          <EntitySet Name="DeliveryRequestView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" />
+          <EntitySet Name="TransactionDetailsView" EntityType="Afaqy_Store.DataLayer.TransactionDetailsView" />
           </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -6229,84 +6246,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="fa_code" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="ia_item_code" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="DeliveryRequestView">
-          <Key>
-            <PropertyRef Name="DeliveryRequestId" />
-            <PropertyRef Name="POS_ps_code" />
-            <PropertyRef Name="ps_name" />
-            <PropertyRef Name="ps_shname" />
-            <PropertyRef Name="DeliveryRequestStatusId" />
-            <PropertyRef Name="DeliveryRequestStatus_en" />
-            <PropertyRef Name="Customer_aux_id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="shortname" />
-            <PropertyRef Name="SaleTransactionTypeId" />
-            <PropertyRef Name="SaleTransactionType_en" />
-            <PropertyRef Name="SaleTransactionType_ar" />
-            <PropertyRef Name="IsBlock" />
-            <PropertyRef Name="CreateUserId" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="Warehouse_wa_code" />
-            <PropertyRef Name="wa_name" />
-            <PropertyRef Name="wa_shname" />
-            <PropertyRef Name="contact_name" />
-            <PropertyRef Name="SystemName" />
-          </Key>
-          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
-          <Property Name="POS_ps_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="ps_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ps_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ps_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ps_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryRequestStatusId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryRequestStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryRequestStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Customer_aux_id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="shortname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="shortaltname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="SaleTransactionType_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SaleTransactionType_ar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryRequestDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
-          <Property Name="Warehouse_wa_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="wa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="wa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="wa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="wa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerContact_serial" Type="Int32" />
-          <Property Name="contact_name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SystemId" Type="Int32" />
-          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ActualDeliveryDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="EditPermission" Type="Boolean" />
-          <Property Name="AssignPermission" Type="Boolean" />
-          <Property Name="StoreReceivedPermission" Type="Boolean" />
-          <Property Name="DeliveryPermission" Type="Boolean" />
-          <Property Name="WithInstallationService" Type="Boolean" />
-        </EntityType>
         <EntityType Name="DeviceSIMView">
           <Key>
             <PropertyRef Name="DeviceSIMId" />
@@ -7608,33 +7547,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Transaction" Relationship="Afaqy_Store.DataLayer.FK_TransactionTechnician_Transaction" FromRole="TransactionTechnician" ToRole="Transaction" />
         </EntityType>
-        <EntityType Name="TransactionDetailsView">
-          <Key>
-            <PropertyRef Name="TransactionDetailsId" />
-            <PropertyRef Name="TransactionId" />
-            <PropertyRef Name="ModelType_ia_item_id" />
-            <PropertyRef Name="ia_name" />
-            <PropertyRef Name="ia_shname" />
-            <PropertyRef Name="fa_name" />
-            <PropertyRef Name="fa_shname" />
-            <PropertyRef Name="Quantity" />
-            <PropertyRef Name="IsBlock" />
-          </Key>
-          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionId" Type="Int32" Nullable="false" />
-          <Property Name="ModelType_ia_item_id" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
-          <Property Name="ia_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ia_shname" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="ia_altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ia_shaltname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="fa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="fa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="fa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="TransactionTechnicianView">
           <Key>
             <PropertyRef Name="TransactionTechnicianId" />
@@ -7655,89 +7567,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="shortaltname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="IsBlock" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="TransactionView">
-          <Key>
-            <PropertyRef Name="TransactionId" />
-            <PropertyRef Name="cmp_seq" />
-            <PropertyRef Name="POS_ps_code" />
-            <PropertyRef Name="ps_name" />
-            <PropertyRef Name="ps_shname" />
-            <PropertyRef Name="TransactionStatusId" />
-            <PropertyRef Name="TransactionStatus_en" />
-            <PropertyRef Name="Customer_aux_id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="shortname" />
-            <PropertyRef Name="SaleTransactionTypeId" />
-            <PropertyRef Name="SaleTransactionType_en" />
-            <PropertyRef Name="SaleTransactionType_ar" />
-            <PropertyRef Name="IsBlock" />
-            <PropertyRef Name="CreateUserId" />
-            <PropertyRef Name="CreateDate" />
-            <PropertyRef Name="Warehouse_wa_code" />
-            <PropertyRef Name="wa_name" />
-            <PropertyRef Name="wa_shname" />
-            <PropertyRef Name="contact_name" />
-            <PropertyRef Name="SystemName" />
-            <PropertyRef Name="DeliveryRequestId" />
-          </Key>
-          <Property Name="TransactionId" Type="Int32" Nullable="false" />
-          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
-          <Property Name="POS_ps_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="ps_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ps_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ps_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ps_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionStatusId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Customer_aux_id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="shortname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="shortaltname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
-          <Property Name="SaleTransactionType_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SaleTransactionType_ar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeliveryDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
-          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
-          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
-          <Property Name="Warehouse_wa_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
-          <Property Name="wa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="wa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="wa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="wa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerContact_serial" Type="Int32" />
-          <Property Name="contact_name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SystemId" Type="Int32" />
-          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionReference" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="DolphinTrans_tra_ref_id" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DolphinTrans_tra_ref_type" Type="Int32" />
-          <Property Name="WithInstallationService" Type="Boolean" />
-          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="DolphinCustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerAccountName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="DeliveryRequestTechnician">
           <Key>
             <PropertyRef Name="DeliveryRequestTechnicianId" />
@@ -7752,21 +7581,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DeliveryRequest" Relationship="Afaqy_Store.DataLayer.FK_DeliveryRequestTechnician_DeliveryRequest" FromRole="DeliveryRequestTechnician" ToRole="DeliveryRequest" />
-        </EntityType>
-        <EntityType Name="DeliveryRequestTechnicianView">
-          <Key>
-            <PropertyRef Name="DeliveryRequestTechnicalId" />
-            <PropertyRef Name="DeliveryRequestId" />
-            <PropertyRef Name="Employee_aux_id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="IsBlock" />
-          </Key>
-          <Property Name="DeliveryRequestTechnicalId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
-          <Property Name="Employee_aux_id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="DeliveryRequest">
           <Key>
@@ -8250,6 +8064,219 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DeliveryRequestTechnicianView">
+          <Key>
+            <PropertyRef Name="DeliveryRequestTechnicianId" />
+            <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="Employee_aux_id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="IsBlock" />
+          </Key>
+          <Property Name="DeliveryRequestTechnicianId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="Employee_aux_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionView">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+            <PropertyRef Name="cmp_seq" />
+            <PropertyRef Name="POS_ps_code" />
+            <PropertyRef Name="ps_name" />
+            <PropertyRef Name="ps_shname" />
+            <PropertyRef Name="TransactionStatusId" />
+            <PropertyRef Name="TransactionStatus_en" />
+            <PropertyRef Name="Customer_aux_id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="shortname" />
+            <PropertyRef Name="SaleTransactionTypeId" />
+            <PropertyRef Name="SaleTransactionType_en" />
+            <PropertyRef Name="SaleTransactionType_ar" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="Warehouse_wa_code" />
+            <PropertyRef Name="wa_name" />
+            <PropertyRef Name="wa_shname" />
+            <PropertyRef Name="contact_name" />
+            <PropertyRef Name="SystemName" />
+            <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="TransactionDateTime" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
+          <Property Name="POS_ps_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ps_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ps_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ps_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ps_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionStatusId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_aux_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shortname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shortaltname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="SaleTransactionType_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SaleTransactionType_ar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="Warehouse_wa_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="wa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="wa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="wa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="wa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContact_serial" Type="Int32" />
+          <Property Name="contact_name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SystemId" Type="Int32" />
+          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionReference" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DolphinTrans_tra_ref_id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DolphinTrans_tra_ref_type" Type="Int32" />
+          <Property Name="WithInstallationService" Type="Boolean" />
+          <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DolphinCustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAccountName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionTypeId" Type="Int32" />
+          <Property Name="TransactionDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReferenceTransactionId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DeliveryRequestView">
+          <Key>
+            <PropertyRef Name="DeliveryRequestId" />
+            <PropertyRef Name="POS_ps_code" />
+            <PropertyRef Name="ps_name" />
+            <PropertyRef Name="ps_shname" />
+            <PropertyRef Name="DeliveryRequestStatusId" />
+            <PropertyRef Name="DeliveryRequestStatus_en" />
+            <PropertyRef Name="Customer_aux_id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="shortname" />
+            <PropertyRef Name="SaleTransactionTypeId" />
+            <PropertyRef Name="SaleTransactionType_en" />
+            <PropertyRef Name="SaleTransactionType_ar" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="Warehouse_wa_code" />
+            <PropertyRef Name="wa_name" />
+            <PropertyRef Name="wa_shname" />
+            <PropertyRef Name="contact_name" />
+            <PropertyRef Name="SystemName" />
+            <PropertyRef Name="cmp_seq" />
+          </Key>
+          <Property Name="DeliveryRequestId" Type="Int32" Nullable="false" />
+          <Property Name="POS_ps_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="ps_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ps_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ps_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ps_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryRequestStatusId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryRequestStatus_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryRequestStatus_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_aux_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shortname" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="shortaltname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SaleTransactionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="SaleTransactionType_en" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SaleTransactionType_ar" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryRequestDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyUser_FirstName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FirstName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyUser_LastName_en" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_LastName_ar" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyUser_FullName_en" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+          <Property Name="ModifyUser_FullName_ar" Type="String" MaxLength="41" FixedLength="false" Unicode="true" />
+          <Property Name="Warehouse_wa_code" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="wa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="wa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="wa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="wa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerContact_serial" Type="Int32" />
+          <Property Name="contact_name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativeContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeContactTelephone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SystemId" Type="Int32" />
+          <Property Name="SystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActualDeliveryDateTime" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="EditPermission" Type="Boolean" />
+          <Property Name="AssignPermission" Type="Boolean" />
+          <Property Name="StoreReceivedPermission" Type="Boolean" />
+          <Property Name="DeliveryPermission" Type="Boolean" />
+          <Property Name="WithInstallationService" Type="Boolean" />
+          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionDetailsView">
+          <Key>
+            <PropertyRef Name="TransactionDetailsId" />
+            <PropertyRef Name="TransactionId" />
+            <PropertyRef Name="ModelType_ia_item_id" />
+            <PropertyRef Name="ia_name" />
+            <PropertyRef Name="ia_shname" />
+            <PropertyRef Name="fa_name" />
+            <PropertyRef Name="fa_shname" />
+            <PropertyRef Name="Quantity" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="fa_code" />
+          </Key>
+          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="ModelType_ia_item_id" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="ia_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ia_shname" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ia_altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ia_shaltname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="fa_name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fa_shname" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fa_altname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fa_shaltname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="fa_code" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="DolphinTransB_trb_serial_id" Type="Decimal" Precision="13" Scale="0" />
+          <Property Name="ReferenceTransactionDetailsId" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9566,66 +9593,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryRequestView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestView">
-              <MappingFragment StoreEntitySet="DeliveryRequestView">
-                <ScalarProperty Name="WithInstallationService" ColumnName="WithInstallationService" />
-                <ScalarProperty Name="DeliveryPermission" ColumnName="DeliveryPermission" />
-                <ScalarProperty Name="StoreReceivedPermission" ColumnName="StoreReceivedPermission" />
-                <ScalarProperty Name="AssignPermission" ColumnName="AssignPermission" />
-                <ScalarProperty Name="EditPermission" ColumnName="EditPermission" />
-                <ScalarProperty Name="ActualDeliveryDateTime" ColumnName="ActualDeliveryDateTime" />
-                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
-                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
-                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
-                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
-                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
-                <ScalarProperty Name="CustomerContact_serial" ColumnName="CustomerContact_serial" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="wa_shaltname" ColumnName="wa_shaltname" />
-                <ScalarProperty Name="wa_altname" ColumnName="wa_altname" />
-                <ScalarProperty Name="wa_shname" ColumnName="wa_shname" />
-                <ScalarProperty Name="wa_name" ColumnName="wa_name" />
-                <ScalarProperty Name="Warehouse_wa_code" ColumnName="Warehouse_wa_code" />
-                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
-                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
-                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
-                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
-                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
-                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
-                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
-                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
-                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
-                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DeliveryRequestDateTime" ColumnName="DeliveryRequestDateTime" />
-                <ScalarProperty Name="SaleTransactionType_ar" ColumnName="SaleTransactionType_ar" />
-                <ScalarProperty Name="SaleTransactionType_en" ColumnName="SaleTransactionType_en" />
-                <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
-                <ScalarProperty Name="shortaltname" ColumnName="shortaltname" />
-                <ScalarProperty Name="altname" ColumnName="altname" />
-                <ScalarProperty Name="shortname" ColumnName="shortname" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Customer_aux_id" ColumnName="Customer_aux_id" />
-                <ScalarProperty Name="DeliveryRequestStatus_ar" ColumnName="DeliveryRequestStatus_ar" />
-                <ScalarProperty Name="DeliveryRequestStatus_en" ColumnName="DeliveryRequestStatus_en" />
-                <ScalarProperty Name="DeliveryRequestStatusId" ColumnName="DeliveryRequestStatusId" />
-                <ScalarProperty Name="ps_shaltname" ColumnName="ps_shaltname" />
-                <ScalarProperty Name="ps_altname" ColumnName="ps_altname" />
-                <ScalarProperty Name="ps_shname" ColumnName="ps_shname" />
-                <ScalarProperty Name="ps_name" ColumnName="ps_name" />
-                <ScalarProperty Name="POS_ps_code" ColumnName="POS_ps_code" />
-                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DeviceSIMView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeviceSIMView">
               <MappingFragment StoreEntitySet="DeviceSIMView">
@@ -10072,26 +10039,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TransactionDetailsView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionDetailsView">
-              <MappingFragment StoreEntitySet="TransactionDetailsView">
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="fa_shaltname" ColumnName="fa_shaltname" />
-                <ScalarProperty Name="fa_altname" ColumnName="fa_altname" />
-                <ScalarProperty Name="fa_shname" ColumnName="fa_shname" />
-                <ScalarProperty Name="fa_name" ColumnName="fa_name" />
-                <ScalarProperty Name="ia_shaltname" ColumnName="ia_shaltname" />
-                <ScalarProperty Name="ia_altname" ColumnName="ia_altname" />
-                <ScalarProperty Name="ia_shname" ColumnName="ia_shname" />
-                <ScalarProperty Name="ia_name" ColumnName="ia_name" />
-                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TransactionTechnicianView">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionTechnicianView">
               <MappingFragment StoreEntitySet="TransactionTechnicianView">
@@ -10107,69 +10054,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TransactionView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionView">
-              <MappingFragment StoreEntitySet="TransactionView">
-                <ScalarProperty Name="CustomerAccountName" ColumnName="CustomerAccountName" />
-                <ScalarProperty Name="DolphinCustomerName" ColumnName="DolphinCustomerName" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="WithInstallationService" ColumnName="WithInstallationService" />
-                <ScalarProperty Name="DolphinTrans_tra_ref_type" ColumnName="DolphinTrans_tra_ref_type" />
-                <ScalarProperty Name="DolphinTrans_tra_ref_id" ColumnName="DolphinTrans_tra_ref_id" />
-                <ScalarProperty Name="TransactionReference" ColumnName="TransactionReference" />
-                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
-                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
-                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
-                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
-                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
-                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
-                <ScalarProperty Name="CustomerContact_serial" ColumnName="CustomerContact_serial" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-                <ScalarProperty Name="wa_shaltname" ColumnName="wa_shaltname" />
-                <ScalarProperty Name="wa_altname" ColumnName="wa_altname" />
-                <ScalarProperty Name="wa_shname" ColumnName="wa_shname" />
-                <ScalarProperty Name="wa_name" ColumnName="wa_name" />
-                <ScalarProperty Name="Warehouse_wa_code" ColumnName="Warehouse_wa_code" />
-                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
-                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
-                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
-                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
-                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
-                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
-                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
-                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
-                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
-                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
-                <ScalarProperty Name="SaleTransactionType_ar" ColumnName="SaleTransactionType_ar" />
-                <ScalarProperty Name="SaleTransactionType_en" ColumnName="SaleTransactionType_en" />
-                <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
-                <ScalarProperty Name="shortaltname" ColumnName="shortaltname" />
-                <ScalarProperty Name="altname" ColumnName="altname" />
-                <ScalarProperty Name="shortname" ColumnName="shortname" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Customer_aux_id" ColumnName="Customer_aux_id" />
-                <ScalarProperty Name="TransactionStatus_ar" ColumnName="TransactionStatus_ar" />
-                <ScalarProperty Name="TransactionStatus_en" ColumnName="TransactionStatus_en" />
-                <ScalarProperty Name="TransactionStatusId" ColumnName="TransactionStatusId" />
-                <ScalarProperty Name="ps_shaltname" ColumnName="ps_shaltname" />
-                <ScalarProperty Name="ps_altname" ColumnName="ps_altname" />
-                <ScalarProperty Name="ps_shname" ColumnName="ps_shname" />
-                <ScalarProperty Name="ps_name" ColumnName="ps_name" />
-                <ScalarProperty Name="POS_ps_code" ColumnName="POS_ps_code" />
-                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DeliveryRequestTechnician">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestTechnician">
               <MappingFragment StoreEntitySet="DeliveryRequestTechnician">
@@ -10182,18 +10066,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
                 <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
                 <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
                 <ScalarProperty Name="DeliveryRequestTechnicianId" ColumnName="DeliveryRequestTechnicianId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryRequestTechnicianView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView">
-              <MappingFragment StoreEntitySet="DeliveryRequestTechnicianView">
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="altname" ColumnName="altname" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
-                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
-                <ScalarProperty Name="DeliveryRequestTechnicalId" ColumnName="DeliveryRequestTechnicalId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10407,6 +10279,168 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
                 <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
                 <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
                 <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
+                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryRequestTechnicianView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView">
+              <MappingFragment StoreEntitySet="DeliveryRequestTechnicianView">
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="altname" ColumnName="altname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+                <ScalarProperty Name="DeliveryRequestTechnicianId" ColumnName="DeliveryRequestTechnicianId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionView">
+              <MappingFragment StoreEntitySet="TransactionView">
+                <ScalarProperty Name="ReferenceTransactionId" ColumnName="ReferenceTransactionId" />
+                <ScalarProperty Name="TransactionDateTime" ColumnName="TransactionDateTime" />
+                <ScalarProperty Name="TransactionTypeId" ColumnName="TransactionTypeId" />
+                <ScalarProperty Name="CustomerAccountName" ColumnName="CustomerAccountName" />
+                <ScalarProperty Name="DolphinCustomerName" ColumnName="DolphinCustomerName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="WithInstallationService" ColumnName="WithInstallationService" />
+                <ScalarProperty Name="DolphinTrans_tra_ref_type" ColumnName="DolphinTrans_tra_ref_type" />
+                <ScalarProperty Name="DolphinTrans_tra_ref_id" ColumnName="DolphinTrans_tra_ref_id" />
+                <ScalarProperty Name="TransactionReference" ColumnName="TransactionReference" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
+                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="CustomerContact_serial" ColumnName="CustomerContact_serial" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="wa_shaltname" ColumnName="wa_shaltname" />
+                <ScalarProperty Name="wa_altname" ColumnName="wa_altname" />
+                <ScalarProperty Name="wa_shname" ColumnName="wa_shname" />
+                <ScalarProperty Name="wa_name" ColumnName="wa_name" />
+                <ScalarProperty Name="Warehouse_wa_code" ColumnName="Warehouse_wa_code" />
+                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
+                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
+                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
+                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
+                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
+                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
+                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
+                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
+                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
+                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DeliveryDateTime" ColumnName="DeliveryDateTime" />
+                <ScalarProperty Name="SaleTransactionType_ar" ColumnName="SaleTransactionType_ar" />
+                <ScalarProperty Name="SaleTransactionType_en" ColumnName="SaleTransactionType_en" />
+                <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
+                <ScalarProperty Name="shortaltname" ColumnName="shortaltname" />
+                <ScalarProperty Name="altname" ColumnName="altname" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Customer_aux_id" ColumnName="Customer_aux_id" />
+                <ScalarProperty Name="TransactionStatus_ar" ColumnName="TransactionStatus_ar" />
+                <ScalarProperty Name="TransactionStatus_en" ColumnName="TransactionStatus_en" />
+                <ScalarProperty Name="TransactionStatusId" ColumnName="TransactionStatusId" />
+                <ScalarProperty Name="ps_shaltname" ColumnName="ps_shaltname" />
+                <ScalarProperty Name="ps_altname" ColumnName="ps_altname" />
+                <ScalarProperty Name="ps_shname" ColumnName="ps_shname" />
+                <ScalarProperty Name="ps_name" ColumnName="ps_name" />
+                <ScalarProperty Name="POS_ps_code" ColumnName="POS_ps_code" />
+                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeliveryRequestView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.DeliveryRequestView">
+              <MappingFragment StoreEntitySet="DeliveryRequestView">
+                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
+                <ScalarProperty Name="WithInstallationService" ColumnName="WithInstallationService" />
+                <ScalarProperty Name="DeliveryPermission" ColumnName="DeliveryPermission" />
+                <ScalarProperty Name="StoreReceivedPermission" ColumnName="StoreReceivedPermission" />
+                <ScalarProperty Name="AssignPermission" ColumnName="AssignPermission" />
+                <ScalarProperty Name="EditPermission" ColumnName="EditPermission" />
+                <ScalarProperty Name="ActualDeliveryDateTime" ColumnName="ActualDeliveryDateTime" />
+                <ScalarProperty Name="SystemName" ColumnName="SystemName" />
+                <ScalarProperty Name="SystemId" ColumnName="SystemId" />
+                <ScalarProperty Name="AlternativeContactTelephone" ColumnName="AlternativeContactTelephone" />
+                <ScalarProperty Name="AlternativeContactName" ColumnName="AlternativeContactName" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="CustomerContact_serial" ColumnName="CustomerContact_serial" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="wa_shaltname" ColumnName="wa_shaltname" />
+                <ScalarProperty Name="wa_altname" ColumnName="wa_altname" />
+                <ScalarProperty Name="wa_shname" ColumnName="wa_shname" />
+                <ScalarProperty Name="wa_name" ColumnName="wa_name" />
+                <ScalarProperty Name="Warehouse_wa_code" ColumnName="Warehouse_wa_code" />
+                <ScalarProperty Name="ModifyUser_FullName_ar" ColumnName="ModifyUser_FullName_ar" />
+                <ScalarProperty Name="ModifyUser_FullName_en" ColumnName="ModifyUser_FullName_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUser_LastName_ar" ColumnName="ModifyUser_LastName_ar" />
+                <ScalarProperty Name="ModifyUser_LastName_en" ColumnName="ModifyUser_LastName_en" />
+                <ScalarProperty Name="ModifyUser_FirstName_ar" ColumnName="ModifyUser_FirstName_ar" />
+                <ScalarProperty Name="ModifyUser_FirstName_en" ColumnName="ModifyUser_FirstName_en" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser_FullName_ar" ColumnName="CreateUser_FullName_ar" />
+                <ScalarProperty Name="CreateUser_FullName_en" ColumnName="CreateUser_FullName_en" />
+                <ScalarProperty Name="CreateUser_LastName_ar" ColumnName="CreateUser_LastName_ar" />
+                <ScalarProperty Name="CreateUser_LastName_en" ColumnName="CreateUser_LastName_en" />
+                <ScalarProperty Name="CreateUser_FirstName_ar" ColumnName="CreateUser_FirstName_ar" />
+                <ScalarProperty Name="CreateUser_FirstName_en" ColumnName="CreateUser_FirstName_en" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DeliveryRequestDateTime" ColumnName="DeliveryRequestDateTime" />
+                <ScalarProperty Name="SaleTransactionType_ar" ColumnName="SaleTransactionType_ar" />
+                <ScalarProperty Name="SaleTransactionType_en" ColumnName="SaleTransactionType_en" />
+                <ScalarProperty Name="SaleTransactionTypeId" ColumnName="SaleTransactionTypeId" />
+                <ScalarProperty Name="shortaltname" ColumnName="shortaltname" />
+                <ScalarProperty Name="altname" ColumnName="altname" />
+                <ScalarProperty Name="shortname" ColumnName="shortname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Customer_aux_id" ColumnName="Customer_aux_id" />
+                <ScalarProperty Name="DeliveryRequestStatus_ar" ColumnName="DeliveryRequestStatus_ar" />
+                <ScalarProperty Name="DeliveryRequestStatus_en" ColumnName="DeliveryRequestStatus_en" />
+                <ScalarProperty Name="DeliveryRequestStatusId" ColumnName="DeliveryRequestStatusId" />
+                <ScalarProperty Name="ps_shaltname" ColumnName="ps_shaltname" />
+                <ScalarProperty Name="ps_altname" ColumnName="ps_altname" />
+                <ScalarProperty Name="ps_shname" ColumnName="ps_shname" />
+                <ScalarProperty Name="ps_name" ColumnName="ps_name" />
+                <ScalarProperty Name="POS_ps_code" ColumnName="POS_ps_code" />
+                <ScalarProperty Name="DeliveryRequestId" ColumnName="DeliveryRequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetailsView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionDetailsView">
+              <MappingFragment StoreEntitySet="TransactionDetailsView">
+                <ScalarProperty Name="ReferenceTransactionDetailsId" ColumnName="ReferenceTransactionDetailsId" />
+                <ScalarProperty Name="DolphinTransB_trb_serial_id" ColumnName="DolphinTransB_trb_serial_id" />
+                <ScalarProperty Name="fa_code" ColumnName="fa_code" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="fa_shaltname" ColumnName="fa_shaltname" />
+                <ScalarProperty Name="fa_altname" ColumnName="fa_altname" />
+                <ScalarProperty Name="fa_shname" ColumnName="fa_shname" />
+                <ScalarProperty Name="fa_name" ColumnName="fa_name" />
+                <ScalarProperty Name="ia_shaltname" ColumnName="ia_shaltname" />
+                <ScalarProperty Name="ia_altname" ColumnName="ia_altname" />
+                <ScalarProperty Name="ia_shname" ColumnName="ia_shname" />
+                <ScalarProperty Name="ia_name" ColumnName="ia_name" />
+                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
                 <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
               </MappingFragment>
             </EntityTypeMapping>

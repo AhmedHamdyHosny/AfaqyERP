@@ -117,8 +117,27 @@
 
 @section scripts{
     <script>
+        @{
+
+            DeliveryRequestAccessRole permissions = (DeliveryRequestAccessRole)ViewBag.Permissions;
+            string GridActions = "<div class=\"ui-grid-cell-contents ng-binding ng-scope\">" +
+                    "<div class=\"btn-group\">";
+            if (permissions.DetailsPremission)
+            {
+                GridActions += "<button class=\"btn btn-xs\" ng-click=\"grid.appScope.details(row.entity.DeliveryRequestId)\"><i class=\"fa fa-info\"></i>" + Resources.Resource.ButtonDetails + "</button>";
+            }
+
+            GridActions += "<a ng-show=\"row.entity.showActions\" class=\"btn btn-default btn-xs dropdown-toggle\" data-toggle=\"dropdown\">" + Resources.Resource.Actions + "<i class=\"fa fa-angle-down\"></i></a>" +
+                        "<ul class=\"dropdown-menu\">";
+            GridActions += permissions.EditPremission ? "<li><a ng-show=\"row.entity.EditPermission\" ng-click=\"grid.appScope.edit(row.entity.DeliveryRequestId)\" >"+Resources.Resource.ButtonEdit+"</a></li>"  : "";
+            GridActions += permissions.AssignPremission ? "<li><a ng-show=\"row.entity.AssignPermission\" ng-click=\"grid.appScope.assign(row.entity.DeliveryRequestId)\">"+Resources.Resource.ButtonAssign+"</a></li>" : "";
+            GridActions += permissions.RececivedPremission ? "<li><a ng-show=\"row.entity.StoreReceivedPermission\" ng-click=\"grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)\">"+Resources.Store.ButtonStoreReceived+"</a></li>" : "";
+            GridActions += permissions.DeliveryPremission ? "<li><a ng-show=\"row.entity.DeliveryPermission\" ng-click=\"grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)\">"+Resources.Store.ButtonDelivery+"</a></li>" : "";
+            GridActions += "</ul></div></div>";
+        }
+        var gridAction = @Html.Raw(JsonConvert.SerializeObject(GridActions).Replace("'", @"\'"));
         var gridColumnDefs = [
-            { field: 'CustomerName_en', name: '@Resources.ServerManagement.Customer', width: 200 },
+            { field: 'CustomerName', name: '@Resources.ServerManagement.Customer', width: 200 },
             { field: 'SaleTransactionType_en', name: '@Resources.Sales.SaleTransactionType', width: 140 },
             { field: 'DeliveryRequestDateTime', name: '@Resources.Store.DeliveryDateTime', width: 150 },
             { field: 'DeliveryRequestStatus_en', name: '@Resources.Store.DeliveryRequestStatus', width: 120 },
@@ -126,34 +145,10 @@
             { field: 'IsBlock', name: '@Resources.Resource.IsBlock', width: 80 },
             {
                 name: 'Action', cellTemplate:
-                    '<div class="ui-grid-cell-contents ng-binding ng-scope">' +
-                    '<div class="btn-group">'+
-                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>'+
-                        '<a ng-show="row.entity.showActions" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Actions <i class="fa fa-angle-down"></i>' + '</a>' +
-                        '<ul class="dropdown-menu">'+
-                            '<li>'+
-                                '<a ng-show="row.entity.EditPermission" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" >@Resources.Resource.ButtonEdit</a>' +
-                            '</li>'+
-                            '<li>'+
-                                '<a ng-show="row.entity.AssignPermission" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)">@Resources.Resource.ButtonAssign</a>' +
-                            '</li>'+
-                            '<li>'+
-                                '<a ng-show="row.entity.StoreReceivedPermission" ng-click="grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)">@Resources.Store.ButtonStoreReceived</a>' +
-                            '</li>' +
-                            '<li>' +
-                                '<a ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)">@Resources.Store.ButtonDelivery</a>' +
-                            '</li>' +
-                            '</ul></div>'+
-
-                            @*'<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showEdit" ng-click="grid.appScope.edit(row.entity.DeliveryRequestId)" ><i class="fa fa-edit"></i>@Resources.Resource.ButtonEdit</button>' +
-                    '<button class="btn btn-xs" ng-click="grid.appScope.details(row.entity.DeliveryRequestId)"><i class="fa fa-info"></i>@Resources.Resource.ButtonDetails</button>' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.showAssign" ng-click="grid.appScope.assign(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Resource.ButtonAssign</button>' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.StoreReceivedPermission" ng-click="grid.appScope.ReceivedDeliveryRequest(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonStoreReceived</button>' +
-                    '<button class="btn btn-info btn-xs edit action-edit" ng-show="row.entity.DeliveryPermission" ng-click="grid.appScope.GotoDelivery(row.entity.DeliveryRequestId)"><i class="fa fa-edit"></i>@Resources.Store.ButtonDelivery</button>' +*@
-                    '</div>'
+                    gridAction
                 ,
-                enableSorting: false, enableFiltering: false, width: 200
-            }
+            enableSorting: false, enableFiltering: false, width: 200
+        }
         ];
 
         var deleteModalOptions = {
@@ -171,7 +166,6 @@
         var deleteActionUrl = '@Url.Action("DeleteGroup")';
         var ContactsGetInfoUrl = '@Url.Action("GetInfo", "CustomerContact")'
         var DeliveryNoteUrl = '@Url.Action("Index","DeliveryNote")'
-
 
         var requestDetailsGridColumnDefs = [
             {
@@ -269,9 +263,6 @@
                 width: '20%'
             }
         ];
-
-        
-
 
     </script>
 }

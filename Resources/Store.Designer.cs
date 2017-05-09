@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naming Type.
+        /// </summary>
+        public static string DeliveryNamingType {
+            get {
+                return ResourceManager.GetString("DeliveryNamingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delivery Note.
         /// </summary>
         public static string DeliveryNote {
@@ -286,6 +295,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Delivery Request Approved by Store and in Delivery Phase.
+        /// </summary>
+        public static string DeliveryRequestInDeliveryPhaseNotificationContent {
+            get {
+                return ResourceManager.GetString("DeliveryRequestInDeliveryPhaseNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Request in Delivery Phase Execution.
+        /// </summary>
+        public static string DeliveryRequestInDeliveryPhaseNotificationTitle {
+            get {
+                return ResourceManager.GetString("DeliveryRequestInDeliveryPhaseNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Delivery Request.
         /// </summary>
         public static string DeliveryRequestNew {
@@ -318,6 +345,33 @@ namespace Resources {
         public static string DeliveryRequestStatus {
             get {
                 return ResourceManager.GetString("DeliveryRequestStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Return.
+        /// </summary>
+        public static string DeliveryReturn {
+            get {
+                return ResourceManager.GetString("DeliveryReturn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Delivery Return.
+        /// </summary>
+        public static string DeliveryReturnCreate {
+            get {
+                return ResourceManager.GetString("DeliveryReturnCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Delivery Return.
+        /// </summary>
+        public static string DeliveryReturnNew {
+            get {
+                return ResourceManager.GetString("DeliveryReturnNew", resourceCulture);
             }
         }
         
@@ -565,15 +619,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dolphin Ref.
-        /// </summary>
-        public static string DolphinReference {
-            get {
-                return ResourceManager.GetString("DolphinReference", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Firmware.
         /// </summary>
         public static string Firmware {
@@ -615,6 +660,15 @@ namespace Resources {
         public static string TechnicianAssignedDeliveryRequestNotificationTitle {
             get {
                 return ResourceManager.GetString("TechnicianAssignedDeliveryRequestNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction Ref.
+        /// </summary>
+        public static string TransactionReference {
+            get {
+                return ResourceManager.GetString("TransactionReference", resourceCulture);
             }
         }
         

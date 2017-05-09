@@ -289,6 +289,8 @@
     <Compile Include="Classes\Common\GenericController.cs" />
     <Compile Include="Classes\DB UserTypeDefined\DBUserDefined.cs" />
     <Compile Include="Classes\Helper\HtmlHelper.cs" />
+    <Compile Include="Classes\Utilities\AccessRole.cs" />
+    <Compile Include="Classes\Utilities\DBExecuteResult.cs" />
     <Compile Include="Classes\Utilities\JsonResponse.cs" />
     <Compile Include="Classes\Utilities\MyHttpRequestMessage.cs" />
     <Compile Include="Classes\Utilities\SecurityMethods.cs" />
@@ -327,6 +329,7 @@
     <Compile Include="Controllers\DeliveryRequestController.cs" />
     <Compile Include="Controllers\DeliveryReturnController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
+    <Compile Include="Controllers\ApiDeviceNamingTypeController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiBranchController.cs" />
@@ -405,6 +408,7 @@
     <Compile Include="Models\DeliveryReturnModel.cs" />
     <Compile Include="Models\DeliveryTechnicianModel.cs" />
     <Compile Include="Models\DeviceModel.cs" />
+    <Compile Include="Models\DeviceNamingTypeModel.cs" />
     <Compile Include="Models\ModelTypeModel.cs" />
     <Compile Include="Models\DeviceSIMModel.cs" />
     <Compile Include="Models\DeviceStatusHistoryModel.cs" />
@@ -1106,12 +1110,14 @@
     <Content Include="Views\DeliveryNote\ServerAdd.cshtml" />
     <Content Include="Views\DeliveryNote\TechnicalApproval.cshtml" />
     <Content Include="Views\DeliveryNote\StoreDeviceNaming.cshtml" />
-    <Content Include="Views\DeliveryNote\Partial_DeliveryNoteDetails.cshtml" />
+    <Content Include="Views\DeliveryNote\Partial_DeliveryDetails.cshtml" />
+    <Content Include="Views\DeliveryReturn\Create.cshtml" />
+    <Content Include="Views\DeliveryReturn\Index.cshtml" />
+    <Content Include="Views\DeliveryReturn\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Store\" />
-    <Folder Include="Views\DeliveryReturn\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

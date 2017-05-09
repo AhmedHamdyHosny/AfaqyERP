@@ -384,4 +384,10 @@
   <data name="DeliveryNoteServerAddedNotificationTitle" xml:space="preserve">
     <value>Delivery Note Added to Server</value>
   </data>
+  <data name="DeliveryNoteServerAddNotificationContent" xml:space="preserve">
+    <value>New Delivery Note ready for Server Adding</value>
+  </data>
+  <data name="DeliveryNoteServerAddNotificationTitle" xml:space="preserve">
+    <value>Delivery Note Server Adding</value>
+  </data>
 </root>

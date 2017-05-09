@@ -89,7 +89,7 @@ namespace Afaqy_Store.Models
             }
         }
 
-        internal List<Employee> GetEmployee(bool withManager = false, int? jobTitleId = null)
+        internal List<Employee> GetEmployee(bool withManager = false, int? jobTitleId = null, int? departmentId = null, string branchId = null)
         {
             List<GenericDataFormat.FilterItems> filters = new List<GenericDataFormat.FilterItems>();
             
@@ -100,6 +100,28 @@ namespace Afaqy_Store.Models
                     Property = "JobTitleId",
                     Operation = GenericDataFormat.FilterOperations.Equal,
                     Value = jobTitleId,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+            }
+
+            if (departmentId != null)
+            {
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "DepartmentId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = departmentId,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+            }
+                
+            if (!string.IsNullOrEmpty(branchId))
+            {
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "Branch_br_code",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = branchId,
                     LogicalOperation = GenericDataFormat.LogicalOperations.And
                 });
             }
@@ -144,6 +166,7 @@ namespace Afaqy_Store.Models
             List<Employee> emps = new EmployeeModel<Employee>().Get(requestBody);
             return emps;
         }
+        
     }
 
     public class EmployeeViewModel : EmployeeView

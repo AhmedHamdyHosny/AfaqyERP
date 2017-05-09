@@ -34,6 +34,11 @@
 .controller('DeliveryNoteTechnicalApprovalCtrl', DeliveryNoteTechnicalApprovalCtrl)
 .controller('DeliveryNoteStoreDeviceNamingCtrl', DeliveryNoteStoreDeviceNamingCtrl)
 
+//DeliveryReturn controllers ========
+.controller('DeliveryReturnCtrl', DeliveryReturnCtrl)
+.controller('DeliveryReturnCreateCtrl', DeliveryReturnCreateCtrl)
+.controller('DeliveryReturnDetailsCtrl', DeliveryReturnDetailsCtrl)
+
 //Device functions ========
 function DeviceCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
 
@@ -403,16 +408,18 @@ function DeliveryRequestCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridC
         }
         
     }
-    $scope.bindGirdData = function () {
-        //bind item families
-        for (var i = 0; i < $scope.gridOptions.data.length; i++) {
-            $scope.gridOptions.data[i].ItemFamilies = itemFamilies
-            if ($scope.gridOptions.data[i].ItemFamilies != null && $scope.gridOptions.data[i].ItemFamilies.length > 0) {
-                $scope.gridOptions.data[i].ItemFamily = $scope.gridOptions.data[i].ItemFamilies[0].Value;
-                $scope.gridOptions.data[i].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String($scope.gridOptions.data[i].ItemFamily) } });
-            }
 
-        }
+    $scope.bindGirdData = function () {
+        //Default Load
+        $scope.GetItems();
+        //bind item families
+        //for (var i = 0; i < $scope.gridOptions.data.length; i++) {
+        //    $scope.gridOptions.data[i].ItemFamilies = itemFamilies
+        //    if ($scope.gridOptions.data[i].ItemFamilies != null && $scope.gridOptions.data[i].ItemFamilies.length > 0) {
+        //        $scope.gridOptions.data[i].ItemFamily = $scope.gridOptions.data[i].ItemFamilies[0].Value;
+        //        $scope.gridOptions.data[i].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String($scope.gridOptions.data[i].ItemFamily) } }, true);
+        //    }
+        //}
     }
     $scope.bindModel = function (SelectedFamily, rowIndex) {
         $scope.gridOptions.data[rowIndex].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(SelectedFamily) } }, true);
@@ -445,18 +452,16 @@ function DeliveryRequestCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridC
         };
         
         $scope.gridOptions.data = [];
-        //var requestDetails = { ModelTypes: $scope.ModelTypes, Quantity: 1 };
-        //if (requestDetails.ItemFamilies != null && requestDetails.ItemFamilies.length > 0) {
-        //    requestDetails.ItemFamily = requestDetails.ItemFamilies[0];
-        //}
-        $scope.gridOptions.data.push({Quantity: 1 });
+        $scope.create();
 
     }
-    //Default Load
-    $scope.GetItems();
 
     $scope.create = function () {
-        $scope.gridOptions.data.push({ ItemFamilies: itemFamilies, ModelTypes: modelTypes, Quantity: 1 });
+        var gridRowData = { ItemFamilies: itemFamilies, ItemFamily: itemFamilies[0].Value.toString(), Quantity: 1, Note: '' }
+        if (gridRowData.ItemFamily != null) {
+            gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } }, true);
+        }
+        $scope.gridOptions.data.push(gridRowData);
     }
     $scope.DeleteItems = function (ev) {
         var modalOptions = deleteModalOptions;
@@ -714,7 +719,7 @@ function DeliveryNoteCtrl($scope, $uibModal, confirmService, global, gridService
             //get selected ids from grid
             var selectedItems = $scope.gridApi.selection.getSelectedRows();
             selectedItems.forEach(function (item) {
-                selectedIds.push(item.DeliveryNoteId)
+                selectedIds.push(item.TransactionId)
             });
 
             //call delete confirm method and pass ids
@@ -1013,11 +1018,11 @@ function DeliveryNoteEditCtrl($scope, $uibModalInstance, $uibModal, uiGridConsta
     $scope.bindGirdData = function () {
         //Default Load
         $scope.GetItems();
-        //store Delivery RequestId
-        $scope.DeliveryNoteId = gridData[0].DeliveryNoteId;
+        //store Delivery Note Id
+        $scope.TransactionId = gridData[0].TransactionId;
 
         for (var i = 0; i < gridData.length; i++) {
-            var gridRowData = { DeliveryDetailsId: gridData[i].DeliveryDetailsId, DeliveryNoteId: gridData[i].DeliveryNoteId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].DeviceModelType.ItemFamilyId.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
+            var gridRowData = { DeliveryDetailsId: gridData[i].DeliveryDetailsId, TransactionId: gridData[i].DeliveryNoteId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].DeviceModelType.ItemFamilyId.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
 
             if (gridRowData.ItemFamily != null) {
                 gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
@@ -1062,7 +1067,7 @@ function DeliveryNoteEditCtrl($scope, $uibModalInstance, $uibModal, uiGridConsta
     }
 
     $scope.create = function () {
-        var gridRowData = { DeliveryDetailsId: 0, DeliveryNoteId: $scope.DeliveryNoteId, ItemFamilies: itemFamilies, ItemFamily: itemFamilies[0].Value.toString(), Quantity: 1, Note: '' }
+        var gridRowData = { DeliveryDetailsId: 0, TransactionId: $scope.TransactionId, ItemFamilies: itemFamilies, ItemFamily: itemFamilies[0].Value.toString(), Quantity: 1, Note: '' }
 
         if (gridRowData.ItemFamily != null) {
             gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
@@ -1136,8 +1141,8 @@ function DeliveryNoteServerAddCtrl($scope, $uibModalInstance) {
     //var gridOptions = {}
     //ui-Grid Call
     $scope.bindDeliveryDetailsAndDevicesGirdData = function () {
-        $scope.bindDeliveryDetailsGirdData();
         $scope.bindDeliveryDevicesGirdData();
+        $scope.bindDeliveryDetailsGirdData();
     }
 
     $scope.bindDeliveryDetailsGirdData = function () {
@@ -1204,8 +1209,8 @@ function DeliveryNoteTechnicalApprovalCtrl($scope, $uibModalInstance) {
     //var gridOptions = {}
     //ui-Grid Call
     $scope.bindDeliveryDetailsAndDevicesGirdData = function () {
-        $scope.bindDeliveryDetailsGirdData();
         $scope.bindDeliveryDevicesGirdData();
+        $scope.bindDeliveryDetailsGirdData();
     }
 
     $scope.bindDeliveryDetailsGirdData = function () {
@@ -1278,8 +1283,8 @@ function DeliveryNoteStoreDeviceNamingCtrl($scope, $uibModalInstance) {
     //var gridOptions = {}
     //ui-Grid Call
     $scope.bindDeliveryDetailsAndDevicesGirdData = function () {
-        $scope.bindDeliveryDetailsGirdData();
         $scope.bindDeliveryDevicesGirdData();
+        $scope.bindDeliveryDetailsGirdData();
     }
 
     $scope.bindDeliveryDetailsGirdData = function () {
@@ -1334,6 +1339,353 @@ function DeliveryNoteStoreDeviceNamingCtrl($scope, $uibModalInstance) {
             },
         };
         $scope.deliveryDevicesGridOptions.data = deliveryDevicesData;
+
+        for (var i = 0; i < $scope.deliveryDevicesGridOptions.data.length; i++) {
+            $scope.deliveryDevicesGridOptions.data[i].NamingTypes = namingTypes;
+            $scope.deliveryDevicesGridOptions.data[i].DeviceNamingType = namingTypes[0].Value.toString();
+        }
     }
 
+}
+
+
+//DeliveryReturn functions ========
+function DeliveryReturnCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+
+    ctrlService.initCtrl($scope);
+
+    gridService.initGrid($scope);
+
+    gridService.configureExport($scope);
+
+    $scope.create = function (deliveryNoteId) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: createActionUrl + '/' + deliveryNoteId,
+            controller: 'DeliveryReturnCreateCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.edit = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: editActionUrl + '/' + id,
+            controller: 'DeliveryReturnEditCtrl',
+            scope: $scope,
+            backdrop: false,
+        });
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.details = function (id) {
+        showLoading();
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: detailsActionUrl + '/' + id,
+            controller: 'DeliveryReturnDetailsCtrl',
+            windowClass: 'meduim-Modal',
+            scope: $scope,
+            backdrop: false,
+        });
+
+        modalInstance.result.then(null, function () { });
+    }
+
+    $scope.DeleteItems = function (ev) {
+
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.TransactionId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
+    }
+
+    if (deliveryNoteId != null && deliveryNoteId != '') {
+        var transactionId = Number(deliveryNoteId);
+        if (!isNaN(transactionId)) {
+            $scope.create(transactionId);
+        }
+    }
+
+}
+
+function DeliveryReturnCreateCtrl($scope, $uibModalInstance, $uibModal, uiGridConstants, $q, $filter, global, confirmService) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.bindDetailsGirdData = function () {
+        //Default Load
+        $scope.GetDetailsItems();
+        //store Delivery RequestId
+        //$scope.DeliveryRequestId = gridData[0].DeliveryRequestId;
+        //for (var i = 0; i < gridData.length; i++) {
+        //    var gridRowData = { DeliveryRequestDetailsId: gridData[i].DeliveryRequestDetailsId, DeliveryRequestId: gridData[i].DeliveryRequestId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].fa_code.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
+        //    if (gridRowData.ItemFamily != null) {
+        //        gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
+        //    }
+        //    gridRowData.ModelType = gridData[i].ModelType_ia_item_id.toFixed(1).toString();
+        //    $scope.gridOptions.data.push(gridRowData);
+        //}
+
+    }
+    //ui-Grid Call
+    $scope.GetDetailsItems = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.gridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: deliveryDetailsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.gridOptions.data = deliveryDetailsData;
+    }
+    //Device Grid Region
+    $scope.bindDeviceGirdData = function () {
+        //Default Load
+        $scope.GetDeviceItems();
+        $scope.createDevice();
+    }
+    $scope.GetDeviceItems = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.deviceGridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: deliveryDeviceGridColumnDefs,
+            onRegisterApi: function (deviceGridApi) {
+                $scope.deviceGridApi = deviceGridApi;
+                deviceGridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.deviceGridOptions.data = [];
+        $scope.setDeviceRows();
+    }
+    $scope.createDevice = function () {
+        var deviceGridRowData = { IMEI: '', DeviceId: 0, IMEI_LoadingClass: '' }
+        $scope.deviceGridOptions.data.push(deviceGridRowData);
+    }
+    $scope.DeleteDevices = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            //get selected ids from grid
+            var selectedItems = $scope.deviceGridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                $scope.deviceGridOptions.data.pop(item)
+            });
+            hideLoading();
+        });
+    }
+    $scope.bindDeviceIMEI = function (index, imei) {
+        //get device Id
+        var data = getDeviceFilterData(imei);
+        //reset device information
+        $scope.deviceGridOptions.data[index].DeviceId = null;
+        $scope.deviceGridOptions.data[index].IMEI_LoadingClass = "loading";
+        var url = DeviceGetInfoUrl;
+        global.post(url, data, function (resp) {
+            var result = resp.data
+            if (result != undefined && result != null) {
+                if (result.length == 1) {
+                    var device = result[0];
+                    $scope.deviceGridOptions.data[index].DeviceId = device.DeviceId;
+                    $scope.deviceGridOptions.data[index].ModelType_ia_item_id = device.ModelType_ia_item_id;
+                }
+            }
+        }, function (resp) {
+            console.log("Error: " + error);
+        }, function () {
+
+        }, function () {
+
+        });
+        $scope.deviceGridOptions.data[index].IMEI_LoadingClass = "";
+    }
+    $scope.setDeviceRows = function () {
+        //get total device count
+        var totalDeviceCount = 0;
+        //filter by device only
+        var deviceRows = $filter('filter')($scope.gridOptions.data, { fa_code: "001001" });
+        for (var i = 0; i < deviceRows.length ; i++) {
+            totalDeviceCount += deviceRows[i].Quantity
+        }
+        if (totalDeviceCount > 0) {
+            var deviceCount = $scope.deviceGridOptions.data.length;
+            if (deviceCount == 0) {
+                deviceCount = 1;
+            }
+            if (totalDeviceCount > deviceCount) {
+                for (var i = deviceCount; i < totalDeviceCount ; i++) {
+                    $scope.createDevice();
+                }
+            }
+            else if (totalDeviceCount < deviceCount) {
+                for (var i = deviceCount; i > totalDeviceCount ; i--) {
+                    $scope.deviceGridOptions.data.pop()
+                }
+            }
+        }
+        
+    }
+}
+
+function DeliveryReturnEditCtrl($scope, $uibModalInstance, $uibModal, uiGridConstants, $q, $filter, global, confirmService) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.bindGirdData = function () {
+        //Default Load
+        $scope.GetItems();
+        //store Delivery Note Id
+        $scope.TransactionId = gridData[0].TransactionId;
+
+        for (var i = 0; i < gridData.length; i++) {
+            var gridRowData = { DeliveryDetailsId: gridData[i].DeliveryDetailsId, TransactionId: gridData[i].DeliveryNoteId, ItemFamilies: itemFamilies, ItemFamily: gridData[i].DeviceModelType.ItemFamilyId.toString(), Quantity: gridData[i].Quantity, Note: gridData[i].Note }
+
+            if (gridRowData.ItemFamily != null) {
+                gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
+            }
+            gridRowData.ModelType = gridData[i].ModelType_ia_item_id.toString()
+            $scope.gridOptions.data.push(gridRowData);
+        }
+
+    }
+    $scope.bindModel = function (SelectedFamily, rowIndex) {
+        $scope.gridOptions.data[rowIndex].ModelType = null;
+        $scope.gridOptions.data[rowIndex].ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(SelectedFamily) } });
+    }
+    //ui-Grid Call
+    $scope.GetItems = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.gridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: editRequestDetailsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.gridOptions.data = [];
+    }
+    $scope.create = function () {
+        var gridRowData = { DeliveryDetailsId: 0, TransactionId: $scope.TransactionId, ItemFamilies: itemFamilies, ItemFamily: itemFamilies[0].Value.toString(), Quantity: 1, Note: '' }
+
+        if (gridRowData.ItemFamily != null) {
+            gridRowData.ModelTypes = $filter('filter')(modelTypes, { Group: { Name: String(gridRowData.ItemFamily) } });
+        }
+        $scope.gridOptions.data.push(gridRowData);
+    }
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                $scope.gridOptions.data.pop(item)
+            });
+            hideLoading();
+        });
+    }
+}
+
+function DeliveryReturnDetailsCtrl($scope, $uibModalInstance) {
+    hideLoading();
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+
+    var gridOptions = {}
+    //ui-Grid Call
+    $scope.bindGirdData = function () {
+        $scope.result = "color-green";
+        $scope.highlightFilteredHeader = function (row, rowRenderIndex, col, colRenderIndex) {
+            if (col.filters[0].term) {
+                return 'header-filtered';
+            } else {
+                return '';
+            }
+        };
+        $scope.gridOptions = {
+            useExternalPagination: false,
+            useExternalSorting: false,
+            enableFiltering: false,
+            enableRowSelection: true,
+            enableSelectAll: true,
+            columnDefs: detailsRequestDetailsGridColumnDefs,
+            onRegisterApi: function (gridApi) {
+                $scope.gridApi = gridApi;
+                gridApi.core.on.columnVisibilityChanged($scope, function (changedColumn) {
+                    $scope.columnChanged = { name: changedColumn.colDef.name, visible: changedColumn.colDef.visible };
+                });
+            },
+        };
+
+        $scope.gridOptions.data = gridData;
+    }
 }

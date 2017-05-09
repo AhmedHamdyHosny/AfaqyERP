@@ -53,7 +53,7 @@ function confirmService($uibModal)
 function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, uiGridExporterService, global) {
     
     return {
-        initGrid: function ($scope, postBind) {
+        initGrid: function ($scope, postBind, gridSort) {
             var fakeI18n = function (title) {
                 var deferred = $q.defer();
                 $interval(function () {
@@ -200,6 +200,11 @@ function gridService(uiGridConstants, $interval, $q, uiGridExporterConstants, ui
                 }
                 var NextPageSize = $scope.pagination.pageSize;
                 gridOptions.Paging = { PageNumber: NextPage, PageSize: NextPageSize };
+                if (gridSort != null) {
+                    gridOptions.Sorts = gridSort;
+                } else {
+                    gridOptions.Sorts = [{ Property: 'CreateDate', SortType: 'Desc', Priority: 1 }]
+                }
                 var url = getViewActionUrl; //+ '/' + NextPage + '/' + NextPageSize;
                 global.post(url, gridOptions, function (resp) {
                     //console.log(JSON.stringify("hi--------------:"+resp.data));

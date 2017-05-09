@@ -85,16 +85,11 @@ namespace Classes.Common
 
     public class DBEnums
     {
-        //public enum UserType
-        //{
-        //    System_Adminstrator = 1
-        //        ,
-        //    Technicians_Supervisior = 2,
-        //    Warehouse_Supervisior = 3,
-        //    Sales_Manager = 4,
-        //    Server_Managment_Manager = 5,
-        //    Sales_Man = 6
-        //}
+        public enum UserType
+        {
+            System_Adminstrator = 1,
+            Employee = 2
+        }
 
         public enum Department
         {
@@ -105,6 +100,12 @@ namespace Classes.Common
             Technical_Support = 5,
             Server_Management = 6,
             Software_Developement = 7
+        }
+
+        public class ItemFamily
+        {
+            public const string Devices = "001001";
+            public const string Accessories = "001002";
         }
 
         public enum DeviceStatus
@@ -227,7 +228,7 @@ namespace Classes.Common
             DeliveryRequest_ApproveNotification = 5,
             DeliveryRequest_StoreReceviedNotification = 6,
             DeliveryRequest_InDeliveryPhaseNotification = 7,
-            DeliveryNote_AddedNotification = 8,
+            DeliveryNote_ServerAddNotification = 8,
             DeliveryNote_ServerReceviedNotification = 9,
             DeliveryNote_ServerAddedNotification = 10,
             DeliveryNote_TechnicalApprovedNotification = 11,

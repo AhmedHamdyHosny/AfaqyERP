@@ -412,7 +412,9 @@ namespace Afaqy_Store.Controllers
                 context.SaveChanges();
             }
             */
-            return Content(HttpStatusCode.OK, ""); //Content(HttpStatusCode.OK, result);
+            Transaction result = new Transaction();
+            //Classes.Utilities.DBExecuteResult<Transaction> result = new Classes.Utilities.DBExecuteResult<Transaction>() { Result = Classes.Utilities.DBExecuteResult.ExecuteResult.Success, ResultModel = insertedDeliveryNote };
+            return Content(HttpStatusCode.OK, result);
 
         }
         public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)

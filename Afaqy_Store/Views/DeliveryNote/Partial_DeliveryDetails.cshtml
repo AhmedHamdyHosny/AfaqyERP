@@ -22,6 +22,16 @@
 </div>
 <div class="row">
     <div class="col-xs-6 form-group">
+        @Html.LabelFor(model => model.DolphinCustomerName, Resources.Store.DolphinCustomerName, htmlAttributes: new { @class = "text-info" })
+        @Html.Label(Model.DolphinCustomerName ?? " ", new { @class = "form-control" })
+    </div>
+    <div class="col-xs-6 form-group">
+        @Html.LabelFor(model => model.CustomerAccountName, Resources.ServerManagement.ServerCustomerName, htmlAttributes: new { @class = "text-info" })
+        @Html.Label(Model.CustomerAccountName ?? " ", new { @class = "form-control" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 form-group">
         @Html.LabelFor(model => model.CustomerContact_serial, Resources.Sales.CustomerContact, htmlAttributes: new { @class = "text-info" })
         @Html.Label(Model.contact_name ?? " ", new { @class = "form-control" })
     </div>
@@ -43,15 +53,15 @@
 <div class="row">
     <div class="col-xs-3  form-group">
         <label class="text-info">@Resources.Store.DeliveryDate</label>
-        @Html.Label(DateTime.Parse(Model.DeliveryDateTime).ToShortDateString(), new { @class = "form-control" })
+        @Html.Label(Model.TransactionDateTime.ToShortDateString(), new { @class = "form-control" })
     </div>
     <div class="col-xs-3 form-group">
         <label class="text-info">@Resources.Store.DeliveryTime</label>
-        @Html.Label(DateTime.Parse(Model.DeliveryDateTime).ToShortTimeString(), new { @class = "form-control" })
+        @Html.Label(Model.TransactionDateTime.ToShortTimeString(), new { @class = "form-control" })
     </div>
     <div class="col-xs-6 form-group">
         @Html.LabelFor(model => model.DeliveryTechnicians, Resources.Store.DeliveryTechnician, htmlAttributes: new { @class = "text-info" })
-        @Html.Label(string.Join(", ", Model.DeliveryTechnicians.Select(x => x.name)))
+        @Html.Label(string.Join(", ", Model.DeliveryTechnicians.Select(x => x.name)), new { @style= "display:block" })
     </div>
 </div>
 <div class="row">
@@ -62,8 +72,8 @@
 </div>
 <div class="row">
     <div class="col-xs-6 form-group">
-        @Html.LabelFor(model => model.DeliveryNoteReference, Resources.Store.DolphinReference, htmlAttributes: new { @class = "text-info" })
-        @Html.EditorFor(model => model.DeliveryNoteReference, new { htmlAttributes = new { @class = "form-control", @Readonly = "true" } })
+        @Html.LabelFor(model => model.TransactionReference, Resources.Store.TransactionReference, htmlAttributes: new { @class = "text-info" })
+        @Html.EditorFor(model => model.TransactionReference, new { htmlAttributes = new { @class = "form-control", @Readonly = "true" } })
     </div>
     <div class="col-xs-6 form-group">
         @Html.LabelFor(model => model.Note, Resources.Store.DeliveryRequestNote, htmlAttributes: new { @class = "text-info" })

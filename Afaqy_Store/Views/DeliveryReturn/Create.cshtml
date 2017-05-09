@@ -1,0 +1,125 @@
+﻿@model Afaqy_Store.Models.DeliveryReturnCreateBindModel
+@using BeyondThemes.Bootstrap;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = Resources.Store.DeliveryReturnCreate;
+    Layout = "~/Views/Shared/_Popup.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+    <h2 class="modal-title">@Resources.Store.DeliveryReturnNew</h2>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+{
+    <div class="modal-body withVScroll" >
+        @Html.AntiForgeryToken()
+        <div >
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.DeliveryNote.TransactionId)
+            @{Html.RenderAction("Partial_DeliveryDetails", "DeliveryNote", new { deliveryNote = Model.DeliveryNote });}
+            <div class="row">
+                <div class="col-xs-12 form-group">
+                    @using (var tabs = Html.Bootstrap().Begin(new Tabs("DeliveryTabs").Justified()))
+                    {
+                        tabs.Tab(Resources.Store.DelieryDetails, BootstrapColors.Danger);
+                        tabs.Tab(Resources.Store.Devices, BootstrapColors.Success);
+                        using (tabs.BeginPanel())
+                        {
+                            <div class="form-group" ng-init="bindDetailsGirdData()">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { EnablePagination = false }); }
+                            </div>
+                        }
+                        using (tabs.BeginPanel())
+                        {
+                            <div class="table-toolbar">
+                                <a ng-click="createDevice()" class="btn purple" id="addDeviceBtn">
+                                    <i class="fa fa-plus"></i> @Resources.Resource.ButtonAdd
+                                </a>
+                                <a ng-click="DeleteDevices($event);" class="btn btn-danger">
+                                    <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                                </a>
+                            </div>
+                            <div class="form-group" ng-init="bindDeviceGirdData()">
+                                @{ Html.RenderAction("Partial_Grid", "Common", new { GridId="deviceGrid", UiGrid = "deviceGridOptions", EnablePagination = false }); }
+                            </div>
+                        }
+                    }
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input type="submit" value="@Resources.Resource.ButtonSave" class="btn btn-success" />
+        <button class="btn btn-default" type="button" ng-click="cancel()" >@Resources.Resource.ButtonCancel</button>
+    </div>
+}
+
+@section scripts {
+    <!--View JS References-->
+    <script src="~/Content/js/1.custom-js/Views/Device.js"></script>
+
+    <script>
+
+        var deliveryDetailsData = @Html.Raw(JsonConvert.SerializeObject(Model.DeliveryNoteDetails));
+        var DeviceGetInfoUrl = '@Url.Action("GetInfo","Device")';
+
+        var deliveryDetailsGridColumnDefs = [
+            { field: 'fa_name', name: '@Resources.Store.ItemFamily', width: 150 , enableSorting: false, enableFiltering: false, enableHiding: false,},
+            { field: 'ia_name', name: '@Resources.Store.DeviceModelType', width: 180 , enableSorting: false, enableFiltering: false, enableHiding: false,},
+            {
+                name: 'Quantity',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                   '<div class="form-group"> ' +
+                   '<input class="form-control girdRowControl" ng-change="grid.appScope.setDeviceRows()" ng-model="row.entity.Quantity" type="number" min="1" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Quantity" />' +
+                   '<input type="hidden" ng-model="row.entity.fa_code" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].fa_code" />'+
+                   '<input class="hidden" ng-model="row.entity.ModelType_ia_item_id" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" />'+
+                   '<input class="hidden" ng-model="row.entity.ReferenceTransactionDetailsId" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ReferenceTransactionDetailsId" />'+
+                   ' </div>'+
+                   '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 100
+           },
+           {
+               name: 'Note',
+               cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" >' +
+                   '<div class="form-group"> ' +
+                   '<input class="form-control girdRowControl" ng-model="row.entity.Note" name="DeliveryDetails[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].Note" />' +
+                   ' </div>'+
+                   ' </div>',
+               enableSorting: false, enableFiltering: false, enableHiding: false,
+               width: 200
+           }
+        ];
+        var deliveryDeviceGridColumnDefs = [
+            {
+                name: 'Device',
+                displayName: 'DeviceIMEI',
+                cellTemplate: '<div class="ui-grid-cell-contents ng-binding ng-scope" uib-dropdown dropdown-append-to-body >' +
+                    '<div class="form-group">' +
+                    '<input name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].IMEI" ng-model="row.entity.IMEI" ng-change="grid.appScope.bindDeviceIMEI(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.IMEI)" class="form-control {{row.entity.IMEI_LoadingClass}}" />' +
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].DeviceId" ng-value = "row.entity.DeviceId" />' +
+                    '<input type="hidden" name="DeliveryDevice[{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}].ModelType_ia_item_id" ng-value = "row.entity.ModelType_ia_item_id" />' +
+                    ' </div>'+
+                    '</div>',
+                enableSorting: false, enableFiltering: false, enableHiding: false,
+                width: 200
+            }
+        ];
+
+        $(document).ready(function () {
+            $('#form').submit(function (event) {
+                if (!$(this).valid()) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+
+
+
+

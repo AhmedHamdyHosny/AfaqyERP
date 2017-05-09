@@ -71,5 +71,8 @@ namespace Afaqy_Store.DataLayer
         public string phone { get; set; }
         public string DolphinCustomerName { get; set; }
         public string CustomerAccountName { get; set; }
+        public Nullable<int> TransactionTypeId { get; set; }
+        public System.DateTime TransactionDateTime { get; set; }
+        public Nullable<int> ReferenceTransactionId { get; set; }
     }
 }

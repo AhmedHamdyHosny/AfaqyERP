@@ -457,6 +457,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Delivery Note ready for Server Adding.
+        /// </summary>
+        public static string DeliveryNoteServerAddNotificationContent {
+            get {
+                return ResourceManager.GetString("DeliveryNoteServerAddNotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delivery Note Server Adding.
+        /// </summary>
+        public static string DeliveryNoteServerAddNotificationTitle {
+            get {
+                return ResourceManager.GetString("DeliveryNoteServerAddNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Configuration.
         /// </summary>
         public static string DeviceConfiguration {

@@ -105,7 +105,7 @@ Purchase: https://wrapbootstrap.com/theme/beyondadmin-adminapp-angularjs-mvc-WB0
                                                 <div class="notification-body">
                                                     <span class="title">{{notification.NotificationTitle}}</span>
                                                     <span class="description">{{notification.NotificationContent}}</span>
-                                                    <span class="description">{{notification.CreateDate}}</span>
+                                                    <span class="description">{{notification.CreateDate | date:'dd/MM/yyyy hh:mm:ss a'}}</span>
                                                 </div>
                                                 @*<div class="notification-extra">
                                                     <i class="fa fa-clock-o themeprimary"></i>
