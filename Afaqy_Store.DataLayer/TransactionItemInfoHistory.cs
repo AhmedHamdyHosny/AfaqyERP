@@ -29,6 +29,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<bool> TrackWithTechnician { get; set; }
         public Nullable<bool> ServerUpdated { get; set; }
         public Nullable<bool> TechnicalApproval { get; set; }
+        public bool ServerNamed { get; set; }
         public Nullable<bool> IsReturn { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }

@@ -183,7 +183,7 @@ namespace Afaqy_Store.Controllers
             return Content(HttpStatusCode.OK, ""); 
 
         }
-        public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
+        public override IHttpActionResult Export(GenericDataFormat data)
         {
             var controller = new ApiDeliveryReturnViewController();
             controller.Request = new HttpRequestMessage();

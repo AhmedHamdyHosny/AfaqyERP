@@ -416,8 +416,8 @@ namespace Afaqy_Store.Controllers
             //Classes.Utilities.DBExecuteResult<Transaction> result = new Classes.Utilities.DBExecuteResult<Transaction>() { Result = Classes.Utilities.DBExecuteResult.ExecuteResult.Success, ResultModel = insertedDeliveryNote };
             return Content(HttpStatusCode.OK, result);
 
-        }
-        public override IHttpActionResult Export(GenericApiController.Utilities.GenericDataFormat data)
+        }        
+        public override IHttpActionResult Export(GenericDataFormat data)
         {
             var controller = new ApiDeliveryNoteViewController();
             controller.Request = new HttpRequestMessage();

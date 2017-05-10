@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Classes.Common;
 
 namespace Afaqy_Store.Models
 {
@@ -140,8 +141,22 @@ namespace Afaqy_Store.Models
     [Bind(Include = "TransactionId,TransactionTypeId,cmp_seq,POS_ps_code,Warehouse_wa_code,DeliveryRequestId,Customer_aux_id,CustomerName,DolphinCustomerName,CustomerAccountName,CustomerContact_serial,AlternativeContactName,AlternativeContactTelephone,SaleTransactionTypeId,TransactionDateTime,TransactionStatusId,TransactionReference,DolphinTrans_tra_ref_id,DolphinTrans_tra_ref_type,SystemId,WithInstallationService,Note,IsBlock,CreateUserId,CreateDate,TransactionDetails,TransactionDevice")]
     public class DeliveryNoteEditBindModel : Transaction
     {
-        //public string DeliveryNoteDate_Str { get; set; }
-        //public string DeliveryNoteTime_Str { get; set; }
+        internal static void UpdateStatus(string deliveryNoteId, int transactionsStatusId, string note, int userId)
+        {
+            //get delivery note
+            var deliveryNote = new DeliveryNoteModel<Transaction>().Get(deliveryNoteId);
+            if(!string.IsNullOrEmpty(note) && deliveryNote.Note != note)
+            {
+                deliveryNote.Note = note;
+                deliveryNote.ModifyUserId = userId;
+                deliveryNote.ModifyDate = DateTime.Now;
+            }
+            deliveryNote.TransactionStatusId = transactionsStatusId;
+            deliveryNote = new DeliveryNoteModel<Transaction>().Update(deliveryNote, deliveryNoteId);
+            //add new status to status history
+            TransactionStatusHistoryModel<TransactionStatusHistory> historyModel = new TransactionStatusHistoryModel<TransactionStatusHistory>();
+            historyModel.Insert(new TransactionStatusHistory() { TransactionId = deliveryNote.TransactionId, TransactionStatusId = deliveryNote.TransactionStatusId, Note = deliveryNote.Note, CreateUserId = userId, CreateDate = DateTime.Now});
+        }
     }
     public class DeliveryNoteEditModel
     {

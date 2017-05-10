@@ -208,6 +208,7 @@ namespace Classes.DB_UserTypeDefined
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.TrackWithTechnician.ToString());
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.ServerUpdated.ToString());
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.TechnicalApproval.ToString());
+            dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.ServerNamed.ToString());
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.IsReturn.ToString());
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.Note.ToString());
             dataTable.Columns.Add(DBEnums.UDTransactionItem_DT_ColumnsName.IsBlock.ToString());
@@ -235,6 +236,7 @@ namespace Classes.DB_UserTypeDefined
             row[DBEnums.UDTransactionItem_DT_ColumnsName.TrackWithTechnician.ToString()] = device.TrackWithTechnician;
             row[DBEnums.UDTransactionItem_DT_ColumnsName.ServerUpdated.ToString()] = device.ServerUpdated;
             row[DBEnums.UDTransactionItem_DT_ColumnsName.TechnicalApproval.ToString()] = device.TechnicalApproval;
+            row[DBEnums.UDTransactionItem_DT_ColumnsName.ServerNamed.ToString()] = device.ServerNamed;
             row[DBEnums.UDTransactionItem_DT_ColumnsName.IsReturn.ToString()] = device.IsReturn;
             row[DBEnums.UDTransactionItem_DT_ColumnsName.Note.ToString()] = device.Note;
             row[DBEnums.UDTransactionItem_DT_ColumnsName.IsBlock.ToString()] = device.IsBlock;

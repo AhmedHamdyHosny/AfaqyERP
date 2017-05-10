@@ -130,7 +130,7 @@ namespace Classes.Common
         // Post: Controller/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(TEditBindModel EditItem)
+        public virtual ActionResult Edit(TEditBindModel EditItem)
         {
             object id = null;
             if (ModelState.IsValid)

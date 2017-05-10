@@ -52,7 +52,6 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<DeviceStatusHistory> DeviceStatusHistory { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ItemFamily> ItemFamily { get; set; }
-        public virtual DbSet<NotificationType> NotificationType { get; set; }
         public virtual DbSet<PointOfSale> PointOfSale { get; set; }
         public virtual DbSet<SaleTransactionType> SaleTransactionType { get; set; }
         public virtual DbSet<ServerRole> ServerRole { get; set; }
@@ -109,15 +108,17 @@ namespace Afaqy_Store.DataLayer
         public virtual DbSet<TransactionStatus> TransactionStatus { get; set; }
         public virtual DbSet<TransactionType> TransactionType { get; set; }
         public virtual DbSet<Device> Device { get; set; }
-        public virtual DbSet<TransactionItem> TransactionItem { get; set; }
-        public virtual DbSet<TransactionItemInfoHistory> TransactionItemInfoHistory { get; set; }
-        public virtual DbSet<TransactionItemView> TransactionItemView { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<TransactionDetails> TransactionDetails { get; set; }
         public virtual DbSet<DeliveryRequestTechnicianView> DeliveryRequestTechnicianView { get; set; }
         public virtual DbSet<TransactionView> TransactionView { get; set; }
         public virtual DbSet<DeliveryRequestView> DeliveryRequestView { get; set; }
         public virtual DbSet<TransactionDetailsView> TransactionDetailsView { get; set; }
+        public virtual DbSet<NotificationType> NotificationType { get; set; }
+        public virtual DbSet<NotificationView> NotificationView { get; set; }
+        public virtual DbSet<TransactionItem> TransactionItem { get; set; }
+        public virtual DbSet<TransactionItemInfoHistory> TransactionItemInfoHistory { get; set; }
+        public virtual DbSet<TransactionItemView> TransactionItemView { get; set; }
     
         public virtual int sp_InsertDolphinDeliveryNote(Nullable<int> cmp_seq, Nullable<int> salesmanId, Nullable<int> currencyId, string tra_status, string tra_user, Nullable<int> device_NewStatus, Nullable<int> deliveryRequest_NewStatus)
         {

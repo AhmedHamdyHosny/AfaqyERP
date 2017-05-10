@@ -1,0 +1,131 @@
+﻿@using BeyondThemes.Bootstrap;
+@using Classes.Utilities;
+@using Classes.Common;
+
+@{
+    ViewBag.Title = Resources.Adminstration.Notification;
+    Layout = "~/Views/Shared/_Default.cshtml";
+}
+
+<br />
+<div class="row" ng-controller="NotificationCtrl">
+    <div class="col-xs-12 col-md-12">
+        <div class="widget">
+            <div class="widget-header ">
+                <span class="widget-caption">@Resources.Adminstration.Notification</span>
+                <div class="widget-buttons">
+                    <a href="javascript:void(0);" data-toggle="maximize">
+                        <i class="fa fa-expand"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="collapse">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <a href="javascript:void(0);" data-toggle="dispose">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                @{
+                    //check for alert messages
+                    if (ViewBag.AlertMessage != null)
+                    {
+                        var alertMessage = (AlertMessage)ViewBag.AlertMessage;
+                        switch (alertMessage.MessageType)
+                        {
+                            case Enums.AlertMessageType.Success:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id="alert"}).Style(AlertColor.Success).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-check"></i>
+                                    <strong>@Resources.Resource.AlertSuccess</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Error:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Error).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-times"></i>
+                                    <strong>@Resources.Resource.AlertError</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.Warning:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Warning).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-warning"></i>
+                                    <strong>@Resources.Resource.AlertWarning</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            case Enums.AlertMessageType.info:
+                                using (Html.Bootstrap().Begin(new Alert().HtmlAttributes(new { id = "alert" }).Style(AlertColor.Info).Closeable()))
+                                {
+                                    <i class="fa-fw fa fa-info"></i>
+                                    <strong>@Resources.Resource.AlertInfo</strong> <span>@alertMessage.MessageContent</span>
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                
+                <div class="table-toolbar">
+                    
+                    <a  ng-click="DeleteItems($event);" class="btn btn-danger">
+                        <i class="fa fa-times"></i> @Resources.Resource.ButtonDelete
+                    </a>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-default" href="javascript:void(0);">@Resources.Resource.Tools</a>
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu dropdown-default">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportAllDataAsCsv()">@Resources.Resource.ExportAllDataCsv</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportVisibleDataAsCsv()">@Resources.Resource.ExportVisibleDataCsv</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportAllDataAsPdf()">@Resources.Resource.ExportAllDataPdf</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" ng-click="ExportVisibleDataAsPdf()">@Resources.Resource.ExportVisibleDataPdf</a>
+                            </li> 
+                            <li>
+                                <a href="@Url.Action("Export")">@Resources.Resource.Export</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" ng-click="ToggoleGridFilter();">Toggole Filtering </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                @{ Html.RenderAction("Partial_Grid", "Common"); }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        var gridColumnDefs = [
+            { field: 'NotificationTitle', name: '@Resources.Adminstration.NotificationTitle', width:180 },
+            { field: 'NotificationContent', name: '@Resources.Adminstration.NotificationContent', width:300 },
+            { field: 'CreateDateStr', name: '@Resources.Resource.CreateDate', width:180 },
+            { field: 'IsRead', name: '@Resources.Adminstration.NotificationIsRead', width:80 },
+            { field: 'NotificationTypeDescription', name: '@Resources.Adminstration.NotificationType', width: 300 },
+            { field: 'ReferenceLink', name: '@Resources.Adminstration.NotificationReferenceLink', width:300 },
+
+        ];
+
+        var deleteModalOptions = {
+            closeButtonText: '@Resources.Resource.DeleteConfirmCloseButton',
+            actionButtonText: '@Resources.Resource.DeleteConfirmActionButton',
+            headerText: '@Resources.Resource.DeleteConfirmDialogHeader',
+            bodyText: '@Resources.Resource.DeleteConfirmDialogBody'
+        };
+
+        var getViewActionUrl = '@Url.Action("GetView")';
+        var deleteActionUrl = '@Url.Action("DeleteGroup")';
+
+    </script>
+}

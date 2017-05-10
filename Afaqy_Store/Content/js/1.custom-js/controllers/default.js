@@ -3,7 +3,9 @@
 //Default Master Page controllers ========
 //.controller('defaultCtrl', defaultCtrl)
 .controller('accountCtrl', accountCtrl)
-.controller('NotificationCtrl',NotificationCtrl)
+.controller('LastestNotificationCtrl', LastestNotificationCtrl)
+.controller('NotificationCtrl', NotificationCtrl)
+
 
 
 function accountCtrl($scope) {
@@ -20,7 +22,7 @@ function accountCtrl($scope) {
     //}
 }
 
-function NotificationCtrl($scope, $uibModal) {
+function LastestNotificationCtrl($scope, $uibModal) {
     $scope.notifications = notifications
     $scope.openNotification = function (notification) {
         if (notification.PopupWindow) {
@@ -37,6 +39,34 @@ function NotificationCtrl($scope, $uibModal) {
         } else {
             window.location = notification.ReferenceLink;
         }
+    }
+}
+
+function NotificationCtrl($scope, $uibModal, confirmService, global, gridService, ctrlService) {
+    ctrlService.initCtrl($scope);
+    gridService.initGrid($scope);
+    gridService.configureExport($scope);
+
+    $scope.DeleteItems = function (ev) {
+        var modalOptions = deleteModalOptions;
+        confirmService.showModal({}, modalOptions).then(function (result) {
+            showLoading();
+            var selectedIds = [];
+            //get selected ids from grid
+            var selectedItems = $scope.gridApi.selection.getSelectedRows();
+            selectedItems.forEach(function (item) {
+                selectedIds.push(item.NotificationId)
+            });
+            //call delete confirm method and pass ids
+            var url = deleteActionUrl;
+            var data = { ids: selectedIds };
+            global.post(url, data, function (resp) {
+                if (resp) {
+                    location.reload();
+                }
+            }, function (resp) { });
+            hideLoading();
+        });
     }
 }
 

@@ -20,11 +20,14 @@ namespace Afaqy_Store.Models
         }
     }
 
-    public class NotificationViewModel : Notification
+    public class NotificationViewModel : NotificationView
     {
-       
     }
-    
+    public class NotificationIndexViewModel : NotificationView
+    {
+
+    }
+
     public class NotificationDetailsViewModel : NotificationViewModel
     {
     }
@@ -253,30 +256,96 @@ namespace Afaqy_Store.Models
             return new NotificationModel<Notification>().Import(notifications.ToArray());
         }
 
-        internal bool UpdateDeliveryNoteServerAdd(string deliveryNoteId)
+        internal bool SendStoreDeviceNamedNotification(string deliveryNoteId, string referenceURL, string v)
         {
-            //get all Unreaded Notification of Delivery Note which type is DeliveryNote_ServerAdd
-            var filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems()
+            throw new NotImplementedException();
+        }
+
+        internal bool SendServerNamedNotification(string deliveryNoteId, string referenceURL, string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        //internal bool UpdateDeliveryNoteServerAdd(string deliveryNoteId)
+        //{
+        //    //get all Unreaded Notification of Delivery Note which type is DeliveryNote_ServerAdd
+        //    var filters = new List<GenericDataFormat.FilterItems>();
+        //    filters.Add(new GenericDataFormat.FilterItems()
+        //    {
+        //        Property = "IsRead",
+        //        Operation = GenericDataFormat.FilterOperations.Equal,
+        //        Value = false,
+        //        LogicalOperation = GenericDataFormat.LogicalOperations.And
+        //    });
+        //    filters.Add(new GenericDataFormat.FilterItems()
+        //    {
+        //        Property = "ReferenceId",
+        //        Operation = GenericDataFormat.FilterOperations.Equal,
+        //        Value = deliveryNoteId,
+        //        LogicalOperation = GenericDataFormat.LogicalOperations.And
+        //    });
+        //    filters.Add(new GenericDataFormat.FilterItems()
+        //    {
+        //        Property = "NotificationTypeId",
+        //        Operation = GenericDataFormat.FilterOperations.Equal,
+        //        Value = DBEnums.NotificationType.DeliveryNote_ServerAddNotification,
+        //        LogicalOperation = GenericDataFormat.LogicalOperations.And
+        //    });
+        //    var requestBody = new GenericDataFormat() { Filters = filters };
+        //    var notifications = new NotificationModel<Notification>().Get(requestBody);
+        //    List<UpdateItemFormat<Notification>>  items = notifications.Select(x => { x.IsRead = true; return new UpdateItemFormat<Notification>() { id = x.NotificationId, newValue = x }; }  ).ToList();
+        //    new NotificationModel<Notification>().Update(items);
+        //    return true;
+        //}
+        #endregion
+    }
+
+    public class NotificationEditBindModel : Notification
+    {
+        internal bool UpdateIsRead(bool isRead,int? notificationId = null, string referenceId = null, int? toUserId = null, int? notificationTypeId = null)
+        {
+            if (notificationId == null)
             {
-                Property = "IsRead",
-                Operation = GenericDataFormat.FilterOperations.Equal,
-                Value = false,
-                LogicalOperation = GenericDataFormat.LogicalOperations.And
-            });
-            filters.Add(new GenericDataFormat.FilterItems()
+                var filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "ReferenceId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = referenceId,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "NotificationTypeId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = notificationTypeId,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                
+                if (toUserId != null)
+                {
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "ToUserId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = toUserId,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                }
+                var requestBody = new GenericDataFormat() { Filters = filters };
+                var notifications = new NotificationModel<Notification>().Get(requestBody);
+                List<UpdateItemFormat<Notification>> items = notifications.Select(x => { x.IsRead = isRead; return new UpdateItemFormat<Notification>() { id = x.NotificationId, newValue = x }; }).ToList();
+                new NotificationModel<Notification>().Update(items);
+            }
+            else
             {
-                Property = "ReferenceId",
-                Operation = GenericDataFormat.FilterOperations.Equal,
-                Value = deliveryNoteId,
-                LogicalOperation = GenericDataFormat.LogicalOperations.And
-            });
-            var requestBody = new GenericDataFormat() { Filters = filters };
-            var notifications = new NotificationModel<Notification>().Get(requestBody);
-            List<UpdateItemFormat<Notification>>  items = notifications.Select(x => { x.IsRead = true; return new UpdateItemFormat<Notification>() { id = x.NotificationId, newValue = x }; }  ).ToList();
-            new NotificationModel<Notification>().Update(items);
+                var notification = new NotificationModel<Notification>().Get(notificationId);
+                notification.IsRead = isRead;
+                new NotificationModel<Notification>().Update(notification, notification.NotificationId);
+            }
+            
             return true;
         }
-        #endregion
     }
 }

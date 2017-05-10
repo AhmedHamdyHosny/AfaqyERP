@@ -34,6 +34,7 @@ namespace Afaqy_Store.DataLayer
         public Nullable<bool> TrackWithTechnician { get; set; }
         public Nullable<bool> ServerUpdated { get; set; }
         public Nullable<bool> TechnicalApproval { get; set; }
+        public Nullable<bool> ServerNamed { get; set; }
         public Nullable<bool> IsReturn { get; set; }
         public string Note { get; set; }
         public bool IsBlock { get; set; }
@@ -43,8 +44,8 @@ namespace Afaqy_Store.DataLayer
         public Nullable<System.DateTime> ModifyDate { get; set; }
     
         public virtual Device Device { get; set; }
+        public virtual TransactionDetails TransactionDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionItemInfoHistory> TransactionItemInfoHistory { get; set; }
-        public virtual TransactionDetails TransactionDetails { get; set; }
     }
 }

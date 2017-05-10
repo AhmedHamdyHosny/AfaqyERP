@@ -190,7 +190,13 @@ namespace Classes.Common
             New = 1,
             Delivery_To_Technician = 2,
             Under_Implementation = 3,
-            Delivery_To_Customer = 4
+            Added_to_server = 4,
+            Delivery_To_Customer = 5,
+            Technicial_Approved = 6,
+            Delivery_Device_Named = 7,
+            Delivery_Return = 8,
+            Server_Items_Named = 9,
+            Invoiced = 10
         }
 
         public enum SaleTransactionType
@@ -256,7 +262,7 @@ namespace Classes.Common
 
         public enum UDTransactionItem_DT_ColumnsName
         {
-            TransactionItemId, cmp_seq, TransactionDetailsId, DeviceId, SerialNumber,IMEI, ModelType_ia_item_id, Employee_aux_id, InstallingDateTime, DeviceNaming_en, DeviceNaming_ar, DeviceNamingTypeId, AddToServer, TrackWithTechnician, ServerUpdated, TechnicalApproval, IsReturn, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
+            TransactionItemId, cmp_seq, TransactionDetailsId, DeviceId, SerialNumber,IMEI, ModelType_ia_item_id, Employee_aux_id, InstallingDateTime, DeviceNaming_en, DeviceNaming_ar, DeviceNamingTypeId, AddToServer, TrackWithTechnician, ServerUpdated, TechnicalApproval, ServerNamed, IsReturn, Note,IsBlock,CreateUserId,CreateDate,ModifyUserId,ModifyDate
         }
 
         //public enum UDNotification_DT_ColumnsName

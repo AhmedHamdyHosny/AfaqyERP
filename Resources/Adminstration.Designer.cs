@@ -286,6 +286,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification.
+        /// </summary>
+        public static string Notification {
+            get {
+                return ResourceManager.GetString("Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string NotificationContent {
+            get {
+                return ResourceManager.GetString("NotificationContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Read.
+        /// </summary>
+        public static string NotificationIsRead {
+            get {
+                return ResourceManager.GetString("NotificationIsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference Link.
+        /// </summary>
+        public static string NotificationReferenceLink {
+            get {
+                return ResourceManager.GetString("NotificationReferenceLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string NotificationTitle {
+            get {
+                return ResourceManager.GetString("NotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string NotificationType {
+            get {
+                return ResourceManager.GetString("NotificationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Point Of Sale.
         /// </summary>
         public static string PointOfSale {

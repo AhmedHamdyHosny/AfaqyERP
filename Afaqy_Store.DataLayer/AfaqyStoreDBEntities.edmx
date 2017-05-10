@@ -503,7 +503,7 @@
             <PropertyRef Name="NotificationTypeId" />
           </Key>
           <Property Name="NotificationTypeId" Type="int" Nullable="false" />
-          <Property Name="NotificationType" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="NotificationTypeDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="PointOfSale">
           <Key>
@@ -783,6 +783,7 @@
           <Property Name="TrackWithTechnician" Type="bit" />
           <Property Name="ServerUpdated" Type="bit" />
           <Property Name="TechnicalApproval" Type="bit" />
+          <Property Name="ServerNamed" Type="bit" />
           <Property Name="IsReturn" Type="bit" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
@@ -810,6 +811,7 @@
           <Property Name="TrackWithTechnician" Type="bit" />
           <Property Name="ServerUpdated" Type="bit" />
           <Property Name="TechnicalApproval" Type="bit" />
+          <Property Name="ServerNamed" Type="bit" Nullable="false" />
           <Property Name="IsReturn" Type="bit" />
           <Property Name="Note" Type="nvarchar" MaxLength="200" />
           <Property Name="IsBlock" Type="bit" Nullable="false" />
@@ -1890,6 +1892,28 @@ warning 6002: The table/view 'dolphin.afqy.EmployeeView' does not have a primary
           <Property Name="JobTitle_ar" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'dolphin.afqy.NotificationView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NotificationView">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+            <PropertyRef Name="NotificationTypeDescription" />
+          </Key>
+          <Property Name="NotificationId" Type="int" Nullable="false" />
+          <Property Name="NotificationTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="NotificationContent" Type="nvarchar" MaxLength="200" />
+          <Property Name="ToUserId" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateDateStr" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IsRead" Type="bit" />
+          <Property Name="NotificationTypeId" Type="int" />
+          <Property Name="ReferenceId" Type="varchar" MaxLength="20" />
+          <Property Name="ReferenceLink" Type="nvarchar" MaxLength="200" />
+          <Property Name="PopupWindow" Type="bit" />
+          <Property Name="PopupWindowClass" Type="varchar" MaxLength="20" />
+          <Property Name="StyleClass" Type="varchar" MaxLength="50" />
+          <Property Name="NotificationTypeDescription" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'dolphin.afqy.RpauxEmployeeView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RpauxEmployeeView">
           <Key>
@@ -2116,6 +2140,7 @@ warning 6002: The table/view 'dolphin.afqy.TransactionItemView' does not have a 
           <Property Name="DeviceNaming_ar" Type="nvarchar" MaxLength="50" />
           <Property Name="TechnicalApproval" Type="bit" />
           <Property Name="IsReturn" Type="bit" />
+          <Property Name="ServerNamed" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'dolphin.afqy.TransactionTechnicianView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -3757,6 +3782,24 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
     [EmployeeView].[JobTitle_ar] AS [JobTitle_ar]
     FROM [afqy].[EmployeeView] AS [EmployeeView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="NotificationView" EntityType="Self.NotificationView" store:Type="Views" store:Schema="afqy">
+            <DefiningQuery>SELECT 
+    [NotificationView].[NotificationId] AS [NotificationId], 
+    [NotificationView].[NotificationTitle] AS [NotificationTitle], 
+    [NotificationView].[NotificationContent] AS [NotificationContent], 
+    [NotificationView].[ToUserId] AS [ToUserId], 
+    [NotificationView].[CreateDate] AS [CreateDate], 
+    [NotificationView].[CreateDateStr] AS [CreateDateStr], 
+    [NotificationView].[IsRead] AS [IsRead], 
+    [NotificationView].[NotificationTypeId] AS [NotificationTypeId], 
+    [NotificationView].[ReferenceId] AS [ReferenceId], 
+    [NotificationView].[ReferenceLink] AS [ReferenceLink], 
+    [NotificationView].[PopupWindow] AS [PopupWindow], 
+    [NotificationView].[PopupWindowClass] AS [PopupWindowClass], 
+    [NotificationView].[StyleClass] AS [StyleClass], 
+    [NotificationView].[NotificationTypeDescription] AS [NotificationTypeDescription]
+    FROM [afqy].[NotificationView] AS [NotificationView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="RpauxEmployeeView" EntityType="Self.RpauxEmployeeView" store:Type="Views" store:Schema="afqy">
             <DefiningQuery>SELECT 
     [RpauxEmployeeView].[aux_id] AS [aux_id], 
@@ -3923,7 +3966,8 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
     [TransactionItemView].[DeviceNaming_en] AS [DeviceNaming_en], 
     [TransactionItemView].[DeviceNaming_ar] AS [DeviceNaming_ar], 
     [TransactionItemView].[TechnicalApproval] AS [TechnicalApproval], 
-    [TransactionItemView].[IsReturn] AS [IsReturn]
+    [TransactionItemView].[IsReturn] AS [IsReturn], 
+    [TransactionItemView].[ServerNamed] AS [ServerNamed]
     FROM [afqy].[TransactionItemView] AS [TransactionItemView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TransactionTechnicianView" EntityType="Self.TransactionTechnicianView" store:Type="Views" store:Schema="afqy">
@@ -4428,7 +4472,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <EntitySet Name="DeviceStatusHistory" EntityType="Afaqy_Store.DataLayer.DeviceStatusHistory" />
           <EntitySet Name="ErrorLog" EntityType="Afaqy_Store.DataLayer.ErrorLog" />
           <EntitySet Name="ItemFamily" EntityType="Afaqy_Store.DataLayer.ItemFamily" />
-          <EntitySet Name="NotificationType" EntityType="Afaqy_Store.DataLayer.NotificationType" />
           <EntitySet Name="PointOfSale" EntityType="Afaqy_Store.DataLayer.PointOfSale" />
           <EntitySet Name="SaleTransactionType" EntityType="Afaqy_Store.DataLayer.SaleTransactionType" />
           <EntitySet Name="ServerRole" EntityType="Afaqy_Store.DataLayer.ServerRole" />
@@ -4723,10 +4766,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           </AssociationSet>
           <EntitySet Name="WarehouseInfo" EntityType="Afaqy_Store.DataLayer.WarehouseInfo" />
           <EntitySet Name="Notification" EntityType="Afaqy_Store.DataLayer.Notification" />
-          <AssociationSet Name="FK_Notification_NotificationType" Association="Afaqy_Store.DataLayer.FK_Notification_NotificationType">
-            <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
           <EntitySet Name="UserView" EntityType="Afaqy_Store.DataLayer.UserView" />
           <EntitySet Name="EmployeeView" EntityType="Afaqy_Store.DataLayer.EmployeeView" />
           <EntitySet Name="TransactionStatusHistory" EntityType="Afaqy_Store.DataLayer.TransactionStatusHistory" />
@@ -4761,9 +4800,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             <End Role="TransactionStatusHistory" EntitySet="TransactionStatusHistory" />
           </AssociationSet>
           <EntitySet Name="Device" EntityType="Afaqy_Store.DataLayer.Device" />
-          <EntitySet Name="TransactionItem" EntityType="Afaqy_Store.DataLayer.TransactionItem" />
-          <EntitySet Name="TransactionItemInfoHistory" EntityType="Afaqy_Store.DataLayer.TransactionItemInfoHistory" />
-          <EntitySet Name="TransactionItemView" EntityType="Afaqy_Store.DataLayer.TransactionItemView" />
           <AssociationSet Name="FK_Device_DeviceStatus" Association="Afaqy_Store.DataLayer.FK_Device_DeviceStatus">
             <End Role="DeviceStatus" EntitySet="DeviceStatus" />
             <End Role="Device" EntitySet="Device" />
@@ -4775,14 +4811,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <AssociationSet Name="FK_DeviceSIM_Device" Association="Afaqy_Store.DataLayer.FK_DeviceSIM_Device">
             <End Role="Device" EntitySet="Device" />
             <End Role="DeviceSIM" EntitySet="DeviceSIM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TransactionItem_Device" Association="Afaqy_Store.DataLayer.FK_TransactionItem_Device">
-            <End Role="Device" EntitySet="Device" />
-            <End Role="TransactionItem" EntitySet="TransactionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TransactionDeviceInfoHistory_TransactionDevice" Association="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice">
-            <End Role="TransactionItem" EntitySet="TransactionItem" />
-            <End Role="TransactionItemInfoHistory" EntitySet="TransactionItemInfoHistory" />
           </AssociationSet>
           <EntitySet Name="Transaction" EntityType="Afaqy_Store.DataLayer.Transaction" />
           <EntitySet Name="TransactionDetails" EntityType="Afaqy_Store.DataLayer.TransactionDetails" />
@@ -4818,14 +4846,31 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             <End Role="TransactionDetails" EntitySet="TransactionDetails" />
             <End Role="TransactionDetails1" EntitySet="TransactionDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_TransactionDevice_TransactionDetails" Association="Afaqy_Store.DataLayer.FK_TransactionDevice_TransactionDetails">
-            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
-            <End Role="TransactionItem" EntitySet="TransactionItem" />
-          </AssociationSet>
           <EntitySet Name="DeliveryRequestTechnicianView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestTechnicianView" />
           <EntitySet Name="TransactionView" EntityType="Afaqy_Store.DataLayer.TransactionView" />
           <EntitySet Name="DeliveryRequestView" EntityType="Afaqy_Store.DataLayer.DeliveryRequestView" />
           <EntitySet Name="TransactionDetailsView" EntityType="Afaqy_Store.DataLayer.TransactionDetailsView" />
+          <EntitySet Name="NotificationType" EntityType="Afaqy_Store.DataLayer.NotificationType" />
+          <AssociationSet Name="FK_Notification_NotificationType" Association="Afaqy_Store.DataLayer.FK_Notification_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notification" EntitySet="Notification" />
+          </AssociationSet>
+          <EntitySet Name="NotificationView" EntityType="Afaqy_Store.DataLayer.NotificationView" />
+          <EntitySet Name="TransactionItem" EntityType="Afaqy_Store.DataLayer.TransactionItem" />
+          <EntitySet Name="TransactionItemInfoHistory" EntityType="Afaqy_Store.DataLayer.TransactionItemInfoHistory" />
+          <EntitySet Name="TransactionItemView" EntityType="Afaqy_Store.DataLayer.TransactionItemView" />
+          <AssociationSet Name="FK_TransactionItem_Device" Association="Afaqy_Store.DataLayer.FK_TransactionItem_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDevice_TransactionDetails" Association="Afaqy_Store.DataLayer.FK_TransactionDevice_TransactionDetails">
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDeviceInfoHistory_TransactionDevice" Association="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice">
+            <End Role="TransactionItem" EntitySet="TransactionItem" />
+            <End Role="TransactionItemInfoHistory" EntitySet="TransactionItemInfoHistory" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Brand">
           <Key>
@@ -5223,14 +5268,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="ModifyUserId" Type="Int32" />
           <Property Name="ModifyDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="DeviceModelType" Relationship="Afaqy_Store.DataLayer.FK_DeviceModelType_ItemFamily" FromRole="ItemFamily" ToRole="DeviceModelType" />
-        </EntityType>
-        <EntityType Name="NotificationType">
-          <Key>
-            <PropertyRef Name="NotificationTypeId" />
-          </Key>
-          <Property Name="NotificationTypeId" Type="Int32" Nullable="false" />
-          <Property Name="NotificationType1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Notification" Relationship="Afaqy_Store.DataLayer.FK_Notification_NotificationType" FromRole="NotificationType" ToRole="Notification" />
         </EntityType>
         <EntityType Name="PointOfSale">
           <Key>
@@ -7376,18 +7413,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="PopupWindowClass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="NotificationType" Relationship="Afaqy_Store.DataLayer.FK_Notification_NotificationType" FromRole="Notification" ToRole="NotificationType" />
         </EntityType>
-        <Association Name="FK_Notification_NotificationType">
-          <End Type="Afaqy_Store.DataLayer.NotificationType" Role="NotificationType" Multiplicity="0..1" />
-          <End Type="Afaqy_Store.DataLayer.Notification" Role="Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="NotificationTypeId" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="NotificationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="UserView">
           <Key>
             <PropertyRef Name="UserId" />
@@ -7731,106 +7756,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <NavigationProperty Name="DeviceSIM" Relationship="Afaqy_Store.DataLayer.FK_DeviceSIM_Device" FromRole="Device" ToRole="DeviceSIM" />
           <NavigationProperty Name="TransactionItem" Relationship="Afaqy_Store.DataLayer.FK_TransactionItem_Device" FromRole="Device" ToRole="TransactionItem" />
         </EntityType>
-        <EntityType Name="TransactionItem">
-          <Key>
-            <PropertyRef Name="TransactionItemId" />
-          </Key>
-          <Property Name="TransactionItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
-          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
-          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DeviceId" Type="Int32" />
-          <Property Name="Employee_aux_id" Type="Int32" />
-          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
-          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeviceNamingTypeId" Type="Int32" />
-          <Property Name="AddToServer" Type="Boolean" />
-          <Property Name="TrackWithTechnician" Type="Boolean" />
-          <Property Name="ServerUpdated" Type="Boolean" />
-          <Property Name="TechnicalApproval" Type="Boolean" />
-          <Property Name="IsReturn" Type="Boolean" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_TransactionItem_Device" FromRole="TransactionItem" ToRole="Device" />
-          <NavigationProperty Name="TransactionItemInfoHistory" Relationship="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice" FromRole="TransactionItem" ToRole="TransactionItemInfoHistory" />
-          <NavigationProperty Name="TransactionDetails" Relationship="Afaqy_Store.DataLayer.FK_TransactionDevice_TransactionDetails" FromRole="TransactionItem" ToRole="TransactionDetails" />
-        </EntityType>
-        <EntityType Name="TransactionItemInfoHistory">
-          <Key>
-            <PropertyRef Name="HistoryId" />
-          </Key>
-          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TransactionItemId" Type="Int32" Nullable="false" />
-          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
-          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
-          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DeviceId" Type="Int32" />
-          <Property Name="Employee_aux_id" Type="Int32" />
-          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
-          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DeviceNamingTypeId" Type="Int32" />
-          <Property Name="AddToServer" Type="Boolean" />
-          <Property Name="TrackWithTechnician" Type="Boolean" />
-          <Property Name="ServerUpdated" Type="Boolean" />
-          <Property Name="TechnicalApproval" Type="Boolean" />
-          <Property Name="IsReturn" Type="Boolean" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="TransactionItem" Relationship="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice" FromRole="TransactionItemInfoHistory" ToRole="TransactionItem" />
-        </EntityType>
-        <EntityType Name="TransactionItemView">
-          <Key>
-            <PropertyRef Name="TransactionItemId" />
-            <PropertyRef Name="TransactionDetailsId" />
-            <PropertyRef Name="TransactionId" />
-            <PropertyRef Name="IsBlock" />
-            <PropertyRef Name="DeliveryDevice_cmp_seq" />
-            <PropertyRef Name="CreateUserId" />
-            <PropertyRef Name="CreateDate" />
-          </Key>
-          <Property Name="TransactionItemId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionId" Type="Int32" Nullable="false" />
-          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DeviceId" Type="Int32" />
-          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Employee_aux_id" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
-          <Property Name="DeviceNamingTypeId" Type="Int32" />
-          <Property Name="DeviceNamingType_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceNamingType_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddToServer" Type="Boolean" />
-          <Property Name="TrackWithTechnician" Type="Boolean" />
-          <Property Name="ServerUpdated" Type="Boolean" />
-          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
-          <Property Name="ia_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ia_shname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="ia_altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ia_shaltname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Expr1" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DeliveryDevice_cmp_seq" Type="Int32" Nullable="false" />
-          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifyUserId" Type="Int32" />
-          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
-          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TechnicalApproval" Type="Boolean" />
-          <Property Name="IsReturn" Type="Boolean" />
-        </EntityType>
         <Association Name="FK_Device_DeviceStatus">
           <End Type="Afaqy_Store.DataLayer.DeviceStatus" Role="DeviceStatus" Multiplicity="1" />
           <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="*" />
@@ -7864,32 +7789,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             </Principal>
             <Dependent Role="DeviceSIM">
               <PropertyRef Name="DeviceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionItem_Device">
-          <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="0..1" />
-          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Device">
-              <PropertyRef Name="DeviceId" />
-            </Principal>
-            <Dependent Role="TransactionItem">
-              <PropertyRef Name="DeviceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionDeviceInfoHistory_TransactionDevice">
-          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="Afaqy_Store.DataLayer.TransactionItemInfoHistory" Role="TransactionItemInfoHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TransactionItem">
-              <PropertyRef Name="TransactionItemId" />
-            </Principal>
-            <Dependent Role="TransactionItemInfoHistory">
-              <PropertyRef Name="TransactionItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8049,18 +7948,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
             </Principal>
             <Dependent Role="TransactionDetails1">
               <PropertyRef Name="ReferenceTransactionDetailsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionDevice_TransactionDetails">
-          <End Type="Afaqy_Store.DataLayer.TransactionDetails" Role="TransactionDetails" Multiplicity="1" />
-          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TransactionDetails">
-              <PropertyRef Name="TransactionDetailsId" />
-            </Principal>
-            <Dependent Role="TransactionItem">
-              <PropertyRef Name="TransactionDetailsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8277,6 +8164,187 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
           <Property Name="DolphinTransB_trb_serial_id" Type="Decimal" Precision="13" Scale="0" />
           <Property Name="ReferenceTransactionDetailsId" Type="Int32" />
         </EntityType>
+        <EntityType Name="NotificationType">
+          <Key>
+            <PropertyRef Name="NotificationTypeId" />
+          </Key>
+          <Property Name="NotificationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="NotificationTypeDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notification" Relationship="Afaqy_Store.DataLayer.FK_Notification_NotificationType" FromRole="NotificationType" ToRole="Notification" />
+        </EntityType>
+        <Association Name="FK_Notification_NotificationType">
+          <End Type="Afaqy_Store.DataLayer.NotificationType" Role="NotificationType" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.Notification" Role="Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="NotificationTypeId" />
+            </Principal>
+            <Dependent Role="Notification">
+              <PropertyRef Name="NotificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NotificationView">
+          <Key>
+            <PropertyRef Name="NotificationId" />
+            <PropertyRef Name="NotificationTypeDescription" />
+          </Key>
+          <Property Name="NotificationId" Type="Int32" Nullable="false" />
+          <Property Name="NotificationTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationContent" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ToUserId" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDateStr" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Boolean" />
+          <Property Name="NotificationTypeId" Type="Int32" />
+          <Property Name="ReferenceId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ReferenceLink" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PopupWindow" Type="Boolean" />
+          <Property Name="PopupWindowClass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StyleClass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NotificationTypeDescription" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TransactionItem">
+          <Key>
+            <PropertyRef Name="TransactionItemId" />
+          </Key>
+          <Property Name="TransactionItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DeviceId" Type="Int32" />
+          <Property Name="Employee_aux_id" Type="Int32" />
+          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceNamingTypeId" Type="Int32" />
+          <Property Name="AddToServer" Type="Boolean" />
+          <Property Name="TrackWithTechnician" Type="Boolean" />
+          <Property Name="ServerUpdated" Type="Boolean" />
+          <Property Name="TechnicalApproval" Type="Boolean" />
+          <Property Name="ServerNamed" Type="Boolean" />
+          <Property Name="IsReturn" Type="Boolean" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="Afaqy_Store.DataLayer.FK_TransactionItem_Device" FromRole="TransactionItem" ToRole="Device" />
+          <NavigationProperty Name="TransactionDetails" Relationship="Afaqy_Store.DataLayer.FK_TransactionDevice_TransactionDetails" FromRole="TransactionItem" ToRole="TransactionDetails" />
+          <NavigationProperty Name="TransactionItemInfoHistory" Relationship="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice" FromRole="TransactionItem" ToRole="TransactionItemInfoHistory" />
+        </EntityType>
+        <EntityType Name="TransactionItemInfoHistory">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionItemId" Type="Int32" Nullable="false" />
+          <Property Name="cmp_seq" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DeviceId" Type="Int32" />
+          <Property Name="Employee_aux_id" Type="Int32" />
+          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceNamingTypeId" Type="Int32" />
+          <Property Name="AddToServer" Type="Boolean" />
+          <Property Name="TrackWithTechnician" Type="Boolean" />
+          <Property Name="ServerUpdated" Type="Boolean" />
+          <Property Name="TechnicalApproval" Type="Boolean" />
+          <Property Name="ServerNamed" Type="Boolean" Nullable="false" />
+          <Property Name="IsReturn" Type="Boolean" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TransactionItem" Relationship="Afaqy_Store.DataLayer.FK_TransactionDeviceInfoHistory_TransactionDevice" FromRole="TransactionItemInfoHistory" ToRole="TransactionItem" />
+        </EntityType>
+        <EntityType Name="TransactionItemView">
+          <Key>
+            <PropertyRef Name="TransactionItemId" />
+            <PropertyRef Name="TransactionDetailsId" />
+            <PropertyRef Name="TransactionId" />
+            <PropertyRef Name="IsBlock" />
+            <PropertyRef Name="DeliveryDevice_cmp_seq" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="TransactionItemId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="ModelType_ia_item_id" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DeviceId" Type="Int32" />
+          <Property Name="SerialNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IMEI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Firmware" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Employee_aux_id" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InstallingDateTime" Type="DateTime" Precision="3" />
+          <Property Name="DeviceNamingTypeId" Type="Int32" />
+          <Property Name="DeviceNamingType_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceNamingType_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddToServer" Type="Boolean" />
+          <Property Name="TrackWithTechnician" Type="Boolean" />
+          <Property Name="ServerUpdated" Type="Boolean" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsBlock" Type="Boolean" Nullable="false" />
+          <Property Name="ia_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ia_shname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ia_altname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ia_shaltname" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Expr1" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DeliveryDevice_cmp_seq" Type="Int32" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Int32" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="DeviceNaming_en" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeviceNaming_ar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TechnicalApproval" Type="Boolean" />
+          <Property Name="IsReturn" Type="Boolean" />
+          <Property Name="ServerNamed" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_TransactionItem_Device">
+          <End Type="Afaqy_Store.DataLayer.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="DeviceId" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionDevice_TransactionDetails">
+          <End Type="Afaqy_Store.DataLayer.TransactionDetails" Role="TransactionDetails" Multiplicity="1" />
+          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetails">
+              <PropertyRef Name="TransactionDetailsId" />
+            </Principal>
+            <Dependent Role="TransactionItem">
+              <PropertyRef Name="TransactionDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransactionDeviceInfoHistory_TransactionDevice">
+          <End Type="Afaqy_Store.DataLayer.TransactionItem" Role="TransactionItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Afaqy_Store.DataLayer.TransactionItemInfoHistory" Role="TransactionItemInfoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionItem">
+              <PropertyRef Name="TransactionItemId" />
+            </Principal>
+            <Dependent Role="TransactionItemInfoHistory">
+              <PropertyRef Name="TransactionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8656,14 +8724,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
                 <ScalarProperty Name="ItemFamilyName_ar" ColumnName="ItemFamilyName_ar" />
                 <ScalarProperty Name="ItemFamilyName_en" ColumnName="ItemFamilyName_en" />
                 <ScalarProperty Name="ItemFamilyId" ColumnName="ItemFamilyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NotificationType">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.NotificationType">
-              <MappingFragment StoreEntitySet="NotificationType">
-                <ScalarProperty Name="NotificationType1" ColumnName="NotificationType" />
-                <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10137,99 +10197,6 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TransactionItem">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItem">
-              <MappingFragment StoreEntitySet="TransactionItem">
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
-                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
-                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
-                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
-                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
-                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
-                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
-                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
-                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
-                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
-                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
-                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
-                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TransactionItemInfoHistory">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItemInfoHistory">
-              <MappingFragment StoreEntitySet="TransactionItemInfoHistory">
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
-                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
-                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
-                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
-                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
-                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
-                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
-                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
-                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
-                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
-                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
-                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
-                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
-                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TransactionItemView">
-            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItemView">
-              <MappingFragment StoreEntitySet="TransactionItemView">
-                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
-                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
-                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
-                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
-                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
-                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
-                <ScalarProperty Name="DeliveryDevice_cmp_seq" ColumnName="DeliveryDevice_cmp_seq" />
-                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
-                <ScalarProperty Name="ia_shaltname" ColumnName="ia_shaltname" />
-                <ScalarProperty Name="ia_altname" ColumnName="ia_altname" />
-                <ScalarProperty Name="ia_shname" ColumnName="ia_shname" />
-                <ScalarProperty Name="ia_name" ColumnName="ia_name" />
-                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
-                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
-                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
-                <ScalarProperty Name="DeviceNamingType_ar" ColumnName="DeviceNamingType_ar" />
-                <ScalarProperty Name="DeviceNamingType_en" ColumnName="DeviceNamingType_en" />
-                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
-                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
-                <ScalarProperty Name="altname" ColumnName="altname" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
-                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
-                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
-                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Transaction">
             <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
@@ -10442,6 +10409,130 @@ warning 6002: The table/view 'dolphin.afqy.UserView' does not have a primary key
                 <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
                 <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
                 <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationType">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.NotificationType">
+              <MappingFragment StoreEntitySet="NotificationType">
+                <ScalarProperty Name="NotificationTypeDescription" ColumnName="NotificationTypeDescription" />
+                <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.NotificationView">
+              <MappingFragment StoreEntitySet="NotificationView">
+                <ScalarProperty Name="NotificationTypeDescription" ColumnName="NotificationTypeDescription" />
+                <ScalarProperty Name="StyleClass" ColumnName="StyleClass" />
+                <ScalarProperty Name="PopupWindowClass" ColumnName="PopupWindowClass" />
+                <ScalarProperty Name="PopupWindow" ColumnName="PopupWindow" />
+                <ScalarProperty Name="ReferenceLink" ColumnName="ReferenceLink" />
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+                <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="CreateDateStr" ColumnName="CreateDateStr" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
+                <ScalarProperty Name="NotificationContent" ColumnName="NotificationContent" />
+                <ScalarProperty Name="NotificationTitle" ColumnName="NotificationTitle" />
+                <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionItem">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItem">
+              <MappingFragment StoreEntitySet="TransactionItem">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+                <ScalarProperty Name="ServerNamed" ColumnName="ServerNamed" />
+                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
+                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
+                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
+                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
+                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
+                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
+                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
+                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
+                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
+                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
+                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
+                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionItemInfoHistory">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItemInfoHistory">
+              <MappingFragment StoreEntitySet="TransactionItemInfoHistory">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+                <ScalarProperty Name="ServerNamed" ColumnName="ServerNamed" />
+                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
+                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
+                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
+                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
+                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
+                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
+                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
+                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
+                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
+                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
+                <ScalarProperty Name="cmp_seq" ColumnName="cmp_seq" />
+                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionItemView">
+            <EntityTypeMapping TypeName="Afaqy_Store.DataLayer.TransactionItemView">
+              <MappingFragment StoreEntitySet="TransactionItemView">
+                <ScalarProperty Name="ServerNamed" ColumnName="ServerNamed" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+                <ScalarProperty Name="TechnicalApproval" ColumnName="TechnicalApproval" />
+                <ScalarProperty Name="DeviceNaming_ar" ColumnName="DeviceNaming_ar" />
+                <ScalarProperty Name="DeviceNaming_en" ColumnName="DeviceNaming_en" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="DeliveryDevice_cmp_seq" ColumnName="DeliveryDevice_cmp_seq" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="ia_shaltname" ColumnName="ia_shaltname" />
+                <ScalarProperty Name="ia_altname" ColumnName="ia_altname" />
+                <ScalarProperty Name="ia_shname" ColumnName="ia_shname" />
+                <ScalarProperty Name="ia_name" ColumnName="ia_name" />
+                <ScalarProperty Name="IsBlock" ColumnName="IsBlock" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ServerUpdated" ColumnName="ServerUpdated" />
+                <ScalarProperty Name="TrackWithTechnician" ColumnName="TrackWithTechnician" />
+                <ScalarProperty Name="AddToServer" ColumnName="AddToServer" />
+                <ScalarProperty Name="DeviceNamingType_ar" ColumnName="DeviceNamingType_ar" />
+                <ScalarProperty Name="DeviceNamingType_en" ColumnName="DeviceNamingType_en" />
+                <ScalarProperty Name="DeviceNamingTypeId" ColumnName="DeviceNamingTypeId" />
+                <ScalarProperty Name="InstallingDateTime" ColumnName="InstallingDateTime" />
+                <ScalarProperty Name="altname" ColumnName="altname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Employee_aux_id" ColumnName="Employee_aux_id" />
+                <ScalarProperty Name="Firmware" ColumnName="Firmware" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="ModelType_ia_item_id" ColumnName="ModelType_ia_item_id" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="TransactionDetailsId" ColumnName="TransactionDetailsId" />
+                <ScalarProperty Name="TransactionItemId" ColumnName="TransactionItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

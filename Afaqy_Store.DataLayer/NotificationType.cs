@@ -21,7 +21,7 @@ namespace Afaqy_Store.DataLayer
         }
     
         public int NotificationTypeId { get; set; }
-        public string NotificationType1 { get; set; }
+        public string NotificationTypeDescription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Notification> Notification { get; set; }

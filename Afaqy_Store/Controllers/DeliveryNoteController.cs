@@ -29,6 +29,19 @@ namespace Afaqy_Store.Controllers
             return View();
         }
 
+        [ActionName("Details")]
+        public ActionResult DeliveryNoteDetails(object id, int? notificationId = null)
+        {
+            //set notification to readed
+            if (notificationId != null)
+            {
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
+            }
+
+            return base.Details(id);
+        }
+
         public override void FuncPreDetailsView(object id, ref List<DeliveryNoteDetailsViewModel> items)
         {
             filters = new List<GenericDataFormat.FilterItems>();
@@ -47,8 +60,15 @@ namespace Afaqy_Store.Controllers
         }
 
         [ActionName("Create")]
-        public ActionResult CreateDeliveryNote(int id)
+        public ActionResult CreateDeliveryNote(int id, int? notificationId = null)
         {
+            //set notification to readed
+            if(notificationId != null)
+            {
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
+            }
+            
             //make sure that delivery note is Added to server
             //get delivery note if exist
             filters = new List<GenericDataFormat.FilterItems>();
@@ -64,7 +84,7 @@ namespace Afaqy_Store.Controllers
             }
             else
             {
-                return Details(id);
+                return DeliveryNoteDetails(id);
             }
         }
 
@@ -95,7 +115,6 @@ namespace Afaqy_Store.Controllers
             FuncPreInitCreateView(ref model);
             return View(model);
         }
-
         public override ActionResult FuncPostCreate(ref DeliveryNoteCreateBindModel model, ref Transaction insertedItem)
         {
             NotificationCreateBindModel notification = new NotificationCreateBindModel();
@@ -284,8 +303,15 @@ namespace Afaqy_Store.Controllers
         }
 
         [ActionName("ServerAdd")]
-        public ActionResult ServerAdd(object id)
+        public ActionResult ServerAdd(object id, int? notificationId = null)
         {
+            //set notification to readed
+            if (notificationId != null)
+            {
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
+            }
+
             //make sure that delivery note is in New Status
             var deliveryNote = new DeliveryNoteModel<Transaction>().Get(id);
             if(deliveryNote.TransactionStatusId == (int)Classes.Common.DBEnums.TransactionStatus.New)
@@ -345,7 +371,7 @@ namespace Afaqy_Store.Controllers
             }
             else
             {
-                return Details(id);
+                return DeliveryNoteDetails(id);
             }
             
         }
@@ -355,6 +381,7 @@ namespace Afaqy_Store.Controllers
         {
             //get delivery device
             string deliveryNoteId = fc["TransactionId"];
+            string note = fc["Note"];
 
             //get delivery devices
             filters = new List<GenericDataFormat.FilterItems>();
@@ -374,20 +401,6 @@ namespace Afaqy_Store.Controllers
 
                 //set old info
                 Classes.Utilities.Utility.CopyObject<TransactionItem>(oldDevice, ref deliveryDevice);
-                //deliveryDevice.DeliveryItemId = oldDevice.DeliveryItemId;
-                //deliveryDevice.cmp_seq = oldDevice.DeliveryDevice_cmp_seq;
-                //deliveryDevice.DeliveryDetailsId = oldDevice.DeliveryDetailsId;
-                //deliveryDevice.DeviceId = oldDevice.DeviceId;
-                //deliveryDevice.Employee_aux_id = oldDevice.Employee_aux_id;
-                //deliveryDevice.InstallingDateTime = oldDevice.InstallingDateTime;
-                //deliveryDevice.DeviceNaming_en = oldDevice.DeviceNaming_en;
-                //deliveryDevice.DeviceNaming_ar = oldDevice.DeviceNaming_ar;
-                //deliveryDevice.DeviceNamingTypeId = oldDevice.DeviceNamingTypeId;
-                //deliveryDevice.TechnicalApproval = oldDevice.TechnicalApproval;
-                //deliveryDevice.DeliveryReturn = oldDevice.DeliveryReturn;
-                //deliveryDevice.IsBlock = oldDevice.IsBlock;
-                //deliveryDevice.CreateUserId = oldDevice.CreateUserId;
-                //deliveryDevice.CreateDate = oldDevice.CreateDate;
 
                 //set new info
                 var newDeliveryDevice = DeliveryDevice.Where(x => x.TransactionItemId == oldDevice.TransactionItemId).SingleOrDefault();
@@ -403,17 +416,19 @@ namespace Afaqy_Store.Controllers
             //update delivery devices
             List<UpdateItemFormat<TransactionItem>> items = UpdatedDeliveryDevice.Select(x => new UpdateItemFormat<TransactionItem>() { id = x.TransactionItemId, newValue = x }).ToList();
             var updatedItems = new DeliveryItemModel<TransactionItem>().Update(items);
+            //update delivery note status
+            DeliveryNoteEditBindModel.UpdateStatus(deliveryNoteId, (int)Classes.Common.DBEnums.TransactionStatus.Added_to_server, note, User.UserId);
 
-            NotificationCreateBindModel notification = new NotificationCreateBindModel();
+
             //update Sever Employee Notification for this delivery
-            if(!notification.UpdateDeliveryNoteServerAdd(deliveryNoteId))
+            if (!new NotificationEditBindModel().UpdateIsRead(true,null,deliveryNoteId,null,(int)Classes.Common.DBEnums.NotificationType.DeliveryNote_ServerAddNotification))
             {
                 //do nothing
             }
 
             //send notification to users
             string referenceURL = this.Url.Action("Details");
-            if (!notification.SendServerAddedNotification(deliveryNoteId, referenceURL))
+            if (!new NotificationCreateBindModel().SendServerAddedNotification(deliveryNoteId, referenceURL))
             {
                 //do nothing
             }
@@ -423,63 +438,78 @@ namespace Afaqy_Store.Controllers
         }
 
         [ActionName("TechnicalApproval")]
-        public ActionResult TechnicalApproval(object id)
+        public ActionResult TechnicalApproval(object id, int? notificationId = null)
         {
-            //make sure that delivery note is Added to server
-            //for test
-
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems()
+            //set notification to readed
+            if (notificationId != null)
             {
-                Property = "TransactionId",
-                Operation = GenericDataFormat.FilterOperations.Equal,
-                Value = id,
-                LogicalOperation = GenericDataFormat.LogicalOperations.And
-            });
-            var requestBody = new GenericDataFormat() { Filters = filters };
-            var items = new DeliveryNoteModel<DeliveryNoteDetailsViewModel>().GetView<DeliveryNoteDetailsViewModel>(requestBody).PageItems;
-            DeliveryNoteDetailsViewModel Model = null;
-            if (items != null && items.Count > 0)
-            {
-                Model = items.SingleOrDefault();
-
-                //get delivery details
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryDetails = new DeliveryDetailsModel<DeliveryDetails_DetailsViewModel>().GetView<DeliveryDetails_DetailsViewModel>(requestBody).PageItems;
-
-                //get delivery technicians
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryTechnicians = new DeliveryTechnicianModel<DeliveryTechnicianViewModel>().GetView<DeliveryTechnicianViewModel>(requestBody).PageItems;
-
-                //get delivery devices
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
             }
-            return View(Model);
+
+            //make sure that delivery note is Added to server
+            var deliveryNote = new DeliveryNoteModel<Transaction>().Get(id);
+            if (deliveryNote.TransactionStatusId == (int)Classes.Common.DBEnums.TransactionStatus.Added_to_server)
+            {
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "TransactionId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = id,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                var requestBody = new GenericDataFormat() { Filters = filters };
+                var items = new DeliveryNoteModel<DeliveryNoteDetailsViewModel>().GetView<DeliveryNoteDetailsViewModel>(requestBody).PageItems;
+                DeliveryNoteDetailsViewModel Model = null;
+                if (items != null && items.Count > 0)
+                {
+                    Model = items.SingleOrDefault();
+
+                    //get delivery details
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDetails = new DeliveryDetailsModel<DeliveryDetails_DetailsViewModel>().GetView<DeliveryDetails_DetailsViewModel>(requestBody).PageItems;
+
+                    //get delivery technicians
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryTechnicians = new DeliveryTechnicianModel<DeliveryTechnicianViewModel>().GetView<DeliveryTechnicianViewModel>(requestBody).PageItems;
+
+                    //get delivery devices
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+                }
+                return View(Model);
+            }
+            else
+            {
+                return DeliveryNoteDetails(id);
+            }
+
+                
         }
 
         [HttpPost]
@@ -487,6 +517,7 @@ namespace Afaqy_Store.Controllers
         {
             //get delivery device
             string deliveryNoteId = fc["TransactionId"];
+            string note = fc["Note"];
 
             //get delivery devices
             filters = new List<GenericDataFormat.FilterItems>();
@@ -520,6 +551,9 @@ namespace Afaqy_Store.Controllers
             List<UpdateItemFormat<TransactionItem>> items = UpdatedDeliveryDevice.Select(x => new UpdateItemFormat<TransactionItem>() { id = x.TransactionItemId, newValue = x }).ToList();
             var updatedItems = new DeliveryItemModel<TransactionItem>().Update(items);
 
+            //update delivery note status
+            DeliveryNoteEditBindModel.UpdateStatus(deliveryNoteId, (int)Classes.Common.DBEnums.TransactionStatus.Technicial_Approved, note, User.UserId);
+
             //send notification to users
             string referenceURL = this.Url.Action("Details");
             NotificationCreateBindModel notification = new NotificationCreateBindModel();
@@ -533,64 +567,79 @@ namespace Afaqy_Store.Controllers
         }
 
         [ActionName("StoreDeviceNaming")]
-        public ActionResult StoreDeviceNaming(object id)
+        public ActionResult StoreDeviceNaming(object id, int? notificationId = null)
         {
-            //make sure that delivery note is in Techinical approval
-            //for test
-
-            filters = new List<GenericDataFormat.FilterItems>();
-            filters.Add(new GenericDataFormat.FilterItems()
+            //set notification to readed
+            if (notificationId != null)
             {
-                Property = "TransactionId",
-                Operation = GenericDataFormat.FilterOperations.Equal,
-                Value = id,
-                LogicalOperation = GenericDataFormat.LogicalOperations.And
-            });
-            var requestBody = new GenericDataFormat() { Filters = filters };
-            var items = new DeliveryNoteModel<DeliveryNoteDetailsViewModel>().GetView<DeliveryNoteDetailsViewModel>(requestBody).PageItems;
-            DeliveryNoteDetailsViewModel Model = null;
-            if (items != null && items.Count > 0)
-            {
-                Model = items.SingleOrDefault();
-
-                //get delivery details
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryDetails = new DeliveryDetailsModel<DeliveryDetails_DetailsViewModel>().GetView<DeliveryDetails_DetailsViewModel>(requestBody).PageItems;
-
-                //get delivery technicians
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryTechnicians = new DeliveryTechnicianModel<DeliveryTechnicianViewModel>().GetView<DeliveryTechnicianViewModel>(requestBody).PageItems;
-
-                //get delivery devices
-                filters = new List<GenericDataFormat.FilterItems>();
-                filters.Add(new GenericDataFormat.FilterItems()
-                {
-                    Property = "TransactionId",
-                    Operation = GenericDataFormat.FilterOperations.Equal,
-                    Value = id,
-                    LogicalOperation = GenericDataFormat.LogicalOperations.And
-                });
-                requestBody = new GenericDataFormat() { Filters = filters };
-                Model.DeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
             }
-            ViewBag.NamingTypes = new DeviceNamingTypeModel<DeviceNamingType>().Get().Select(x => new SelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.DeviceNamingType_en, x.DeviceNamingType_ar), Value = x.DeviceNamingTypeId.ToString() }).ToList();
-            return View(Model);
+
+            //make sure that delivery note is in Techinical approval
+            var deliveryNote = new DeliveryNoteModel<Transaction>().Get(id);
+            if (deliveryNote.TransactionStatusId == (int)Classes.Common.DBEnums.TransactionStatus.Technicial_Approved)
+            {
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "TransactionId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = id,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                var requestBody = new GenericDataFormat() { Filters = filters };
+                var items = new DeliveryNoteModel<DeliveryNoteDetailsViewModel>().GetView<DeliveryNoteDetailsViewModel>(requestBody).PageItems;
+                DeliveryNoteDetailsViewModel Model = null;
+                if (items != null && items.Count > 0)
+                {
+                    Model = items.SingleOrDefault();
+
+                    //get delivery details
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDetails = new DeliveryDetailsModel<DeliveryDetails_DetailsViewModel>().GetView<DeliveryDetails_DetailsViewModel>(requestBody).PageItems;
+
+                    //get delivery technicians
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryTechnicians = new DeliveryTechnicianModel<DeliveryTechnicianViewModel>().GetView<DeliveryTechnicianViewModel>(requestBody).PageItems;
+
+                    //get delivery devices
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+                }
+                ViewBag.NamingTypes = new DeviceNamingTypeModel<DeviceNamingType>().Get().Select(x => new SelectListItem() { Text = Classes.Utilities.Utility.GetDDLText(x.DeviceNamingType_en, x.DeviceNamingType_ar), Value = x.DeviceNamingTypeId.ToString() }).ToList();
+                return View(Model);
+            }
+            else
+            {
+                return DeliveryNoteDetails(id);
+            }
+
+            
         }
 
         [HttpPost]
@@ -598,6 +647,7 @@ namespace Afaqy_Store.Controllers
         {
             //get delivery device
             string deliveryNoteId = fc["TransactionId"];
+            string note = fc["Note"];
 
             //get delivery devices
             filters = new List<GenericDataFormat.FilterItems>();
@@ -639,6 +689,148 @@ namespace Afaqy_Store.Controllers
             List<UpdateItemFormat<TransactionItem>> items = UpdatedDeliveryDevice.Select(x => new UpdateItemFormat<TransactionItem>() { id = x.TransactionItemId, newValue = x }).ToList();
             var updatedItems = new DeliveryItemModel<TransactionItem>().Update(items);
 
+            //update delivery note status
+            DeliveryNoteEditBindModel.UpdateStatus(deliveryNoteId, (int)Classes.Common.DBEnums.TransactionStatus.Delivery_Device_Named, note, User.UserId);
+
+            //send notification to users
+            string referenceURL = this.Url.Action("Details");
+            NotificationCreateBindModel notification = new NotificationCreateBindModel();
+            if (!notification.SendStoreDeviceNamedNotification(deliveryNoteId, referenceURL, Url.Action("ServerItemNaming")))
+            {
+                //do nothing
+            }
+
+            TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = updatedItems.Count, MessageContent = Resources.ServerManagement.DeliveryDeviceAddedToServerSuccessMessage };
+            return RedirectToAction("Index");
+        }
+
+        [ActionName("ServerItemNaming")]
+        public ActionResult ServerItemNaming(object id, int? notificationId = null)
+        {
+            //set notification to readed
+            if (notificationId != null)
+            {
+                NotificationEditBindModel notification = new NotificationEditBindModel();
+                notification.UpdateIsRead(true, notificationId: notificationId);
+            }
+
+            //make sure that delivery note is in Delivery Device Named
+            var deliveryNote = new DeliveryNoteModel<Transaction>().Get(id);
+            if (deliveryNote.TransactionStatusId == (int)Classes.Common.DBEnums.TransactionStatus.Delivery_Device_Named)
+            {
+                filters = new List<GenericDataFormat.FilterItems>();
+                filters.Add(new GenericDataFormat.FilterItems()
+                {
+                    Property = "TransactionId",
+                    Operation = GenericDataFormat.FilterOperations.Equal,
+                    Value = id,
+                    LogicalOperation = GenericDataFormat.LogicalOperations.And
+                });
+                var requestBody = new GenericDataFormat() { Filters = filters };
+                var items = new DeliveryNoteModel<DeliveryNoteDetailsViewModel>().GetView<DeliveryNoteDetailsViewModel>(requestBody).PageItems;
+                DeliveryNoteDetailsViewModel Model = null;
+                if (items != null && items.Count > 0)
+                {
+                    Model = items.SingleOrDefault();
+
+                    //get delivery details
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDetails = new DeliveryDetailsModel<DeliveryDetails_DetailsViewModel>().GetView<DeliveryDetails_DetailsViewModel>(requestBody).PageItems;
+
+                    //get delivery technicians
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryTechnicians = new DeliveryTechnicianModel<DeliveryTechnicianViewModel>().GetView<DeliveryTechnicianViewModel>(requestBody).PageItems;
+
+                    //get delivery devices
+                    filters = new List<GenericDataFormat.FilterItems>();
+                    filters.Add(new GenericDataFormat.FilterItems()
+                    {
+                        Property = "TransactionId",
+                        Operation = GenericDataFormat.FilterOperations.Equal,
+                        Value = id,
+                        LogicalOperation = GenericDataFormat.LogicalOperations.And
+                    });
+                    requestBody = new GenericDataFormat() { Filters = filters };
+                    Model.DeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+                }
+                
+                return View(Model);
+            }
+            else
+            {
+                return DeliveryNoteDetails(id);
+            }
+
+
+        }
+
+        [HttpPost]
+        public ActionResult ServerItemNaming(IEnumerable<DeliveryDeviceEditBindModel> DeliveryDevices, FormCollection fc)
+        {
+            //get delivery device
+            string deliveryNoteId = fc["TransactionId"];
+            string note = fc["Note"];
+
+            //get delivery devices
+            filters = new List<GenericDataFormat.FilterItems>();
+            filters.Add(new GenericDataFormat.FilterItems()
+            {
+                Property = "TransactionId",
+                Operation = GenericDataFormat.FilterOperations.Equal,
+                Value = deliveryNoteId,
+                LogicalOperation = GenericDataFormat.LogicalOperations.And
+            });
+            var requestBody = new GenericDataFormat() { Filters = filters };
+            var oldDeliveryDevices = new DeliveryItemModel<DeliveryItemViewModel>().GetView<DeliveryItemViewModel>(requestBody).PageItems;
+            List<TransactionItem> UpdatedDeliveryDevice = new List<TransactionItem>();
+            foreach (var oldDevice in oldDeliveryDevices)
+            {
+                TransactionItem deliveryDevice = new TransactionItem();
+
+                //set old info
+                Classes.Utilities.Utility.CopyObject<TransactionItem>(oldDevice, ref deliveryDevice);
+
+                //set new info
+                var newDeliveryDevice = DeliveryDevices.Where(x => x.TransactionItemId == oldDevice.TransactionItemId).SingleOrDefault();
+                deliveryDevice.AddToServer = newDeliveryDevice.AddToServer;
+                deliveryDevice.ServerNamed = newDeliveryDevice.ServerNamed;
+                deliveryDevice.Note = newDeliveryDevice.Note;
+                deliveryDevice.ModifyUserId = User.UserId;
+                deliveryDevice.ModifyDate = DateTime.Now;
+
+                UpdatedDeliveryDevice.Add(deliveryDevice);
+            }
+            //update delivery devices
+            List<UpdateItemFormat<TransactionItem>> items = UpdatedDeliveryDevice.Select(x => new UpdateItemFormat<TransactionItem>() { id = x.TransactionItemId, newValue = x }).ToList();
+            var updatedItems = new DeliveryItemModel<TransactionItem>().Update(items);
+
+            //update delivery note status
+            DeliveryNoteEditBindModel.UpdateStatus(deliveryNoteId, (int)Classes.Common.DBEnums.TransactionStatus.Server_Items_Named, note, User.UserId);
+
+            //send notification to users
+            string referenceURL = this.Url.Action("Details");
+            NotificationCreateBindModel notification = new NotificationCreateBindModel();
+            if (!notification.SendServerNamedNotification(deliveryNoteId, referenceURL, Url.Action("Invoice")))
+            {
+                //do nothing
+            }
+
             TempData["AlertMessage"] = new Classes.Utilities.AlertMessage() { MessageType = Classes.Common.Enums.AlertMessageType.Success, TransactionCount = updatedItems.Count, MessageContent = Resources.ServerManagement.DeliveryDeviceAddedToServerSuccessMessage };
             return RedirectToAction("Index");
         }
@@ -678,11 +870,17 @@ namespace Afaqy_Store.Controllers
 
             return PartialView(deliveryNote);
         }
+        
         #region Override Actions
         [NonAction]
         public override ActionResult Index()
         {
             return base.Index();
+        }
+        [NonAction]
+        public override ActionResult Details(object id)
+        {
+            return null;
         }
         [NonAction]
         public override ActionResult Create()

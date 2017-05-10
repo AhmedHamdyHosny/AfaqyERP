@@ -48,5 +48,6 @@ namespace Afaqy_Store.DataLayer
         public string DeviceNaming_ar { get; set; }
         public Nullable<bool> TechnicalApproval { get; set; }
         public Nullable<bool> IsReturn { get; set; }
+        public Nullable<bool> ServerNamed { get; set; }
     }
 }

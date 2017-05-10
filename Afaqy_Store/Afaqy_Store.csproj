@@ -319,6 +319,7 @@
     <Compile Include="Controllers\ApiSystemRoleController.cs" />
     <Compile Include="Controllers\ApiSystemServiceAccessController.cs" />
     <Compile Include="Controllers\ApiSystemServiceController.cs" />
+    <Compile Include="Controllers\ApiTransactionStatusHistoryController.cs" />
     <Compile Include="Controllers\ApiWarehouseController.cs" />
     <Compile Include="Controllers\ApiWarehouseInfoController.cs" />
     <Compile Include="Controllers\BaseSecurityApiController.cs" />
@@ -330,6 +331,7 @@
     <Compile Include="Controllers\DeliveryReturnController.cs" />
     <Compile Include="Controllers\DeviceConfigurationController.cs" />
     <Compile Include="Controllers\ApiDeviceNamingTypeController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\ServerUnitController.cs" />
     <Compile Include="Controllers\ApiAccountController.cs" />
     <Compile Include="Controllers\ApiBranchController.cs" />
@@ -434,6 +436,7 @@
     <Compile Include="Models\TechniqueCompanyModel.cs" />
     <Compile Include="Models\TechniqueSystemModel.cs" />
     <Compile Include="Models\TempDeviceModel.cs" />
+    <Compile Include="Models\TransactionStatusHistoryModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WarehouseInfoModel.cs" />
     <Compile Include="Models\WarehouseModel.cs" />
@@ -1114,6 +1117,7 @@
     <Content Include="Views\DeliveryReturn\Create.cshtml" />
     <Content Include="Views\DeliveryReturn\Index.cshtml" />
     <Content Include="Views\DeliveryReturn\Details.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,7 +20,7 @@
       <mvcSiteMapNode title="Nestable List" controller="Home" action="NestableList" description="dragable list items"/>
       <mvcSiteMapNode title="TreeView" controller="Home" action="TreeView" description="Fuel UX's tree"/>
     </mvcSiteMapNode>-->
-    
+    <mvcSiteMapNode title="Notification" controller="Notification" action="Index" description="notification"/>
     <mvcSiteMapNode title="Store" controller="Store" action="UIStore" description="Store">
       <mvcSiteMapNode title="Device" controller="Device" action="Index" description="device"/>
       <mvcSiteMapNode title="Delivery Request" controller="DeliveryRequest" action="Index" description="Delivery request"/>

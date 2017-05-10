@@ -285,4 +285,22 @@
   <data name="PointOfSale" xml:space="preserve">
     <value>Point Of Sale</value>
   </data>
+  <data name="Notification" xml:space="preserve">
+    <value>Notification</value>
+  </data>
+  <data name="NotificationContent" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="NotificationIsRead" xml:space="preserve">
+    <value>Is Read</value>
+  </data>
+  <data name="NotificationReferenceLink" xml:space="preserve">
+    <value>Reference Link</value>
+  </data>
+  <data name="NotificationTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="NotificationType" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

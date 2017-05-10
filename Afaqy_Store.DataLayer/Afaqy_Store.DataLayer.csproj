@@ -231,6 +231,9 @@
     <Compile Include="NotificationType.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="NotificationView.cs">
+      <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="PointOfSale.cs">
       <DependentUpon>AfaqyStoreDBEntities.tt</DependentUpon>
     </Compile>
